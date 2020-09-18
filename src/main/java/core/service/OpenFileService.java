@@ -1,14 +1,14 @@
 package core.service;
 
-import core.domain.image.Format;
+import domain.customimage.Format;
 import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 public class OpenFileService {
+
     private final FileChooser fileChooser;
 
     public OpenFileService(FileChooser fileChooser) {

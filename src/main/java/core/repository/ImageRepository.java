@@ -1,11 +1,12 @@
 package core.repository;
 
-import core.domain.image.CustomImage;
+import domain.customimage.CustomImage;
 
 import java.util.List;
 import java.util.Optional;
 
 public class ImageRepository {
+
     private CustomImage image;
     private CustomImage modifiedImage;
     private CustomImage originalImageBackup;

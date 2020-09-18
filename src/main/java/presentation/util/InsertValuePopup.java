@@ -11,7 +11,8 @@ import javafx.stage.Stage;
 import java.util.function.Supplier;
 
 public class InsertValuePopup {
-    public static Supplier<String> show(String title, final String defaultValue) {
+
+    public static Supplier<String> show(String title, String defaultValue) {
 
         return new Supplier<String>() {
 

@@ -1,17 +1,18 @@
 package core.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.BiFunction;
-
-import core.domain.image.RGB;
+import domain.customimage.RGB;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiFunction;
+
 public class MatrixService {
+
     public int[][] toChannelMatrix(BiFunction<Integer, Integer, Double> channel, int width, int height) {
         int[][] matrix = new int[width][height];
 

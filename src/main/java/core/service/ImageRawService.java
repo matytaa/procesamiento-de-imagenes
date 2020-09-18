@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class ImageRawService {
+
     public BufferedImage load(File file, int width, int height) {
 
 

@@ -1,5 +1,8 @@
 package presentation.controller;
 
+import core.provider.PresenterProvider;
+import core.provider.ViewProvider;
+import domain.flags.LaplacianDetector;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -10,6 +13,7 @@ import presentation.presenter.MainPresenter;
 import presentation.view.CustomImageView;
 
 public class MainSceneController {
+
     @FXML
     public Group groupImageView;
     @FXML
