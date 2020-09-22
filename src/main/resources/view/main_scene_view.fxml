@@ -68,138 +68,14 @@
                         </GridPane>
                     </Pane>
                 </Pane>
-                <Pane prefHeight="371.0" prefWidth="152.0">
-                    <Button fx:id="applyChangesButton" alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="265.0" mnemonicParsing="false" onAction="#applyChanges" text="Apply Changes" visible="false" />
-                    <Button fx:id="resetModifiedImageButton" alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="300.0" mnemonicParsing="false" onAction="#resetModifiedImage" text="Reset" />
-                    <Pane layoutX="14.0" layoutY="14.0" prefHeight="225.0" prefWidth="112.0">
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="35.0" layoutY="6.0" text="Value" textAlignment="CENTER" />
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="52.0" layoutY="34.0" text="R" textAlignment="CENTER" />
-                        <TextField fx:id="valueR" editable="false" layoutX="22.0" layoutY="58.0" prefHeight="27.0" prefWidth="67.0" />
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="51.0" layoutY="96.0" text="G" textAlignment="CENTER" />
-                        <TextField fx:id="valueG" editable="false" layoutX="23.0" layoutY="120.0" prefHeight="27.0" prefWidth="67.0" />
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="51.0" layoutY="161.0" text="B" textAlignment="CENTER" />
-                        <TextField fx:id="valueB" editable="false" layoutX="22.0" layoutY="184.0" prefHeight="27.0" prefWidth="67.0" />
-                    </Pane>
-                    <Button fx:id="undoChangesButton" layoutX="43.0" layoutY="315.0" mnemonicParsing="false" onAction="#onUndoChanges" text="Undo changes" visible="false" />
-                </Pane>
             </VBox>
         </GridPane>
     </AnchorPane>
     <MenuBar AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-        <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#openImage" text="Open" />
-            <MenuItem mnemonicParsing="false" onAction="#openImageSequence" text="Open Image Sequence" />
-            <MenuItem mnemonicParsing="false" onAction="#saveModifiedImage" text="Save" />
-            <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
+        <Menu mnemonicParsing="false" text="Archivo">
+            <MenuItem mnemonicParsing="false" onAction="#openImage" text="Abrir" />
+            <MenuItem mnemonicParsing="false" onAction="#saveModifiedImage" text="Guardar" />
+            <MenuItem mnemonicParsing="false" onAction="#close" text="Cerrar" />
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-            <Menu mnemonicParsing="false" text="Space Domain">
-                <MenuItem mnemonicParsing="false" onAction="#calculateNegativeImage" text="Negative" />
-                <MenuItem mnemonicParsing="false" onAction="#contrast" text="Contrast" />
-                <MenuItem mnemonicParsing="false" onAction="#compressDynamicRange" text="Dynamic Range Compression" />
-                <MenuItem mnemonicParsing="false" onAction="#gammaPowerFunction" text="Gamma Power Function" />
-                <MenuItem mnemonicParsing="false" onAction="#calculateImagesOperations" text="Image Operations" />
-                <Menu mnemonicParsing="false" text="Histogram">
-                    <MenuItem mnemonicParsing="false" onAction="#createImageHistogram" text="Create" />
-                    <Menu mnemonicParsing="false" text="Equalize Image">
-                        <MenuItem mnemonicParsing="false" onAction="#createEqualizedImage" text="Image" />
-                        <MenuItem mnemonicParsing="false" onAction="#createEqualizedImageByHistogram" text="Image with Histogram" />
-                    </Menu>
-                    <Menu mnemonicParsing="false" text="Equalize Image Twice">
-                        <MenuItem mnemonicParsing="false" onAction="#createImageEqualizedTwice" text="Image" />
-                        <MenuItem mnemonicParsing="false" onAction="#createImageEqualizedTwiceByHistogram" text="Image with Histogram" />
-                    </Menu>
-                </Menu>
-            </Menu>
-            <MenuItem mnemonicParsing="false" onAction="#cutPartialImage" text="Cut" />
-            <MenuItem mnemonicParsing="false" onAction="#showReport" text="Report" />
-        </Menu>
-        <Menu mnemonicParsing="false" text="Pixel">
-            <MenuItem mnemonicParsing="false" onAction="#calculatePixelValue" text="Calculate" />
-            <MenuItem mnemonicParsing="false" onAction="#modifyPixelValue" text="Modify" />
-        </Menu>
-        <Menu mnemonicParsing="false" text="Generation">
-            <Menu mnemonicParsing="false" text="Gradients">
-                <MenuItem mnemonicParsing="false" onAction="#showColorGradient" text="Color Gradient" />
-                <MenuItem mnemonicParsing="false" onAction="#showGreyGradient" text="Gray Gradient" />
-            </Menu>
-            <Menu mnemonicParsing="false" text="Images">
-                <MenuItem mnemonicParsing="false" onAction="#showImageWithCircle" text="Image with Circle" />
-                <MenuItem mnemonicParsing="false" onAction="#showImageWithQuadrate" text="Image with Quadrate" />
-                <Menu mnemonicParsing="false" text="Noise 100x100 Images">
-                    <MenuItem mnemonicParsing="false" onAction="#generateExponentialNoiseSyntheticImage" text="Exponential" />
-                    <MenuItem mnemonicParsing="false" onAction="#generateRayleighNoiseSyntheticImage" text="Rayleigh" />
-                    <MenuItem mnemonicParsing="false" onAction="#generateGaussianNoiseSyntheticImage" text="Gaussian" />
-                </Menu>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Random Numbers">
-                <MenuItem mnemonicParsing="false" onAction="#generateExponentialRandomNumber" text="Exponential" />
-                <MenuItem mnemonicParsing="false" onAction="#generateRayleighRandomNumber" text="Rayleigh" />
-                <MenuItem mnemonicParsing="false" onAction="#generateGaussianRandomNumber" text="Gaussian" />
-            </Menu>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Channels">
-            <MenuItem mnemonicParsing="false" onAction="#showRGBImageRedChannel" text="RGB Red" />
-            <MenuItem mnemonicParsing="false" onAction="#showRGBImageGreenChannel" text="RGB Green" />
-            <MenuItem mnemonicParsing="false" onAction="#showRGBImageBlueChannel" text="RGB Blue" />
-            <MenuItem mnemonicParsing="false" onAction="#showHueHSVChannel" text="HSV Hue" />
-            <MenuItem mnemonicParsing="false" onAction="#showSaturationHSVChannel" text="HSV Saturation" />
-            <MenuItem mnemonicParsing="false" onAction="#showValueHSVChannel" text="HSV Value" />
-        </Menu>
-        <Menu mnemonicParsing="false" text="Noise">
-            <MenuItem mnemonicParsing="false" onAction="#applyAdditiveGaussianNoise" text="Additive Gaussian" />
-            <MenuItem mnemonicParsing="false" onAction="#applyMultiplicativeRayleighNoise" text="Multiplicative Rayleigh" />
-            <MenuItem mnemonicParsing="false" onAction="#applyMultiplicativeExponentialNoise" text="Multiplicative Exponential" />
-            <MenuItem mnemonicParsing="false" onAction="#applySaltAndPepperNoise" text="Salt and Pepper" />
-        </Menu>
-        <Menu mnemonicParsing="false" text="Filter">
-            <MenuItem mnemonicParsing="false" onAction="#onApplyMeanFilter" text="Mean" />
-            <MenuItem mnemonicParsing="false" onAction="#onApplyMedianFilter" text="Median" />
-            <MenuItem mnemonicParsing="false" onAction="#onApplyWeightedMedianFilter" text="Weighted Median" />
-            <MenuItem mnemonicParsing="false" onAction="#onApplyGaussianFilter" text="Gaussian" />
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edges">
-         <Menu mnemonicParsing="false" text="Conventional Detectors">
-            <items>
-                  <Menu mnemonicParsing="false" text="Directional Derivative Operators">
-                      <MenuItem mnemonicParsing="false" onAction="#onApplyDirectionalDerivativeOperatorStandardMask" text="Standard Mask" />
-                      <MenuItem mnemonicParsing="false" onAction="#onApplyDirectionalDerivativeOperatorKirshMask" text="Kirsh Mask" />
-                      <MenuItem mnemonicParsing="false" onAction="#onApplyDirectionalDerivativeOperatorPrewittMask" text="Prewitt Mask" />
-                      <MenuItem mnemonicParsing="false" onAction="#onApplyDirectionalDerivativeOperatorSobelMask" text="Sobel Mask" />
-                  </Menu>
-               <Menu mnemonicParsing="false" text="Laplacian">
-                 <items>
-                   <MenuItem mnemonicParsing="false" onAction="#onApplyLaplacianEdgeDetector" text="Standard Laplacian" />
-                     <MenuItem mnemonicParsing="false" onAction="#onApplyLaplacianEdgeDetectorWithSlopeEvaluation" text="Laplacian with slope evaluation" />
-                     <MenuItem mnemonicParsing="false" onAction="#onApplyMarrHildrethEdgeDetector" text="Marr-Hildreth (Gaussian-Laplacian)" />
-                 </items>
-               </Menu>
-                  <MenuItem mnemonicParsing="false" onAction="#onApplyEdgeEnhancement" text="Edge enhancement" />
-                  <MenuItem mnemonicParsing="false" onAction="#onApplyPrewittEdgeDetector" text="Prewitt" />
-                  <MenuItem mnemonicParsing="false" onAction="#onApplySobelEdgeDetector" text="Sobel" />
-      			<MenuItem mnemonicParsing="false" onAction="#onApplyDiffusion" text="Diffusion" />
-            </items>
-         </Menu>
-         <Menu mnemonicParsing="false" text="Unconventional Detectors">
-           <items>
-			   <MenuItem mnemonicParsing="false" onAction="#onApplyCannyEdgeDetector" text="Canny" />
-			   <MenuItem mnemonicParsing="false" onAction="#applySusanEdgeDetector" text="Susan" />
-			   <MenuItem mnemonicParsing="false" onAction="#onHoughTransform" text="Hough Transform" />
-		   </items>
-         </Menu>
-			<MenuItem mnemonicParsing="false" onAction="#onApplyActiveContour" text="Active Contour" />
-			<MenuItem mnemonicParsing="false" onAction="#onApplyActiveContourOnImageSequence" text="Active Contour on Image Sequence" />
-		</Menu>
-         <Menu mnemonicParsing="false" text="Threshold">
-             <MenuItem mnemonicParsing="false" onAction="#threshold" text="Threshold" />
-             <MenuItem mnemonicParsing="false" onAction="#applyGlobalThresholdEstimation" text="Global Threshold Estimation" />
-             <MenuItem mnemonicParsing="false" onAction="#applyOtsuThresholdEstimation" text="Otsu Threshold Estimation" />
-         </Menu>
-      <Menu mnemonicParsing="false" text="Characteristic Points">
-        <items>
-            <MenuItem mnemonicParsing="false" onAction="#onApplyHarris" text="Corners (Harris)" />
-            <MenuItem mnemonicParsing="false" onAction="#onApplySift" text="Sift" />
-        </items>
-      </Menu>
     </MenuBar>
 </AnchorPane>
