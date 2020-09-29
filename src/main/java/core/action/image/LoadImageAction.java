@@ -38,9 +38,9 @@ public class LoadImageAction {
             path = file.toPath().toString();
             String extension = FilenameUtils.getExtension(path);
             if(extension.equalsIgnoreCase("raw")){
-                int width = Integer.parseInt(InsertValuePopup.show("Insert width", "256").get());
-                int height = Integer.parseInt(InsertValuePopup.show("Insert height", "256").get());
-                image = putOnRepository(extension, imageRawService.load(file, width, height));
+                int ancho = Integer.parseInt(InsertValuePopup.show("Ancho (px)", "256").get());
+                int alto = Integer.parseInt(InsertValuePopup.show("Alto (px)", "256").get());
+                image = putOnRepository(extension, imageRawService.load(file, ancho, alto));
             } else {
                 image = putOnRepository(extension, opener.openImage(path).getBufferedImage());
             }

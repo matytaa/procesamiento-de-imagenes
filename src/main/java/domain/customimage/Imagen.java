@@ -109,7 +109,7 @@ public class Imagen {
         return bufferedImage;
     }
 
-    public int getAverageValue(Integer x, Integer y) {
+    public int getPromedioPixel(Integer x, Integer y) {
         RGB pixelValue = getPixelValue(x, y);
         return Math.round((pixelValue.getRed() +
                 pixelValue.getGreen() +

@@ -19,7 +19,7 @@ public class ApplyThresholdService {
 
         for (int i=0; i < image.getWidth(); i++) {
             for(int j=0; j < image.getHeight(); j++) {
-                if (customImage.getAverageValue(i,j) >= threshold) {
+                if (customImage.getPromedioPixel(i,j) >= threshold) {
                     this.modifyImageService.modifySinglePixel(i, j, 255, pixelWriter);
                 } else {
                     this.modifyImageService.modifySinglePixel(i, j, 0, pixelWriter);

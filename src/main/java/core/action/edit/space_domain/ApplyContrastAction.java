@@ -28,14 +28,14 @@ public class ApplyContrastAction {
         for (int i = 0; i < customImage.getWidth(); i++) {
             for (int j = 0; j < customImage.getHeight(); j++) {
 
-                if (customImage.getAverageValue(i, j) < r1) {
-                    int valueGray = (int) (m1 * customImage.getAverageValue(i, j));
+                if (customImage.getPromedioPixel(i, j) < r1) {
+                    int valueGray = (int) (m1 * customImage.getPromedioPixel(i, j));
                     modifyPixel(writer, i, j, valueGray);
-                } else if (customImage.getAverageValue(i, j) > r2) {
-                    int valueGray = (int) (m2 * customImage.getAverageValue(i, j) + b);
+                } else if (customImage.getPromedioPixel(i, j) > r2) {
+                    int valueGray = (int) (m2 * customImage.getPromedioPixel(i, j) + b);
                     modifyPixel(writer, i, j, valueGray);
                 } else { //Middle zone
-                    int averageValue = customImage.getAverageValue(i, j);
+                    int averageValue = customImage.getPromedioPixel(i, j);
                     modifyPixel(writer, i, j, averageValue);
                 }
             }

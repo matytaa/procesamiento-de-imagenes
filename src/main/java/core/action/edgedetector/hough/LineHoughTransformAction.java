@@ -52,7 +52,7 @@ public class LineHoughTransformAction {
 
         for(int x=0; x < width; x++) {
             for (int y=0; y < height; y++) {
-                writer.setColor(x,y, Color.rgb(originalImage.getAverageValue(x,y), originalImage.getAverageValue(x,y), originalImage.getAverageValue(x,y)));
+                writer.setColor(x,y, Color.rgb(originalImage.getPromedioPixel(x,y), originalImage.getPromedioPixel(x,y), originalImage.getPromedioPixel(x,y)));
             }
         }
 

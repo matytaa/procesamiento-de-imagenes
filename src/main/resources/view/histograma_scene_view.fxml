@@ -16,7 +16,7 @@
                          <CategoryAxis endMargin="0.0" label="Niveles de grises" side="BOTTOM" startMargin="0.0" />
                      </xAxis>
                      <yAxis>
-                         <NumberAxis label="Cantidad de apariciones" side="LEFT" upperBound="0.0" />
+                         <NumberAxis label="Frecuencia relativa" side="LEFT" upperBound="0.0" />
                      </yAxis>
                  </BarChart>
              </VBox>

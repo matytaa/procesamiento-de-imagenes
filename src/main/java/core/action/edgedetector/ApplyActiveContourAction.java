@@ -230,7 +230,7 @@ public class ApplyActiveContourAction {
     private boolean checkFdFunctionIsLowerThanEpsilon(XYPoint xyPoint, Imagen customImage,
                                                       int backgroundGrayAverage, int objectGrayAverage, double epsilon) {
 
-        int imageAverageValue = customImage.getAverageValue(xyPoint.getX(), xyPoint.getY());
+        int imageAverageValue = customImage.getPromedioPixel(xyPoint.getX(), xyPoint.getY());
         if (FdFunctionMode.isClassic()) {
             return FdFunction.lowerThanZero(imageAverageValue, backgroundGrayAverage, objectGrayAverage, 0);
         }

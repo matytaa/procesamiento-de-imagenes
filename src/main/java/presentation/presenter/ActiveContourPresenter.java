@@ -174,7 +174,7 @@ public class ActiveContourPresenter {
         int objectHeight = selectionSquare.getSecondColumn() - selectionSquare.getFirstColumn();
         for (int i = selectionSquare.getFirstRow() + 2; i <= selectionSquare.getSecondRow() - 2; i++) {
             for (int j = selectionSquare.getFirstColumn() + 2; j <= selectionSquare.getSecondColumn() - 2; j++) {
-                value += customImage.getAverageValue(i, j);
+                value += customImage.getPromedioPixel(i, j);
             }
         }
         return value / (objectWidth * objectHeight);

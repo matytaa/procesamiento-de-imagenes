@@ -71,7 +71,7 @@ public class EqualizeGrayImageAction {
 
     private Double cumulativeProbability(Imagen customImage, Histograma histogram, int x, int y) {
         Double value = 0.0;
-        Integer limit = customImage.getAverageValue(x, y);
+        Integer limit = customImage.getPromedioPixel(x, y);
         for (int i1 = 0; i1 <= limit; i1++) {
             value += histogram.getValores()[i1];
         }
