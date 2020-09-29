@@ -1,7 +1,7 @@
 package core.action.edgedetector;
 
 import core.repository.ImageRepository;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +14,7 @@ public class GetImageSequenceAction {
         this.imageRepository = imageRepository;
     }
 
-    public Optional<List<CustomImage>> execute() {
+    public Optional<List<Imagen>> execute() {
         return imageRepository.getImageSequence();
     }
 }

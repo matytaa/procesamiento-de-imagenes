@@ -2,7 +2,7 @@ package domain.mask.filter;
 
 import core.provider.ServiceProvider;
 import core.service.MatrixService;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.customimage.RGB;
 import domain.mask.Mask;
 
@@ -63,7 +63,7 @@ public class GaussianMask extends Mask {
     }
 
     @Override
-    public RGB applyMaskToPixel(CustomImage image, int x, int y) {
+    public RGB applyMaskToPixel(Imagen image, int x, int y) {
 
         int red = 0;
         int green = 0;

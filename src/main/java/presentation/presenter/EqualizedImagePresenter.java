@@ -4,8 +4,8 @@ import core.action.histogram.CreateImageHistogramAction;
 import core.action.histogram.EqualizeGrayImageAction;
 import core.action.histogram.utils.EqualizedTimes;
 import core.action.image.GetImageAction;
-import domain.Histogram;
-import domain.customimage.CustomImage;
+import domain.Histograma;
+import domain.customimage.Imagen;
 import io.reactivex.subjects.PublishSubject;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
@@ -39,8 +39,8 @@ public class EqualizedImagePresenter {
 
         getImageAction.execute().ifPresent(customImage -> {
             Image image = equalizeGrayImageAction.execute(customImage, EqualizedTimes.getValue());
-            Histogram histogram = createImageHistogramAction.execute(new CustomImage(image, "png"));
-            setHistogramData(histogram.getValues());
+            Histograma histogram = createImageHistogramAction.execute(new Imagen(image, "png"));
+            setHistogramData(histogram.getValores());
         });
     }
 

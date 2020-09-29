@@ -1,18 +1,18 @@
 package core.action.histogram;
 
-import core.service.generation.HistogramService;
-import domain.Histogram;
-import domain.customimage.CustomImage;
+import core.service.generation.HistogramaService;
+import domain.Histograma;
+import domain.customimage.Imagen;
 
 public class CreateImageHistogramAction {
 
-    private HistogramService histogramService;
+    private HistogramaService histogramService;
 
-    public CreateImageHistogramAction(HistogramService histogramService) {
+    public CreateImageHistogramAction(HistogramaService histogramService) {
         this.histogramService = histogramService;
     }
 
-    public Histogram execute(CustomImage customImage) {
-        return histogramService.create(customImage);
+    public Histograma execute(Imagen customImage) {
+        return histogramService.crear(customImage);
     }
 }

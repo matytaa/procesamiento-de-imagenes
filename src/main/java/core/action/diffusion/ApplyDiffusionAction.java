@@ -2,7 +2,7 @@ package core.action.diffusion;
 
 import core.service.ImageOperationsService;
 import domain.customimage.ChannelMatrix;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.customimage.RGB;
 import domain.diffusion.Derivative;
 import domain.diffusion.Diffusion;
@@ -20,11 +20,11 @@ public class ApplyDiffusionAction {
         this.onModifiedImagePublishSubject = onModifiedImagePublishSubject;
     }
 
-    public CustomImage execute(CustomImage customImage, Diffusion diffusion, Integer times) {
+    public Imagen execute(Imagen customImage, Diffusion diffusion, Integer times) {
 
         Integer width = customImage.getWidth();
         Integer height = customImage.getHeight();
-        ChannelMatrix channelMatrix = new ChannelMatrix(customImage.getRedMatrix(), customImage.getGreenMatrix(), customImage.getBlueMatrix());
+        ChannelMatrix channelMatrix = new ChannelMatrix(customImage.getMatrizRed(), customImage.getMatrizGreen(), customImage.getMatrizBlue());
 
         for (int i = 0; i < times; i++) {
             for (int y = 0; y < height; y++) {
@@ -45,7 +45,7 @@ public class ApplyDiffusionAction {
             channelMatrix = this.imageOperationsService.toValidImageMatrix(channelMatrix);
         }
 
-        CustomImage image = new CustomImage(channelMatrix, customImage.getFormatString());
+        Imagen image = new Imagen(channelMatrix, customImage.getFormatString());
         onModifiedImagePublishSubject.onNext(image.toFXImage());
 
         return image;

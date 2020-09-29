@@ -1,6 +1,6 @@
 package core.action.characteristic_points;
 
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.sift.SiftResult;
 import org.openimaj.feature.local.list.LocalFeatureList;
 import org.openimaj.feature.local.matcher.FastBasicKeypointMatcher;
@@ -21,7 +21,7 @@ public class ApplySiftDetectorAction {
     private static Double threshold = 5.0;
     private static Double percentage = 0.5;
 
-    public SiftResult execute(CustomImage query, CustomImage target) {
+    public SiftResult execute(Imagen query, Imagen target) {
 
         //convert CustomImage to MBFImage
         boolean alpha = true;

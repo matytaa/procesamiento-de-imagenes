@@ -3,7 +3,7 @@ package presentation.presenter.space_domain_operations;
 import core.action.edit.space_domain.ApplyContrastAction;
 import core.action.image.GetImageAction;
 import core.service.statistics.GrayLevelStatisticsService;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import io.reactivex.subjects.PublishSubject;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -23,7 +23,7 @@ public class ContrastScenePresenter {
 
     private int r1;
     private int r2;
-    private CustomImage customImage;
+    private Imagen customImage;
 
     public ContrastScenePresenter(ContrastSceneController contrastSceneController,
                                   ApplyContrastAction applyContrastAction,
@@ -39,7 +39,7 @@ public class ContrastScenePresenter {
     }
 
     public void onInitializeView() {
-        Optional<CustomImage> customImageOptional = this.getImageAction.execute();
+        Optional<Imagen> customImageOptional = this.getImageAction.execute();
         if (!customImageOptional.isPresent()) {
             this.view.closeWindow();
             return;

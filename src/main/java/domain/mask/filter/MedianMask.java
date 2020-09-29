@@ -1,6 +1,6 @@
 package domain.mask.filter;
 
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.customimage.RGB;
 import domain.mask.Mask;
 
@@ -26,7 +26,7 @@ public class MedianMask extends Mask {
     }
 
     @Override
-    public RGB applyMaskToPixel(CustomImage image, int x, int y) {
+    public RGB applyMaskToPixel(Imagen image, int x, int y) {
         List<RGB> pixelsWithinMaskRange = this.obtainPixelsWithinMaskRange(image, x, y);
 
         List<Integer> redValues = this.sortRedValues(pixelsWithinMaskRange);
@@ -80,7 +80,7 @@ public class MedianMask extends Mask {
         return blueValues;
     }
 
-    private List<RGB> obtainPixelsWithinMaskRange(CustomImage image, int x, int y) {
+    private List<RGB> obtainPixelsWithinMaskRange(Imagen image, int x, int y) {
         List<RGB> pixelsWithinMaskRange = new ArrayList<>();
         int width = image.getWidth();
         int height = image.getHeight();

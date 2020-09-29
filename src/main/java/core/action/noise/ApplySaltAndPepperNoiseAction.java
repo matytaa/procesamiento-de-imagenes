@@ -1,7 +1,7 @@
 package core.action.noise;
 
 import core.service.statistics.RandomNumberGenerationService;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import io.reactivex.subjects.PublishSubject;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -21,7 +21,7 @@ public class ApplySaltAndPepperNoiseAction {
         this.imagePublishSubject = imagePublishSubject;
     }
 
-    public Image execute(CustomImage customImage, Double pixelToContaminatePercent, Double p0, Double p1) {
+    public Image execute(Imagen customImage, Double pixelToContaminatePercent, Double p0, Double p1) {
 
         WritableImage imageWithNoise = SwingFXUtils.toFXImage(customImage.getBufferedImage(), null);
         PixelReader originalPixelReader = customImage.getPixelReader();

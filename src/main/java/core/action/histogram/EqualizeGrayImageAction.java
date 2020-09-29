@@ -1,9 +1,9 @@
 package core.action.histogram;
 
 import core.repository.ImageRepository;
-import core.service.generation.HistogramService;
-import domain.Histogram;
-import domain.customimage.CustomImage;
+import core.service.generation.HistogramaService;
+import domain.Histograma;
+import domain.customimage.Imagen;
 import io.reactivex.subjects.PublishSubject;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -13,11 +13,11 @@ import javafx.scene.paint.Color;
 
 public class EqualizeGrayImageAction {
 
-    private final HistogramService histogramService;
+    private final HistogramaService histogramService;
     private final ImageRepository imageRepository;
     private final PublishSubject<Image> imagePublishSubject;
 
-    public EqualizeGrayImageAction(HistogramService histogramService,
+    public EqualizeGrayImageAction(HistogramaService histogramService,
                                    ImageRepository imageRepository,
                                    PublishSubject<Image> imagePublishSubject) {
         this.histogramService = histogramService;
@@ -25,7 +25,7 @@ public class EqualizeGrayImageAction {
         this.imagePublishSubject = imagePublishSubject;
     }
 
-    public Image execute(CustomImage customImage, int times) {
+    public Image execute(Imagen customImage, int times) {
 
         Image equalizedImage = recursive(customImage, times);
 
@@ -34,19 +34,19 @@ public class EqualizeGrayImageAction {
         return equalizedImage;
     }
 
-    private Image recursive(CustomImage customImage, int times) {
+    private Image recursive(Imagen customImage, int times) {
 
-        Histogram histogram = this.histogramService.create(customImage);
+        Histograma histogram = this.histogramService.crear(customImage);
         Image equalizedImage = equalizeImage(customImage, histogram);
 
         times--;
 
         if (times == 0) return equalizedImage;
 
-        return recursive(new CustomImage(equalizedImage, customImage.getFormatString()), times);
+        return recursive(new Imagen(equalizedImage, customImage.getFormatString()), times);
     }
 
-    private Image equalizeImage(CustomImage customImage, Histogram histogram) {
+    private Image equalizeImage(Imagen customImage, Histograma histogram) {
         WritableImage image = new WritableImage(customImage.getWidth(), customImage.getHeight());
         PixelWriter pixelWriter = image.getPixelWriter();
 
@@ -54,7 +54,7 @@ public class EqualizeGrayImageAction {
             for (int j = 0; j < image.getHeight(); j++) {
 
                 Double sK = cumulativeProbability(customImage, histogram, i, j);
-                Double sMin = histogram.getMinValue();
+                Double sMin = histogram.getValorMinimo();
                 Integer sHat = applyTransform(sK, sMin);
 
                 Color greyValue = Color.rgb(sHat, sHat, sHat);
@@ -63,20 +63,20 @@ public class EqualizeGrayImageAction {
             }
         }
 
-        CustomImage updated = new CustomImage(SwingFXUtils.fromFXImage(image, null), customImage.getFormatString());
+        Imagen updated = new Imagen(SwingFXUtils.fromFXImage(image, null), customImage.getFormatString());
         this.imageRepository.saveModifiedImage(updated);
 
         return image;
     }
 
-    private Double cumulativeProbability(CustomImage customImage, Histogram histogram, int x, int y) {
+    private Double cumulativeProbability(Imagen customImage, Histograma histogram, int x, int y) {
         Double value = 0.0;
         Integer limit = customImage.getAverageValue(x, y);
         for (int i1 = 0; i1 <= limit; i1++) {
-            value += histogram.getValues()[i1];
+            value += histogram.getValores()[i1];
         }
 
-        return value / histogram.getTotalPixels();
+        return value / histogram.getTotalPixeles();
     }
 
     private Integer applyTransform(Double s, Double smin) {

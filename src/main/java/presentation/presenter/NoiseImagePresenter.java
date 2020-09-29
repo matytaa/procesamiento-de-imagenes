@@ -1,8 +1,8 @@
 package presentation.presenter;
 
 import core.action.histogram.CreateImageHistogramAction;
-import domain.Histogram;
-import domain.customimage.CustomImage;
+import domain.Histograma;
+import domain.customimage.Imagen;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 import javafx.beans.value.ChangeListener;
@@ -33,8 +33,8 @@ public class NoiseImagePresenter {
     private void awaitingForNewModifiedImages() {
         onNoiseImage.subscribe(image -> {
             view.noiseImageView.setImage(image);
-            Histogram histogram = createImageHistogramAction.execute(new CustomImage(SwingFXUtils.fromFXImage(image,null), "png"));
-            this.setHistogramData(histogram.getValues());
+            Histograma histogram = createImageHistogramAction.execute(new Imagen(SwingFXUtils.fromFXImage(image,null), "png"));
+            this.setHistogramData(histogram.getValores());
 
         });
     }

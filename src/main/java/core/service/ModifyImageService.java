@@ -1,6 +1,6 @@
 package core.service;
 
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 public class ModifyImageService {
 
-    public CustomImage createModifiedImage(CustomImage image, Integer pixelX, Integer pixelY, Integer valueR, Integer valueG, Integer valueB) {
+    public Imagen createModifiedImage(Imagen image, Integer pixelX, Integer pixelY, Integer valueR, Integer valueG, Integer valueB) {
 
         int width = image.getWidth();
         int height = image.getHeight();
@@ -27,7 +27,7 @@ public class ModifyImageService {
         }
 
         this.modifySinglePixel(pixelX, pixelY, valueR, valueG, valueB, pixelWriter);
-        return new CustomImage(SwingFXUtils.fromFXImage(writableImage, null), image.getFormatString());
+        return new Imagen(SwingFXUtils.fromFXImage(writableImage, null), image.getFormatString());
     }
 
     public void modifySinglePixel(Integer pixelX, Integer pixelY, Integer value, PixelWriter pixelWriter) {

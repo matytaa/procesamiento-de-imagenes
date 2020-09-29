@@ -1,7 +1,7 @@
 package domain.mask;
 
 import domain.customimage.ChannelMatrix;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.customimage.RGB;
 
 public abstract class Mask {
@@ -33,7 +33,7 @@ public abstract class Mask {
     protected abstract double[][] createMatrix(int size);
 
     /* This is a default mask implementation it returns the convolution between an image and the concrete mask */
-    public ChannelMatrix apply(CustomImage image) {
+    public ChannelMatrix apply(Imagen image) {
         Integer width = image.getWidth();
         Integer height = image.getHeight();
         ChannelMatrix channelMatrix = new ChannelMatrix(width, height);
@@ -48,7 +48,7 @@ public abstract class Mask {
     }
 
     /* Basic convolution segment algorithm */
-    public RGB applyMaskToPixel(CustomImage image, int x, int y) {
+    public RGB applyMaskToPixel(Imagen image, int x, int y) {
         int red = 0;
         int green = 0;
         int blue = 0;

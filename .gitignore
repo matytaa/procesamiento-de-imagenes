@@ -38,3 +38,7 @@ hs_err_pid*
 *out
 
 target
+
+.classpath
+.project
+.settings/

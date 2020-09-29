@@ -2,7 +2,7 @@ package core.action.image;
 
 import core.service.statistics.GrayLevelStatisticsService;
 import domain.automaticthreshold.ImageLimitValues;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 
 
 public class GetImageLimitValuesAction {
@@ -13,15 +13,15 @@ public class GetImageLimitValuesAction {
         this.grayLevelStatisticsService = grayLevelStatisticsService;
     }
 
-    public ImageLimitValues execute(CustomImage customImage){
-        int redChannelMin = this.grayLevelStatisticsService.calculateMinGrayLevel(customImage.getRedMatrix());
-        int redChannelMax = this.grayLevelStatisticsService.calculateMaxGrayLevel(customImage.getRedMatrix());
+    public ImageLimitValues execute(Imagen customImage){
+        int redChannelMin = this.grayLevelStatisticsService.calculateMinGrayLevel(customImage.getMatrizRed());
+        int redChannelMax = this.grayLevelStatisticsService.calculateMaxGrayLevel(customImage.getMatrizRed());
 
-        int greenChannelMin = this.grayLevelStatisticsService.calculateMinGrayLevel(customImage.getGreenMatrix());
-        int greenChannelMax = this.grayLevelStatisticsService.calculateMaxGrayLevel(customImage.getGreenMatrix());
+        int greenChannelMin = this.grayLevelStatisticsService.calculateMinGrayLevel(customImage.getMatrizGreen());
+        int greenChannelMax = this.grayLevelStatisticsService.calculateMaxGrayLevel(customImage.getMatrizGreen());
 
-        int blueChannelMin = this.grayLevelStatisticsService.calculateMinGrayLevel(customImage.getBlueMatrix());
-        int blueChannelMax = this.grayLevelStatisticsService.calculateMaxGrayLevel(customImage.getBlueMatrix());
+        int blueChannelMin = this.grayLevelStatisticsService.calculateMinGrayLevel(customImage.getMatrizBlue());
+        int blueChannelMax = this.grayLevelStatisticsService.calculateMaxGrayLevel(customImage.getMatrizBlue());
 
         int[] min = {redChannelMin, greenChannelMin, blueChannelMin};
         int[] max = {redChannelMax, greenChannelMax, blueChannelMax};

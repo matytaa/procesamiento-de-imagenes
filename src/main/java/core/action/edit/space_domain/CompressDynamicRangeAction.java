@@ -2,7 +2,7 @@ package core.action.edit.space_domain;
 
 import core.repository.ImageRepository;
 import core.service.statistics.GrayLevelStatisticsService;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
@@ -24,7 +24,7 @@ public class CompressDynamicRangeAction {
 
     public Image execute() {
 
-        Optional<CustomImage> optional = this.imageRepository.getImage();
+        Optional<Imagen> optional = this.imageRepository.getImage();
         if (!optional.isPresent()) {
             return new WritableImage(300, 300);
         }

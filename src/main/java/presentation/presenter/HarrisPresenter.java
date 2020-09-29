@@ -3,7 +3,7 @@ package presentation.presenter;
 import core.action.characteristic_points.ApplyHarrisDetectorAction;
 import core.action.image.LoadImageAction;
 import domain.XYPoint;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
@@ -18,8 +18,8 @@ public class HarrisPresenter {
     private final HarrisSceneController view;
     private final LoadImageAction loadImageAction;
     private final ApplyHarrisDetectorAction applyHarrisDetectorAction;
-    private CustomImage image1;
-    private CustomImage image2;
+    private Imagen image1;
+    private Imagen image2;
 
     public HarrisPresenter(HarrisSceneController harrisSceneController, LoadImageAction loadImageAction,
             ApplyHarrisDetectorAction applyHarrisDetectorAction) {

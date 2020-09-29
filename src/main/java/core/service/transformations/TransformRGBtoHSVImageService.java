@@ -1,12 +1,12 @@
 package core.service.transformations;
 
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.hsvimage.HSVImage;
 import domain.hsvimage.HSVPixel;
 
 public class TransformRGBtoHSVImageService {
 
-    public HSVImage createHSVfromRGB(CustomImage image) {
+    public HSVImage createHSVfromRGB(Imagen image) {
 
         int width = image.getWidth();
         int height = image.getHeight();

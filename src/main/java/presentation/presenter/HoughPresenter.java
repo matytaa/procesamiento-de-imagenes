@@ -6,7 +6,7 @@ import core.action.edgedetector.hough.LineHoughTransformAction;
 import core.action.image.GetImageAction;
 import core.action.threshold.ApplyOtsuThresholdEstimationAction;
 import domain.automaticthreshold.OtsuThresholdResult;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.mask.prewitt.PrewittXDerivativeMask;
 import domain.mask.prewitt.PrewittYDerivativeMask;
 import io.reactivex.subjects.PublishSubject;
@@ -58,10 +58,10 @@ public class HoughPresenter {
         if (isXCenterValid(xCenterDivisions) && isYCenterValid(yCenterDivisions) && isRadiusValid(radiusDivisions) && isToleranceValid(tolerance)) {
 
             this.getImageAction.execute().ifPresent(customImage -> {
-                CustomImage edgedImage = new CustomImage(this.applyEdgeDetectorByGradientAction.execute(customImage, new PrewittXDerivativeMask(), new PrewittYDerivativeMask()), "png");
+                Imagen edgedImage = new Imagen(this.applyEdgeDetectorByGradientAction.execute(customImage, new PrewittXDerivativeMask(), new PrewittYDerivativeMask()), "png");
                 OtsuThresholdResult otsuThresholdResult = this.applyOtsuThresholdEstimationAction.execute(edgedImage);
-                CustomImage thresholdizedImage = new CustomImage(otsuThresholdResult.getImage(), "png");
-                CustomImage houghImage = this.circleHoughTransformAction.execute(customImage, thresholdizedImage, xCenterDivisions, yCenterDivisions, radiusDivisions, tolerance);
+                Imagen thresholdizedImage = new Imagen(otsuThresholdResult.getImage(), "png");
+                Imagen houghImage = this.circleHoughTransformAction.execute(customImage, thresholdizedImage, xCenterDivisions, yCenterDivisions, radiusDivisions, tolerance);
                 imagePublishSubject.onNext(houghImage.toFXImage());
                 this.view.closeWindow();
                     }
@@ -92,10 +92,10 @@ public class HoughPresenter {
         if (isRhoValid(rhoDivisions) && isThetaValid(thetaDivisions) && isToleranceValid(tolerance)) {
 
             this.getImageAction.execute().ifPresent(customImage -> {
-                CustomImage edgedImage = new CustomImage(this.applyEdgeDetectorByGradientAction.execute(customImage, new PrewittXDerivativeMask(), new PrewittYDerivativeMask()), "png");
+                Imagen edgedImage = new Imagen(this.applyEdgeDetectorByGradientAction.execute(customImage, new PrewittXDerivativeMask(), new PrewittYDerivativeMask()), "png");
                 OtsuThresholdResult otsuThresholdResult = this.applyOtsuThresholdEstimationAction.execute(edgedImage);
-                CustomImage thresholdizedImage = new CustomImage(otsuThresholdResult.getImage(), "png");
-                CustomImage houghImage = this.lineHoughTransformAction.execute(customImage, thresholdizedImage, rhoDivisions, thetaDivisions, tolerance);
+                Imagen thresholdizedImage = new Imagen(otsuThresholdResult.getImage(), "png");
+                Imagen houghImage = this.lineHoughTransformAction.execute(customImage, thresholdizedImage, rhoDivisions, thetaDivisions, tolerance);
                 imagePublishSubject.onNext(houghImage.toFXImage());
                 this.view.closeWindow();
                     }

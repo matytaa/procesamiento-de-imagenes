@@ -2,7 +2,7 @@ package core.action.channels;
 
 import core.repository.ImageRepository;
 import core.service.transformations.TransformRGBtoHSVImageService;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.customimage.Format;
 import domain.generation.Channel;
 import domain.hsvimage.HSVImage;
@@ -25,14 +25,14 @@ public class ObtainHSVChannelAction {
         this.transformRGBtoHSVImageService = transformRGBtoHSVImageService;
     }
 
-    public CustomImage execute(Channel channel) {
+    public Imagen execute(Channel channel) {
 
-        Optional<CustomImage> currentImage = this.imageRepository.getImage();
+        Optional<Imagen> currentImage = this.imageRepository.getImage();
         if (!currentImage.isPresent()) {
-            return new CustomImage(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), Format.PNG);
+            return new Imagen(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), Format.PNG);
         }
 
-        CustomImage image = currentImage.get();
+        Imagen image = currentImage.get();
 
         int width = image.getWidth();
         int height = image.getHeight();
@@ -56,8 +56,8 @@ public class ObtainHSVChannelAction {
         return putOnRepository(SwingFXUtils.fromFXImage(writableImage, null));
     }
 
-    private CustomImage putOnRepository(BufferedImage bufferedImage) {
-        return imageRepository.saveModifiedImage(new CustomImage(bufferedImage, Format.PNG));
+    private Imagen putOnRepository(BufferedImage bufferedImage) {
+        return imageRepository.saveModifiedImage(new Imagen(bufferedImage, Format.PNG));
     }
 
     private void getChannel(int width, int height, PixelWriter pixelWriter, BiFunction<Integer, Integer, Color> channel) {

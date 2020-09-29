@@ -2,7 +2,7 @@ package core.service;
 
 import core.service.statistics.GrayLevelStatisticsService;
 import domain.customimage.ChannelMatrix;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.customimage.Pixel;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
@@ -21,13 +21,13 @@ public class ImageOperationsService {
     }
 
     //completa la writableImage recibida, con el valor de cierta imagen (completando con 0 las posiciones en la cual la imagen no tiene valores)
-    public WritableImage fillImage(WritableImage writableImage, CustomImage image) {
+    public WritableImage fillImage(WritableImage writableImage, Imagen image) {
         this.completeWithZero(writableImage);
         this.setChannelsPixelsValuesInImage(writableImage, image);
         return writableImage;
     }
 
-    public int calculateResultantWidth(CustomImage image1, CustomImage image2) {
+    public int calculateResultantWidth(Imagen image1, Imagen image2) {
         int resultantImageWidth = 1;
         if (image1.getWidth() > image2.getWidth()) {
             resultantImageWidth = image1.getWidth();
@@ -37,7 +37,7 @@ public class ImageOperationsService {
         return resultantImageWidth;
     }
 
-    public int calculateResultantHeight(CustomImage image1, CustomImage image2) {
+    public int calculateResultantHeight(Imagen image1, Imagen image2) {
         int resultantImageHeight = 1;
         if (image1.getHeight() > image2.getHeight()) {
             resultantImageHeight = image1.getHeight();
@@ -65,7 +65,7 @@ public class ImageOperationsService {
         }
     }
 
-    private void setChannelsPixelsValuesInImage(WritableImage imageToNormalize, CustomImage image) {
+    private void setChannelsPixelsValuesInImage(WritableImage imageToNormalize, Imagen image) {
         int redChannelValue = 0;
         int greenChannelValue = 0;
         int blueChannelValue = 0;
@@ -205,7 +205,7 @@ public class ImageOperationsService {
         return this.adjustScale(this.displacePixelsValues(result));
     }
 
-    public int[][] multiplyRedPixelsValuesWithScalarNumber(CustomImage customImage, int scalarNumber) {
+    public int[][] multiplyRedPixelsValuesWithScalarNumber(Imagen customImage, int scalarNumber) {
         int[][] result = new int[(customImage.getWidth())][customImage.getHeight()];
         for (int i = 0; i < customImage.getWidth(); i++) {
             for (int j = 0; j < customImage.getHeight(); j++) {
@@ -216,7 +216,7 @@ public class ImageOperationsService {
         return result;
     }
 
-    public int[][] multiplyGreenPixelsValuesWithScalarNumber(CustomImage customImage, int scalarNumber) {
+    public int[][] multiplyGreenPixelsValuesWithScalarNumber(Imagen customImage, int scalarNumber) {
         int[][] result = new int[(customImage.getWidth())][customImage.getHeight()];
         for (int i = 0; i < customImage.getWidth(); i++) {
             for (int j = 0; j < customImage.getHeight(); j++) {
@@ -227,7 +227,7 @@ public class ImageOperationsService {
         return result;
     }
 
-    public int[][] multiplyBluePixelsValuesWithScalarNumber(CustomImage customImage, int scalarNumber) {
+    public int[][] multiplyBluePixelsValuesWithScalarNumber(Imagen customImage, int scalarNumber) {
         int[][] result = new int[customImage.getWidth()][customImage.getHeight()];
         for (int i = 0; i < customImage.getWidth(); i++) {
             for (int j = 0; j < customImage.getHeight(); j++) {

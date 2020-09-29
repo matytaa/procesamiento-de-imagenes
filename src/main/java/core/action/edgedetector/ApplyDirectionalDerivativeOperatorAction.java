@@ -3,7 +3,7 @@ package core.action.edgedetector;
 import core.service.ImageOperationsService;
 import core.service.MatrixService;
 import domain.customimage.ChannelMatrix;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.customimage.RGB;
 import domain.mask.Mask;
 import io.reactivex.subjects.PublishSubject;
@@ -23,11 +23,11 @@ public class ApplyDirectionalDerivativeOperatorAction {
         this.matrixService = matrixService;
     }
 
-    public void execute(CustomImage customImage,
-            Mask horizontalStraightMask,
-            Mask verticalStraightMask,
-            Mask mainDiagonalMask,
-            Mask secondaryDiagonalMask) {
+    public void execute(Imagen customImage,
+                        Mask horizontalStraightMask,
+                        Mask verticalStraightMask,
+                        Mask mainDiagonalMask,
+                        Mask secondaryDiagonalMask) {
 
         ChannelMatrix channelMatrix = applyMasks(customImage, horizontalStraightMask, verticalStraightMask,
                 mainDiagonalMask, secondaryDiagonalMask);
@@ -40,7 +40,7 @@ public class ApplyDirectionalDerivativeOperatorAction {
         imagePublishSubject.onNext(resultantImage);
     }
 
-    private ChannelMatrix applyMasks(CustomImage image,
+    private ChannelMatrix applyMasks(Imagen image,
                                      Mask horizontalStraightMask, Mask verticalStraightMask,
                                      Mask mainDiagonalMask, Mask secondaryDiagonalMask) {
 

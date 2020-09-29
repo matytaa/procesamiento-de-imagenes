@@ -1,7 +1,7 @@
 package core.action.image;
 
 import core.repository.ImageRepository;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 
 import java.util.Optional;
 
@@ -13,7 +13,7 @@ public class GetImageAction {
         this.imageRepository = imageRepository;
     }
 
-    public Optional<CustomImage> execute() {
+    public Optional<Imagen> execute() {
         return imageRepository.getImage();
     }
 }

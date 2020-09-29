@@ -1,6 +1,6 @@
 package core.service;
 
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -13,7 +13,7 @@ public class ApplyThresholdService {
         this.modifyImageService = modifyImageService;
     }
 
-    public Image applyThreshold(CustomImage customImage, int threshold) {
+    public Image applyThreshold(Imagen customImage, int threshold) {
         WritableImage image = new WritableImage(customImage.getWidth(), customImage.getHeight());
         PixelWriter pixelWriter = image.getPixelWriter();
 

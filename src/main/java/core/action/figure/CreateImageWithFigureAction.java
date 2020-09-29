@@ -2,7 +2,7 @@ package core.action.figure;
 
 import core.repository.ImageRepository;
 import core.service.generation.ImageFigureService;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.customimage.Format;
 import domain.generation.Figure;
 import javafx.embed.swing.SwingFXUtils;
@@ -20,7 +20,7 @@ public class CreateImageWithFigureAction {
         this.imageRepository = imageRepository;
     }
 
-    public CustomImage execute(int width, int height, Figure value) {
+    public Imagen execute(int width, int height, Figure value) {
 
         switch (value) {
             case CIRCLE:
@@ -30,11 +30,11 @@ public class CreateImageWithFigureAction {
                 Image imageWithQuadrate = imageFigureService.createImageWithQuadrate(width, height);
                 return putOnRepository(SwingFXUtils.fromFXImage(imageWithQuadrate, null));
             default:
-                return CustomImage.EMPTY;
+                return Imagen.EMPTY;
         }
     }
 
-    private CustomImage putOnRepository(BufferedImage bufferedImage) {
-        return imageRepository.saveImage(new CustomImage(bufferedImage, Format.PNG));
+    private Imagen putOnRepository(BufferedImage bufferedImage) {
+        return imageRepository.saveImage(new Imagen(bufferedImage, Format.PNG));
     }
 }

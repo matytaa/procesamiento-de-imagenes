@@ -2,7 +2,7 @@ package core.action.characteristic_points;
 
 import core.service.MatrixService;
 import domain.XYPoint;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.mask.filter.GaussianMask;
 import domain.mask.sobel.SobelXDerivativeMask;
 import domain.mask.sobel.SobelYDerivativeMask;
@@ -19,7 +19,7 @@ public class ApplyHarrisDetectorAction {
         this.matrixService = matrixService;
     }
 
-    public List<XYPoint> execute(CustomImage image, double tolerance) {
+    public List<XYPoint> execute(Imagen image, double tolerance) {
 
         int[][] xDeriv = new SobelXDerivativeMask().apply(image).getRedChannel();
         int[][] yDeriv = new SobelYDerivativeMask().apply(image).getRedChannel();

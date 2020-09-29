@@ -77,5 +77,8 @@
             <MenuItem mnemonicParsing="false" onAction="#saveModifiedImage" text="Guardar" />
             <MenuItem mnemonicParsing="false" onAction="#close" text="Cerrar" />
         </Menu>
+        <Menu mnemonicParsing="false" text="Generación">
+            <MenuItem mnemonicParsing="false" onAction="#createImageHistogram" text="Histograma" />
+        </Menu>
     </MenuBar>
 </AnchorPane>

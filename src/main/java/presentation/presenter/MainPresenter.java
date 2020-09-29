@@ -24,7 +24,7 @@ import domain.activecontour.ActiveContourMode;
 import domain.automaticthreshold.GlobalThresholdResult;
 import domain.automaticthreshold.ImageLimitValues;
 import domain.automaticthreshold.OtsuThresholdResult;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.customimage.Format;
 import domain.flags.LaplacianDetector;
 import domain.generation.Channel;
@@ -145,7 +145,7 @@ public class MainPresenter {
 
     private void awaitingForNewModifiedImages() {
         onModifiedImage.subscribe(image -> {
-            putModifiedImageAction.execute(new CustomImage(SwingFXUtils.fromFXImage(image, null), Format.PNG));
+            putModifiedImageAction.execute(new Imagen(SwingFXUtils.fromFXImage(image, null), Format.PNG));
             view.modifiedImageView.setImage(image);
         });
     }
@@ -155,13 +155,13 @@ public class MainPresenter {
     }
 
     public void onOpenImageSequence() {
-        List<CustomImage> customImages = this.loadImageSequenceAction.execute();
+        List<Imagen> customImages = this.loadImageSequenceAction.execute();
         if(!customImages.isEmpty()) {
             setImageOnCustomImageView(customImages.get(0));
         }
     }
 
-    private void setImageOnCustomImageView(CustomImage customImage) {
+    private void setImageOnCustomImageView(Imagen customImage) {
         view.customImageView.setImage(SwingFXUtils.toFXImage(customImage.getBufferedImage(), null));
     }
 
@@ -170,7 +170,7 @@ public class MainPresenter {
     }
 
     public void onApplyChanges() {
-        CustomImage modifiedCustomImage = new CustomImage(view.modifiedImageView.getImage(), "png");
+        Imagen modifiedCustomImage = new Imagen(view.modifiedImageView.getImage(), "png");
         view.customImageView.setImage(view.modifiedImageView.getImage());
         updateCurrentImageAction.execute(modifiedCustomImage);
         view.modifiedImageView.setImage(null);
@@ -218,12 +218,12 @@ public class MainPresenter {
         setImageOnModifiedImageView(obtainHSVChannelAction.execute(Channel.VALUE));
     }
 
-    private void updateModifiedImage(CustomImage customImage) {
+    private void updateModifiedImage(Imagen customImage) {
         this.putModifiedImageAction.execute(customImage);
         this.setImageOnModifiedImageView(customImage);
     }
 
-    private void setImageOnModifiedImageView(CustomImage customImage) {
+    private void setImageOnModifiedImageView(Imagen customImage) {
         view.modifiedImageView.setImage(SwingFXUtils.toFXImage(customImage.getBufferedImage(), null));
         view.applyChangesButton.setVisible(true);
     }
@@ -279,7 +279,7 @@ public class MainPresenter {
     public void onCutPartialImage() {
         Image image = view.customImageView.cutPartialImage();
         view.modifiedImageView.setImage(image);
-        this.putModifiedImageAction.execute(new CustomImage(SwingFXUtils.fromFXImage(image, null), Format.PNG));
+        this.putModifiedImageAction.execute(new Imagen(SwingFXUtils.fromFXImage(image, null), Format.PNG));
         view.applyChangesButton.setVisible(true);
     }
 
@@ -289,7 +289,7 @@ public class MainPresenter {
         view.applyChangesButton.setVisible(true);
     }
 
-    private void applyThresholdToModifiedImage(CustomImage customImage) {
+    private void applyThresholdToModifiedImage(Imagen customImage) {
         applyThreshold(customImage);
     }
 
@@ -297,14 +297,14 @@ public class MainPresenter {
         this.getImageAction.execute().ifPresent(this::applyThreshold);
     }
 
-    private void applyThreshold(CustomImage customImage) {
+    private void applyThreshold(Imagen customImage) {
         int threshold = Integer.parseInt(InsertValuePopup.show("Threshold", "0").get());
         view.modifiedImageView.setImage(applyThresholdAction.execute(customImage, threshold));
         view.applyChangesButton.setVisible(true);
     }
 
-    public void onCreateImageHistogram() {
-        new ImageHistogramSceneCreator().createScene();
+    public void onCreateHistograma() {
+        new HistogramaSceneCreator().createScene();
     }
 
     public void onContrast() {
@@ -372,7 +372,7 @@ public class MainPresenter {
         int size = insertedSize;
         this.getImageAction.execute()
                            .ifPresent(customImage -> {
-                               CustomImage filteredCustomImage = applyFilterAction.execute(customImage, new HighPassMask(size));
+                               Imagen filteredCustomImage = applyFilterAction.execute(customImage, new HighPassMask(size));
                                view.modifiedImageView.setImage(filteredCustomImage.toFXImage());
 
                                this.applyThresholdToModifiedImage(filteredCustomImage);
@@ -521,7 +521,7 @@ public class MainPresenter {
                                if (detector == LaplacianDetector.WITH_SLOPE_EVALUATION) {
                                    slopeThreshold = Integer.parseInt(InsertValuePopup.show("Insert slope threshold", "0").get());
                                }
-                               CustomImage edgedImage = this.applyLaplacianDetectorAction.execute(customImage, new LaplacianMask(), slopeThreshold);
+                               Imagen edgedImage = this.applyLaplacianDetectorAction.execute(customImage, new LaplacianMask(), slopeThreshold);
                                this.updateModifiedImage(edgedImage);
                            });
     }
@@ -531,7 +531,7 @@ public class MainPresenter {
                            .ifPresent(customImage -> {
                                double sigma = Double.parseDouble(InsertValuePopup.show("Insert standard deviation value", "0").get());
                                int slopeThreshold = Integer.parseInt(InsertValuePopup.show("Insert slope threshold", "0").get());
-                               CustomImage edgedImage = this.applyLaplacianDetectorAction
+                               Imagen edgedImage = this.applyLaplacianDetectorAction
                                        .execute(customImage, new GaussianLaplacianMask(sigma), slopeThreshold);
                                this.updateModifiedImage(edgedImage);
                            });
@@ -548,7 +548,7 @@ public class MainPresenter {
     }
 
     public void onUndoChanges() {
-        CustomImage originalImage = this.undoChangesAction.execute();
+        Imagen originalImage = this.undoChangesAction.execute();
         view.undoChangesButton.setVisible(false);
         view.imageView.setImage(originalImage.toFXImage());
     }
@@ -562,7 +562,7 @@ public class MainPresenter {
         this.getImageAction.execute()
                            .ifPresent(customImage -> {
                                Mask susanMask = new SusanMask();
-                               CustomImage edgedImage = this.applySusanDetectorAction.execute(customImage, susanMask);
+                               Imagen edgedImage = this.applySusanDetectorAction.execute(customImage, susanMask);
                                this.updateModifiedImage(edgedImage);
                            });
     }

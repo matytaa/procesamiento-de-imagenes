@@ -4,7 +4,7 @@ import core.service.ApplyThresholdService;
 import core.service.MatrixService;
 import domain.automaticthreshold.GlobalThresholdGroups;
 import domain.automaticthreshold.GlobalThresholdResult;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.customimage.Pixel;
 import javafx.scene.image.Image;
 
@@ -23,7 +23,7 @@ public class ApplyGlobalThresholdEstimationAction {
         this.threshold = 0;
     }
 
-    public GlobalThresholdResult execute(CustomImage customImage, int initialThreshold, int deltaT){
+    public GlobalThresholdResult execute(Imagen customImage, int initialThreshold, int deltaT){
         int[][] imageMatrix = this.matrixService.toGrayMatrix(customImage.toFXImage());
         this.threshold = initialThreshold;
         int[][] transformedImage = new int[imageMatrix.length][imageMatrix[0].length];

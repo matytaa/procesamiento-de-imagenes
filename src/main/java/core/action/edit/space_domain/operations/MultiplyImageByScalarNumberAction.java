@@ -2,7 +2,7 @@ package core.action.edit.space_domain.operations;
 
 import core.action.edit.space_domain.CompressDynamicRangeAction;
 import core.service.ImageOperationsService;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import javafx.scene.image.Image;
 
 public class MultiplyImageByScalarNumberAction {
@@ -16,7 +16,7 @@ public class MultiplyImageByScalarNumberAction {
         this.compressDynamicRangeAction = compressDynamicRangeAction;
     }
 
-    public Image execute(CustomImage image, int scalarNumber){
+    public Image execute(Imagen image, int scalarNumber){
         int[][] redChannelResultantValues = this.imageOperationsService.multiplyRedPixelsValuesWithScalarNumber(image, scalarNumber);
         int[][] greenChannelResultantValues = this.imageOperationsService.multiplyGreenPixelsValuesWithScalarNumber(image, scalarNumber);
         int[][] blueChannelResultantValues = this.imageOperationsService.multiplyBluePixelsValuesWithScalarNumber(image, scalarNumber);

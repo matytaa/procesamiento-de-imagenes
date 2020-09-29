@@ -1,6 +1,6 @@
 package core.action.edgedetector.hough;
 
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.hough.XYRCircle;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -21,7 +21,7 @@ public class CircleHoughTransformAction {
 
     private Map<XYRCircle, Integer> parameterMatrix;
 
-    public CustomImage execute(CustomImage originalImage, CustomImage edgedImage, int xCenterDivisions, int yCenterDivisions, int radiusDivisions, double tolerance) {
+    public Imagen execute(Imagen originalImage, Imagen edgedImage, int xCenterDivisions, int yCenterDivisions, int radiusDivisions, double tolerance) {
 
         this.radiusUpperBound = this.calculateMaximumRadius(edgedImage);
         this.xCenterUpperBound = edgedImage.getWidth();
@@ -29,7 +29,7 @@ public class CircleHoughTransformAction {
 
         this.createParameterMatrix(xCenterDivisions, yCenterDivisions, radiusDivisions);
 
-        int[][] channel = edgedImage.getRedMatrix();
+        int[][] channel = edgedImage.getMatrizRed();
 
         for (int x=0; x < channel.length; x++) {
             for (int y=0; y < channel[x].length; y++) {
@@ -48,7 +48,7 @@ public class CircleHoughTransformAction {
 
     }
 
-    private CustomImage drawCircles(CustomImage originalImage, Integer width, Integer height, Map<XYRCircle, Integer> acceptedCircles) {
+    private Imagen drawCircles(Imagen originalImage, Integer width, Integer height, Map<XYRCircle, Integer> acceptedCircles) {
 
         WritableImage image = new WritableImage(width, height);
         PixelWriter writer = image.getPixelWriter();
@@ -69,7 +69,7 @@ public class CircleHoughTransformAction {
 
         }
 
-        return new CustomImage(image, "png");
+        return new Imagen(image, "png");
 
     }
 
@@ -152,7 +152,7 @@ public class CircleHoughTransformAction {
         }
     }
 
-    private int calculateMaximumRadius(CustomImage customImage) {
+    private int calculateMaximumRadius(Imagen customImage) {
         if (customImage.getWidth() > customImage.getHeight()) return customImage.getHeight()/2;
         else return customImage.getWidth()/2;
     }

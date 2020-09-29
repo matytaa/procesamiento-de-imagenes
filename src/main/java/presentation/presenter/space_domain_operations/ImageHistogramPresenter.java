@@ -24,7 +24,7 @@ public class ImageHistogramPresenter {
 
     public void initialize() {
         this.getImageAction.execute()
-                .ifPresent(customImage -> this.setData(this.createImageHistogramAction.execute(customImage).getValues()));
+                .ifPresent(customImage -> this.setData(this.createImageHistogramAction.execute(customImage).getValores()));
     }
 
     private void setData(double[] value) {

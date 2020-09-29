@@ -2,7 +2,7 @@ package core.action.edit.space_domain;
 
 import core.repository.ImageRepository;
 import core.service.ModifyImageService;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.customimage.RGB;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -24,11 +24,11 @@ public class CalculateNegativeImageAction {
 
     public Image execute() {
 
-        Optional<CustomImage> imageOptional = this.imageRepository.getImage();
+        Optional<Imagen> imageOptional = this.imageRepository.getImage();
         if (!imageOptional.isPresent())
             return SwingFXUtils.toFXImage(new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB), null);
 
-        CustomImage customImage = imageOptional.get();
+        Imagen customImage = imageOptional.get();
         WritableImage image = new WritableImage(customImage.getWidth(), customImage.getHeight());
         PixelWriter pixelWriter = image.getPixelWriter();
 

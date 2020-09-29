@@ -1,50 +1,50 @@
 package core.repository;
 
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 
 import java.util.List;
 import java.util.Optional;
 
 public class ImageRepository {
 
-    private CustomImage image;
-    private CustomImage modifiedImage;
-    private CustomImage originalImageBackup;
-    private List<CustomImage> imageSequence;
+    private Imagen image;
+    private Imagen modifiedImage;
+    private Imagen originalImageBackup;
+    private List<Imagen> imageSequence;
 
-    public CustomImage saveImage(CustomImage image) {
+    public Imagen saveImage(Imagen image) {
         this.image = image;
         return this.image;
     }
 
-    public Optional<CustomImage> getImage() {
+    public Optional<Imagen> getImage() {
         return Optional.ofNullable(this.image);
     }
 
-    public CustomImage saveModifiedImage(CustomImage image) {
+    public Imagen saveModifiedImage(Imagen image) {
         this.modifiedImage = image;
         return modifiedImage;
     }
 
-    public Optional<CustomImage> getModifiedImage() {
+    public Optional<Imagen> getModifiedImage() {
         return Optional.ofNullable(this.modifiedImage);
     }
 
-    public void setOriginalImageBackup(CustomImage originalImageBackup) {
+    public void setOriginalImageBackup(Imagen originalImageBackup) {
         this.originalImageBackup = originalImageBackup;
     }
 
-    public CustomImage getOriginalImageBackup(){
+    public Imagen getOriginalImageBackup(){
         return this.originalImageBackup;
     }
 
-    public List<CustomImage> saveImageSequence(List<CustomImage> imageSequence) {
+    public List<Imagen> saveImageSequence(List<Imagen> imageSequence) {
         if(!imageSequence.isEmpty()) this.image = imageSequence.get(0);
         this.imageSequence = imageSequence;
         return imageSequence;
     }
 
-    public Optional<List<CustomImage>> getImageSequence() {
+    public Optional<List<Imagen>> getImageSequence() {
         return Optional.ofNullable(imageSequence);
     }
 }

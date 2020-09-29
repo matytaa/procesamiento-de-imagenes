@@ -1,7 +1,7 @@
 package core.action.channels;
 
 import core.repository.ImageRepository;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.customimage.Format;
 import domain.generation.Channel;
 import javafx.embed.swing.SwingFXUtils;
@@ -21,14 +21,14 @@ public class ObtainRGBChannelAction {
         this.imageRepository = imageRepository;
     }
 
-    public CustomImage execute(Channel channel) {
+    public Imagen execute(Channel channel) {
 
-        Optional<CustomImage> currentImage = this.imageRepository.getImage();
+        Optional<Imagen> currentImage = this.imageRepository.getImage();
         if (!currentImage.isPresent()) {
-            return new CustomImage(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), Format.PNG);
+            return new Imagen(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), Format.PNG);
         }
 
-        CustomImage image = currentImage.get();
+        Imagen image = currentImage.get();
 
         int width = image.getWidth();
         int height = image.getHeight();
@@ -50,8 +50,8 @@ public class ObtainRGBChannelAction {
         return putOnRepository(SwingFXUtils.fromFXImage(writableImage, null));
     }
 
-    private CustomImage putOnRepository(BufferedImage bufferedImage) {
-        return imageRepository.saveModifiedImage(new CustomImage(bufferedImage, Format.PNG));
+    private Imagen putOnRepository(BufferedImage bufferedImage) {
+        return imageRepository.saveModifiedImage(new Imagen(bufferedImage, Format.PNG));
     }
 
     private void getChannel(int width, int height, PixelWriter pixelWriter, BiFunction<Integer, Integer, Color> channel) {
@@ -62,21 +62,21 @@ public class ObtainRGBChannelAction {
         }
     }
 
-    private BiFunction<Integer, Integer, Color> functionRed(CustomImage image) {
+    private BiFunction<Integer, Integer, Color> functionRed(Imagen image) {
         return (x, y) -> {
             int red = image.getRChannelValue(x, y);
             return Color.rgb(red, 0, 0);
         };
     }
 
-    private BiFunction<Integer, Integer, Color> functionGreen(CustomImage image) {
+    private BiFunction<Integer, Integer, Color> functionGreen(Imagen image) {
         return (x, y) -> {
             int green = image.getGChannelValue(x, y);
             return Color.rgb(0, green, 0);
         };
     }
 
-    private BiFunction<Integer, Integer, Color> functionBlue(CustomImage image) {
+    private BiFunction<Integer, Integer, Color> functionBlue(Imagen image) {
         return (x, y) -> {
             int blue = image.getBChannelValue(x, y);
             return Color.rgb(0, 0, blue);

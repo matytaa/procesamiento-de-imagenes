@@ -15,41 +15,41 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CustomImage {
+public class Imagen {
 
-    public static final CustomImage EMPTY = new CustomImage(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), Format.PNG);
+    public static final Imagen EMPTY = new Imagen(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), Format.PNG);
     private static final int INDEX_OUT_OF_BOUND = -1;
     private final PixelReader reader;
     private final BufferedImage bufferedImage;
     private final Format format;
     private final MatrixService matrixService;
-    private int[][] redMatrix;
-    private int[][] greenMatrix;
-    private int[][] blueMatrix;
-    private List<Pixel> pixelList;
+    private int[][] matrizRed;
+    private int[][] matrizGreen;
+    private int[][] matrizBlue;
+    private List<Pixel> pixeles;
 
-    public CustomImage(ChannelMatrix channelMatrix, String formatString) {
+    public Imagen(ChannelMatrix channelMatrix, String formatString) {
         this(channelMatrixToFXImage(channelMatrix.getRedChannel(), channelMatrix.getGreenChannel(), channelMatrix.getBlueChannel()), formatString);
     }
 
-    public CustomImage(Image image, String formatString) {
+    public Imagen(Image image, String formatString) {
         this(SwingFXUtils.fromFXImage(image, null), formatString); //See the other constructor
     }
 
-    public CustomImage(BufferedImage bufferedImage, String formatString) {
+    public Imagen(BufferedImage bufferedImage, String formatString) {
         this.bufferedImage = bufferedImage;
         this.format = new Format(formatString);
         WritableImage image = SwingFXUtils.toFXImage(bufferedImage, null);
         this.reader = image.getPixelReader();
-        this.pixelList = getListOfPixels();
+        this.pixeles = getListOfPixels();
         this.matrixService = ServiceProvider.provideMatrixService();
 
         int width = (int) image.getWidth();
         int height = (int) image.getHeight();
 
-        this.redMatrix = matrixService.toChannelMatrix((x, y) -> reader.getColor(x, y).getRed(), width, height);
-        this.greenMatrix = matrixService.toChannelMatrix((x, y) -> reader.getColor(x, y).getGreen(), width, height);
-        this.blueMatrix = matrixService.toChannelMatrix((x, y) -> reader.getColor(x, y).getBlue(), width, height);
+        this.matrizRed = matrixService.toChannelMatrix((x, y) -> reader.getColor(x, y).getRed(), width, height);
+        this.matrizGreen = matrixService.toChannelMatrix((x, y) -> reader.getColor(x, y).getGreen(), width, height);
+        this.matrizBlue = matrixService.toChannelMatrix((x, y) -> reader.getColor(x, y).getBlue(), width, height);
     }
 
     private static Image channelMatrixToFXImage(int[][] red, int[][] green, int[][] blue) {
@@ -67,28 +67,28 @@ public class CustomImage {
         return image;
     }
 
-    public int[][] getRedMatrix() {
-        return this.matrixService.copy(redMatrix);
+    public int[][] getMatrizRed() {
+        return this.matrixService.copy(matrizRed);
     }
 
-    public int[][] getGreenMatrix() {
-        return this.matrixService.copy(greenMatrix);
+    public int[][] getMatrizGreen() {
+        return this.matrixService.copy(matrizGreen);
     }
 
-    public int[][] getBlueMatrix() {
-        return this.matrixService.copy(blueMatrix);
+    public int[][] getMatrizBlue() {
+        return this.matrixService.copy(matrizBlue);
     }
 
     public int getPixelQuantity() {
-        return this.pixelList.size();
+        return this.pixeles.size();
     }
 
     private List<Pixel> getListOfPixels() {
         List<Pixel> total = new ArrayList<>();
 
-        for (int column = 0; column < getWidth(); column++) {
-            for (int row = 0; row < getHeight(); row++) {
-                total.add(new Pixel(column, row, getPixelReader().getColor(column, row)));
+        for (int columna = 0; columna < getWidth(); columna++) {
+            for (int fila = 0; fila < getHeight(); fila++) {
+                total.add(new Pixel(columna, fila, getPixelReader().getColor(columna, fila)));
             }
         }
 
@@ -96,7 +96,7 @@ public class CustomImage {
     }
 
     public List<Pixel> pickNRandomPixels(int n) {
-        List<Pixel> copy = new LinkedList<>(pixelList);
+        List<Pixel> copy = new LinkedList<>(pixeles);
         Collections.shuffle(copy);
         return copy.subList(0, n);
     }
@@ -149,7 +149,7 @@ public class CustomImage {
     }
 
     public Image toFXImage() {
-        return this.matrixService.toImage(this.getRedMatrix(), this.getGreenMatrix(), this.getBlueMatrix());
+        return this.matrixService.toImage(this.getMatrizRed(), this.getMatrizGreen(), this.getMatrizBlue());
     }
 
     public boolean isPositionValid(int width, int height, int i, int j) {

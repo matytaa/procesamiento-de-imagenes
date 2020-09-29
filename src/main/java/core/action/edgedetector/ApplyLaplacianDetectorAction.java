@@ -1,15 +1,15 @@
 package core.action.edgedetector;
 
 import domain.customimage.ChannelMatrix;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.mask.Mask;
 
 public class ApplyLaplacianDetectorAction {
 
-    public CustomImage execute(CustomImage customImage, Mask mask, int slopeThreshold) {
+    public Imagen execute(Imagen customImage, Mask mask, int slopeThreshold) {
         ChannelMatrix maskResult = mask.apply(customImage);
         ChannelMatrix markZeroCrossings = this.markZeroCrossings(maskResult, slopeThreshold);
-        return new CustomImage(markZeroCrossings, customImage.getFormatString());
+        return new Imagen(markZeroCrossings, customImage.getFormatString());
     }
 
     private ChannelMatrix markZeroCrossings(ChannelMatrix channelMatrix, int slopeThreshold) {

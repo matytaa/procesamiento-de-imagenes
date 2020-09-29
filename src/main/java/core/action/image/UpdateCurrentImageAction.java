@@ -1,7 +1,7 @@
 package core.action.image;
 
 import core.repository.ImageRepository;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 
 
 public class UpdateCurrentImageAction {
@@ -12,7 +12,7 @@ public class UpdateCurrentImageAction {
         this.imageRepository = imageRepository;
     }
 
-    public void execute(CustomImage customImage) {
+    public void execute(Imagen customImage) {
         this.imageRepository.saveImage(customImage);
     }
 }

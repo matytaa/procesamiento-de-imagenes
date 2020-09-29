@@ -2,7 +2,7 @@ package presentation.presenter;
 
 import core.action.image.GetImageAction;
 import core.action.noise.ApplySaltAndPepperNoiseAction;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import presentation.controller.SaltAndPepperNoiseController;
 
 import java.util.Optional;
@@ -32,14 +32,14 @@ public class SaltAndPepperNoisePresenter {
 
     public void onApplyNoise() {
 
-        Optional<CustomImage> optionalImage = getImageAction.execute();
+        Optional<Imagen> optionalImage = getImageAction.execute();
 
         if (!optionalImage.isPresent()) {
             view.closeWindow();
             return;
         }
 
-        CustomImage customImage = optionalImage.get();
+        Imagen customImage = optionalImage.get();
 
         if (validateFields()) {
             Double percentToContaminate = Double.parseDouble(view.percentField.getText());

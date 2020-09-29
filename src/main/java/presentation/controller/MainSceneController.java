@@ -195,7 +195,7 @@ public class MainSceneController {
 
     @FXML
     public void createImageHistogram() {
-        this.mainPresenter.onCreateImageHistogram();
+        this.mainPresenter.onCreateHistograma();
     }
 
     @FXML

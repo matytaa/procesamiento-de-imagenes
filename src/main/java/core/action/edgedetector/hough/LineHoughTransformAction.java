@@ -1,7 +1,7 @@
 package core.action.edgedetector.hough;
 
 import domain.XYPoint;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.hough.RhoThetaLine;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -20,13 +20,13 @@ public class LineHoughTransformAction {
 
     private Map<RhoThetaLine, Integer> parameterMatrix;
 
-    public CustomImage execute(CustomImage originalImage, CustomImage edgedImage, int rhoDivisions, int thetaDivisions, double tolerance) {
+    public Imagen execute(Imagen originalImage, Imagen edgedImage, int rhoDivisions, int thetaDivisions, double tolerance) {
 
         this.rhoLowerBound = 0;
         this.rhoUpperBound = this.calculateDiagonal(edgedImage.getWidth(), edgedImage.getHeight());
         this.createParameterMatrix(rhoDivisions, thetaDivisions);
 
-        int[][] channel = edgedImage.getRedMatrix();
+        int[][] channel = edgedImage.getMatrizRed();
         
         for (int x=0; x < channel.length; x++) {
             for (int y=0; y < channel[x].length; y++) {
@@ -45,7 +45,7 @@ public class LineHoughTransformAction {
 
     }
 
-    private CustomImage drawLines(CustomImage originalImage, Integer width, Integer height, Map<RhoThetaLine, Integer> acceptedLines) {
+    private Imagen drawLines(Imagen originalImage, Integer width, Integer height, Map<RhoThetaLine, Integer> acceptedLines) {
 
         WritableImage image = new WritableImage(width, height);
         PixelWriter writer = image.getPixelWriter();
@@ -74,7 +74,7 @@ public class LineHoughTransformAction {
 
         }
 
-        return new CustomImage(image, "png");
+        return new Imagen(image, "png");
 
     }
 

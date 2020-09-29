@@ -1,7 +1,7 @@
 package core.action.image;
 
 import core.repository.ImageRepository;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 
 public class UndoChangesAction {
 
@@ -11,12 +11,12 @@ public class UndoChangesAction {
         this.imageRepository = imageRepository;
     }
 
-    public CustomImage execute() {
-        CustomImage originalImage = imageRepository.getOriginalImageBackup();
+    public Imagen execute() {
+        Imagen originalImage = imageRepository.getOriginalImageBackup();
         /*Creo una imagen nueva para evitar problemas con las referencias
         Ya que la buffered image nunca la modificamos, no hay problema con utilizarla
         */
-        return imageRepository.saveImage(new CustomImage(originalImage.getBufferedImage(), originalImage.getFormatString()));
+        return imageRepository.saveImage(new Imagen(originalImage.getBufferedImage(), originalImage.getFormatString()));
     }
 
 }

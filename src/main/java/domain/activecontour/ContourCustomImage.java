@@ -1,6 +1,6 @@
 package domain.activecontour;
 
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -8,15 +8,15 @@ import javafx.scene.paint.Color;
 
 public class ContourCustomImage {
 
-    private final CustomImage customImage;
+    private final Imagen customImage;
     private final ActiveContour activeContour;
 
-    public ContourCustomImage(CustomImage customImage, ActiveContour activeContour) {
+    public ContourCustomImage(Imagen customImage, ActiveContour activeContour) {
         this.customImage = customImage;
         this.activeContour = activeContour;
     }
 
-    public CustomImage getCustomImage() {
+    public Imagen getCustomImage() {
         return customImage;
     }
 
@@ -37,6 +37,6 @@ public class ContourCustomImage {
         activeContour.getlIn().forEach(xyPoint -> pixelWriter.setColor(xyPoint.getX(), xyPoint.getY(), Color.RED));
         activeContour.getlOut().forEach(xyPoint -> pixelWriter.setColor(xyPoint.getX(), xyPoint.getY(), Color.BLUE));
 
-        return new CustomImage(imageWithContour, customImage.getFormatString()).toFXImage();
+        return new Imagen(imageWithContour, customImage.getFormatString()).toFXImage();
     }
 }

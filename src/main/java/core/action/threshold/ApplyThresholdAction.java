@@ -1,7 +1,7 @@
 package core.action.threshold;
 
 import core.service.ApplyThresholdService;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import javafx.scene.image.Image;
 
 
@@ -13,7 +13,7 @@ public class ApplyThresholdAction {
         this.applyThresholdService = applyThresholdService;
     }
 
-    public Image execute(CustomImage customImage, int threshold) {
+    public Image execute(Imagen customImage, int threshold) {
         return this.applyThresholdService.applyThreshold(customImage, threshold);
     }
 

@@ -1,14 +1,14 @@
 package core.action.edgedetector;
 
 import domain.customimage.ChannelMatrix;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.mask.Mask;
 
 public class ApplySusanDetectorAction {
 
-    public CustomImage execute(CustomImage customImage, Mask mask) {
+    public Imagen execute(Imagen customImage, Mask mask) {
 
-        ChannelMatrix originalImageMatrix = new ChannelMatrix(customImage.getRedMatrix(), customImage.getBlueMatrix(), customImage.getGreenMatrix());
+        ChannelMatrix originalImageMatrix = new ChannelMatrix(customImage.getMatrizRed(), customImage.getMatrizBlue(), customImage.getMatrizGreen());
         ChannelMatrix maskResult = mask.apply(customImage);
 
         for (int i = 0; i < originalImageMatrix.getWidth(); i++) {
@@ -30,6 +30,6 @@ public class ApplySusanDetectorAction {
 
             }
         }
-        return new CustomImage(originalImageMatrix, customImage.getFormatString());
+        return new Imagen(originalImageMatrix, customImage.getFormatString());
     }
 }

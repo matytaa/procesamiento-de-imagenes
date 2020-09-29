@@ -2,7 +2,7 @@ package core.action.gradient;
 
 import core.repository.ImageRepository;
 import core.service.generation.ImageGradientService;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.customimage.Format;
 import domain.generation.Gradient;
 import javafx.embed.swing.SwingFXUtils;
@@ -20,7 +20,7 @@ public class CreateImageWithGradientAction {
         this.imageRepository = imageRepository;
     }
 
-    public CustomImage execute(int width, int height, Gradient value) {
+    public Imagen execute(int width, int height, Gradient value) {
         switch (value) {
             case GREY:
                 Image greyGradient = this.imageGradientService.createGreyGradient(width, height);
@@ -29,11 +29,11 @@ public class CreateImageWithGradientAction {
                 Image colorGradient = this.imageGradientService.createColorGradient(width, height);
                 return putOnRepository(SwingFXUtils.fromFXImage(colorGradient, null));
             default:
-                return CustomImage.EMPTY;
+                return Imagen.EMPTY;
         }
     }
 
-    private CustomImage putOnRepository(BufferedImage bufferedImage) {
-        return imageRepository.saveImage(new CustomImage(bufferedImage, Format.PNG));
+    private Imagen putOnRepository(BufferedImage bufferedImage) {
+        return imageRepository.saveImage(new Imagen(bufferedImage, Format.PNG));
     }
 }

@@ -3,7 +3,7 @@ package presentation.presenter;
 import core.action.edgedetector.ApplyDirectionalDerivativeOperatorAction;
 import core.action.image.GetImageAction;
 import domain.FilterSemaphore;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.mask.Mask;
 import domain.mask.directional_derivative_operator.kirsh.KirshHorizontalStraightMask;
 import domain.mask.directional_derivative_operator.kirsh.KirshMainDiagonalMask;
@@ -55,7 +55,7 @@ public class DirectionalDerivativeOperatorPresenter {
                 });
     }
 
-    private void applyStandardMask(CustomImage customImage) {
+    private void applyStandardMask(Imagen customImage) {
         Mask horizontalStraightMask = new StandardHorizontalStraightMask();
         Mask verticalStraightMask = new StandardVerticalStraightMask();
         Mask mainDiagonalMask = new StandardMainDiagonalMask();
@@ -66,7 +66,7 @@ public class DirectionalDerivativeOperatorPresenter {
                 mainDiagonalMask, secondaryDiagonalMask);
     }
 
-    private void applyKirshMask(CustomImage customImage) {
+    private void applyKirshMask(Imagen customImage) {
         Mask horizontalStraightMask = new KirshHorizontalStraightMask();
         Mask verticalStraightMask = new KirshVerticalStraightMask();
         Mask mainDiagonalMask = new KirshMainDiagonalMask();
@@ -77,7 +77,7 @@ public class DirectionalDerivativeOperatorPresenter {
                 mainDiagonalMask, secondaryDiagonalMask);
     }
 
-    private void applyPrewittMask(CustomImage customImage) {
+    private void applyPrewittMask(Imagen customImage) {
         Mask horizontalStraightMask = new PrewittHorizontalStraightMask();
         Mask verticalStraightMask = new PrewittVerticalStraightMask();
         Mask mainDiagonalMask = new PrewittMainDiagonalMask();
@@ -88,7 +88,7 @@ public class DirectionalDerivativeOperatorPresenter {
                 mainDiagonalMask, secondaryDiagonalMask);
     }
 
-    private void applySobelMask(CustomImage customImage) {
+    private void applySobelMask(Imagen customImage) {
         Mask horizontalStraightMask = new SobelHorizontalStraightMask();
         Mask verticalStraightMask = new SobelVerticalStraightMask();
         Mask mainDiagonalMask = new SobelMainDiagonalMask();

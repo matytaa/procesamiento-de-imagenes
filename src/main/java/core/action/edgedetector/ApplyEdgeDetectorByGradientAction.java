@@ -3,7 +3,7 @@ package core.action.edgedetector;
 import core.service.ImageOperationsService;
 import core.service.MatrixService;
 import domain.customimage.ChannelMatrix;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.mask.Mask;
 import javafx.scene.image.Image;
 
@@ -18,7 +18,7 @@ public class ApplyEdgeDetectorByGradientAction {
         this.matrixService = matrixService;
     }
 
-    public Image execute(CustomImage customImage, Mask xDerivativeMask, Mask yDerivativeMask) {
+    public Image execute(Imagen customImage, Mask xDerivativeMask, Mask yDerivativeMask) {
         //We calculate the partial X and Y derivative matrixes
         ChannelMatrix xDerivateChannelMatrix = xDerivativeMask.apply(customImage);
         ChannelMatrix yDerivateChannelMatrix = yDerivativeMask.apply(customImage);

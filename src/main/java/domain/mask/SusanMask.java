@@ -1,6 +1,6 @@
 package domain.mask;
 
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.customimage.RGB;
 
 public class SusanMask extends Mask {
@@ -25,7 +25,7 @@ public class SusanMask extends Mask {
         };
     }
 
-    public RGB applyMaskToPixel(CustomImage image, int x, int y) {
+    public RGB applyMaskToPixel(Imagen image, int x, int y) {
         int width = image.getWidth();
         int height = image.getHeight();
         int similarPixelsQuantity = 0;

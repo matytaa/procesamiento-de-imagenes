@@ -3,7 +3,7 @@ package core.action.edgedetector;
 import core.service.ImageOperationsService;
 import core.service.MatrixService;
 import domain.customimage.ChannelMatrix;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.customimage.RGB;
 import domain.mask.sobel.SobelXDerivativeMask;
 import domain.mask.sobel.SobelYDerivativeMask;
@@ -20,7 +20,7 @@ public class ApplyCannyDetectorAction {
         this.matrixService = matrixService;
     }
 
-    public CustomImage execute(CustomImage filteredImage, int t1, int t2) {
+    public Imagen execute(Imagen filteredImage, int t1, int t2) {
 
         ChannelMatrix sobelXDerivative = new SobelXDerivativeMask().apply(filteredImage);
         ChannelMatrix sobelYDerivative = new SobelYDerivativeMask().apply(filteredImage);
@@ -33,7 +33,7 @@ public class ApplyCannyDetectorAction {
 
         int[][] finalEdgedMatrix = this.applyHysteresisThresholding(roughSingleEdgedMatrix, t1, t2);
 
-        return new CustomImage(
+        return new Imagen(
                 this.imageOperationsService.toValidImageMatrix(new ChannelMatrix(finalEdgedMatrix, finalEdgedMatrix, finalEdgedMatrix)),
                 filteredImage.getFormatString());
 

@@ -1,7 +1,7 @@
 package core.action.image;
 
 import core.service.ImageRawService;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
@@ -18,7 +18,7 @@ public class SaveImageAction {
         this.imageRawService = imageRawService;
     }
 
-    public Image execute(CustomImage image, String filename, String extension) {
+    public Image execute(Imagen image, String filename, String extension) {
 
         String fullFilename = filename + "." + extension;
         BufferedImage bufferedImage = image.getBufferedImage();

@@ -1,7 +1,7 @@
 package core.action.edit.space_domain;
 
 import core.service.ModifyImageService;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -14,7 +14,7 @@ public class ApplyContrastAction {
         this.modifyImageService = modifyImageService;
     }
 
-    public Image execute(CustomImage customImage, int s1, int s2, int r1, int r2) {
+    public Image execute(Imagen customImage, int s1, int s2, int r1, int r2) {
 
         WritableImage image = new WritableImage(customImage.getWidth(), customImage.getHeight());
         PixelWriter writer = image.getPixelWriter();

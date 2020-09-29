@@ -5,7 +5,7 @@ import core.action.edgedetector.ApplyActiveContourOnImageSequenceAction;
 import core.action.edgedetector.GetImageSequenceAction;
 import core.action.image.GetImageAction;
 import domain.activecontour.*;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
@@ -30,10 +30,10 @@ public class ActiveContourPresenter {
 
     private Integer objectGrayAverage;
     private Integer outsideGrayAverage;
-    private CustomImage currentCustomImage;
+    private Imagen currentCustomImage;
     private ActiveContour activeContour;
     private Image modifiedImage;
-    private List<CustomImage> currentImages;
+    private List<Imagen> currentImages;
     private List<ContourCustomImage> contours;
     private int contourIndex = 0;
 
@@ -120,7 +120,7 @@ public class ActiveContourPresenter {
         view.enableNextButton();
     }
 
-    private ActiveContour createActiveContour(SelectionSquare selectionSquare, CustomImage customImage) {
+    private ActiveContour createActiveContour(SelectionSquare selectionSquare, Imagen customImage) {
         return new ActiveContour(customImage.getWidth(), customImage.getHeight(), selectionSquare, outsideGrayAverage, objectGrayAverage);
     }
 
@@ -168,7 +168,7 @@ public class ActiveContourPresenter {
         }
     }
 
-    private int getObjectGrayAverage(CustomImage customImage, SelectionSquare selectionSquare) {
+    private int getObjectGrayAverage(Imagen customImage, SelectionSquare selectionSquare) {
         int value = 0;
         int objectWidth = selectionSquare.getSecondRow() - selectionSquare.getFirstRow();
         int objectHeight = selectionSquare.getSecondColumn() - selectionSquare.getFirstColumn();

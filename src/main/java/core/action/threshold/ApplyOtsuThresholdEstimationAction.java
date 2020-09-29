@@ -2,10 +2,10 @@ package core.action.threshold;
 
 import core.service.ApplyThresholdService;
 import core.service.MatrixService;
-import core.service.generation.HistogramService;
-import domain.Histogram;
+import core.service.generation.HistogramaService;
+import domain.Histograma;
 import domain.automaticthreshold.OtsuThresholdResult;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -14,19 +14,19 @@ import java.util.List;
 
 public class ApplyOtsuThresholdEstimationAction {
 
-    private HistogramService histogramService;
+    private HistogramaService histogramService;
     private MatrixService matrixService;
     private ApplyThresholdService applyThresholdService;
 
-    public ApplyOtsuThresholdEstimationAction(HistogramService histogramService, MatrixService matrixService, ApplyThresholdService applyThresholdService){
+    public ApplyOtsuThresholdEstimationAction(HistogramaService histogramService, MatrixService matrixService, ApplyThresholdService applyThresholdService){
         this.histogramService = histogramService;
         this.matrixService = matrixService;
         this.applyThresholdService = applyThresholdService;
     }
 
-    public OtsuThresholdResult execute(CustomImage customImage){
+    public OtsuThresholdResult execute(Imagen customImage){
 
-        Histogram histogram = this.histogramService.create(customImage);
+        Histograma histogram = this.histogramService.crear(customImage);
 
         Double[] cumulativeProbabilities = new Double[256];
         for (int i = 0; i <= 255; i++){
@@ -68,20 +68,20 @@ public class ApplyOtsuThresholdEstimationAction {
     }
 
 
-    private Double cumulativeProbability(Histogram histogram, int limit) {
+    private Double cumulativeProbability(Histograma histogram, int limit) {
         Double value = 0.0;
         for (int i = 0; i <= limit; i++) {
-            value += histogram.getValues()[i];
+            value += histogram.getValores()[i];
         }
-        return value / histogram.getTotalPixels();
+        return value / histogram.getTotalPixeles();
     }
 
-    private Double cumulativeMean(Histogram histogram, int limit) {
+    private Double cumulativeMean(Histograma histogram, int limit) {
         Double value = 0.0;
         for (int i = 0; i <= limit; i++) {
-            value += ((histogram.getValues()[i]) * i);
+            value += ((histogram.getValores()[i]) * i);
         }
-        return value / histogram.getTotalPixels();
+        return value / histogram.getTotalPixeles();
     }
 
     private List<Integer> searchTThatGenerateMaximumVariance(Double[] variances){

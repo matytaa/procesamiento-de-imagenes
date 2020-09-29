@@ -5,7 +5,7 @@ import domain.activecontour.ActiveContour;
 import domain.activecontour.ContourCustomImage;
 import domain.activecontour.FdFunction;
 import domain.activecontour.FdFunctionMode;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.mask.filter.GaussianMask;
 
 import java.util.ArrayList;
@@ -15,11 +15,11 @@ public class ApplyActiveContourAction {
 
     public static final int GAUSSIAN_STANDARD_DEVIATION = 1;
 
-    public ContourCustomImage execute(CustomImage customImage, ActiveContour activeContour, int steps, double epsilon) {
+    public ContourCustomImage execute(Imagen customImage, ActiveContour activeContour, int steps, double epsilon) {
         return recursive(customImage, activeContour, steps, epsilon);
     }
 
-    private ContourCustomImage recursive(CustomImage customImage, ActiveContour activeContour, int steps, double epsilon) {
+    private ContourCustomImage recursive(Imagen customImage, ActiveContour activeContour, int steps, double epsilon) {
 
         ContourCustomImage contourCustomImage = new ContourCustomImage(customImage, activeContour);
 
@@ -36,7 +36,7 @@ public class ApplyActiveContourAction {
         return recursive(contourCustomImage.getCustomImage(), contourCustomImage.getActiveContour(), steps, epsilon);
     }
 
-    private boolean objectHasBeenFound(CustomImage image, ActiveContour activeContour, double epsilon) {
+    private boolean objectHasBeenFound(Imagen image, ActiveContour activeContour, double epsilon) {
 
         int backgroundGrayAverage = activeContour.getBackgroundGrayAverage();
         int objectGrayAverage = activeContour.getObjectGrayAverage();
@@ -56,12 +56,12 @@ public class ApplyActiveContourAction {
         return true;
     }
 
-    private ContourCustomImage applyActiveContour(CustomImage customImage, ActiveContour activeContour, double epsilon) {
+    private ContourCustomImage applyActiveContour(Imagen customImage, ActiveContour activeContour, double epsilon) {
         ActiveContour cycleOneContour = applyCycleOne(customImage, activeContour, epsilon);
         return new ContourCustomImage(customImage, cycleOneContour);
     }
 
-    private ActiveContour applyCycleOne(CustomImage customImage, ActiveContour activeContour, double epsilon) {
+    private ActiveContour applyCycleOne(Imagen customImage, ActiveContour activeContour, double epsilon) {
 
         ActiveContour cycleOneContour = ActiveContour.copy(activeContour);
 
@@ -149,7 +149,7 @@ public class ApplyActiveContourAction {
         cycleTwoContour.addLIn(addToLIn2);
     }
 
-    private void switchIn(CustomImage customImage, ActiveContour cycleOneContour, List<XYPoint> lOut, int backgroundGrayAverage,
+    private void switchIn(Imagen customImage, ActiveContour cycleOneContour, List<XYPoint> lOut, int backgroundGrayAverage,
                           int objectGrayAverage, double epsilon) {
         List<XYPoint> removeFromLOut = new ArrayList<>();
         List<XYPoint> addToLIn = new ArrayList<>();
@@ -166,7 +166,7 @@ public class ApplyActiveContourAction {
         cycleOneContour.addLOut(addToLOut);
     }
 
-    private void switchOut(CustomImage customImage, ActiveContour cycleOneContour, List<XYPoint> lIn, int backgroundGrayAverage,
+    private void switchOut(Imagen customImage, ActiveContour cycleOneContour, List<XYPoint> lIn, int backgroundGrayAverage,
                            int objectGrayAverage, double epsilon) {
         List<XYPoint> addToLOut2 = new ArrayList<>();
         List<XYPoint> addToLIn2 = new ArrayList<>();
@@ -227,7 +227,7 @@ public class ApplyActiveContourAction {
                        });
     }
 
-    private boolean checkFdFunctionIsLowerThanEpsilon(XYPoint xyPoint, CustomImage customImage,
+    private boolean checkFdFunctionIsLowerThanEpsilon(XYPoint xyPoint, Imagen customImage,
                                                       int backgroundGrayAverage, int objectGrayAverage, double epsilon) {
 
         int imageAverageValue = customImage.getAverageValue(xyPoint.getX(), xyPoint.getY());

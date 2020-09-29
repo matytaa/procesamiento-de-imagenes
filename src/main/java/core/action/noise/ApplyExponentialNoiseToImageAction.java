@@ -3,7 +3,7 @@ package core.action.noise;
 import core.repository.ImageRepository;
 import core.service.ImageOperationsService;
 import core.service.statistics.RandomNumberGenerationService;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.customimage.Pixel;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
@@ -28,7 +28,7 @@ public class ApplyExponentialNoiseToImageAction {
             return new WritableImage(100,100);
         }
 
-        CustomImage customImage = this.imageRepository.getImage().get();
+        Imagen customImage = this.imageRepository.getImage().get();
                 int numberOfPixelsToContaminate = (int)(percent * customImage.getPixelQuantity());
         List<Pixel> pixelsToContaminate = customImage.pickNRandomPixels(numberOfPixelsToContaminate);
 
@@ -49,7 +49,7 @@ public class ApplyExponentialNoiseToImageAction {
 
     }
 
-    private int[][] multiplyImageChannelAndNoiseMatrix(CustomImage customImage, int[][] noiseMatrix, BiFunction<Integer, Integer, Integer> channel) {
+    private int[][] multiplyImageChannelAndNoiseMatrix(Imagen customImage, int[][] noiseMatrix, BiFunction<Integer, Integer, Integer> channel) {
         int[][] productMatrix = new int[customImage.getWidth()][customImage.getHeight()];
         for (int i=0; i < customImage.getWidth(); i ++) {
             for (int j=0; j < customImage.getHeight(); j++) {
@@ -59,7 +59,7 @@ public class ApplyExponentialNoiseToImageAction {
         return productMatrix;
     }
 
-        private int[][] generateNoiseMatrix(double lambda, CustomImage customImage, List<Pixel> pixelsToContaminate) {
+        private int[][] generateNoiseMatrix(double lambda, Imagen customImage, List<Pixel> pixelsToContaminate) {
         int[][] noiseMatrix = new int[customImage.getWidth()][customImage.getHeight()];
         for (int i=0; i < noiseMatrix.length; i++) {
             for (int j=0; j < noiseMatrix[i].length; j++) {

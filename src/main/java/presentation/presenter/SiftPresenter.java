@@ -2,7 +2,7 @@ package presentation.presenter;
 
 import core.action.characteristic_points.ApplySiftDetectorAction;
 import core.action.image.LoadImageAction;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.sift.SiftResult;
 import org.openimaj.image.DisplayUtilities;
 import presentation.controller.SiftSceneController;
@@ -13,8 +13,8 @@ public class SiftPresenter {
     private final SiftSceneController view;
     private final LoadImageAction loadImageAction;
     private final ApplySiftDetectorAction applySiftDetectorAction;
-    private CustomImage image1;
-    private CustomImage image2;
+    private Imagen image1;
+    private Imagen image2;
 
     public SiftPresenter(SiftSceneController siftSceneController, LoadImageAction loadImageAction, ApplySiftDetectorAction applySiftDetectorAction) {
         this.view = siftSceneController;

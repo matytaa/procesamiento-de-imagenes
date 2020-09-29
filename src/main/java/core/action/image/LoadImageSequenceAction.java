@@ -3,7 +3,7 @@ package core.action.image;
 import core.repository.ImageRepository;
 import core.service.ImageRawService;
 import core.service.OpenFileService;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import ij.io.Opener;
 import org.apache.commons.io.FilenameUtils;
 import presentation.util.InsertValuePopup;
@@ -18,7 +18,7 @@ public class LoadImageSequenceAction {
     private final Opener opener;
     private final ImageRawService imageRawService;
 
-    private List<CustomImage> images;
+    private List<Imagen> images;
 
     public LoadImageSequenceAction(ImageRepository imageRepository, OpenFileService openFileService, Opener opener,
             ImageRawService imageRawService) {
@@ -28,7 +28,7 @@ public class LoadImageSequenceAction {
         this.imageRawService = imageRawService;
     }
 
-    public List<CustomImage> execute() {
+    public List<Imagen> execute() {
 
         this.images = new ArrayList<>();
 
@@ -41,9 +41,9 @@ public class LoadImageSequenceAction {
                 if(extension.equalsIgnoreCase("raw")){
                     int width = Integer.parseInt(InsertValuePopup.show("Insert width", "256").get());
                     int height = Integer.parseInt(InsertValuePopup.show("Insert height", "256").get());
-                    images.add(new CustomImage(imageRawService.load(file, width, height), extension));
+                    images.add(new Imagen(imageRawService.load(file, width, height), extension));
                 } else {
-                    images.add(new CustomImage(opener.openImage(path).getBufferedImage(), extension));
+                    images.add(new Imagen(opener.openImage(path).getBufferedImage(), extension));
                 }
             });
         });

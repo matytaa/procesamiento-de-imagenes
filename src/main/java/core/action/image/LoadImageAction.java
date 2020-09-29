@@ -3,7 +3,7 @@ package core.action.image;
 import core.repository.ImageRepository;
 import core.service.ImageRawService;
 import core.service.OpenFileService;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import ij.io.Opener;
 import org.apache.commons.io.FilenameUtils;
 import presentation.util.InsertValuePopup;
@@ -20,7 +20,7 @@ public class LoadImageAction {
     private final ImageRawService imageRawService;
 
     private String path = "";
-    private CustomImage image;
+    private Imagen image;
 
     public LoadImageAction(ImageRepository imageRepository, OpenFileService openFileService, Opener opener,
                            ImageRawService imageRawService) {
@@ -30,9 +30,9 @@ public class LoadImageAction {
         this.imageRawService = imageRawService;
     }
 
-    public CustomImage execute() {
+    public Imagen execute() {
 
-        image = new CustomImage(new BufferedImage(1, 1, TYPE_INT_ARGB), "png");
+        image = new Imagen(new BufferedImage(1, 1, TYPE_INT_ARGB), "png");
 
         openFileService.open().ifPresent(file -> {
             path = file.toPath().toString();
@@ -49,8 +49,8 @@ public class LoadImageAction {
         return image;
     }
 
-    private CustomImage putOnRepository(String extension, BufferedImage bufferedImage) {
-        imageRepository.setOriginalImageBackup(new CustomImage(bufferedImage, extension));
-        return imageRepository.saveImage(new CustomImage(bufferedImage, extension));
+    private Imagen putOnRepository(String extension, BufferedImage bufferedImage) {
+        imageRepository.setOriginalImageBackup(new Imagen(bufferedImage, extension));
+        return imageRepository.saveImage(new Imagen(bufferedImage, extension));
     }
 }

@@ -13,10 +13,10 @@
              <VBox layoutX="19.0" layoutY="23.0" prefHeight="293.0" prefWidth="539.0">
                  <BarChart fx:id="barChart" barGap="0.0" horizontalGridLinesVisible="false" layoutY="8.0" legendVisible="false" prefHeight="293.0" prefWidth="481.0" verticalGridLinesVisible="false">
                      <xAxis>
-                         <CategoryAxis endMargin="0.0" label="GrayScale" side="BOTTOM" startMargin="0.0" />
+                         <CategoryAxis endMargin="0.0" label="Niveles de grises" side="BOTTOM" startMargin="0.0" />
                      </xAxis>
                      <yAxis>
-                         <NumberAxis label="Pixel Occurrency" side="LEFT" upperBound="0.0" />
+                         <NumberAxis label="Cantidad de apariciones" side="LEFT" upperBound="0.0" />
                      </yAxis>
                  </BarChart>
              </VBox>

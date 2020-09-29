@@ -3,7 +3,7 @@ package presentation.presenter;
 import core.action.edgedetector.ApplyEdgeDetectorByGradientAction;
 import core.action.image.GetImageAction;
 import domain.FilterSemaphore;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import domain.mask.Mask;
 import domain.mask.prewitt.PrewittXDerivativeMask;
 import domain.mask.prewitt.PrewittYDerivativeMask;
@@ -40,14 +40,14 @@ public class EdgeDetectorPresenter {
                 });
     }
 
-    private void applyPrewittEdgeDetector(CustomImage customImage) {
+    private void applyPrewittEdgeDetector(Imagen customImage) {
         Mask prewittXDerivativeMask = new PrewittXDerivativeMask();
         Mask prewittYDerivativeMask = new PrewittYDerivativeMask();
         Image edgedImage = applyEdgeDetectorByGradientAction.execute(customImage, prewittXDerivativeMask, prewittYDerivativeMask);
         imagePublishSubject.onNext(edgedImage);
     }
 
-    private void applySobelEdgeDetector(CustomImage customImage) {
+    private void applySobelEdgeDetector(Imagen customImage) {
         Mask sobelXDerivativeMask = new SobelXDerivativeMask();
         Mask sobelYDerivativeMask = new SobelYDerivativeMask();
         Image edgedImage = applyEdgeDetectorByGradientAction.execute(customImage, sobelXDerivativeMask, sobelYDerivativeMask);

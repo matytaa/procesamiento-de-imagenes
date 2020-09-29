@@ -6,7 +6,7 @@ import core.action.edit.space_domain.operations.MultiplyImagesAction;
 import core.action.edit.space_domain.operations.SubstractImagesAction;
 import core.action.edit.space_domain.operations.SumImagesAction;
 import core.action.image.LoadImageAction;
-import domain.customimage.CustomImage;
+import domain.customimage.Imagen;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import presentation.util.InsertValuePopup;
@@ -19,8 +19,8 @@ public class ImagesOperationsPresenter {
     private final MultiplyImagesAction multiplyImagesAction;
     private final MultiplyImageByScalarNumberAction multiplyImageByScalarNumberAction;
     private final SubstractImagesAction substractImagesAction;
-    private CustomImage image1;
-    private CustomImage image2;
+    private Imagen image1;
+    private Imagen image2;
 
     public ImagesOperationsPresenter(LoadImageAction loadImageAction, NormalizeImageAction normalizeImageAction,
                                      SumImagesAction sumImagesAction, MultiplyImagesAction multiplyImagesAction,
