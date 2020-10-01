@@ -42,16 +42,13 @@
         </GridPane>
     </AnchorPane>
     <MenuBar>
-        <Menu mnemonicParsing="false" text="Select Images">
-            <MenuItem mnemonicParsing="false" onAction="#loadImage1" text="Select Image 1"/>
-            <MenuItem mnemonicParsing="false" onAction="#loadImage2" text="Select Image 2"/>
+        <Menu mnemonicParsing="false" text="Seleccionar Imáges">
+            <MenuItem mnemonicParsing="false" onAction="#loadImage1" text="Image 1"/>
+            <MenuItem mnemonicParsing="false" onAction="#loadImage2" text="Image 2"/>
         </Menu>
-        <Menu mnemonicParsing="false" text="Operations">
-            <MenuItem mnemonicParsing="false" onAction="#makeImagesSum" text="Sum"/>
-            <MenuItem mnemonicParsing="false" onAction="#makeImagesSubstraction" text="Substraction" />
-            <MenuItem mnemonicParsing="false" onAction="#makeImagesMultiplication" text="Multiplication"/>
-            <MenuItem mnemonicParsing="false" onAction="#makeImageMultiplicationWithScalarNumber"
-                      text="Multiplication with scalar number"/>
+        <Menu mnemonicParsing="false" text="Operaciones">
+            <MenuItem mnemonicParsing="false" onAction="#makeImagesSum" text="Sumar"/>
+            <MenuItem mnemonicParsing="false" onAction="#makeImagesSubstraction" text="Restar" />
         </Menu>
     </MenuBar>
 </AnchorPane>
