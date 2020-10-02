@@ -42,12 +42,12 @@ public class ApplyRayleighNoiseToImageAction {
         int[][] blueChannelValues = this.multiplyImageChannelAndNoiseMatrix(customImage, noiseMatrix, (i, j) -> (int) (customImage.getPixelReader().getColor(i, j).getBlue() * 255));
 
         //Now, we multiply the noise matrix and the image and normalize the scale
-        int[][] adjustedRedChannelValues = this.imageOperationsService.toValidContaminatedImage(redChannelValues, pixelsToContaminate);
-        int[][] adjustedGreenChannelValues = this.imageOperationsService.toValidContaminatedImage(greenChannelValues, pixelsToContaminate);
-        int[][] adjustedBlueChannelValues = this.imageOperationsService.toValidContaminatedImage(blueChannelValues, pixelsToContaminate);
+        int[][] adjustedRedChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(redChannelValues, pixelsToContaminate);
+        int[][] adjustedGreenChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(greenChannelValues, pixelsToContaminate);
+        int[][] adjustedBlueChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(blueChannelValues, pixelsToContaminate);
 
         //Finally, we write the resultant matrix to a new image
-        return this.imageOperationsService.writeNewPixelsValuesToImage(adjustedRedChannelValues, adjustedGreenChannelValues, adjustedBlueChannelValues);
+        return this.imageOperationsService.escribirNuevosValoresDePixelesEnLaImagen(adjustedRedChannelValues, adjustedGreenChannelValues, adjustedBlueChannelValues);
 
     }
 

@@ -14,6 +14,7 @@ import java.util.List;
 
 public class ImageOperationsService {
 
+    static final int MAXIMO_VALOR_DE_UN_PIXEL = 255;
     private GrayLevelStatisticsService grayLevelStatisticsService;
 
     public ImageOperationsService(GrayLevelStatisticsService grayLevelStatisticsService) {
@@ -21,275 +22,225 @@ public class ImageOperationsService {
     }
 
     //completa la writableImage recibida, con el valor de cierta imagen (completando con 0 las posiciones en la cual la imagen no tiene valores)
-    public WritableImage fillImage(WritableImage writableImage, Imagen image) {
-        this.completeWithZero(writableImage);
-        this.setChannelsPixelsValuesInImage(writableImage, image);
+    public WritableImage fillImage(WritableImage writableImage, Imagen imagen) {
+        this.completarConCero(writableImage);
+        this.setearValoresDePixelesPorCanalesEnImagen(writableImage, imagen);
         return writableImage;
     }
 
-    public int calculateResultantWidth(Imagen image1, Imagen image2) {
+    public int calcularAnchoResultante(Imagen primeraImagen, Imagen segundaImagen) {
         int resultantImageWidth = 1;
-        if (image1.getWidth() > image2.getWidth()) {
-            resultantImageWidth = image1.getWidth();
-        } else if (image2.getWidth() >= image1.getWidth()) {
-            resultantImageWidth = image2.getWidth();
-        }
+        if (primeraImagen.getWidth() > segundaImagen.getWidth())
+            resultantImageWidth = primeraImagen.getWidth();
+        else if (segundaImagen.getWidth() >= primeraImagen.getWidth())
+            resultantImageWidth = segundaImagen.getWidth();
+        
         return resultantImageWidth;
     }
 
-    public int calculateResultantHeight(Imagen image1, Imagen image2) {
+    public int calcularAltoResultante(Imagen primeraImagen, Imagen segundaImagen) {
         int resultantImageHeight = 1;
-        if (image1.getHeight() > image2.getHeight()) {
-            resultantImageHeight = image1.getHeight();
-        } else if (image2.getHeight() >= image1.getHeight()) {
-            resultantImageHeight = image2.getHeight();
-        }
+        if (primeraImagen.getHeight() > segundaImagen.getHeight())
+            resultantImageHeight = primeraImagen.getHeight();
+        else if (segundaImagen.getHeight() >= primeraImagen.getHeight())
+            resultantImageHeight = segundaImagen.getHeight();
+        
         return resultantImageHeight;
     }
 
-    public void completeWithZero(WritableImage imageToNormalize) {
-        PixelWriter pixelWriter = imageToNormalize.getPixelWriter();
-        for (int i = 0; i < imageToNormalize.getWidth(); i++) {
-            for (int j = 0; j < imageToNormalize.getHeight(); j++) {
+    public void completarConCero(WritableImage imagenANormalizar) {
+        PixelWriter pixelAEscribir = imagenANormalizar.getPixelWriter();
+        for (int i = 0; i < imagenANormalizar.getWidth(); i++) 
+            for (int j = 0; j < imagenANormalizar.getHeight(); j++) {
                 Color color = Color.rgb(0, 0, 0);
-                pixelWriter.setColor(i, j, color);
+                pixelAEscribir.setColor(i, j, color);
             }
-        }
     }
 
-    public void completeWithZero(int[][] image) {
-        for (int i = 0; i < image.length; i++) {
-            for (int j = 0; j < image[0].length; j++) {
-                image[i][j] = 0;
+    public void completarConCero(int[][] imagen) {
+        for (int i = 0; i < imagen.length; i++) 
+            for (int j = 0; j < imagen[0].length; j++) 
+                imagen[i][j] = 0;
+    }
+
+    private void setearValoresDePixelesPorCanalesEnImagen(WritableImage imagenANormalizar, Imagen imagen) {
+        int valorDelCanalRojo = 0;
+        int valorDelCanalVerde = 0;
+        int valorDelCanalAzul = 0;
+        PixelWriter pixelAEscribir = imagenANormalizar.getPixelWriter();
+        for (int i = 0; i < imagen.getWidth(); i++)
+            for (int j = 0; j < imagen.getHeight(); j++) {
+                valorDelCanalRojo = imagen.getRChannelValue(i, j);
+                valorDelCanalVerde = imagen.getGChannelValue(i, j);
+                valorDelCanalAzul = imagen.getBChannelValue(i, j);
+                Color color = Color.rgb(valorDelCanalRojo, valorDelCanalVerde, valorDelCanalAzul);
+                pixelAEscribir.setColor(i, j, color);
             }
-        }
     }
 
-    private void setChannelsPixelsValuesInImage(WritableImage imageToNormalize, Imagen image) {
-        int redChannelValue = 0;
-        int greenChannelValue = 0;
-        int blueChannelValue = 0;
-        PixelWriter pixelWriter = imageToNormalize.getPixelWriter();
-        for (int i = 0; i < image.getWidth(); i++) {
-            for (int j = 0; j < image.getHeight(); j++) {
-                redChannelValue = image.getRChannelValue(i, j);
-                greenChannelValue = image.getGChannelValue(i, j);
-                blueChannelValue = image.getBChannelValue(i, j);
-                Color color = Color.rgb(redChannelValue, greenChannelValue, blueChannelValue);
-                pixelWriter.setColor(i, j, color);
+    public int[][] ajustarEscalaDeGrises(int[][] valoresDeUnCanal) {
+        int imagenResultante = this.grayLevelStatisticsService.calcularMaximoNivelDeGris(valoresDeUnCanal);
+        for (int i = 0; i < valoresDeUnCanal.length; i++)
+            for (int j = 0; j < valoresDeUnCanal[i].length; j++) {
+                int newPixelValue = (int) (valoresDeUnCanal[i][j] * ((double) MAXIMO_VALOR_DE_UN_PIXEL / imagenResultante));
+                valoresDeUnCanal[i][j] = newPixelValue;
             }
-        }
+        return valoresDeUnCanal;
     }
 
-    public int[][] adjustScale(int[][] channelValues) {
-        int imageR = this.grayLevelStatisticsService.calculateMaxGrayLevel(channelValues);
-        for (int i = 0; i < channelValues.length; i++) {
-            for (int j = 0; j < channelValues[i].length; j++) {
-                int newPixelValue = (int) (channelValues[i][j] * ((double) 255 / imageR));
-                channelValues[i][j] = newPixelValue;
+    public int[][] ajustarEscalaDeGrises(int[][] valoresDeUnCanal, List<Pixel> pixelesContaminados) {
+        int imagenResultante = this.grayLevelStatisticsService.calcularMaximoNivelDeGris(valoresDeUnCanal);
+        for (Pixel pixel : pixelesContaminados) {
+            int oldPixelValue = valoresDeUnCanal[pixel.getX()][pixel.getY()];
+            int newPixelValue = (int) (oldPixelValue * ((double) MAXIMO_VALOR_DE_UN_PIXEL / imagenResultante));
+            valoresDeUnCanal[pixel.getX()][pixel.getY()] = newPixelValue;
+        }
+        return valoresDeUnCanal;
+    }
+
+    public int[][] convertirAImagenContaminadaValida(int[][] valoresDeUnCanal, List<Pixel> pixelesContaminados) {
+        return ajustarEscalaDeGrises(desplazarValoresDeLosPixelesHaciaCero(valoresDeUnCanal), pixelesContaminados);
+    }
+
+    public Image escribirNuevosValoresDePixelesEnLaImagen(int[][] valoresDelCanalRojo, int[][] valoresDelCanalVerde,
+                                                          int[][] valoresDelCanalAzul) {
+        int width = valoresDelCanalRojo.length;
+        int height = valoresDelCanalRojo[0].length;
+        WritableImage imagen = new WritableImage(width, height);
+        PixelWriter pixelAEscribir = imagen.getPixelWriter();
+        int valorDelPixelRojo = 0;
+        int valorDelPixelVerde = 0;
+        int valorDelPixelAzul = 0;
+        for (int i = 0; i < (int) imagen.getWidth(); i++)
+            for (int j = 0; j < (int) imagen.getHeight(); j++) {
+                valorDelPixelRojo = valoresDelCanalRojo[i][j];
+                valorDelPixelVerde = valoresDelCanalVerde[i][j];
+                valorDelPixelAzul = valoresDelCanalAzul[i][j];
+                Color color = Color.rgb(valorDelPixelRojo, valorDelPixelVerde, valorDelPixelAzul);
+                pixelAEscribir.setColor(i, j, color);
             }
-        }
-        return channelValues;
+        return imagen;
     }
 
-    public int[][] adjustScale(int[][] channelValues, List<Pixel> contaminatedPixels) {
-        int imageR = this.grayLevelStatisticsService.calculateMaxGrayLevel(channelValues);
-        for (Pixel pixel : contaminatedPixels) {
-            int oldPixelValue = channelValues[pixel.getX()][pixel.getY()];
-            int newPixelValue = (int) (oldPixelValue * ((double) 255 / imageR));
-            channelValues[pixel.getX()][pixel.getY()] = newPixelValue;
-        }
-        return channelValues;
-    }
-
-    public int[][] toValidContaminatedImage(int[][] channelValues, List<Pixel> contaminatedPixels) {
-        return adjustScale(displacePixelsValues(channelValues), contaminatedPixels);
-    }
-
-    public Image writeNewPixelsValuesToImage(int[][] redChannelValues, int[][] greenChannelValues,
-                                             int[][] blueChannelValues) {
-        int width = redChannelValues.length;
-        int height = redChannelValues[0].length;
-        WritableImage image = new WritableImage(width, height);
-        PixelWriter pixelWriter = image.getPixelWriter();
-        int redPixelValue = 0;
-        int greenPixelValue = 0;
-        int bluePixelValue = 0;
-        for (int i = 0; i < (int) image.getWidth(); i++) {
-            for (int j = 0; j < (int) image.getHeight(); j++) {
-                redPixelValue = redChannelValues[i][j];
-                greenPixelValue = greenChannelValues[i][j];
-                bluePixelValue = blueChannelValues[i][j];
-                Color color = Color.rgb(redPixelValue, greenPixelValue, bluePixelValue);
-                pixelWriter.setColor(i, j, color);
-            }
-        }
-        return image;
-    }
-
-    public int[][] sumRedPixelsValues(Image image1, Image image2) {
-        int[][] result = new int[(int) image1.getWidth()][(int) image1.getHeight()];
-        PixelReader pixelReaderImage1 = image1.getPixelReader();
-        PixelReader pixelReaderImage2 = image2.getPixelReader();
-        for (int i = 0; i < (int) image1.getWidth(); i++) {
-            for (int j = 0; j < (int) image1.getHeight(); j++) {
-                double sumResult = ((pixelReaderImage1.getColor(i, j).getRed() * 255) + (pixelReaderImage2.getColor(i, j).getRed() * 255));
+    public int[][] sumaValoresPixelesRojos(Image primeraImagen, Image segundaImagen) {
+        int[][] result = new int[(int) primeraImagen.getWidth()][(int) primeraImagen.getHeight()];
+        PixelReader pixelLeidoDeLaImagen1 = primeraImagen.getPixelReader();
+        PixelReader pixelLeidoDeLaImagen2 = segundaImagen.getPixelReader();
+        for (int i = 0; i < (int) primeraImagen.getWidth(); i++) {
+            for (int j = 0; j < (int) primeraImagen.getHeight(); j++) {
+                double sumResult = ((pixelLeidoDeLaImagen1.getColor(i, j).getRed() * MAXIMO_VALOR_DE_UN_PIXEL) + (pixelLeidoDeLaImagen2.getColor(i, j).getRed() * MAXIMO_VALOR_DE_UN_PIXEL));
                 result[i][j] = (int) Math.round(sumResult);
             }
         }
-        return this.adjustScale(this.displacePixelsValues(result));
+        return this.ajustarEscalaDeGrises(this.desplazarValoresDeLosPixelesHaciaCero(result));
     }
 
-    public int[][] sumGreenPixelsValues(Image image1, Image image2) {
-        int[][] result = new int[(int) image1.getWidth()][(int) image1.getHeight()];
-        PixelReader pixelReaderImage1 = image1.getPixelReader();
-        PixelReader pixelReaderImage2 = image2.getPixelReader();
-        for (int i = 0; i < (int) image1.getWidth(); i++) {
-            for (int j = 0; j < (int) image1.getHeight(); j++) {
-                double sumResult = ((pixelReaderImage1.getColor(i, j).getGreen() * 255) + (pixelReaderImage2.getColor(i, j).getGreen() * 255));
+    public int[][] sumaValoresPixelesVerde(Image primeraImagen, Image segundaImagen) {
+        int[][] result = new int[(int) primeraImagen.getWidth()][(int) primeraImagen.getHeight()];
+        PixelReader pixelLeidoDeLaImagen1 = primeraImagen.getPixelReader();
+        PixelReader pixelLeidoDeLaImagen2 = segundaImagen.getPixelReader();
+        for (int i = 0; i < (int) primeraImagen.getWidth(); i++)
+            for (int j = 0; j < (int) primeraImagen.getHeight(); j++) {
+                double sumResult = ((pixelLeidoDeLaImagen1.getColor(i, j).getGreen() * MAXIMO_VALOR_DE_UN_PIXEL) + (pixelLeidoDeLaImagen2.getColor(i, j).getGreen() * MAXIMO_VALOR_DE_UN_PIXEL));
                 result[i][j] = (int) Math.round(sumResult);
             }
-        }
-        return this.adjustScale(this.displacePixelsValues(result));
+        return this.ajustarEscalaDeGrises(this.desplazarValoresDeLosPixelesHaciaCero(result));
     }
 
-    public int[][] sumBluePixelsValues(Image image1, Image image2) {
-        int[][] result = new int[(int) image1.getWidth()][(int) image1.getHeight()];
-        PixelReader pixelReaderImage1 = image1.getPixelReader();
-        PixelReader pixelReaderImage2 = image2.getPixelReader();
-        for (int i = 0; i < (int) image1.getWidth(); i++) {
-            for (int j = 0; j < (int) image1.getHeight(); j++) {
-                double sumResult = ((pixelReaderImage1.getColor(i, j).getBlue() * 255) + (pixelReaderImage2.getColor(i, j).getBlue() * 255));
+    public int[][] sumaValoresPixelesAzul(Image primeraImagen, Image segundaImagen) {
+        int[][] result = new int[(int) primeraImagen.getWidth()][(int) primeraImagen.getHeight()];
+        PixelReader pixelLeidoDeLaImagen1 = primeraImagen.getPixelReader();
+        PixelReader pixelLeidoDeLaImagen2 = segundaImagen.getPixelReader();
+        for (int i = 0; i < (int) primeraImagen.getWidth(); i++)
+            for (int j = 0; j < (int) primeraImagen.getHeight(); j++) {
+                double sumResult = ((pixelLeidoDeLaImagen1.getColor(i, j).getBlue() * MAXIMO_VALOR_DE_UN_PIXEL) + (pixelLeidoDeLaImagen2.getColor(i, j).getBlue() * MAXIMO_VALOR_DE_UN_PIXEL));
                 result[i][j] = (int) Math.round(sumResult);
             }
-        }
-        return this.adjustScale(this.displacePixelsValues(result));
+        return this.ajustarEscalaDeGrises(this.desplazarValoresDeLosPixelesHaciaCero(result));
     }
 
-    public int[][] multiplyRedPixelsValues(Image image1, Image image2) {
-        int[][] result = new int[(int) image1.getWidth()][(int) image1.getHeight()];
-        PixelReader pixelReaderImage1 = image1.getPixelReader();
-        PixelReader pixelReaderImage2 = image2.getPixelReader();
-        for (int i = 0; i < (int) image1.getWidth(); i++) {
-            for (int j = 0; j < (int) image1.getHeight(); j++) {
-                double productResult = ((pixelReaderImage1.getColor(i, j).getRed() * 255) * (pixelReaderImage2.getColor(i, j).getRed() * 255));
+    public int[][] multiplicarValoresPixelesRojos(Image primeraImagen, Image segundaImagen) {
+        int[][] result = new int[(int) primeraImagen.getWidth()][(int) primeraImagen.getHeight()];
+        PixelReader pixelLeidoDeLaImagen1 = primeraImagen.getPixelReader();
+        PixelReader pixelLeidoDeLaImagen2 = segundaImagen.getPixelReader();
+        for (int i = 0; i < (int) primeraImagen.getWidth(); i++)
+            for (int j = 0; j < (int) primeraImagen.getHeight(); j++) {
+                double productResult = ((pixelLeidoDeLaImagen1.getColor(i, j).getRed() * MAXIMO_VALOR_DE_UN_PIXEL) * (pixelLeidoDeLaImagen2.getColor(i, j).getRed() * MAXIMO_VALOR_DE_UN_PIXEL));
                 result[i][j] = (int) Math.round(productResult);
             }
-        }
-        return this.adjustScale(this.displacePixelsValues(result));
+        return this.ajustarEscalaDeGrises(this.desplazarValoresDeLosPixelesHaciaCero(result));
     }
 
-    public int[][] multiplyGreenPixelsValues(Image image1, Image image2) {
-        int[][] result = new int[(int) image1.getWidth()][(int) image1.getHeight()];
-        PixelReader pixelReaderImage1 = image1.getPixelReader();
-        PixelReader pixelReaderImage2 = image2.getPixelReader();
-        for (int i = 0; i < (int) image1.getWidth(); i++) {
-            for (int j = 0; j < (int) image1.getHeight(); j++) {
-                double productResult = ((pixelReaderImage1.getColor(i, j).getGreen() * 255) * (pixelReaderImage2.getColor(i, j).getGreen() * 255));
+    public int[][] multiplicarValoresPixelesVerdes(Image primeraImagen, Image segundaImagen) {
+        int[][] result = new int[(int) primeraImagen.getWidth()][(int) primeraImagen.getHeight()];
+        PixelReader pixelLeidoDeLaImagen1 = primeraImagen.getPixelReader();
+        PixelReader pixelLeidoDeLaImagen2 = segundaImagen.getPixelReader();
+        for (int i = 0; i < (int) primeraImagen.getWidth(); i++)
+            for (int j = 0; j < (int) primeraImagen.getHeight(); j++) {
+                double productResult = ((pixelLeidoDeLaImagen1.getColor(i, j).getGreen() * MAXIMO_VALOR_DE_UN_PIXEL) * (pixelLeidoDeLaImagen2.getColor(i, j).getGreen() * MAXIMO_VALOR_DE_UN_PIXEL));
                 result[i][j] = (int) Math.round(productResult);
             }
-        }
-        return this.adjustScale(this.displacePixelsValues(result));
+        return this.ajustarEscalaDeGrises(this.desplazarValoresDeLosPixelesHaciaCero(result));
     }
 
-    public int[][] multiplyGrayPixelsValues(Image image1, Image image2) {
-        int[][] result = new int[(int) image1.getWidth()][(int) image1.getHeight()];
-        PixelReader pixelReaderImage1 = image1.getPixelReader();
-        PixelReader pixelReaderImage2 = image2.getPixelReader();
-        for (int i = 0; i < (int) image1.getWidth(); i++) {
-            for (int j = 0; j < (int) image1.getHeight(); j++) {
-                double productResult = ((pixelReaderImage1.getColor(i, j).getBlue() * 255) * (pixelReaderImage2.getColor(i, j).getBlue() * 255));
+    public int[][] multiplicarValoresPixelesAzules(Image primeraImagen, Image segundaImagen) {
+        int[][] result = new int[(int) primeraImagen.getWidth()][(int) primeraImagen.getHeight()];
+        PixelReader pixelLeidoDeLaImagen1 = primeraImagen.getPixelReader();
+        PixelReader pixelLeidoDeLaImagen2 = segundaImagen.getPixelReader();
+        for (int i = 0; i < (int) primeraImagen.getWidth(); i++)
+            for (int j = 0; j < (int) primeraImagen.getHeight(); j++) {
+                double productResult = ((pixelLeidoDeLaImagen1.getColor(i, j).getBlue() * MAXIMO_VALOR_DE_UN_PIXEL) * (pixelLeidoDeLaImagen2.getColor(i, j).getBlue() * MAXIMO_VALOR_DE_UN_PIXEL));
                 result[i][j] = (int) Math.round(productResult);
             }
-        }
-        return this.adjustScale(this.displacePixelsValues(result));
+        return this.ajustarEscalaDeGrises(this.desplazarValoresDeLosPixelesHaciaCero(result));
     }
 
-    public int[][] multiplyRedPixelsValuesWithScalarNumber(Imagen customImage, int scalarNumber) {
-        int[][] result = new int[(customImage.getWidth())][customImage.getHeight()];
-        for (int i = 0; i < customImage.getWidth(); i++) {
-            for (int j = 0; j < customImage.getHeight(); j++) {
-                double productResult = customImage.getRChannelValue(i, j) * scalarNumber;
-                result[i][j] = (int) Math.round(productResult);
-            }
-        }
-        return result;
-    }
-
-    public int[][] multiplyGreenPixelsValuesWithScalarNumber(Imagen customImage, int scalarNumber) {
-        int[][] result = new int[(customImage.getWidth())][customImage.getHeight()];
-        for (int i = 0; i < customImage.getWidth(); i++) {
-            for (int j = 0; j < customImage.getHeight(); j++) {
-                double productResult = customImage.getGChannelValue(i, j) * scalarNumber;
-                result[i][j] = (int) Math.round(productResult);
-            }
-        }
-        return result;
-    }
-
-    public int[][] multiplyBluePixelsValuesWithScalarNumber(Imagen customImage, int scalarNumber) {
-        int[][] result = new int[customImage.getWidth()][customImage.getHeight()];
-        for (int i = 0; i < customImage.getWidth(); i++) {
-            for (int j = 0; j < customImage.getHeight(); j++) {
-                double productResult = customImage.getBChannelValue(i, j) * scalarNumber;
-                result[i][j] = (int) Math.round(productResult);
-            }
-        }
-        return result;
-    }
-
-    public int[][] substractRedPixelsValues(Image image1, Image image2) {
-        int[][] result = new int[(int) image1.getWidth()][(int) image1.getHeight()];
-        PixelReader pixelReaderImage1 = image1.getPixelReader();
-        PixelReader pixelReaderImage2 = image2.getPixelReader();
-        for (int i = 0; i < (int) image1.getWidth(); i++) {
-            for (int j = 0; j < (int) image1.getHeight(); j++) {
-                double sumResult = ((pixelReaderImage1.getColor(i, j).getRed() * 255) - (pixelReaderImage2.getColor(i, j).getRed() * 255));
+    public int[][] restarValoresPixelesRojos(Image primeraImagen, Image segundaImagen) {
+        int[][] result = new int[(int) primeraImagen.getWidth()][(int) primeraImagen.getHeight()];
+        PixelReader pixelLeidoDeLaImagen1 = primeraImagen.getPixelReader();
+        PixelReader pixelLeidoDeLaImagen2 = segundaImagen.getPixelReader();
+        for (int i = 0; i < (int) primeraImagen.getWidth(); i++)
+            for (int j = 0; j < (int) primeraImagen.getHeight(); j++) {
+                double sumResult = ((pixelLeidoDeLaImagen1.getColor(i, j).getRed() * MAXIMO_VALOR_DE_UN_PIXEL) - (pixelLeidoDeLaImagen2.getColor(i, j).getRed() * MAXIMO_VALOR_DE_UN_PIXEL));
                 result[i][j] = (int) Math.round(sumResult);
             }
-        }
-        return this.adjustScale(this.displacePixelsValues(result));
+        return this.ajustarEscalaDeGrises(this.desplazarValoresDeLosPixelesHaciaCero(result));
     }
 
-    public int[][] substractGreenPixelsValues(Image image1, Image image2) {
-        int[][] result = new int[(int) image1.getWidth()][(int) image1.getHeight()];
-        PixelReader pixelReaderImage1 = image1.getPixelReader();
-        PixelReader pixelReaderImage2 = image2.getPixelReader();
-        for (int i = 0; i < (int) image1.getWidth(); i++) {
-            for (int j = 0; j < (int) image1.getHeight(); j++) {
-                double sumResult = ((pixelReaderImage1.getColor(i, j).getGreen() * 255) - (pixelReaderImage2.getColor(i, j).getGreen() * 255));
+    public int[][] restarValoresPixelesVerdes(Image primeraImagen, Image segundaImagen) {
+        int[][] result = new int[(int) primeraImagen.getWidth()][(int) primeraImagen.getHeight()];
+        PixelReader pixelLeidoDeLaImagen1 = primeraImagen.getPixelReader();
+        PixelReader pixelLeidoDeLaImagen2 = segundaImagen.getPixelReader();
+        for (int i = 0; i < (int) primeraImagen.getWidth(); i++)
+            for (int j = 0; j < (int) primeraImagen.getHeight(); j++) {
+                double sumResult = ((pixelLeidoDeLaImagen1.getColor(i, j).getGreen() * MAXIMO_VALOR_DE_UN_PIXEL) - (pixelLeidoDeLaImagen2.getColor(i, j).getGreen() * MAXIMO_VALOR_DE_UN_PIXEL));
                 result[i][j] = (int) Math.round(sumResult);
             }
-        }
-        return this.adjustScale(this.displacePixelsValues(result));
+        return this.ajustarEscalaDeGrises(this.desplazarValoresDeLosPixelesHaciaCero(result));
     }
 
-    public int[][] substractBluePixelsValues(Image image1, Image image2) {
-        int[][] result = new int[(int) image1.getWidth()][(int) image1.getHeight()];
-        PixelReader pixelReaderImage1 = image1.getPixelReader();
-        PixelReader pixelReaderImage2 = image2.getPixelReader();
-        for (int i = 0; i < (int) image1.getWidth(); i++) {
-            for (int j = 0; j < (int) image1.getHeight(); j++) {
-                double sumResult = ((pixelReaderImage1.getColor(i, j).getBlue() * 255) - (pixelReaderImage2.getColor(i, j).getBlue() * 255));
+    public int[][] restarValoresPixelesAzules(Image primeraImagen, Image segundaImagen) {
+        int[][] result = new int[(int) primeraImagen.getWidth()][(int) primeraImagen.getHeight()];
+        PixelReader pixelLeidoDeLaImagen1 = primeraImagen.getPixelReader();
+        PixelReader pixelLeidoDeLaImagen2 = segundaImagen.getPixelReader();
+        for (int i = 0; i < (int) primeraImagen.getWidth(); i++)
+            for (int j = 0; j < (int) primeraImagen.getHeight(); j++) {
+                double sumResult = ((pixelLeidoDeLaImagen1.getColor(i, j).getBlue() * MAXIMO_VALOR_DE_UN_PIXEL) - (pixelLeidoDeLaImagen2.getColor(i, j).getBlue() * MAXIMO_VALOR_DE_UN_PIXEL));
                 result[i][j] = (int) Math.round(sumResult);
             }
-        }
-        return this.adjustScale(this.displacePixelsValues(result));
+        return this.ajustarEscalaDeGrises(this.desplazarValoresDeLosPixelesHaciaCero(result));
     }
 
-    //desplazo los valores para que el minimo sea cero
-    public int[][] displacePixelsValues(int[][] pixelsValues) {
-        int minPixelValue = this.grayLevelStatisticsService.calculateMinGrayLevel(pixelsValues);
-        for (int i = 0; i < pixelsValues.length; i++) {
-            for (int j = 0; j < pixelsValues[i].length; j++) {
+    public int[][] desplazarValoresDeLosPixelesHaciaCero(int[][] pixelsValues) {
+        int minPixelValue = this.grayLevelStatisticsService.calcularMinimoNivelDeGris(pixelsValues);
+        for (int i = 0; i < pixelsValues.length; i++)
+            for (int j = 0; j < pixelsValues[i].length; j++)
                 pixelsValues[i][j] -= minPixelValue;
-            }
-        }
         return pixelsValues;
     }
 
     private int[][] toValidImageMatrix(int[][] pixels) {
-        return this.adjustScale(this.displacePixelsValues(pixels));
+        return this.ajustarEscalaDeGrises(this.desplazarValoresDeLosPixelesHaciaCero(pixels));
     }
 
     public ChannelMatrix toValidImageMatrix(ChannelMatrix channelMatrix) {
@@ -324,11 +275,9 @@ public class ImageOperationsService {
         int width = matrix1.length;
         int height = matrix1[0].length;
         int[][] result = new int[width][height];
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
+        for (int i = 0; i < width; i++)
+            for (int j = 0; j < height; j++)
                 result[i][j] = matrix1[i][j] + matrix2[i][j];
-            }
-        }
         return result;
     }
 
@@ -336,12 +285,11 @@ public class ImageOperationsService {
         int width = matrix1.length;
         int height = matrix1[0].length;
         int[][] result = new int[width][height];
-        for (int i = 0; i < width; i++) {
+        for (int i = 0; i < width; i++)
             for (int j = 0; j < height; j++) {
                 double productResult = matrix1[i][j] * matrix2[i][j];
                 result[i][j] = (int) Math.round(productResult);
             }
-        }
         return result;
     }
 
@@ -350,12 +298,11 @@ public class ImageOperationsService {
         int height = matrix[0].length;
 
         int[][] result = new int[width][height];
-        for (int i = 0; i < width; i++) {
+        for (int i = 0; i < width; i++)
             for (int j = 0; j < height; j++) {
                 double value = Math.sqrt(matrix[i][j]);
                 result[i][j] = (int) Math.round(value);
             }
-        }
         return result;
     }
 
@@ -370,12 +317,9 @@ public class ImageOperationsService {
 
         int[][] absoluteSumChannel = new int[firstChannel.length][firstChannel[0].length];
 
-        for (int x=0; x < firstChannel.length; x++) {
-            for (int y=0; y < firstChannel[x].length; y++) {
+        for (int x=0; x < firstChannel.length; x++)
+            for (int y=0; y < firstChannel[x].length; y++)
                 absoluteSumChannel[x][y] = Math.abs(firstChannel[x][y]) + Math.abs(secondChanne1[x][y]);
-            }
-        }
-
         return absoluteSumChannel;
     }
 

@@ -10,7 +10,6 @@ import core.action.edgedetector.hough.CircleHoughTransformAction;
 import core.action.edgedetector.hough.LineHoughTransformAction;
 import core.action.edit.ModifyPixelAction;
 import core.action.edit.space_domain.*;
-import core.action.edit.space_domain.operations.MultiplyImageByScalarNumberAction;
 import core.action.edit.space_domain.operations.MultiplyImagesAction;
 import core.action.edit.space_domain.operations.SubstractImagesAction;
 import core.action.edit.space_domain.operations.SumImagesAction;
@@ -54,7 +53,6 @@ class ActionProvider {
     private static MultiplyImagesAction multiplyImagesAction;
     private static SumImagesAction sumImagesAction;
     private static NormalizeImageAction normalizeImageAction;
-    private static MultiplyImageByScalarNumberAction multiplyImageByScalarNumberAction;
     private static SubstractImagesAction substractImagesAction;
     private static ApplySaltAndPepperNoiseAction applySaltAndPepperAction;
     private static ApplyFilterAction applyFilterAction;
@@ -252,14 +250,6 @@ class ActionProvider {
             normalizeImageAction = new NormalizeImageAction(ServiceProvider.provideImageOperationsService());
         }
         return normalizeImageAction;
-    }
-
-    public static MultiplyImageByScalarNumberAction provideMultiplyImageWithScalarNumberAction() {
-        if (multiplyImageByScalarNumberAction == null) {
-            multiplyImageByScalarNumberAction = new MultiplyImageByScalarNumberAction(ServiceProvider.provideImageOperationsService(),
-                    ActionProvider.provideCompressDynamicRangeAction());
-        }
-        return multiplyImageByScalarNumberAction;
     }
 
     public static ApplySaltAndPepperNoiseAction provideApplySaltAndPepperNoiseAction() {

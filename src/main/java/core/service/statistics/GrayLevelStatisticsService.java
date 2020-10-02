@@ -54,7 +54,7 @@ public class GrayLevelStatisticsService {
 
     }
 
-    public int calculateMaxGrayLevel(Image image) {
+    public int calcularMaximoNivelDeGris(Image image) {
 
         PixelReader reader = image.getPixelReader();
         int max = 0;
@@ -72,7 +72,7 @@ public class GrayLevelStatisticsService {
 
     }
 
-    public int calculateMinGrayLevel(Image image) {
+    public int calcularMinimoNivelDeGris(Image image) {
 
         PixelReader reader = image.getPixelReader();
         int min = 255;
@@ -89,7 +89,7 @@ public class GrayLevelStatisticsService {
         return min;
     }
 
-    public int calculateMinGrayLevel(int[][] channelValues){
+    public int calcularMinimoNivelDeGris(int[][] channelValues){
         int actualMin = 0;
         for (int i = 0; i < channelValues.length; i++){
             for (int j = 0; j < channelValues[i].length; j++){
@@ -101,7 +101,7 @@ public class GrayLevelStatisticsService {
         return actualMin;
     }
 
-    public int calculateMaxGrayLevel(int[][] channel) {
+    public int calcularMaximoNivelDeGris(int[][] channel) {
         int max = 0;
         for (int i=0; i < channel.length; i++) {
             for (int j=0; j < channel[i].length; j++) {

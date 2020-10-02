@@ -34,7 +34,7 @@ public class CompressDynamicRangeAction {
         WritableImage writableImage = new WritableImage((int) image.getWidth(), (int) image.getHeight());
         PixelWriter writer = writableImage.getPixelWriter();
 
-        int max = this.grayLevelStatisticsService.calculateMaxGrayLevel(image);
+        int max = this.grayLevelStatisticsService.calcularMaximoNivelDeGris(image);
         double c = this.calculateC(max);
         for (int i = 0; i < image.getWidth(); i++) {
             for (int j = 0; j < image.getHeight(); j++) {
@@ -52,7 +52,7 @@ public class CompressDynamicRangeAction {
     }
 
     public int[][] execute(int[][] channel) {
-        int max = this.grayLevelStatisticsService.calculateMaxGrayLevel(channel);
+        int max = this.grayLevelStatisticsService.calcularMaximoNivelDeGris(channel);
         double c = this.calculateC(max);
         for (int i = 0; i < channel.length; i++) {
             for (int j = 0; j < channel[i].length; j++) {

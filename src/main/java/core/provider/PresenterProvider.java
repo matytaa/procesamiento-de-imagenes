@@ -84,7 +84,7 @@ public class PresenterProvider {
         if (imagesOperationsPresenter == null) {
             imagesOperationsPresenter = new ImagesOperationsPresenter(ActionProvider.provideLoadImageAction(),
                     ActionProvider.provideNormalizeImageAction(), ActionProvider.provideSumImagesAction(),
-                    ActionProvider.provideMultiplyImagesAction(), ActionProvider.provideMultiplyImageWithScalarNumberAction(),
+                    ActionProvider.provideMultiplyImagesAction(),
                     ActionProvider.provideSubstractImagesAction());
             return imagesOperationsPresenter;
         }

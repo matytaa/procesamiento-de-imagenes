@@ -11,10 +11,10 @@ public class SubstractImagesAction {
     }
 
     public Image execute(Image image1, Image image2) {
-        int[][] redChannelResultantValues = this.imageOperationsService.substractRedPixelsValues(image1, image2);
-        int[][] greenChannelResultantValues = this.imageOperationsService.substractGreenPixelsValues(image1, image2);
-        int[][] blueChannelResultantValues = this.imageOperationsService.substractBluePixelsValues(image1, image2);
-        return this.imageOperationsService.writeNewPixelsValuesToImage(redChannelResultantValues,
+        int[][] redChannelResultantValues = this.imageOperationsService.restarValoresPixelesRojos(image1, image2);
+        int[][] greenChannelResultantValues = this.imageOperationsService.restarValoresPixelesVerdes(image1, image2);
+        int[][] blueChannelResultantValues = this.imageOperationsService.restarValoresPixelesAzules(image1, image2);
+        return this.imageOperationsService.escribirNuevosValoresDePixelesEnLaImagen(redChannelResultantValues,
                 greenChannelResultantValues, blueChannelResultantValues);
     }
 }

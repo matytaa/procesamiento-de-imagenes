@@ -41,12 +41,12 @@ public class ApplyGaussianNoiseToImageAction {
         int[][] greenChannelValues = this.sumImageChannelAndNoiseMatrixes(customImage, noiseMatrix, (i, j) -> (int) (customImage.getPixelReader().getColor(i, j).getGreen() * 255));
         int[][] blueChannelValues = this.sumImageChannelAndNoiseMatrixes(customImage, noiseMatrix, (i, j) -> (int) (customImage.getPixelReader().getColor(i, j).getBlue() * 255));
 
-        int[][] adjustedRedChannelValues = this.imageOperationsService.toValidContaminatedImage(redChannelValues, pixelsToContaminate);
-        int[][] adjustedGreenChannelValues = this.imageOperationsService.toValidContaminatedImage(greenChannelValues, pixelsToContaminate);
-        int[][] adjustedBlueChannelValues = this.imageOperationsService.toValidContaminatedImage(blueChannelValues, pixelsToContaminate);
+        int[][] adjustedRedChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(redChannelValues, pixelsToContaminate);
+        int[][] adjustedGreenChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(greenChannelValues, pixelsToContaminate);
+        int[][] adjustedBlueChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(blueChannelValues, pixelsToContaminate);
 
         //Finally, we write the resultant matrix to a new image
-        return this.imageOperationsService.writeNewPixelsValuesToImage(adjustedRedChannelValues, adjustedGreenChannelValues, adjustedBlueChannelValues);
+        return this.imageOperationsService.escribirNuevosValoresDePixelesEnLaImagen(adjustedRedChannelValues, adjustedGreenChannelValues, adjustedBlueChannelValues);
     }
 
     private int[][] sumImageChannelAndNoiseMatrixes(Imagen customImage, int[][] noiseMatrix, BiFunction<Integer, Integer, Integer> channel) {

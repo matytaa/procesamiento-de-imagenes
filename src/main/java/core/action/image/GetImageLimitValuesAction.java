@@ -14,14 +14,14 @@ public class GetImageLimitValuesAction {
     }
 
     public ImageLimitValues execute(Imagen customImage){
-        int redChannelMin = this.grayLevelStatisticsService.calculateMinGrayLevel(customImage.getMatrizRed());
-        int redChannelMax = this.grayLevelStatisticsService.calculateMaxGrayLevel(customImage.getMatrizRed());
+        int redChannelMin = this.grayLevelStatisticsService.calcularMinimoNivelDeGris(customImage.getMatrizRed());
+        int redChannelMax = this.grayLevelStatisticsService.calcularMaximoNivelDeGris(customImage.getMatrizRed());
 
-        int greenChannelMin = this.grayLevelStatisticsService.calculateMinGrayLevel(customImage.getMatrizGreen());
-        int greenChannelMax = this.grayLevelStatisticsService.calculateMaxGrayLevel(customImage.getMatrizGreen());
+        int greenChannelMin = this.grayLevelStatisticsService.calcularMinimoNivelDeGris(customImage.getMatrizGreen());
+        int greenChannelMax = this.grayLevelStatisticsService.calcularMaximoNivelDeGris(customImage.getMatrizGreen());
 
-        int blueChannelMin = this.grayLevelStatisticsService.calculateMinGrayLevel(customImage.getMatrizBlue());
-        int blueChannelMax = this.grayLevelStatisticsService.calculateMaxGrayLevel(customImage.getMatrizBlue());
+        int blueChannelMin = this.grayLevelStatisticsService.calcularMinimoNivelDeGris(customImage.getMatrizBlue());
+        int blueChannelMax = this.grayLevelStatisticsService.calcularMaximoNivelDeGris(customImage.getMatrizBlue());
 
         int[] min = {redChannelMin, greenChannelMin, blueChannelMin};
         int[] max = {redChannelMax, greenChannelMax, blueChannelMax};

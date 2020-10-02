@@ -16,7 +16,7 @@ public class GenerateSyntheticNoiseImageAction {
 
     public Image execute(int[][] randomNumberMatrix) {
 
-        int[][] realPixelMatrix = this.imageOperationsService.adjustScale(this.imageOperationsService.displacePixelsValues((randomNumberMatrix))); //Set the numbers in the range 0-255
+        int[][] realPixelMatrix = this.imageOperationsService.ajustarEscalaDeGrises(this.imageOperationsService.desplazarValoresDeLosPixelesHaciaCero((randomNumberMatrix))); //Set the numbers in the range 0-255
 
         WritableImage image = new WritableImage(100, 100);
         PixelWriter writer = image.getPixelWriter();

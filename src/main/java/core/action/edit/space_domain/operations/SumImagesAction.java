@@ -12,10 +12,10 @@ public class SumImagesAction {
     }
 
     public Image execute(Image image1, Image image2) {
-        int[][] redChannelResultantValues = this.imageOperationsService.sumRedPixelsValues(image1, image2);
-        int[][] greenChannelResultantValues = this.imageOperationsService.sumGreenPixelsValues(image1, image2);
-        int[][] blueChannelResultantValues = this.imageOperationsService.sumBluePixelsValues(image1, image2);
-        return this.imageOperationsService.writeNewPixelsValuesToImage(redChannelResultantValues,
+        int[][] redChannelResultantValues = this.imageOperationsService.sumaValoresPixelesRojos(image1, image2);
+        int[][] greenChannelResultantValues = this.imageOperationsService.sumaValoresPixelesVerde(image1, image2);
+        int[][] blueChannelResultantValues = this.imageOperationsService.sumaValoresPixelesAzul(image1, image2);
+        return this.imageOperationsService.escribirNuevosValoresDePixelesEnLaImagen(redChannelResultantValues,
                 greenChannelResultantValues, blueChannelResultantValues);
     }
 

@@ -15,7 +15,7 @@ public class ImagesOperationsSceneCreator implements SceneCreator {
             Scene imageScene = new Scene(root);
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setMaximized(true);
-            stage.setTitle("Image Operations");
+            stage.setTitle("Algebra de imágenes");
             stage.setScene(imageScene);
             stage.show();
         } catch (Exception e) {

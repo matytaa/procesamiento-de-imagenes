@@ -13,10 +13,10 @@ public class MultiplyImagesAction {
     }
 
     public Image execute(Image image1, Image image2) {
-        int[][] redChannelResultantValues = this.imageOperationsService.multiplyRedPixelsValues(image1, image2);
-        int[][] greenChannelResultantValues = this.imageOperationsService.multiplyGreenPixelsValues(image1, image2);
-        int[][] blueChannelResultantValues = this.imageOperationsService.multiplyGrayPixelsValues(image1, image2);
-        return this.imageOperationsService.writeNewPixelsValuesToImage(redChannelResultantValues,
+        int[][] redChannelResultantValues = this.imageOperationsService.multiplicarValoresPixelesRojos(image1, image2);
+        int[][] greenChannelResultantValues = this.imageOperationsService.multiplicarValoresPixelesVerdes(image1, image2);
+        int[][] blueChannelResultantValues = this.imageOperationsService.multiplicarValoresPixelesAzules(image1, image2);
+        return this.imageOperationsService.escribirNuevosValoresDePixelesEnLaImagen(redChannelResultantValues,
                 greenChannelResultantValues, blueChannelResultantValues);
     }
 }
