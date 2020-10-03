@@ -30,8 +30,9 @@ public class ModifyImageService {
         return new Imagen(SwingFXUtils.fromFXImage(writableImage, null), image.getFormatString());
     }
 
+    //Como la imagen es en escala de grises los distintos valores de R, G, B son iguales
     public void modifySinglePixel(Integer pixelX, Integer pixelY, Integer value, PixelWriter pixelWriter) {
-        Color modifiedColor = Color.rgb(value,value,value); //For gray images
+        Color modifiedColor = Color.rgb(value,value,value);
         pixelWriter.setColor(pixelX,pixelY,modifiedColor);
     }
 

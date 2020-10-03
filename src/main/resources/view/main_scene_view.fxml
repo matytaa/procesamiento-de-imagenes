@@ -79,6 +79,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Generación">
             <MenuItem mnemonicParsing="false" onAction="#createImageHistogram" text="Histograma" />
+            <MenuItem mnemonicParsing="false" onAction="#calculateNegativeImage" text="Negativo" />
         </Menu>
         <Menu mnemonicParsing="false" text="Algebra">
             <MenuItem mnemonicParsing="false" onAction="#calculateImagesOperations" text="Operaciones sobre imágenes" />

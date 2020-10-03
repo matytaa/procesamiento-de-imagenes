@@ -253,18 +253,18 @@ public class MainPresenter {
             Integer pixelX = Integer.parseInt(view.pixelX.getText());
             Integer pixelY = Integer.parseInt(view.pixelY.getText());
 
-            String valueR = InsertValuePopup.show("Insert value R", "0").get();
-            String valueG = InsertValuePopup.show("Insert value G", "0").get();
-            String valueB = InsertValuePopup.show("Insert value B", "0").get();
+            String valueR = InsertValuePopup.show("Ingrese valor R", "0").get();
+            String valueG = InsertValuePopup.show("Ingrese valor G", "0").get();
+            String valueB = InsertValuePopup.show("Ingrese valor B", "0").get();
 
             Image modifiedImage = modifyPixelAction.execute(pixelX, pixelY, valueR, valueG, valueB);
 
             view.modifiedImageView.setImage(modifiedImage);
 
         } else {
-            view.valueR.setText("Select pixel");
-            view.valueG.setText("Select pixel");
-            view.valueB.setText("Select pixel");
+            view.valueR.setText("Elegir pixel R");
+            view.valueG.setText("Elegir pixel V");
+            view.valueB.setText("Elegir pixel B");
         }
     }
 

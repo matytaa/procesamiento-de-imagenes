@@ -26,22 +26,21 @@ public class CalculateNegativeImageAction {
 
         Optional<Imagen> imageOptional = this.imageRepository.getImage();
         if (!imageOptional.isPresent())
-            return SwingFXUtils.toFXImage(new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB), null);
-
+            return null;
         Imagen customImage = imageOptional.get();
         WritableImage image = new WritableImage(customImage.getWidth(), customImage.getHeight());
         PixelWriter pixelWriter = image.getPixelWriter();
 
-        for (int i = 0; i < image.getWidth(); i++) {
+        for (int i = 0; i < image.getWidth(); i++)
             for (int j = 0; j < image.getHeight(); j++) {
                 RGB pixelValue = customImage.getPixelValue(i, j);
                 this.modifyImageService.modifySinglePixel(i, j, toNegative(pixelValue.getRed()), toNegative(pixelValue.getGreen()), toNegative(pixelValue.getBlue()), pixelWriter);
             }
-        }
 
         return image;
     }
 
+    // T(r) = (L-1) - r
     private int toNegative(Integer value) {
         return 255 - value;
     }
