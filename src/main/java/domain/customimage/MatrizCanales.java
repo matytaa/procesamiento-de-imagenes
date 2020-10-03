@@ -1,18 +1,18 @@
 package domain.customimage;
 
-public class ChannelMatrix {
+public class MatrizCanales {
 
     private int[][] redChannel;
     private int[][] greenChannel;
     private int[][] blueChannel;
 
-    public ChannelMatrix(int width, int height) {
+    public MatrizCanales(int width, int height) {
         this.redChannel = new int[width][height];
         this.greenChannel = new int[width][height];
         this.blueChannel = new int[width][height];
     }
 
-    public ChannelMatrix(int[][] redChannel, int[][] greenChannel, int[][] blueChannel) {
+    public MatrizCanales(int[][] redChannel, int[][] greenChannel, int[][] blueChannel) {
         this.redChannel = redChannel;
         this.greenChannel = greenChannel;
         this.blueChannel = blueChannel;

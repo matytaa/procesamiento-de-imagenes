@@ -2,7 +2,7 @@ package core.action.edgedetector;
 
 import core.service.ImageOperationsService;
 import core.service.MatrixService;
-import domain.customimage.ChannelMatrix;
+import domain.customimage.MatrizCanales;
 import domain.customimage.Imagen;
 import domain.customimage.RGB;
 import domain.mask.sobel.SobelXDerivativeMask;
@@ -22,8 +22,8 @@ public class ApplyCannyDetectorAction {
 
     public Imagen execute(Imagen filteredImage, int t1, int t2) {
 
-        ChannelMatrix sobelXDerivative = new SobelXDerivativeMask().apply(filteredImage);
-        ChannelMatrix sobelYDerivative = new SobelYDerivativeMask().apply(filteredImage);
+        MatrizCanales sobelXDerivative = new SobelXDerivativeMask().apply(filteredImage);
+        MatrizCanales sobelYDerivative = new SobelYDerivativeMask().apply(filteredImage);
 
         int[][] gradientAngleMatrix = this.calculateGradientAngle(sobelXDerivative, sobelYDerivative);
         int[][] derivativesAbsoluteSumMatrix = this.imageOperationsService.calculateAbsoluteSum(sobelXDerivative, sobelYDerivative)
@@ -34,7 +34,7 @@ public class ApplyCannyDetectorAction {
         int[][] finalEdgedMatrix = this.applyHysteresisThresholding(roughSingleEdgedMatrix, t1, t2);
 
         return new Imagen(
-                this.imageOperationsService.toValidImageMatrix(new ChannelMatrix(finalEdgedMatrix, finalEdgedMatrix, finalEdgedMatrix)),
+                this.imageOperationsService.toValidImageMatrix(new MatrizCanales(finalEdgedMatrix, finalEdgedMatrix, finalEdgedMatrix)),
                 filteredImage.getFormatString());
 
     }
@@ -153,7 +153,7 @@ public class ApplyCannyDetectorAction {
         }
     }
 
-    private int[][] calculateGradientAngle(ChannelMatrix sobelXDerivative, ChannelMatrix sobelYDerivative) {
+    private int[][] calculateGradientAngle(MatrizCanales sobelXDerivative, MatrizCanales sobelYDerivative) {
 
         //This can be easily extended to 3 channels
 

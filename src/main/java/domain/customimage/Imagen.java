@@ -28,7 +28,7 @@ public class Imagen {
     private int[][] matrizBlue;
     private List<Pixel> pixeles;
 
-    public Imagen(ChannelMatrix channelMatrix, String formatString) {
+    public Imagen(MatrizCanales channelMatrix, String formatString) {
         this(channelMatrixToFXImage(channelMatrix.getRedChannel(), channelMatrix.getGreenChannel(), channelMatrix.getBlueChannel()), formatString);
     }
 

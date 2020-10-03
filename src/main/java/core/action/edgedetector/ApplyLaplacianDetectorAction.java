@@ -1,18 +1,18 @@
 package core.action.edgedetector;
 
-import domain.customimage.ChannelMatrix;
+import domain.customimage.MatrizCanales;
 import domain.customimage.Imagen;
 import domain.mask.Mask;
 
 public class ApplyLaplacianDetectorAction {
 
     public Imagen execute(Imagen customImage, Mask mask, int slopeThreshold) {
-        ChannelMatrix maskResult = mask.apply(customImage);
-        ChannelMatrix markZeroCrossings = this.markZeroCrossings(maskResult, slopeThreshold);
+        MatrizCanales maskResult = mask.apply(customImage);
+        MatrizCanales markZeroCrossings = this.markZeroCrossings(maskResult, slopeThreshold);
         return new Imagen(markZeroCrossings, customImage.getFormatString());
     }
 
-    private ChannelMatrix markZeroCrossings(ChannelMatrix channelMatrix, int slopeThreshold) {
+    private MatrizCanales markZeroCrossings(MatrizCanales channelMatrix, int slopeThreshold) {
 
         int edgedRedMatrix[][] = this.markHorizontalZeroCrossings(channelMatrix.getRedChannel(), slopeThreshold);
         int edgedGreenMatrix[][] = this.markHorizontalZeroCrossings(channelMatrix.getGreenChannel(), slopeThreshold);
@@ -22,7 +22,7 @@ public class ApplyLaplacianDetectorAction {
         int resultantGreenMatrix[][] = this.markVerticalZeroCrossings(channelMatrix.getGreenChannel(), edgedGreenMatrix, slopeThreshold);
         int resultantBlueMatrix[][] = this.markVerticalZeroCrossings(channelMatrix.getBlueChannel(), edgedBlueMatrix, slopeThreshold);
 
-        return new ChannelMatrix(resultantRedMatrix, resultantGreenMatrix, resultantBlueMatrix);
+        return new MatrizCanales(resultantRedMatrix, resultantGreenMatrix, resultantBlueMatrix);
     }
 
     private int[][] markHorizontalZeroCrossings(int[][] matrix, int slopeThreshold) {

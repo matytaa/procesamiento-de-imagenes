@@ -2,7 +2,7 @@ package core.action.edgedetector;
 
 import core.service.ImageOperationsService;
 import core.service.MatrixService;
-import domain.customimage.ChannelMatrix;
+import domain.customimage.MatrizCanales;
 import domain.customimage.Imagen;
 import domain.customimage.RGB;
 import domain.mask.Mask;
@@ -29,7 +29,7 @@ public class ApplyDirectionalDerivativeOperatorAction {
                         Mask mainDiagonalMask,
                         Mask secondaryDiagonalMask) {
 
-        ChannelMatrix channelMatrix = applyMasks(customImage, horizontalStraightMask, verticalStraightMask,
+        MatrizCanales channelMatrix = applyMasks(customImage, horizontalStraightMask, verticalStraightMask,
                 mainDiagonalMask, secondaryDiagonalMask);
 
         int[][] redChannel = channelMatrix.getRedChannel();
@@ -40,13 +40,13 @@ public class ApplyDirectionalDerivativeOperatorAction {
         imagePublishSubject.onNext(resultantImage);
     }
 
-    private ChannelMatrix applyMasks(Imagen image,
+    private MatrizCanales applyMasks(Imagen image,
                                      Mask horizontalStraightMask, Mask verticalStraightMask,
                                      Mask mainDiagonalMask, Mask secondaryDiagonalMask) {
 
         Integer width = image.getWidth();
         Integer height = image.getHeight();
-        ChannelMatrix channelMatrix = new ChannelMatrix(width, height);
+        MatrizCanales channelMatrix = new MatrizCanales(width, height);
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {

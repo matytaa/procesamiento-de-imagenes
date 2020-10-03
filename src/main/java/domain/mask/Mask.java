@@ -1,6 +1,6 @@
 package domain.mask;
 
-import domain.customimage.ChannelMatrix;
+import domain.customimage.MatrizCanales;
 import domain.customimage.Imagen;
 import domain.customimage.RGB;
 
@@ -33,10 +33,10 @@ public abstract class Mask {
     protected abstract double[][] createMatrix(int size);
 
     /* This is a default mask implementation it returns the convolution between an image and the concrete mask */
-    public ChannelMatrix apply(Imagen image) {
+    public MatrizCanales apply(Imagen image) {
         Integer width = image.getWidth();
         Integer height = image.getHeight();
-        ChannelMatrix channelMatrix = new ChannelMatrix(width, height);
+        MatrizCanales channelMatrix = new MatrizCanales(width, height);
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {

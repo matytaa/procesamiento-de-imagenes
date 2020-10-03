@@ -1,7 +1,7 @@
 package core.action.diffusion;
 
 import core.service.ImageOperationsService;
-import domain.customimage.ChannelMatrix;
+import domain.customimage.MatrizCanales;
 import domain.customimage.Imagen;
 import domain.customimage.RGB;
 import domain.diffusion.Derivative;
@@ -24,7 +24,7 @@ public class ApplyDiffusionAction {
 
         Integer width = customImage.getWidth();
         Integer height = customImage.getHeight();
-        ChannelMatrix channelMatrix = new ChannelMatrix(customImage.getMatrizRed(), customImage.getMatrizGreen(), customImage.getMatrizBlue());
+        MatrizCanales channelMatrix = new MatrizCanales(customImage.getMatrizRed(), customImage.getMatrizGreen(), customImage.getMatrizBlue());
 
         for (int i = 0; i < times; i++) {
             for (int y = 0; y < height; y++) {

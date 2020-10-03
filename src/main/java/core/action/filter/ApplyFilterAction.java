@@ -1,7 +1,7 @@
 package core.action.filter;
 
 import core.service.ImageOperationsService;
-import domain.customimage.ChannelMatrix;
+import domain.customimage.MatrizCanales;
 import domain.customimage.Imagen;
 import domain.mask.Mask;
 import io.reactivex.subjects.PublishSubject;
@@ -20,8 +20,8 @@ public class ApplyFilterAction {
     }
 
     public Imagen execute(Imagen customImage, Mask mask) {
-        ChannelMatrix appliedMask = mask.apply(customImage);
-        ChannelMatrix validImageMatrix = this.imageOperationsService.toValidImageMatrix(appliedMask);
+        MatrizCanales appliedMask = mask.apply(customImage);
+        MatrizCanales validImageMatrix = this.imageOperationsService.toValidImageMatrix(appliedMask);
         Imagen image = new Imagen(validImageMatrix, customImage.getFormatString());
 
         onModifiedImagePublishSubject.onNext(image.toFXImage());
