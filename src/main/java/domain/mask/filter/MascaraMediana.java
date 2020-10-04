@@ -27,23 +27,28 @@ public class MascaraMediana extends Mascara {
 
     @Override
     public RGB aplicarMascaraAPixel(Imagen imagen, int x, int y) {
+        //AGARRO TODOS LOS COLORES DE ALREDEDOR DEL PIXEL, SEGUN EL TAMAÑO DE LA MASCARA
         List<RGB> pixelsWithinMaskRange = this.obtainPixelsWithinMaskRange(imagen, x, y);
 
+        //ORDENO ESOS COLORES DE MENOR A MAYOR
         List<Integer> redValues = this.sortRedValues(pixelsWithinMaskRange);
         List<Integer> greenValues = this.sortGreenValues(pixelsWithinMaskRange);
         List<Integer> blueValues = this.sortBlueValues(pixelsWithinMaskRange);
 
+        //AGARRO LA POSICION DE LA MEDIANA, QUE ES EL ELEMENTO DEL MEDIO
         int medianPosition = pixelsWithinMaskRange.size() / 2;
         double redMedian = redValues.get(medianPosition);
         double greenMedian = greenValues.get(medianPosition);
         double blueMedian = blueValues.get(medianPosition);
 
+        //SI NO ES IMPAR, PROMEDIO LOS DOS DEL CENTRO
         if (medianPosition % 2 == 0) {
             redMedian = (redValues.get(medianPosition - 1) + redValues.get(medianPosition)) / 2;
             greenMedian = (greenValues.get(medianPosition - 1) + greenValues.get(medianPosition)) / 2;
             blueMedian = (blueValues.get(medianPosition - 1) + blueValues.get(medianPosition)) / 2;
         }
 
+        //EL COLOR DEL PIXEL TERMINA SIENDO LA MEDIANA DE CADA CANAL EN ESA MÁSCARA
         return new RGB((int) redMedian, (int) greenMedian, (int) blueMedian);
     }
 
