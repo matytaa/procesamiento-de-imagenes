@@ -4,12 +4,10 @@ import core.repository.ImageRepository;
 import core.service.ModifyImageService;
 import domain.customimage.Imagen;
 import domain.customimage.RGB;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 
-import java.awt.image.BufferedImage;
 import java.util.Optional;
 
 public class CalculateNegativeImageAction {
@@ -28,7 +26,7 @@ public class CalculateNegativeImageAction {
         if (!imageOptional.isPresent())
             return null;
         Imagen customImage = imageOptional.get();
-        WritableImage image = new WritableImage(customImage.getWidth(), customImage.getHeight());
+        WritableImage image = new WritableImage(customImage.getAncho(), customImage.getAltura());
         PixelWriter pixelWriter = image.getPixelWriter();
 
         for (int i = 0; i < image.getWidth(); i++)

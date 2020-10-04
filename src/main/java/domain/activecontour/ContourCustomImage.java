@@ -25,11 +25,11 @@ public class ContourCustomImage {
     }
 
     public Image drawActiveContour() {
-        WritableImage imageWithContour = new WritableImage(customImage.getWidth(), customImage.getHeight());
+        WritableImage imageWithContour = new WritableImage(customImage.getAncho(), customImage.getAltura());
         PixelWriter pixelWriter = imageWithContour.getPixelWriter();
 
-        for (int i = 0; i < customImage.getWidth(); i++) {
-            for (int j = 0; j < customImage.getHeight(); j++) {
+        for (int i = 0; i < customImage.getAncho(); i++) {
+            for (int j = 0; j < customImage.getAltura(); j++) {
                 pixelWriter.setColor(i, j, customImage.getColor(i, j));
             }
         }

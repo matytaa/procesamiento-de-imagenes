@@ -118,8 +118,8 @@ public class PresenterProvider {
                 PublishSubjectProvider.provideOnModifiedImagePublishSubject());
     }
 
-    public static SaltAndPepperNoisePresenter provideSaltAndPepperNoisePresenter(SaltAndPepperNoiseController saltAndPepperNoiseController) {
-        return new SaltAndPepperNoisePresenter(saltAndPepperNoiseController,
+    public static RuidoSalYPimientaPresenter provideSaltAndPepperNoisePresenter(SaltAndPepperNoiseController saltAndPepperNoiseController) {
+        return new RuidoSalYPimientaPresenter(saltAndPepperNoiseController,
                 ActionProvider.provideGetImageAction(),
                 ActionProvider.provideApplySaltAndPepperNoiseAction());
     }

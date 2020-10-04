@@ -24,8 +24,8 @@ public class CircleHoughTransformAction {
     public Imagen execute(Imagen originalImage, Imagen edgedImage, int xCenterDivisions, int yCenterDivisions, int radiusDivisions, double tolerance) {
 
         this.radiusUpperBound = this.calculateMaximumRadius(edgedImage);
-        this.xCenterUpperBound = edgedImage.getWidth();
-        this.yCenterUpperBound = edgedImage.getHeight();
+        this.xCenterUpperBound = edgedImage.getAncho();
+        this.yCenterUpperBound = edgedImage.getAltura();
 
         this.createParameterMatrix(xCenterDivisions, yCenterDivisions, radiusDivisions);
 
@@ -44,7 +44,7 @@ public class CircleHoughTransformAction {
 
         Map<XYRCircle, Integer> acceptedCircles = this.findAcceptedCircles(threshold);
 
-        return this.drawCircles(originalImage, edgedImage.getWidth(), edgedImage.getHeight(), acceptedCircles);
+        return this.drawCircles(originalImage, edgedImage.getAncho(), edgedImage.getAltura(), acceptedCircles);
 
     }
 
@@ -153,8 +153,8 @@ public class CircleHoughTransformAction {
     }
 
     private int calculateMaximumRadius(Imagen customImage) {
-        if (customImage.getWidth() > customImage.getHeight()) return customImage.getHeight()/2;
-        else return customImage.getWidth()/2;
+        if (customImage.getAncho() > customImage.getAltura()) return customImage.getAltura()/2;
+        else return customImage.getAncho()/2;
     }
 
 

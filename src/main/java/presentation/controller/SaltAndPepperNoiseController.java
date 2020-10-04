@@ -5,11 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import presentation.presenter.SaltAndPepperNoisePresenter;
+import presentation.presenter.RuidoSalYPimientaPresenter;
 
 public class SaltAndPepperNoiseController {
 
-    private final SaltAndPepperNoisePresenter saltAndPepperNoisePresenter;
+    private final RuidoSalYPimientaPresenter ruidoSalYPimientaPresenter;
 
     @FXML
     public TextField p0Field;
@@ -25,17 +25,17 @@ public class SaltAndPepperNoiseController {
     public Label percentValidationLabel;
 
     public SaltAndPepperNoiseController() {
-        this.saltAndPepperNoisePresenter = PresenterProvider.provideSaltAndPepperNoisePresenter(this);
+        this.ruidoSalYPimientaPresenter = PresenterProvider.provideSaltAndPepperNoisePresenter(this);
     }
 
     @FXML
     public void initialize() {
-        this.saltAndPepperNoisePresenter.onInitializeView();
+        this.ruidoSalYPimientaPresenter.onInitializeView();
     }
 
     @FXML
     public void aplicarRuido() {
-        this.saltAndPepperNoisePresenter.onAplicarRuido();
+        this.ruidoSalYPimientaPresenter.onAplicarRuido();
     }
 
     public void closeWindow() {

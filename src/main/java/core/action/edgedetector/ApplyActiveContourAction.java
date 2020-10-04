@@ -6,7 +6,7 @@ import domain.activecontour.ContourCustomImage;
 import domain.activecontour.FdFunction;
 import domain.activecontour.FdFunctionMode;
 import domain.customimage.Imagen;
-import domain.mask.filter.GaussianMask;
+import domain.mask.filter.MascaraGaussiana;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,7 +117,7 @@ public class ApplyActiveContourAction {
 
         for (XYPoint xyPoint : lOut) {
 
-            double newFiValue = new GaussianMask(GAUSSIAN_STANDARD_DEVIATION)
+            double newFiValue = new MascaraGaussiana(GAUSSIAN_STANDARD_DEVIATION)
                     .applyMaskToPixel(cycleTwoContour.getContent(), xyPoint.getX(), xyPoint.getY());
             if (newFiValue < 0) {
                 fillSwitchInLists(cycleTwoContour, removeFromLOut, addToLIn, addToLOut, xyPoint);
@@ -137,7 +137,7 @@ public class ApplyActiveContourAction {
 
         for (XYPoint xyPoint : lIn) {
 
-            double newFiValue = new GaussianMask(GAUSSIAN_STANDARD_DEVIATION)
+            double newFiValue = new MascaraGaussiana(GAUSSIAN_STANDARD_DEVIATION)
                     .applyMaskToPixel(cycleTwoContour.getContent(), xyPoint.getX(), xyPoint.getY());
             if (newFiValue > 0) {
                 fillSwitchOutLists(cycleTwoContour, addToLOut2, addToLIn2, toRemoveFromLIn2, xyPoint);

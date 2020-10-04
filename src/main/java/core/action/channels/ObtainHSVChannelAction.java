@@ -34,8 +34,8 @@ public class ObtainHSVChannelAction {
 
         Imagen image = currentImage.get();
 
-        int width = image.getWidth();
-        int height = image.getHeight();
+        int width = image.getAncho();
+        int height = image.getAltura();
         WritableImage writableImage = new WritableImage(width, height);
         PixelWriter pixelWriter = writableImage.getPixelWriter();
 

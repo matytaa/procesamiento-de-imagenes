@@ -2,12 +2,12 @@ package core.action.edgedetector;
 
 import domain.customimage.MatrizCanales;
 import domain.customimage.Imagen;
-import domain.mask.Mask;
+import domain.mask.Mascara;
 
 public class ApplyLaplacianDetectorAction {
 
-    public Imagen execute(Imagen customImage, Mask mask, int slopeThreshold) {
-        MatrizCanales maskResult = mask.apply(customImage);
+    public Imagen execute(Imagen customImage, Mascara mascara, int slopeThreshold) {
+        MatrizCanales maskResult = mascara.apply(customImage);
         MatrizCanales markZeroCrossings = this.markZeroCrossings(maskResult, slopeThreshold);
         return new Imagen(markZeroCrossings, customImage.getFormatString());
     }

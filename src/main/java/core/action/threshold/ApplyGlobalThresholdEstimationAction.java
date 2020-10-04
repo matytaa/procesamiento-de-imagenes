@@ -1,7 +1,7 @@
 package core.action.threshold;
 
 import core.service.ApplyThresholdService;
-import core.service.MatrixService;
+import core.service.MatrizService;
 import domain.automaticthreshold.GlobalThresholdGroups;
 import domain.automaticthreshold.GlobalThresholdResult;
 import domain.customimage.Imagen;
@@ -10,21 +10,21 @@ import javafx.scene.image.Image;
 
 public class ApplyGlobalThresholdEstimationAction {
 
-    private MatrixService matrixService;
+    private MatrizService matrizService;
     private ApplyThresholdService applyThresholdService;
     private int iterations;
     private int threshold;
 
 
-    public ApplyGlobalThresholdEstimationAction(MatrixService matrixService, ApplyThresholdService applyThresholdService){
-        this.matrixService = matrixService;
+    public ApplyGlobalThresholdEstimationAction(MatrizService matrizService, ApplyThresholdService applyThresholdService){
+        this.matrizService = matrizService;
         this.applyThresholdService = applyThresholdService;
         this.iterations = 0;
         this.threshold = 0;
     }
 
     public GlobalThresholdResult execute(Imagen customImage, int initialThreshold, int deltaT){
-        int[][] imageMatrix = this.matrixService.toGrayMatrix(customImage.toFXImage());
+        int[][] imageMatrix = this.matrizService.aMatrizDeGrises(customImage.toFXImage());
         this.threshold = initialThreshold;
         int[][] transformedImage = new int[imageMatrix.length][imageMatrix[0].length];
         int currentDeltaT = 99999;
@@ -41,7 +41,7 @@ public class ApplyGlobalThresholdEstimationAction {
             this.iterations++;
         }
 
-        Image image = this.matrixService.toImage(transformedImage, transformedImage, transformedImage);
+        Image image = this.matrizService.toImage(transformedImage, transformedImage, transformedImage);
         return new GlobalThresholdResult(image, this.iterations, this.threshold);
     }
 

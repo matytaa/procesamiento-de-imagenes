@@ -1,32 +1,32 @@
 package core.action.characteristic_points;
 
-import core.service.MatrixService;
+import core.service.MatrizService;
 import domain.XYPoint;
 import domain.customimage.Imagen;
-import domain.mask.filter.GaussianMask;
-import domain.mask.sobel.SobelXDerivativeMask;
-import domain.mask.sobel.SobelYDerivativeMask;
+import domain.mask.filter.MascaraGaussiana;
+import domain.mask.sobel.SobelXDerivativeMascara;
+import domain.mask.sobel.SobelYDerivativeMascara;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ApplyHarrisDetectorAction {
 
-    private final MatrixService matrixService;
+    private final MatrizService matrizService;
     private final double k = 0.04;
 
-    public ApplyHarrisDetectorAction(MatrixService matrixService) {
-        this.matrixService = matrixService;
+    public ApplyHarrisDetectorAction(MatrizService matrizService) {
+        this.matrizService = matrizService;
     }
 
     public List<XYPoint> execute(Imagen image, double tolerance) {
 
-        int[][] xDeriv = new SobelXDerivativeMask().apply(image).getRedChannel();
-        int[][] yDeriv = new SobelYDerivativeMask().apply(image).getRedChannel();
+        int[][] xDeriv = new SobelXDerivativeMascara().apply(image).getRedChannel();
+        int[][] yDeriv = new SobelYDerivativeMascara().apply(image).getRedChannel();
 
-        double[][] xSquareDeriv = this.applyGaussianFilter(this.matrixService.calculateSquare(xDeriv));
-        double[][] ySquareDeriv = this.applyGaussianFilter(this.matrixService.calculateSquare(yDeriv));
-        double[][] xyCrossProduct = this.applyGaussianFilter(this.matrixService.multiplyPointToPoint(xDeriv, yDeriv));
+        double[][] xSquareDeriv = this.applyGaussianFilter(this.matrizService.calculateSquare(xDeriv));
+        double[][] ySquareDeriv = this.applyGaussianFilter(this.matrizService.calculateSquare(yDeriv));
+        double[][] xyCrossProduct = this.applyGaussianFilter(this.matrizService.multiplyPointToPoint(xDeriv, yDeriv));
 
         double[][] possibleCorners = new double[xDeriv.length][xDeriv[0].length];
         for (int i = 0; i < possibleCorners.length; i++) {
@@ -35,7 +35,7 @@ public class ApplyHarrisDetectorAction {
             }
         }
 
-        double maximum = this.matrixService.findMaxValue(possibleCorners);
+        double maximum = this.matrizService.findMaxValue(possibleCorners);
 
         return this.filterFakeCorners(possibleCorners, maximum, tolerance);
     }
@@ -62,7 +62,7 @@ public class ApplyHarrisDetectorAction {
     }
 
     private double[][] applyGaussianFilter(int[][] matrix) {
-        return new GaussianMask(2).apply(matrix);
+        return new MascaraGaussiana(2).apply(matrix);
     }
 
 }

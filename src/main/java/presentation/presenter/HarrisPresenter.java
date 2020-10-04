@@ -61,7 +61,7 @@ public class HarrisPresenter {
 
     private void markImage1Corners(List<XYPoint> image1Corners) {
 
-        WritableImage image = new WritableImage(image1.getWidth(), image1.getHeight());
+        WritableImage image = new WritableImage(image1.getAncho(), image1.getAltura());
         PixelWriter writer = image.getPixelWriter();
 
         for (int i = 0; i < image.getWidth(); i++) {
@@ -80,7 +80,7 @@ public class HarrisPresenter {
     }
 
     private void markImage2Corners(List<XYPoint> image2Corners) {
-        WritableImage image = new WritableImage(image2.getWidth(), image2.getHeight());
+        WritableImage image = new WritableImage(image2.getAncho(), image2.getAltura());
         PixelWriter writer = image.getPixelWriter();
 
         for (int i = 0; i < image.getWidth(); i++) {

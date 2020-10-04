@@ -12,10 +12,10 @@ public class FilterSceneCreator implements SceneCreator {
     public void createScene() {
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/filter_scene_view.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/filtro_scene_view.fxml"));
             Scene channelScene = new Scene(root);
             Stage channelStage = new Stage(StageStyle.DECORATED);
-            channelStage.setTitle("Filter parameters");
+            channelStage.setTitle("Parámetros Del Filtro");
             channelStage.setScene(channelScene);
             channelStage.show();
 

@@ -14,7 +14,7 @@ public class ApplyThresholdService {
     }
 
     public Image applyThreshold(Imagen customImage, int threshold) {
-        WritableImage image = new WritableImage(customImage.getWidth(), customImage.getHeight());
+        WritableImage image = new WritableImage(customImage.getAncho(), customImage.getAltura());
         PixelWriter pixelWriter = image.getPixelWriter();
 
         for (int i=0; i < image.getWidth(); i++) {

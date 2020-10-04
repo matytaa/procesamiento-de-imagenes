@@ -7,8 +7,8 @@ import core.action.image.GetImageAction;
 import core.action.threshold.ApplyOtsuThresholdEstimationAction;
 import domain.automaticthreshold.OtsuThresholdResult;
 import domain.customimage.Imagen;
-import domain.mask.prewitt.PrewittXDerivativeMask;
-import domain.mask.prewitt.PrewittYDerivativeMask;
+import domain.mask.prewitt.PrewittXDerivativeMascara;
+import domain.mask.prewitt.PrewittYDerivativeMascara;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
 import presentation.controller.HoughSceneController;
@@ -58,7 +58,7 @@ public class HoughPresenter {
         if (isXCenterValid(xCenterDivisions) && isYCenterValid(yCenterDivisions) && isRadiusValid(radiusDivisions) && isToleranceValid(tolerance)) {
 
             this.getImageAction.execute().ifPresent(customImage -> {
-                Imagen edgedImage = new Imagen(this.applyEdgeDetectorByGradientAction.execute(customImage, new PrewittXDerivativeMask(), new PrewittYDerivativeMask()), "png");
+                Imagen edgedImage = new Imagen(this.applyEdgeDetectorByGradientAction.execute(customImage, new PrewittXDerivativeMascara(), new PrewittYDerivativeMascara()), "png");
                 OtsuThresholdResult otsuThresholdResult = this.applyOtsuThresholdEstimationAction.execute(edgedImage);
                 Imagen thresholdizedImage = new Imagen(otsuThresholdResult.getImage(), "png");
                 Imagen houghImage = this.circleHoughTransformAction.execute(customImage, thresholdizedImage, xCenterDivisions, yCenterDivisions, radiusDivisions, tolerance);
@@ -92,7 +92,7 @@ public class HoughPresenter {
         if (isRhoValid(rhoDivisions) && isThetaValid(thetaDivisions) && isToleranceValid(tolerance)) {
 
             this.getImageAction.execute().ifPresent(customImage -> {
-                Imagen edgedImage = new Imagen(this.applyEdgeDetectorByGradientAction.execute(customImage, new PrewittXDerivativeMask(), new PrewittYDerivativeMask()), "png");
+                Imagen edgedImage = new Imagen(this.applyEdgeDetectorByGradientAction.execute(customImage, new PrewittXDerivativeMascara(), new PrewittYDerivativeMascara()), "png");
                 OtsuThresholdResult otsuThresholdResult = this.applyOtsuThresholdEstimationAction.execute(edgedImage);
                 Imagen thresholdizedImage = new Imagen(otsuThresholdResult.getImage(), "png");
                 Imagen houghImage = this.lineHoughTransformAction.execute(customImage, thresholdizedImage, rhoDivisions, thetaDivisions, tolerance);

@@ -11,8 +11,8 @@ public class ModifyImageService {
 
     public Imagen createModifiedImage(Imagen image, Integer pixelX, Integer pixelY, Integer valueR, Integer valueG, Integer valueB) {
 
-        int width = image.getWidth();
-        int height = image.getHeight();
+        int width = image.getAncho();
+        int height = image.getAltura();
 
         PixelReader pixelReader = image.getPixelReader();
 

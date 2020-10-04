@@ -16,7 +16,7 @@ public class ApplyContrastAction {
 
     public Image execute(Imagen customImage, int s1, int s2, int r1, int r2) {
 
-        WritableImage image = new WritableImage(customImage.getWidth(), customImage.getHeight());
+        WritableImage image = new WritableImage(customImage.getAncho(), customImage.getAltura());
         PixelWriter writer = image.getPixelWriter();
 
         //Linear transformation parameters: s = m1*r ; s = m2*r + b
@@ -25,8 +25,8 @@ public class ApplyContrastAction {
         double b = 255 - (m2 * 255);
 
         //In the case of the Lena image, 151 -> 121. WTF?
-        for (int i = 0; i < customImage.getWidth(); i++) {
-            for (int j = 0; j < customImage.getHeight(); j++) {
+        for (int i = 0; i < customImage.getAncho(); i++) {
+            for (int j = 0; j < customImage.getAltura(); j++) {
 
                 if (customImage.getPromedioPixel(i, j) < r1) {
                     int valueGray = (int) (m1 * customImage.getPromedioPixel(i, j));

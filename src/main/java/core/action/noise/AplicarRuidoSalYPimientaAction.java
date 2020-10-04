@@ -27,7 +27,7 @@ public class AplicarRuidoSalYPimientaAction {
         PixelReader originalPixelReader = imagen.getPixelReader();
         PixelWriter imagenSinRuido = imagenConRuido.getPixelWriter();
 
-        int totalPixels = imagen.getWidth() * imagen.getHeight();
+        int totalPixels = imagen.getAncho() * imagen.getAltura();
 
         //CALCULO EL TOTAL DE PIXELES A CONTAMINAR SEGÚN EL PORCENTAJE INGESADO POR EL USUARIO
         Integer totalDePixelesAContaminar = (int) (totalPixels * porcentajeDePixelesAContaminar / 100);

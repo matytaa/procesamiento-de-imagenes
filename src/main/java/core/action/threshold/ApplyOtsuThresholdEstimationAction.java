@@ -1,7 +1,7 @@
 package core.action.threshold;
 
 import core.service.ApplyThresholdService;
-import core.service.MatrixService;
+import core.service.MatrizService;
 import core.service.generation.HistogramaService;
 import domain.Histograma;
 import domain.automaticthreshold.OtsuThresholdResult;
@@ -15,12 +15,12 @@ import java.util.List;
 public class ApplyOtsuThresholdEstimationAction {
 
     private HistogramaService histogramService;
-    private MatrixService matrixService;
+    private MatrizService matrizService;
     private ApplyThresholdService applyThresholdService;
 
-    public ApplyOtsuThresholdEstimationAction(HistogramaService histogramService, MatrixService matrixService, ApplyThresholdService applyThresholdService){
+    public ApplyOtsuThresholdEstimationAction(HistogramaService histogramService, MatrizService matrizService, ApplyThresholdService applyThresholdService){
         this.histogramService = histogramService;
-        this.matrixService = matrixService;
+        this.matrizService = matrizService;
         this.applyThresholdService = applyThresholdService;
     }
 
@@ -57,13 +57,13 @@ public class ApplyOtsuThresholdEstimationAction {
         int threshold = this.calculateFinalThreshold(variances);
 
         //calculo la forma matricial de la imagen
-        int[][] imageMatrix = this.matrixService.toGrayMatrix(customImage.toFXImage());
+        int[][] imageMatrix = this.matrizService.aMatrizDeGrises(customImage.toFXImage());
 
         //le aplico el umbral calculado
         int[][] transformedImage = this.applyThresholdService.applyThreshold(imageMatrix, threshold);
 
         //creo un objeto con la imagen modificada y el umbral usado, y lo devuelvo
-        Image image = this.matrixService.toImage(transformedImage, transformedImage, transformedImage);
+        Image image = this.matrizService.toImage(transformedImage, transformedImage, transformedImage);
         return new OtsuThresholdResult(image, threshold);
     }
 

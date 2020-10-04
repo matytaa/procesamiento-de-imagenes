@@ -1,29 +1,29 @@
 package core.action.edgedetector;
 
 import core.service.ImageOperationsService;
-import core.service.MatrixService;
+import core.service.MatrizService;
 import domain.customimage.MatrizCanales;
 import domain.customimage.Imagen;
 import domain.customimage.RGB;
-import domain.mask.sobel.SobelXDerivativeMask;
-import domain.mask.sobel.SobelYDerivativeMask;
+import domain.mask.sobel.SobelXDerivativeMascara;
+import domain.mask.sobel.SobelYDerivativeMascara;
 
 import java.util.List;
 
 public class ApplyCannyDetectorAction {
 
     private final ImageOperationsService imageOperationsService;
-    private final MatrixService matrixService;
+    private final MatrizService matrizService;
 
-    public ApplyCannyDetectorAction(ImageOperationsService imageOperationsService, MatrixService matrixService) {
+    public ApplyCannyDetectorAction(ImageOperationsService imageOperationsService, MatrizService matrizService) {
         this.imageOperationsService = imageOperationsService;
-        this.matrixService = matrixService;
+        this.matrizService = matrizService;
     }
 
     public Imagen execute(Imagen filteredImage, int t1, int t2) {
 
-        MatrizCanales sobelXDerivative = new SobelXDerivativeMask().apply(filteredImage);
-        MatrizCanales sobelYDerivative = new SobelYDerivativeMask().apply(filteredImage);
+        MatrizCanales sobelXDerivative = new SobelXDerivativeMascara().apply(filteredImage);
+        MatrizCanales sobelYDerivative = new SobelYDerivativeMascara().apply(filteredImage);
 
         int[][] gradientAngleMatrix = this.calculateGradientAngle(sobelXDerivative, sobelYDerivative);
         int[][] derivativesAbsoluteSumMatrix = this.imageOperationsService.calculateAbsoluteSum(sobelXDerivative, sobelYDerivative)
@@ -34,7 +34,7 @@ public class ApplyCannyDetectorAction {
         int[][] finalEdgedMatrix = this.applyHysteresisThresholding(roughSingleEdgedMatrix, t1, t2);
 
         return new Imagen(
-                this.imageOperationsService.toValidImageMatrix(new MatrizCanales(finalEdgedMatrix, finalEdgedMatrix, finalEdgedMatrix)),
+                this.imageOperationsService.aMatrizValida(new MatrizCanales(finalEdgedMatrix, finalEdgedMatrix, finalEdgedMatrix)),
                 filteredImage.getFormatString());
 
     }
@@ -68,7 +68,7 @@ public class ApplyCannyDetectorAction {
 
     private int markEdgeIfItsConnectedToAnotherEdge(int[][] roughSingleEdgedMatrix, int x, int y) {
 
-        List<RGB> neighbors = this.matrixService.obtainNeighbors(roughSingleEdgedMatrix, x, y);
+        List<RGB> neighbors = this.matrizService.obtainNeighbors(roughSingleEdgedMatrix, x, y);
 
         for (RGB neighbor : neighbors) {
             if (neighbor.getRed() == 255) {

@@ -50,9 +50,9 @@ public class ApplyGaussianNoiseToImageAction {
     }
 
     private int[][] sumImageChannelAndNoiseMatrixes(Imagen customImage, int[][] noiseMatrix, BiFunction<Integer, Integer, Integer> channel) {
-        int[][] sumMatrix = new int[customImage.getWidth()][customImage.getHeight()];
-        for (int i = 0; i < customImage.getWidth(); i++) {
-            for (int j = 0; j < customImage.getHeight(); j++) {
+        int[][] sumMatrix = new int[customImage.getAncho()][customImage.getAltura()];
+        for (int i = 0; i < customImage.getAncho(); i++) {
+            for (int j = 0; j < customImage.getAltura(); j++) {
                 sumMatrix[i][j] = channel.apply(i, j) + noiseMatrix[i][j];
             }
         }
@@ -61,7 +61,7 @@ public class ApplyGaussianNoiseToImageAction {
     }
 
     private int[][] generateNoiseMatrix(double mu, double sigma, Imagen customImage, List<Pixel> pixelsToContaminate) {
-        int[][] noiseMatrix = new int[customImage.getWidth()][customImage.getHeight()];
+        int[][] noiseMatrix = new int[customImage.getAncho()][customImage.getAltura()];
         for (int i = 0; i < noiseMatrix.length; i++) {
             for (int j = 0; j < noiseMatrix[i].length; j++) {
                 noiseMatrix[i][j] = 0;

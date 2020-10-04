@@ -67,8 +67,8 @@ public class ServiceProvider {
         return new GeneradorDeRandoms(new Random());
     }
 
-    public static MatrixService provideMatrixService() {
-        return new MatrixService();
+    public static MatrizService provideMatrixService() {
+        return new MatrizService();
     }
 
     public static ApplyThresholdService provideApplyThresholdService(){

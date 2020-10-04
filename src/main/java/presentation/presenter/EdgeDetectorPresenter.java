@@ -2,13 +2,13 @@ package presentation.presenter;
 
 import core.action.edgedetector.ApplyEdgeDetectorByGradientAction;
 import core.action.image.GetImageAction;
-import domain.FilterSemaphore;
+import domain.SemaforoFiltro;
 import domain.customimage.Imagen;
-import domain.mask.Mask;
-import domain.mask.prewitt.PrewittXDerivativeMask;
-import domain.mask.prewitt.PrewittYDerivativeMask;
-import domain.mask.sobel.SobelXDerivativeMask;
-import domain.mask.sobel.SobelYDerivativeMask;
+import domain.mask.Mascara;
+import domain.mask.prewitt.PrewittXDerivativeMascara;
+import domain.mask.prewitt.PrewittYDerivativeMascara;
+import domain.mask.sobel.SobelXDerivativeMascara;
+import domain.mask.sobel.SobelYDerivativeMascara;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
 
@@ -30,27 +30,27 @@ public class EdgeDetectorPresenter {
     public void onInitialize() {
         this.getImageAction.execute()
                 .ifPresent(customImage -> {
-                    if (FilterSemaphore.is(Mask.Type.PREWITT)) {
+                    if (SemaforoFiltro.is(Mascara.Tipo.PREWITT)) {
                         this.applyPrewittEdgeDetector(customImage);
                     }
 
-                    if (FilterSemaphore.is(Mask.Type.SOBEL)) {
+                    if (SemaforoFiltro.is(Mascara.Tipo.SOBEL)) {
                         this.applySobelEdgeDetector(customImage);
                     }
                 });
     }
 
     private void applyPrewittEdgeDetector(Imagen customImage) {
-        Mask prewittXDerivativeMask = new PrewittXDerivativeMask();
-        Mask prewittYDerivativeMask = new PrewittYDerivativeMask();
-        Image edgedImage = applyEdgeDetectorByGradientAction.execute(customImage, prewittXDerivativeMask, prewittYDerivativeMask);
+        Mascara prewittXDerivativeMascara = new PrewittXDerivativeMascara();
+        Mascara prewittYDerivativeMascara = new PrewittYDerivativeMascara();
+        Image edgedImage = applyEdgeDetectorByGradientAction.execute(customImage, prewittXDerivativeMascara, prewittYDerivativeMascara);
         imagePublishSubject.onNext(edgedImage);
     }
 
     private void applySobelEdgeDetector(Imagen customImage) {
-        Mask sobelXDerivativeMask = new SobelXDerivativeMask();
-        Mask sobelYDerivativeMask = new SobelYDerivativeMask();
-        Image edgedImage = applyEdgeDetectorByGradientAction.execute(customImage, sobelXDerivativeMask, sobelYDerivativeMask);
+        Mascara sobelXDerivativeMascara = new SobelXDerivativeMascara();
+        Mascara sobelYDerivativeMascara = new SobelYDerivativeMascara();
+        Image edgedImage = applyEdgeDetectorByGradientAction.execute(customImage, sobelXDerivativeMascara, sobelYDerivativeMascara);
         imagePublishSubject.onNext(edgedImage);
     }
 }

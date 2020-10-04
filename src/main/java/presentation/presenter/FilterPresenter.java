@@ -2,12 +2,12 @@ package presentation.presenter;
 
 import core.action.filter.ApplyFilterAction;
 import core.action.image.GetImageAction;
-import domain.FilterSemaphore;
-import domain.mask.Mask;
-import domain.mask.filter.GaussianMask;
-import domain.mask.filter.MeanMask;
-import domain.mask.filter.MedianMask;
-import domain.mask.filter.WeightedMedianMask;
+import domain.SemaforoFiltro;
+import domain.mask.Mascara;
+import domain.mask.filter.MascaraGaussiana;
+import domain.mask.filter.MascaraMedia;
+import domain.mask.filter.MascaraMediana;
+import domain.mask.filter.MascaraMedianaPonderada;
 import presentation.controller.FilterSceneController;
 
 public class FilterPresenter {
@@ -24,55 +24,55 @@ public class FilterPresenter {
         this.applyFilterAction = applyFilterAction;
     }
 
-    public void onApplyFilter() {
-        if (FilterSemaphore.is(Mask.Type.MEAN)) {
-            this.applyMeanFilter();
+    public void onAplicarFiltro() {
+        if (SemaforoFiltro.is(Mascara.Tipo.MEDIA)) {
+            this.aplicarFiltroMedia();
         }
 
-        if (FilterSemaphore.is(Mask.Type.MEDIAN)) {
-            this.applyMedianFilter();
+        if (SemaforoFiltro.is(Mascara.Tipo.MEDIANA)) {
+            this.aplicarFiltroMediana();
         }
 
-        if (FilterSemaphore.is(Mask.Type.WEIGHTED_MEDIAN)) {
-            this.applyWeightedMedianFilter();
+        if (SemaforoFiltro.is(Mascara.Tipo.MEDIANA_PONDERADA)) {
+            this.aplicarFiltroMedianaPonderada();
         }
 
-        if (FilterSemaphore.is(Mask.Type.GAUSSIAN)) {
-            this.applyGaussianFilter();
+        if (SemaforoFiltro.is(Mascara.Tipo.GAUSSIANO)) {
+            this.aplicarFiltroGaussiano();
         }
 
         view.closeWindow();
     }
 
-    private void applyMeanFilter() {
+    private void aplicarFiltroMedia() {
+        int tamanio = Integer.parseInt(view.textField.getText());
+        if (isImpar(tamanio)) return;
+        aplicarConMascara(new MascaraMedia(tamanio));
+    }
+
+    private void aplicarFiltroMediana() {
         int size = Integer.parseInt(view.textField.getText());
-        if (sizeMaskMustBeAnOddInteger(size)) return;
-        applyWithMask(new MeanMask(size));
+        aplicarConMascara(new MascaraMediana(size));
     }
 
-    private void applyMedianFilter() {
-        int size = Integer.parseInt(view.textField.getText());
-        applyWithMask(new MedianMask(size));
+    private void aplicarFiltroMedianaPonderada() {
+        aplicarConMascara(new MascaraMedianaPonderada());
     }
 
-    private void applyWeightedMedianFilter() {
-        applyWithMask(new WeightedMedianMask());
+    private void aplicarFiltroGaussiano() {
+        int desviacionEstandar = Integer.parseInt(view.textField.getText());
+        aplicarConMascara(new MascaraGaussiana(desviacionEstandar));
     }
 
-    private void applyGaussianFilter() {
-        int standardDeviation = Integer.parseInt(view.textField.getText());
-        applyWithMask(new GaussianMask(standardDeviation));
-    }
-
-    private void applyWithMask(Mask mask) {
+    private void aplicarConMascara(Mascara mascara) {
         this.getImageAction.execute()
-                .ifPresent(customImage -> {
-                    applyFilterAction.execute(customImage, mask);
+                .ifPresent(imagen -> {
+                    applyFilterAction.execute(imagen, mascara);
                     view.closeWindow();
                 });
     }
 
-    private boolean sizeMaskMustBeAnOddInteger(int size) {
-        return size % 2 == 0;
+    private boolean isImpar(int tamanio) {
+        return tamanio % 2 == 0;
     }
 }

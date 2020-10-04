@@ -8,8 +8,8 @@ public class TransformRGBtoHSVImageService {
 
     public HSVImage createHSVfromRGB(Imagen image) {
 
-        int width = image.getWidth();
-        int height = image.getHeight();
+        int width = image.getAncho();
+        int height = image.getAltura();
         HSVImage hsvImage = new HSVImage(width, height);
 
         for (int i = 0; i < width; i++) {

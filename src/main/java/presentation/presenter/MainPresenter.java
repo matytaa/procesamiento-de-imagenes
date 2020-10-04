@@ -18,7 +18,7 @@ import core.action.threshold.ApplyOtsuThresholdEstimationAction;
 import core.action.threshold.ApplyThresholdAction;
 import core.provider.PresenterProvider;
 import core.semaphore.RandomGeneratorsSemaphore;
-import domain.FilterSemaphore;
+import domain.SemaforoFiltro;
 import domain.RandomElement;
 import domain.activecontour.ActiveContourMode;
 import domain.automaticthreshold.GlobalThresholdResult;
@@ -30,11 +30,11 @@ import domain.flags.LaplacianDetector;
 import domain.generation.Channel;
 import domain.generation.Figure;
 import domain.generation.Gradient;
-import domain.mask.GaussianLaplacianMask;
-import domain.mask.LaplacianMask;
-import domain.mask.Mask;
-import domain.mask.SusanMask;
-import domain.mask.filter.HighPassMask;
+import domain.mask.LaplacianMascaraGaussiana;
+import domain.mask.LaplacianMascara;
+import domain.mask.Mascara;
+import domain.mask.SusanMascara;
+import domain.mask.filter.HighPassMascara;
 import io.reactivex.Observable;
 import io.reactivex.functions.Action;
 import javafx.embed.swing.SwingFXUtils;
@@ -174,7 +174,7 @@ public class MainPresenter {
         view.customImageView.setImage(view.modifiedImageView.getImage());
         updateCurrentImageAction.execute(modifiedCustomImage);
         view.modifiedImageView.setImage(null);
-        view.applyChangesButton.setVisible(false);
+        view.aceptarBoton.setVisible(false);
         view.undoChangesButton.setVisible(true);
     }
 
@@ -225,7 +225,7 @@ public class MainPresenter {
 
     private void setImageOnModifiedImageView(Imagen customImage) {
         view.modifiedImageView.setImage(SwingFXUtils.toFXImage(customImage.getBufferedImage(), null));
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onCalculatePixelValue() {
@@ -280,13 +280,13 @@ public class MainPresenter {
         Image image = view.customImageView.cutPartialImage();
         view.modifiedImageView.setImage(image);
         this.putModifiedImageAction.execute(new Imagen(SwingFXUtils.fromFXImage(image, null), Format.PNG));
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onCalculateNegativeImage() {
         Image image = this.calculateNegativeImageAction.execute();
         view.modifiedImageView.setImage(image);
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     private void applyThresholdToModifiedImage(Imagen customImage) {
@@ -300,7 +300,7 @@ public class MainPresenter {
     private void applyThreshold(Imagen customImage) {
         int threshold = Integer.parseInt(InsertValuePopup.show("Threshold", "0").get());
         view.modifiedImageView.setImage(applyThresholdAction.execute(customImage, threshold));
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onCreateHistograma() {
@@ -309,7 +309,7 @@ public class MainPresenter {
 
     public void onContrast() {
         new ContrastSceneCreator().createScene();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public MainSceneController getView() {
@@ -319,24 +319,24 @@ public class MainPresenter {
     public void onCreateEqualizedImageOnce() {
         this.getImageAction.execute()
                            .ifPresent(customImage -> equalizeGrayImageAction.execute(customImage, 1));
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onCreateEqualizedImageTwice() {
         this.getImageAction.execute()
                            .ifPresent(customImage -> equalizeGrayImageAction.execute(customImage, 2));
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onCompressDynamicRange() {
         Image image = compressDynamicRangeAction.execute();
         view.modifiedImageView.setImage(image);
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onGammaPowerFunction() {
         new GammaPowerFunctionSceneCreator().createScene();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onCalculateImagesOperations() {
@@ -360,7 +360,7 @@ public class MainPresenter {
 
     public void onAplicarRuidoSalYPimienta() {
         new SaltAndPepperNoiseSceneCreator().createScene();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onApplyEdgeEnhancement() {
@@ -372,12 +372,12 @@ public class MainPresenter {
         int size = insertedSize;
         this.getImageAction.execute()
                            .ifPresent(customImage -> {
-                               Imagen filteredCustomImage = applyFilterAction.execute(customImage, new HighPassMask(size));
+                               Imagen filteredCustomImage = applyFilterAction.execute(customImage, new HighPassMascara(size));
                                view.modifiedImageView.setImage(filteredCustomImage.toFXImage());
 
                                this.applyThresholdToModifiedImage(filteredCustomImage);
                            });
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onGenerateExponentialNoiseSyntheticImage() {
@@ -408,79 +408,79 @@ public class MainPresenter {
     public void onApplyAdditiveGaussianNoise() {
         RandomGeneratorsSemaphore.setValue(RandomElement.NOISE);
         new GaussianSceneCreator().createScene();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onApplyMultiplicativeRayleighNoise() {
         RandomGeneratorsSemaphore.setValue(RandomElement.NOISE);
         new RayleighSceneCreator().createScene();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onApplyMultiplicativeExponentialNoise() {
         RandomGeneratorsSemaphore.setValue(RandomElement.NOISE);
         new ExponentialSceneCreator().createScene();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplyMeanFilter() {
-        FilterSemaphore.setValue(Mask.Type.MEAN);
+    public void onAplicarFiltroMedia() {
+        SemaforoFiltro.setValue(Mascara.Tipo.MEDIA);
         new FilterSceneCreator().createScene();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplyMedianFilter() {
-        FilterSemaphore.setValue(Mask.Type.MEDIAN);
+    public void onAplicarFiltroMediana() {
+        SemaforoFiltro.setValue(Mascara.Tipo.MEDIANA);
         new FilterSceneCreator().createScene();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplyWeightedMedianFilter() {
-        FilterSemaphore.setValue(Mask.Type.WEIGHTED_MEDIAN);
+    public void onAplicarFiltroMedianaPonderada() {
+        SemaforoFiltro.setValue(Mascara.Tipo.MEDIANA_PONDERADA);
         new FilterSceneCreator().createScene();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplyGaussianFilter() {
-        FilterSemaphore.setValue(Mask.Type.GAUSSIAN);
+    public void onAplicarFiltroGausseano() {
+        SemaforoFiltro.setValue(Mascara.Tipo.GAUSSIANO);
         new FilterSceneCreator().createScene();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onApplyPrewittEdgeDetector() {
-        FilterSemaphore.setValue(Mask.Type.PREWITT);
+        SemaforoFiltro.setValue(Mascara.Tipo.PREWITT);
         PresenterProvider.provideEdgeDetectorPresenter().onInitialize();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onApplySobelEdgeDetector() {
-        FilterSemaphore.setValue(Mask.Type.SOBEL);
+        SemaforoFiltro.setValue(Mascara.Tipo.SOBEL);
         PresenterProvider.provideEdgeDetectorPresenter().onInitialize();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onApplyDirectionalDerivativeOperatorStandardMask() {
-        FilterSemaphore.setValue(Mask.Type.DERIVATE_DIRECTIONAL_OPERATOR_STANDARD);
+        SemaforoFiltro.setValue(Mascara.Tipo.DERIVATE_DIRECTIONAL_OPERATOR_STANDARD);
         PresenterProvider.provideDirectionalDerivativeOperatorPresenter().onInitialize();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onApplyDirectionalDerivativeOperatorKirshMask() {
-        FilterSemaphore.setValue(Mask.Type.DERIVATE_DIRECTIONAL_OPERATOR_KIRSH);
+        SemaforoFiltro.setValue(Mascara.Tipo.DERIVATE_DIRECTIONAL_OPERATOR_KIRSH);
         PresenterProvider.provideDirectionalDerivativeOperatorPresenter().onInitialize();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onApplyDirectionalDerivativeOperatorPrewittMask() {
-        FilterSemaphore.setValue(Mask.Type.DERIVATE_DIRECTIONAL_OPERATOR_PREWITT);
+        SemaforoFiltro.setValue(Mascara.Tipo.DERIVATE_DIRECTIONAL_OPERATOR_PREWITT);
         PresenterProvider.provideDirectionalDerivativeOperatorPresenter().onInitialize();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onApplyDirectionalDerivativeOperatorSobelMask() {
-        FilterSemaphore.setValue(Mask.Type.DERIVATE_DIRECTIONAL_OPERATOR_SOBEL);
+        SemaforoFiltro.setValue(Mascara.Tipo.DERIVATE_DIRECTIONAL_OPERATOR_SOBEL);
         PresenterProvider.provideDirectionalDerivativeOperatorPresenter().onInitialize();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onApplyGlobalThresholdEstimation() {
@@ -499,7 +499,7 @@ public class MainPresenter {
                                                "Threshold: " + String.valueOf(globalThresholdResult.getThreshold()));
                            });
 
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onApplyOtsuThresholdEstimation() {
@@ -511,7 +511,7 @@ public class MainPresenter {
                                        "Threshold: " + String.valueOf(otsuThresholdResult.getThreshold()));
                            });
 
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onApplyLaplacianEdgeDetector(LaplacianDetector detector) {
@@ -521,7 +521,7 @@ public class MainPresenter {
                                if (detector == LaplacianDetector.WITH_SLOPE_EVALUATION) {
                                    slopeThreshold = Integer.parseInt(InsertValuePopup.show("Insert slope threshold", "0").get());
                                }
-                               Imagen edgedImage = this.applyLaplacianDetectorAction.execute(customImage, new LaplacianMask(), slopeThreshold);
+                               Imagen edgedImage = this.applyLaplacianDetectorAction.execute(customImage, new LaplacianMascara(), slopeThreshold);
                                this.updateModifiedImage(edgedImage);
                            });
     }
@@ -532,19 +532,19 @@ public class MainPresenter {
                                double sigma = Double.parseDouble(InsertValuePopup.show("Insert standard deviation value", "0").get());
                                int slopeThreshold = Integer.parseInt(InsertValuePopup.show("Insert slope threshold", "0").get());
                                Imagen edgedImage = this.applyLaplacianDetectorAction
-                                       .execute(customImage, new GaussianLaplacianMask(sigma), slopeThreshold);
+                                       .execute(customImage, new LaplacianMascaraGaussiana(sigma), slopeThreshold);
                                this.updateModifiedImage(edgedImage);
                            });
     }
 
     public void onApplyDiffusion() {
         new DiffusionSceneCreator().createScene();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onResetModifiedImage() {
         view.modifiedImageView.setImage(null);
-        view.applyChangesButton.setVisible(false);
+        view.aceptarBoton.setVisible(false);
     }
 
     public void onUndoChanges() {
@@ -555,33 +555,33 @@ public class MainPresenter {
 
     public void onApplyCannyEdgeDetector() {
         new CannySceneCreator().createScene();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onApplySusanEdgeDetector() {
         this.getImageAction.execute()
                            .ifPresent(customImage -> {
-                               Mask susanMask = new SusanMask();
-                               Imagen edgedImage = this.applySusanDetectorAction.execute(customImage, susanMask);
+                               Mascara susanMascara = new SusanMascara();
+                               Imagen edgedImage = this.applySusanDetectorAction.execute(customImage, susanMascara);
                                this.updateModifiedImage(edgedImage);
                            });
     }
 
     public void onHoughTransform() {
         new HoughSceneCreator().createScene();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onApplyActiveContour() {
         ActiveContourMode.single();
         new ActiveContourSceneCreator().createScene();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onApplyActiveContourOnImageSequence() {
         ActiveContourMode.sequence();
         new ActiveContourSceneCreator().createScene();
-        view.applyChangesButton.setVisible(true);
+        view.aceptarBoton.setVisible(true);
     }
 
     public void onApplyHarris() {

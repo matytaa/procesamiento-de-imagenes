@@ -1,7 +1,7 @@
 package presentation.controller;
 
 import core.provider.PresenterProvider;
-import domain.FilterSemaphore;
+import domain.SemaforoFiltro;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -28,23 +28,23 @@ public class FilterSceneController {
 
     public void update() {
 
-        switch(FilterSemaphore.getValue()) {
+        switch(SemaforoFiltro.getValue()) {
 
-            case MEAN:
-                label.setText("Enter size mask | Must be an odd integer");
+            case MEDIA:
+                label.setText("Tamaño de la máscara (Impar)");
                 break;
 
-            case MEDIAN:
-                label.setText("Enter size mask");
+            case MEDIANA:
+                label.setText("Tamaño de la máscara (Impar)");
                 break;
 
-            case WEIGHTED_MEDIAN:
-                label.setText("Only 3x3 mask is available");
+            case MEDIANA_PONDERADA:
+                label.setText("OTamaño de la máscara fijo 3x3");
                 textField.setDisable(true);
                 break;
 
-            case GAUSSIAN:
-                label.setText("Enter sigma value");
+            case GAUSSIANO:
+                label.setText("Desviación Estandar");
                 break;
 
         }
@@ -52,8 +52,8 @@ public class FilterSceneController {
     }
 
     @FXML
-    public void apply() {
-        this.filterPresenter.onApplyFilter();
+    public void aplicar() {
+        this.filterPresenter.onAplicarFiltro();
     }
 
     public void closeWindow() {

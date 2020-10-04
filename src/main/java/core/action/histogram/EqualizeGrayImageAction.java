@@ -47,7 +47,7 @@ public class EqualizeGrayImageAction {
     }
 
     private Image equalizeImage(Imagen customImage, Histograma histogram) {
-        WritableImage image = new WritableImage(customImage.getWidth(), customImage.getHeight());
+        WritableImage image = new WritableImage(customImage.getAncho(), customImage.getAltura());
         PixelWriter pixelWriter = image.getPixelWriter();
 
         for (int i = 0; i < image.getWidth(); i++) {

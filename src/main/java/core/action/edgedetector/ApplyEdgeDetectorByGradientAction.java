@@ -1,27 +1,27 @@
 package core.action.edgedetector;
 
 import core.service.ImageOperationsService;
-import core.service.MatrixService;
+import core.service.MatrizService;
 import domain.customimage.MatrizCanales;
 import domain.customimage.Imagen;
-import domain.mask.Mask;
+import domain.mask.Mascara;
 import javafx.scene.image.Image;
 
 public class ApplyEdgeDetectorByGradientAction {
 
     private final ImageOperationsService imageOperationsService;
-    private final MatrixService matrixService;
+    private final MatrizService matrizService;
 
-    public ApplyEdgeDetectorByGradientAction(ImageOperationsService imageOperationsService, MatrixService matrixService) {
+    public ApplyEdgeDetectorByGradientAction(ImageOperationsService imageOperationsService, MatrizService matrizService) {
 
         this.imageOperationsService = imageOperationsService;
-        this.matrixService = matrixService;
+        this.matrizService = matrizService;
     }
 
-    public Image execute(Imagen customImage, Mask xDerivativeMask, Mask yDerivativeMask) {
+    public Image execute(Imagen customImage, Mascara xDerivativeMascara, Mascara yDerivativeMascara) {
         //We calculate the partial X and Y derivative matrixes
-        MatrizCanales xDerivateChannelMatrix = xDerivativeMask.apply(customImage);
-        MatrizCanales yDerivateChannelMatrix = yDerivativeMask.apply(customImage);
+        MatrizCanales xDerivateChannelMatrix = xDerivativeMascara.apply(customImage);
+        MatrizCanales yDerivateChannelMatrix = yDerivativeMascara.apply(customImage);
 
         //We calculate the gradient by applying the formulae: sqrt(X^2 + Y^2)
         MatrizCanales xDerivativeSquare = this.imageOperationsService.multiplyChannelMatrixs(xDerivateChannelMatrix, xDerivateChannelMatrix);
@@ -30,7 +30,7 @@ public class ApplyEdgeDetectorByGradientAction {
                 .sqrtChannelMatrixs(imageOperationsService.sumChannelMatrixs(xDerivativeSquare, yDerivativeSquare));
 
         //The result is normalized and written into an image
-        Image resultantImage = this.matrixService
+        Image resultantImage = this.matrizService
                 .toImage(gradientMagnitude.getRedChannel(), gradientMagnitude.getGreenChannel(), gradientMagnitude.getBlueChannel());
 
         return resultantImage;

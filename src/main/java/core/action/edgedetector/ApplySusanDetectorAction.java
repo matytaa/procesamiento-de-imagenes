@@ -2,14 +2,14 @@ package core.action.edgedetector;
 
 import domain.customimage.MatrizCanales;
 import domain.customimage.Imagen;
-import domain.mask.Mask;
+import domain.mask.Mascara;
 
 public class ApplySusanDetectorAction {
 
-    public Imagen execute(Imagen customImage, Mask mask) {
+    public Imagen execute(Imagen customImage, Mascara mascara) {
 
         MatrizCanales originalImageMatrix = new MatrizCanales(customImage.getMatrizRed(), customImage.getMatrizBlue(), customImage.getMatrizGreen());
-        MatrizCanales maskResult = mask.apply(customImage);
+        MatrizCanales maskResult = mascara.apply(customImage);
 
         for (int i = 0; i < originalImageMatrix.getWidth(); i++) {
             for (int j = 0; j < originalImageMatrix.getHeight(); j++) {

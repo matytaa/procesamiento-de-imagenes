@@ -13,8 +13,8 @@ public class HistogramaService {
         double[] valores = new double[257];
         //recorro cada pixel, y le calculo el promedio entre los 3 canales RGB. Ese es mi nivel de gris.
         //si vuelvo a obtener otro promedio igual, le voy sumando uno para registrar las apariciones.
-        for (int i = 0; i < imagen.getWidth(); i++) {
-            for (int j = 0; j < imagen.getHeight(); j++) {
+        for (int i = 0; i < imagen.getAncho(); i++) {
+            for (int j = 0; j < imagen.getAltura(); j++) {
                 valores[imagen.getPromedioPixel(i, j)] += 1;
                 total++;
             }

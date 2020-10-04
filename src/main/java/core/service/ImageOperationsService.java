@@ -30,20 +30,20 @@ public class ImageOperationsService {
 
     public int calcularAnchoResultante(Imagen primeraImagen, Imagen segundaImagen) {
         int resultantImageWidth = 1;
-        if (primeraImagen.getWidth() > segundaImagen.getWidth())
-            resultantImageWidth = primeraImagen.getWidth();
-        else if (segundaImagen.getWidth() >= primeraImagen.getWidth())
-            resultantImageWidth = segundaImagen.getWidth();
+        if (primeraImagen.getAncho() > segundaImagen.getAncho())
+            resultantImageWidth = primeraImagen.getAncho();
+        else if (segundaImagen.getAncho() >= primeraImagen.getAncho())
+            resultantImageWidth = segundaImagen.getAncho();
         
         return resultantImageWidth;
     }
 
     public int calcularAltoResultante(Imagen primeraImagen, Imagen segundaImagen) {
         int resultantImageHeight = 1;
-        if (primeraImagen.getHeight() > segundaImagen.getHeight())
-            resultantImageHeight = primeraImagen.getHeight();
-        else if (segundaImagen.getHeight() >= primeraImagen.getHeight())
-            resultantImageHeight = segundaImagen.getHeight();
+        if (primeraImagen.getAltura() > segundaImagen.getAltura())
+            resultantImageHeight = primeraImagen.getAltura();
+        else if (segundaImagen.getAltura() >= primeraImagen.getAltura())
+            resultantImageHeight = segundaImagen.getAltura();
         
         return resultantImageHeight;
     }
@@ -68,8 +68,8 @@ public class ImageOperationsService {
         int valorDelCanalVerde = 0;
         int valorDelCanalAzul = 0;
         PixelWriter pixelAEscribir = imagenANormalizar.getPixelWriter();
-        for (int i = 0; i < imagen.getWidth(); i++)
-            for (int j = 0; j < imagen.getHeight(); j++) {
+        for (int i = 0; i < imagen.getAncho(); i++)
+            for (int j = 0; j < imagen.getAltura(); j++) {
                 valorDelCanalRojo = imagen.getRChannelValue(i, j);
                 valorDelCanalVerde = imagen.getGChannelValue(i, j);
                 valorDelCanalAzul = imagen.getBChannelValue(i, j);
@@ -231,22 +231,22 @@ public class ImageOperationsService {
         return this.ajustarEscalaDeGrises(this.desplazarValoresDeLosPixelesHaciaCero(result));
     }
 
-    public int[][] desplazarValoresDeLosPixelesHaciaCero(int[][] pixelsValues) {
-        int minPixelValue = this.grayLevelStatisticsService.calcularMinimoNivelDeGris(pixelsValues);
-        for (int i = 0; i < pixelsValues.length; i++)
-            for (int j = 0; j < pixelsValues[i].length; j++)
-                pixelsValues[i][j] -= minPixelValue;
-        return pixelsValues;
+    public int[][] desplazarValoresDeLosPixelesHaciaCero(int[][] pixeles) {
+        int valorMinimoPixel = this.grayLevelStatisticsService.calcularMinimoNivelDeGris(pixeles);
+        for (int i = 0; i < pixeles.length; i++)
+            for (int j = 0; j < pixeles[i].length; j++)
+                pixeles[i][j] -= valorMinimoPixel;
+        return pixeles;
     }
 
-    private int[][] toValidImageMatrix(int[][] pixels) {
+    private int[][] aMatrizValida(int[][] pixels) {
         return this.ajustarEscalaDeGrises(this.desplazarValoresDeLosPixelesHaciaCero(pixels));
     }
 
-    public MatrizCanales toValidImageMatrix(MatrizCanales channelMatrix) {
-        int[][] redChannel = this.toValidImageMatrix(channelMatrix.getRedChannel());
-        int[][] greenChannel = this.toValidImageMatrix(channelMatrix.getGreenChannel());
-        int[][] blueChannel = this.toValidImageMatrix(channelMatrix.getBlueChannel());
+    public MatrizCanales aMatrizValida(MatrizCanales channelMatrix) {
+        int[][] redChannel = this.aMatrizValida(channelMatrix.getRedChannel());
+        int[][] greenChannel = this.aMatrizValida(channelMatrix.getGreenChannel());
+        int[][] blueChannel = this.aMatrizValida(channelMatrix.getBlueChannel());
         return new MatrizCanales(redChannel, greenChannel, blueChannel);
     }
 
@@ -254,21 +254,21 @@ public class ImageOperationsService {
         int[][] redChannel = multiplyMatrix(channelMatrix1.getRedChannel(), channelMatrix2.getRedChannel());
         int[][] greenChannel = multiplyMatrix(channelMatrix1.getGreenChannel(), channelMatrix2.getGreenChannel());
         int[][] blueChannel = multiplyMatrix(channelMatrix1.getBlueChannel(), channelMatrix2.getBlueChannel());
-        return toValidImageMatrix(new MatrizCanales(redChannel, greenChannel, blueChannel));
+        return aMatrizValida(new MatrizCanales(redChannel, greenChannel, blueChannel));
     }
 
     public MatrizCanales sumChannelMatrixs(MatrizCanales channelMatrix1, MatrizCanales channelMatrix2) {
         int[][] redChannel = sumMatrix(channelMatrix1.getRedChannel(), channelMatrix2.getRedChannel());
         int[][] greenChannel = sumMatrix(channelMatrix1.getGreenChannel(), channelMatrix2.getGreenChannel());
         int[][] blueChannel = sumMatrix(channelMatrix1.getBlueChannel(), channelMatrix2.getBlueChannel());
-        return toValidImageMatrix(new MatrizCanales(redChannel, greenChannel, blueChannel));
+        return aMatrizValida(new MatrizCanales(redChannel, greenChannel, blueChannel));
     }
 
     public MatrizCanales sqrtChannelMatrixs(MatrizCanales channelMatrix) {
         int[][] redChannel = sqrtMatrix(channelMatrix.getRedChannel());
         int[][] greenChannel = sqrtMatrix(channelMatrix.getGreenChannel());
         int[][] blueChannel = sqrtMatrix(channelMatrix.getBlueChannel());
-        return toValidImageMatrix(new MatrizCanales(redChannel, greenChannel, blueChannel));
+        return aMatrizValida(new MatrizCanales(redChannel, greenChannel, blueChannel));
     }
 
     public int[][] sumMatrix(int[][] matrix1, int[][] matrix2) {

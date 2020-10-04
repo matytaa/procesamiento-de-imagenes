@@ -50,9 +50,9 @@ public class ApplyExponentialNoiseToImageAction {
     }
 
     private int[][] multiplyImageChannelAndNoiseMatrix(Imagen customImage, int[][] noiseMatrix, BiFunction<Integer, Integer, Integer> channel) {
-        int[][] productMatrix = new int[customImage.getWidth()][customImage.getHeight()];
-        for (int i=0; i < customImage.getWidth(); i ++) {
-            for (int j=0; j < customImage.getHeight(); j++) {
+        int[][] productMatrix = new int[customImage.getAncho()][customImage.getAltura()];
+        for (int i = 0; i < customImage.getAncho(); i ++) {
+            for (int j = 0; j < customImage.getAltura(); j++) {
                 productMatrix[i][j] = channel.apply(i, j) * noiseMatrix[i][j];
             }
         }
@@ -60,7 +60,7 @@ public class ApplyExponentialNoiseToImageAction {
     }
 
         private int[][] generateNoiseMatrix(double lambda, Imagen customImage, List<Pixel> pixelsToContaminate) {
-        int[][] noiseMatrix = new int[customImage.getWidth()][customImage.getHeight()];
+        int[][] noiseMatrix = new int[customImage.getAncho()][customImage.getAltura()];
         for (int i=0; i < noiseMatrix.length; i++) {
             for (int j=0; j < noiseMatrix[i].length; j++) {
                 noiseMatrix[i][j] = 1; //Since the noise is multiplicative, the not-noise cells must contain 1

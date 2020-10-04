@@ -4,7 +4,7 @@ import core.action.edgedetector.ApplyCannyDetectorAction;
 import core.action.filter.ApplyFilterAction;
 import core.action.image.GetImageAction;
 import domain.customimage.Imagen;
-import domain.mask.filter.GaussianMask;
+import domain.mask.filter.MascaraGaussiana;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
 import presentation.controller.CannySceneController;
@@ -40,7 +40,7 @@ public class CannyPresenter {
 
                 this.getImageAction.execute().ifPresent(customImage -> {
 
-                            Imagen filteredImage = this.applyFilterAction.execute(customImage, new GaussianMask(sigma));
+                            Imagen filteredImage = this.applyFilterAction.execute(customImage, new MascaraGaussiana(sigma));
                             Image canniedImage = this.applyCannyDetectorAction.execute(filteredImage, t1, t2).toFXImage();
                             //NO invertir el orden, o rompe Hough (deberiamos buscar una manera de fixear esto)
                             this.imagePublishSubject.onNext(canniedImage);

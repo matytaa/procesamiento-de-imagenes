@@ -121,7 +121,7 @@ public class ActiveContourPresenter {
     }
 
     private ActiveContour createActiveContour(SelectionSquare selectionSquare, Imagen customImage) {
-        return new ActiveContour(customImage.getWidth(), customImage.getHeight(), selectionSquare, outsideGrayAverage, objectGrayAverage);
+        return new ActiveContour(customImage.getAncho(), customImage.getAltura(), selectionSquare, outsideGrayAverage, objectGrayAverage);
     }
 
     public void onApply() {

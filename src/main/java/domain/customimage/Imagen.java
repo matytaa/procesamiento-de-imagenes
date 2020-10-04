@@ -1,7 +1,7 @@
 package domain.customimage;
 
 import core.provider.ServiceProvider;
-import core.service.MatrixService;
+import core.service.MatrizService;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
@@ -22,7 +22,7 @@ public class Imagen {
     private final PixelReader reader;
     private final BufferedImage bufferedImage;
     private final Format format;
-    private final MatrixService matrixService;
+    private final MatrizService matrizService;
     private int[][] matrizRed;
     private int[][] matrizGreen;
     private int[][] matrizBlue;
@@ -42,14 +42,14 @@ public class Imagen {
         WritableImage image = SwingFXUtils.toFXImage(bufferedImage, null);
         this.reader = image.getPixelReader();
         this.pixeles = getListOfPixels();
-        this.matrixService = ServiceProvider.provideMatrixService();
+        this.matrizService = ServiceProvider.provideMatrixService();
 
         int width = (int) image.getWidth();
         int height = (int) image.getHeight();
 
-        this.matrizRed = matrixService.toChannelMatrix((x, y) -> reader.getColor(x, y).getRed(), width, height);
-        this.matrizGreen = matrixService.toChannelMatrix((x, y) -> reader.getColor(x, y).getGreen(), width, height);
-        this.matrizBlue = matrixService.toChannelMatrix((x, y) -> reader.getColor(x, y).getBlue(), width, height);
+        this.matrizRed = matrizService.toChannelMatrix((x, y) -> reader.getColor(x, y).getRed(), width, height);
+        this.matrizGreen = matrizService.toChannelMatrix((x, y) -> reader.getColor(x, y).getGreen(), width, height);
+        this.matrizBlue = matrizService.toChannelMatrix((x, y) -> reader.getColor(x, y).getBlue(), width, height);
     }
 
     private static Image channelMatrixToFXImage(int[][] red, int[][] green, int[][] blue) {
@@ -68,15 +68,15 @@ public class Imagen {
     }
 
     public int[][] getMatrizRed() {
-        return this.matrixService.copy(matrizRed);
+        return this.matrizService.copy(matrizRed);
     }
 
     public int[][] getMatrizGreen() {
-        return this.matrixService.copy(matrizGreen);
+        return this.matrizService.copy(matrizGreen);
     }
 
     public int[][] getMatrizBlue() {
-        return this.matrixService.copy(matrizBlue);
+        return this.matrizService.copy(matrizBlue);
     }
 
     public int getPixelQuantity() {
@@ -86,8 +86,8 @@ public class Imagen {
     private List<Pixel> getListOfPixels() {
         List<Pixel> total = new ArrayList<>();
 
-        for (int columna = 0; columna < getWidth(); columna++) {
-            for (int fila = 0; fila < getHeight(); fila++) {
+        for (int columna = 0; columna < getAncho(); columna++) {
+            for (int fila = 0; fila < getAltura(); fila++) {
                 total.add(new Pixel(columna, fila, getPixelReader().getColor(columna, fila)));
             }
         }
@@ -136,11 +136,11 @@ public class Imagen {
         return (int) (reader.getColor(x, y).getBlue() * 255);
     }
 
-    public Integer getHeight() {
+    public Integer getAltura() {
         return this.bufferedImage.getHeight();
     }
 
-    public Integer getWidth() {
+    public Integer getAncho() {
         return this.bufferedImage.getWidth();
     }
 
@@ -149,11 +149,10 @@ public class Imagen {
     }
 
     public Image toFXImage() {
-        return this.matrixService.toImage(this.getMatrizRed(), this.getMatrizGreen(), this.getMatrizBlue());
+        return this.matrizService.toImage(this.getMatrizRed(), this.getMatrizGreen(), this.getMatrizBlue());
     }
 
-    public boolean isPositionValid(int width, int height, int i, int j) {
-        // Ignore the portion of the mask outside the image.
+    public boolean isPosicionValida(int width, int height, int i, int j) {
         return j >= 0 && j < height && i >= 0 && i < width;
     }
 

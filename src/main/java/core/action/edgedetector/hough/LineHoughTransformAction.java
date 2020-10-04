@@ -23,7 +23,7 @@ public class LineHoughTransformAction {
     public Imagen execute(Imagen originalImage, Imagen edgedImage, int rhoDivisions, int thetaDivisions, double tolerance) {
 
         this.rhoLowerBound = 0;
-        this.rhoUpperBound = this.calculateDiagonal(edgedImage.getWidth(), edgedImage.getHeight());
+        this.rhoUpperBound = this.calculateDiagonal(edgedImage.getAncho(), edgedImage.getAltura());
         this.createParameterMatrix(rhoDivisions, thetaDivisions);
 
         int[][] channel = edgedImage.getMatrizRed();
@@ -41,7 +41,7 @@ public class LineHoughTransformAction {
 
         Map<RhoThetaLine, Integer> acceptedLines = this.findAcceptedLines(threshold);
 
-        return this.drawLines(originalImage, edgedImage.getWidth(), edgedImage.getHeight(), acceptedLines);
+        return this.drawLines(originalImage, edgedImage.getAncho(), edgedImage.getAltura(), acceptedLines);
 
     }
 

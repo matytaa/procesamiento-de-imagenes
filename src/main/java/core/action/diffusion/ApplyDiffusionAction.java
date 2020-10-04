@@ -22,8 +22,8 @@ public class ApplyDiffusionAction {
 
     public Imagen execute(Imagen customImage, Diffusion diffusion, Integer times) {
 
-        Integer width = customImage.getWidth();
-        Integer height = customImage.getHeight();
+        Integer width = customImage.getAncho();
+        Integer height = customImage.getAltura();
         MatrizCanales channelMatrix = new MatrizCanales(customImage.getMatrizRed(), customImage.getMatrizGreen(), customImage.getMatrizBlue());
 
         for (int i = 0; i < times; i++) {
@@ -42,7 +42,7 @@ public class ApplyDiffusionAction {
                 }
             }
 
-            channelMatrix = this.imageOperationsService.toValidImageMatrix(channelMatrix);
+            channelMatrix = this.imageOperationsService.aMatrizValida(channelMatrix);
         }
 
         Imagen image = new Imagen(channelMatrix, customImage.getFormatString());

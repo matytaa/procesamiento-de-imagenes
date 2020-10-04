@@ -1,11 +1,11 @@
 package core.action.edgedetector;
 
 import core.service.ImageOperationsService;
-import core.service.MatrixService;
+import core.service.MatrizService;
 import domain.customimage.MatrizCanales;
 import domain.customimage.Imagen;
 import domain.customimage.RGB;
-import domain.mask.Mask;
+import domain.mask.Mascara;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
 
@@ -13,48 +13,48 @@ public class ApplyDirectionalDerivativeOperatorAction {
 
     private final ImageOperationsService imageOperationsService;
     private final PublishSubject<Image> imagePublishSubject;
-    private final MatrixService matrixService;
+    private final MatrizService matrizService;
 
     public ApplyDirectionalDerivativeOperatorAction(ImageOperationsService imageOperationsService,
-            PublishSubject<Image> imagePublishSubject, MatrixService matrixService) {
+            PublishSubject<Image> imagePublishSubject, MatrizService matrizService) {
 
         this.imageOperationsService = imageOperationsService;
         this.imagePublishSubject = imagePublishSubject;
-        this.matrixService = matrixService;
+        this.matrizService = matrizService;
     }
 
     public void execute(Imagen customImage,
-                        Mask horizontalStraightMask,
-                        Mask verticalStraightMask,
-                        Mask mainDiagonalMask,
-                        Mask secondaryDiagonalMask) {
+                        Mascara horizontalStraightMascara,
+                        Mascara verticalStraightMascara,
+                        Mascara mainDiagonalMascara,
+                        Mascara secondaryDiagonalMascara) {
 
-        MatrizCanales channelMatrix = applyMasks(customImage, horizontalStraightMask, verticalStraightMask,
-                mainDiagonalMask, secondaryDiagonalMask);
+        MatrizCanales channelMatrix = applyMasks(customImage, horizontalStraightMascara, verticalStraightMascara,
+                mainDiagonalMascara, secondaryDiagonalMascara);
 
         int[][] redChannel = channelMatrix.getRedChannel();
         int[][] greenChannel = channelMatrix.getGreenChannel();
         int[][] blueChannel = channelMatrix.getBlueChannel();
-        Image resultantImage = this.matrixService.toImage(redChannel, greenChannel, blueChannel);
+        Image resultantImage = this.matrizService.toImage(redChannel, greenChannel, blueChannel);
 
         imagePublishSubject.onNext(resultantImage);
     }
 
     private MatrizCanales applyMasks(Imagen image,
-                                     Mask horizontalStraightMask, Mask verticalStraightMask,
-                                     Mask mainDiagonalMask, Mask secondaryDiagonalMask) {
+                                     Mascara horizontalStraightMascara, Mascara verticalStraightMascara,
+                                     Mascara mainDiagonalMascara, Mascara secondaryDiagonalMascara) {
 
-        Integer width = image.getWidth();
-        Integer height = image.getHeight();
+        Integer width = image.getAncho();
+        Integer height = image.getAltura();
         MatrizCanales channelMatrix = new MatrizCanales(width, height);
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
 
-                RGB horizontalRGB = horizontalStraightMask.applyMaskToPixel(image, x, y);
-                RGB verticalRGB = verticalStraightMask.applyMaskToPixel(image, x, y);
-                RGB mainDiagonalRGB = mainDiagonalMask.applyMaskToPixel(image, x, y);
-                RGB secondaryDiagonalRGB = secondaryDiagonalMask.applyMaskToPixel(image, x, y);
+                RGB horizontalRGB = horizontalStraightMascara.aplicarMascaraAPixel(image, x, y);
+                RGB verticalRGB = verticalStraightMascara.aplicarMascaraAPixel(image, x, y);
+                RGB mainDiagonalRGB = mainDiagonalMascara.aplicarMascaraAPixel(image, x, y);
+                RGB secondaryDiagonalRGB = secondaryDiagonalMascara.aplicarMascaraAPixel(image, x, y);
 
                 RGB maxRGB = getMaxRGB(horizontalRGB, verticalRGB, mainDiagonalRGB, secondaryDiagonalRGB);
 
@@ -62,7 +62,7 @@ public class ApplyDirectionalDerivativeOperatorAction {
             }
         }
 
-        return this.imageOperationsService.toValidImageMatrix(channelMatrix);
+        return this.imageOperationsService.aMatrizValida(channelMatrix);
     }
 
     private RGB getMaxRGB(RGB horizontalRGB, RGB verticalRGB, RGB mainDiagonalRGB, RGB secondaryDiagonalRGB) {

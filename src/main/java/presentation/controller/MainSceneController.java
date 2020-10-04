@@ -21,7 +21,7 @@ public class MainSceneController {
     @FXML
     public ImageView modifiedImageView;
     @FXML
-    public Button applyChangesButton;
+    public Button aceptarBoton;
     @FXML
     public Button resetModifiedImageButton;
     @FXML
@@ -248,23 +248,23 @@ public class MainSceneController {
     public void applyMultiplicativeExponentialNoise() { this.mainPresenter.onApplyMultiplicativeExponentialNoise(); }
 
     @FXML
-    public void onApplyMeanFilter() {
-        this.mainPresenter.onApplyMeanFilter();
+    public void onAplicarFiltroMedia() {
+        this.mainPresenter.onAplicarFiltroMedia();
     }
 
     @FXML
-    public void onApplyMedianFilter() {
-        this.mainPresenter.onApplyMedianFilter();
+    public void onAplicarFiltroMediana() {
+        this.mainPresenter.onAplicarFiltroMediana();
     }
 
     @FXML
-    public void onApplyWeightedMedianFilter() {
-        this.mainPresenter.onApplyWeightedMedianFilter();
+    public void onAplicarFiltroMedianaPonderada() {
+        this.mainPresenter.onAplicarFiltroMedianaPonderada();
     }
 
     @FXML
-    public void onApplyGaussianFilter() {
-        this.mainPresenter.onApplyGaussianFilter();
+    public void onAplicarFiltroGausseano() {
+        this.mainPresenter.onAplicarFiltroGausseano();
     }
 
     @FXML
