@@ -3,7 +3,7 @@ package presentation.presenter.random_generators;
 import core.action.noise.ApplyRayleighNoiseToImageAction;
 import core.action.noise.generator.GenerateSyntheticNoiseImageAction;
 import core.semaphore.RandomGeneratorsSemaphore;
-import core.service.statistics.RandomNumberGenerationService;
+import core.service.statistics.GeneradorDeRandoms;
 import domain.RandomElement;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
@@ -16,13 +16,13 @@ public class RayleighScenePresenter {
 
 
     private final RayleighSceneController view;
-    private final RandomNumberGenerationService randomNumberGenerationService;
+    private final GeneradorDeRandoms randomNumberGenerationService;
     private final GenerateSyntheticNoiseImageAction generateSyntheticNoiseImageAction;
     private final PublishSubject<Image> onNoiseImage;
     private final ApplyRayleighNoiseToImageAction applyRayleighNoiseToImageAction;
     private final PublishSubject<Image> onModifiedImage;
 
-    public RayleighScenePresenter(RayleighSceneController rayleighSceneController, RandomNumberGenerationService randomNumberGenerationService, GenerateSyntheticNoiseImageAction generateSyntheticNoiseImageAction, PublishSubject<Image> imagePublishSubject, ApplyRayleighNoiseToImageAction applyRayleighNoiseToImageAction, PublishSubject<Image> onModifiedImage) {
+    public RayleighScenePresenter(RayleighSceneController rayleighSceneController, GeneradorDeRandoms randomNumberGenerationService, GenerateSyntheticNoiseImageAction generateSyntheticNoiseImageAction, PublishSubject<Image> imagePublishSubject, ApplyRayleighNoiseToImageAction applyRayleighNoiseToImageAction, PublishSubject<Image> onModifiedImage) {
         this.view = rayleighSceneController;
         this.randomNumberGenerationService = randomNumberGenerationService;
         this.generateSyntheticNoiseImageAction = generateSyntheticNoiseImageAction;

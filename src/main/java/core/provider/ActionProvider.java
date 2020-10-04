@@ -22,7 +22,7 @@ import core.action.image.*;
 import core.action.noise.ApplyExponentialNoiseToImageAction;
 import core.action.noise.ApplyGaussianNoiseToImageAction;
 import core.action.noise.ApplyRayleighNoiseToImageAction;
-import core.action.noise.ApplySaltAndPepperNoiseAction;
+import core.action.noise.AplicarRuidoSalYPimientaAction;
 import core.action.noise.generator.GenerateSyntheticNoiseImageAction;
 import core.action.threshold.ApplyGlobalThresholdEstimationAction;
 import core.action.threshold.ApplyOtsuThresholdEstimationAction;
@@ -54,7 +54,7 @@ class ActionProvider {
     private static SumImagesAction sumImagesAction;
     private static NormalizeImageAction normalizeImageAction;
     private static SubstractImagesAction substractImagesAction;
-    private static ApplySaltAndPepperNoiseAction applySaltAndPepperAction;
+    private static AplicarRuidoSalYPimientaAction applySaltAndPepperAction;
     private static ApplyFilterAction applyFilterAction;
     private static GenerateSyntheticNoiseImageAction generateSyntheticNoiseImageAction;
     private static ApplyGaussianNoiseToImageAction applyGaussianNoiseToImageAction;
@@ -252,9 +252,9 @@ class ActionProvider {
         return normalizeImageAction;
     }
 
-    public static ApplySaltAndPepperNoiseAction provideApplySaltAndPepperNoiseAction() {
+    public static AplicarRuidoSalYPimientaAction provideApplySaltAndPepperNoiseAction() {
         if (applySaltAndPepperAction == null) {
-            applySaltAndPepperAction = new ApplySaltAndPepperNoiseAction(
+            applySaltAndPepperAction = new AplicarRuidoSalYPimientaAction(
                     ServiceProvider.provideRandomNumberGenerationService(),
                     PublishSubjectProvider.provideOnModifiedImagePublishSubject());
         }

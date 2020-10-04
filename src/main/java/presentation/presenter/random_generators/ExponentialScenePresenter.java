@@ -3,7 +3,7 @@ package presentation.presenter.random_generators;
 import core.action.noise.ApplyExponentialNoiseToImageAction;
 import core.action.noise.generator.GenerateSyntheticNoiseImageAction;
 import core.semaphore.RandomGeneratorsSemaphore;
-import core.service.statistics.RandomNumberGenerationService;
+import core.service.statistics.GeneradorDeRandoms;
 import domain.RandomElement;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
@@ -14,14 +14,14 @@ import presentation.util.ShowResultPopup;
 
 public class ExponentialScenePresenter {
 
-    private final RandomNumberGenerationService randomNumberGenerationService;
+    private final GeneradorDeRandoms randomNumberGenerationService;
     private final ExponentialSceneController view;
     private final GenerateSyntheticNoiseImageAction generateSyntheticNoiseImageAction;
     private final PublishSubject<Image> onNoiseImage;
     private final ApplyExponentialNoiseToImageAction applyExponentialNoiseToImageAction;
     private final PublishSubject<Image> onModifiedImage;
 
-    public ExponentialScenePresenter(ExponentialSceneController exponentialSceneController, RandomNumberGenerationService randomNumberGenerationService, GenerateSyntheticNoiseImageAction generateSyntheticNoiseImageAction, PublishSubject<Image> noiseImagePublishSubject, ApplyExponentialNoiseToImageAction applyExponentialNoiseToImageAction, PublishSubject<Image> onModifiedImage) {
+    public ExponentialScenePresenter(ExponentialSceneController exponentialSceneController, GeneradorDeRandoms randomNumberGenerationService, GenerateSyntheticNoiseImageAction generateSyntheticNoiseImageAction, PublishSubject<Image> noiseImagePublishSubject, ApplyExponentialNoiseToImageAction applyExponentialNoiseToImageAction, PublishSubject<Image> onModifiedImage) {
         this.view = exponentialSceneController;
         this.randomNumberGenerationService = randomNumberGenerationService;
         this.generateSyntheticNoiseImageAction = generateSyntheticNoiseImageAction;

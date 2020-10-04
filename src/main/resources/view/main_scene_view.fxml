@@ -84,5 +84,8 @@
         <Menu mnemonicParsing="false" text="Algebra">
             <MenuItem mnemonicParsing="false" onAction="#calculateImagesOperations" text="Operaciones sobre imágenes" />
         </Menu>
+        <Menu mnemonicParsing="false" text="Ruido">
+            <MenuItem mnemonicParsing="false" onAction="#aplicarRuidoSalYPimiena" text="Sal y Pimienta" />
+        </Menu>
     </MenuBar>
 </AnchorPane>

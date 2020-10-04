@@ -358,7 +358,7 @@ public class MainPresenter {
         new GaussianSceneCreator().createScene();
     }
 
-    public void onApplySaltAndPepperNoise() {
+    public void onAplicarRuidoSalYPimienta() {
         new SaltAndPepperNoiseSceneCreator().createScene();
         view.applyChangesButton.setVisible(true);
     }

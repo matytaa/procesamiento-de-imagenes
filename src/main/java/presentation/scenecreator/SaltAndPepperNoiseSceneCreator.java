@@ -12,10 +12,10 @@ public class SaltAndPepperNoiseSceneCreator implements SceneCreator{
     public void createScene() {
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/salt_and_pepper_noise_scene_view.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/ruido_sal_y_pimienta_scene_view.fxml"));
             Scene channelScene = new Scene(root);
             Stage channelStage = new Stage(StageStyle.DECORATED);
-            channelStage.setTitle("Salt and Pepper Noise");
+            channelStage.setTitle("Ruido Sal y Pimienta");
             channelStage.setScene(channelScene);
             channelStage.show();
 

@@ -1,7 +1,7 @@
 package presentation.presenter;
 
 import core.action.image.GetImageAction;
-import core.action.noise.ApplySaltAndPepperNoiseAction;
+import core.action.noise.AplicarRuidoSalYPimientaAction;
 import domain.customimage.Imagen;
 import presentation.controller.SaltAndPepperNoiseController;
 
@@ -12,25 +12,25 @@ public class SaltAndPepperNoisePresenter {
     private static final String EMPTY = "";
     private final SaltAndPepperNoiseController view;
     private final GetImageAction getImageAction;
-    private final ApplySaltAndPepperNoiseAction applySaltAndPepperNoiseAction;
+    private final AplicarRuidoSalYPimientaAction aplicarRuidoSalYPimientaAction;
 
     public SaltAndPepperNoisePresenter(
             SaltAndPepperNoiseController view,
             GetImageAction getImageAction,
-            ApplySaltAndPepperNoiseAction applySaltAndPepperNoiseAction) {
+            AplicarRuidoSalYPimientaAction applySaltAndPepperNoiseAction) {
 
         this.view = view;
         this.getImageAction = getImageAction;
-        this.applySaltAndPepperNoiseAction = applySaltAndPepperNoiseAction;
+        this.aplicarRuidoSalYPimientaAction = applySaltAndPepperNoiseAction;
     }
 
     public void onInitializeView() {
-        view.p0ValidationLabel.setText("P0 must be lesser than 1 | E(0,1)");
-        view.p1ValidationLabel.setText("P1 must be greater than P0 | E(0,1)");
-        view.percentValidationLabel.setText("Percent must be greater than 0 and lesser than 100");
+        view.p0ValidationLabel.setText("P0 tiene que ser < 1");
+        view.p1ValidationLabel.setText("P1 tiene que ser mayor o igual P0 ");
+        view.percentValidationLabel.setText("Porcentaje (0 a 100)");
     }
 
-    public void onApplyNoise() {
+    public void onAplicarRuido() {
 
         Optional<Imagen> optionalImage = getImageAction.execute();
 
@@ -39,41 +39,41 @@ public class SaltAndPepperNoisePresenter {
             return;
         }
 
-        Imagen customImage = optionalImage.get();
+        Imagen imagen = optionalImage.get();
 
-        if (validateFields()) {
-            Double percentToContaminate = Double.parseDouble(view.percentField.getText());
+        if (validarCampos()) {
+            Double porcentajeAContaminar = Double.parseDouble(view.percentField.getText());
             Double p0 = Double.parseDouble(view.p0Field.getText());
             Double p1 = Double.parseDouble(view.p1Field.getText());
 
-            if (percentToContaminate >= 0 && percentToContaminate <= 100) {
+            if (porcentajeAContaminar >= 0 && porcentajeAContaminar <= 100) {
 
                 if (p0 < 1 && p1 < 1 && (p0 + p1 == 1)) {
 
                     if (p1 >= p0) {
 
-                        applySaltAndPepperNoiseAction.execute(customImage, percentToContaminate, p0, p1);
+                        aplicarRuidoSalYPimientaAction.aplicar(imagen, porcentajeAContaminar, p0, p1);
                         view.closeWindow();
 
                     } else {
-                        view.p0ValidationLabel.setText("Validation error: p1 must be > p0");
+                        view.p0ValidationLabel.setText("Error: p1 tiene que ser > p0");
                     }
 
                 } else if (p0 > 1){
-                    view.p0ValidationLabel.setText("Validation error: p0 must be < 1");
+                    view.p0ValidationLabel.setText("Error: p0 tiene que ser < 1");
                 } else if (p1 > 1){
-                    view.p0ValidationLabel.setText("Validation error: p1 must be < 1");
+                    view.p0ValidationLabel.setText("Error: p1 tiene que ser < 1");
                 } else if (p0 + p1 != 1){
-                    view.p0ValidationLabel.setText("Validation error: p0 + p1 must equal 1");
+                    view.p0ValidationLabel.setText("Error: p0 + p1 tienen que ser = 1");
                 }
 
             } else {
-                view.p0ValidationLabel.setText("Validation error: invalid percent");
+                view.p0ValidationLabel.setText("Error: porcentaje inválido");
             }
         }
     }
 
-    private boolean validateFields() {
+    private boolean validarCampos() {
         return !view.p0Field.getText().equals(EMPTY) &&
                 !view.p1Field.getText().equals(EMPTY) &&
                 !view.percentField.getText().equals(EMPTY);

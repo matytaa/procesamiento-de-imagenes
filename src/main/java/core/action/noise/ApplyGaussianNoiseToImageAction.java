@@ -2,7 +2,7 @@ package core.action.noise;
 
 import core.repository.ImageRepository;
 import core.service.ImageOperationsService;
-import core.service.statistics.RandomNumberGenerationService;
+import core.service.statistics.GeneradorDeRandoms;
 import domain.customimage.Imagen;
 import domain.customimage.Pixel;
 import javafx.scene.image.Image;
@@ -15,9 +15,9 @@ public class ApplyGaussianNoiseToImageAction {
 
     private final ImageOperationsService imageOperationsService;
     private final ImageRepository imageRepository;
-    private final RandomNumberGenerationService randomNumberGenerationService;
+    private final GeneradorDeRandoms randomNumberGenerationService;
 
-    public ApplyGaussianNoiseToImageAction(ImageRepository imageRepository, ImageOperationsService imageOperationsService, RandomNumberGenerationService randomNumberGenerationService) {
+    public ApplyGaussianNoiseToImageAction(ImageRepository imageRepository, ImageOperationsService imageOperationsService, GeneradorDeRandoms randomNumberGenerationService) {
         this.imageRepository = imageRepository;
         this.imageOperationsService = imageOperationsService;
         this.randomNumberGenerationService = randomNumberGenerationService;
@@ -31,7 +31,7 @@ public class ApplyGaussianNoiseToImageAction {
 
         Imagen customImage = this.imageRepository.getImage().get();
         int numberOfPixelsToContaminate = (int) (percent * customImage.getPixelQuantity());
-        List<Pixel> pixelsToContaminate = customImage.pickNRandomPixels(numberOfPixelsToContaminate);
+        List<Pixel> pixelsToContaminate = customImage.seleccionarNPiexelesRandom(numberOfPixelsToContaminate);
 
         //Generate a matrix where N cells contain noise, and the rest contain zeros
         int[][] noiseMatrix = this.generateNoiseMatrix(mu, sigma, customImage, pixelsToContaminate);

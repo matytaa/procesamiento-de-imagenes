@@ -3,7 +3,7 @@ package presentation.presenter.random_generators;
 import core.action.noise.ApplyGaussianNoiseToImageAction;
 import core.action.noise.generator.GenerateSyntheticNoiseImageAction;
 import core.semaphore.RandomGeneratorsSemaphore;
-import core.service.statistics.RandomNumberGenerationService;
+import core.service.statistics.GeneradorDeRandoms;
 import domain.RandomElement;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
@@ -15,13 +15,13 @@ import presentation.util.ShowResultPopup;
 public class GaussianScenePresenter {
 
     private final GaussianSceneController view;
-    private final RandomNumberGenerationService randomNumberGenerationService;
+    private final GeneradorDeRandoms randomNumberGenerationService;
     private final GenerateSyntheticNoiseImageAction generateSyntheticNoiseImageAction;
     private final PublishSubject<Image> onNoiseImage;
     private final ApplyGaussianNoiseToImageAction applyGaussianNoiseToImageAction;
     private final PublishSubject<Image> onModifiedImage;
 
-    public GaussianScenePresenter(GaussianSceneController gaussianSceneController, RandomNumberGenerationService randomNumberGenerationService, GenerateSyntheticNoiseImageAction generateSyntheticNoiseImageAction, PublishSubject<Image> imagePublishSubject, ApplyGaussianNoiseToImageAction applyGaussianNoiseToImageAction, PublishSubject<Image> onModifiedImage) {
+    public GaussianScenePresenter(GaussianSceneController gaussianSceneController, GeneradorDeRandoms randomNumberGenerationService, GenerateSyntheticNoiseImageAction generateSyntheticNoiseImageAction, PublishSubject<Image> imagePublishSubject, ApplyGaussianNoiseToImageAction applyGaussianNoiseToImageAction, PublishSubject<Image> onModifiedImage) {
         this.view = gaussianSceneController;
         this.randomNumberGenerationService = randomNumberGenerationService;
         this.generateSyntheticNoiseImageAction = generateSyntheticNoiseImageAction;

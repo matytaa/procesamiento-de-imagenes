@@ -5,7 +5,7 @@ import core.service.generation.HistogramaService;
 import core.service.generation.ImageFigureService;
 import core.service.generation.ImageGradientService;
 import core.service.statistics.GrayLevelStatisticsService;
-import core.service.statistics.RandomNumberGenerationService;
+import core.service.statistics.GeneradorDeRandoms;
 import core.service.transformations.TransformRGBtoHSVImageService;
 import javafx.stage.FileChooser;
 
@@ -63,8 +63,8 @@ public class ServiceProvider {
         return new HistogramaService();
     }
 
-    public static RandomNumberGenerationService provideRandomNumberGenerationService() {
-        return new RandomNumberGenerationService(new Random());
+    public static GeneradorDeRandoms provideRandomNumberGenerationService() {
+        return new GeneradorDeRandoms(new Random());
     }
 
     public static MatrixService provideMatrixService() {

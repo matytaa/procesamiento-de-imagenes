@@ -34,8 +34,8 @@ public class SaltAndPepperNoiseController {
     }
 
     @FXML
-    public void applyNoise() {
-        this.saltAndPepperNoisePresenter.onApplyNoise();
+    public void aplicarRuido() {
+        this.saltAndPepperNoisePresenter.onAplicarRuido();
     }
 
     public void closeWindow() {

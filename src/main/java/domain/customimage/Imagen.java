@@ -95,7 +95,7 @@ public class Imagen {
         return total;
     }
 
-    public List<Pixel> pickNRandomPixels(int n) {
+    public List<Pixel> seleccionarNPiexelesRandom(int n) {
         List<Pixel> copy = new LinkedList<>(pixeles);
         Collections.shuffle(copy);
         return copy.subList(0, n);

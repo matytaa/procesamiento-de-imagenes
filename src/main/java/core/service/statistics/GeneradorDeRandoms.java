@@ -2,29 +2,29 @@ package core.service.statistics;
 
 import java.util.Random;
 
-public class RandomNumberGenerationService {
+public class GeneradorDeRandoms {
 
     private Random random;
 
-    public RandomNumberGenerationService(Random random) {
+    public GeneradorDeRandoms(Random random) {
         this.random = random;
     }
 
     // y = (-1/lambda) * log(x)
     public double generateExponentialNumber(double lambda) {
-        return (-1 / lambda) * (Math.log(randomBetweenZeroAndOne())); // Exponential Number
+        return (-1 / lambda) * (Math.log(randomEntre0Y1())); // Exponential Number
     }
 
     // y = psi * (-2 * log(1 - x))^(1/2)
     public double generateRayleighNumber(double psi) {
-        return psi * Math.sqrt(-2 * Math.log(1 - randomBetweenZeroAndOne())); // Rayleigh Number
+        return psi * Math.sqrt(-2 * Math.log(1 - randomEntre0Y1())); // Rayleigh Number
     }
 
     // y = (((y1 + y2) / 2) * sigma) + mu
     public double generateGaussianNumber(double mu, double sigma) {
 
-        double firstUniformNumber = randomBetweenZeroAndOne();
-        double secondUniformNumber = randomBetweenZeroAndOne();
+        double firstUniformNumber = randomEntre0Y1();
+        double secondUniformNumber = randomEntre0Y1();
 
         //This block is to make sure that none of the generated numbers is 0, so the logarithm will exist
         while (firstUniformNumber * secondUniformNumber == 0) {
@@ -43,12 +43,12 @@ public class RandomNumberGenerationService {
         return standardGaussianNumber * sigma + mu;
     }
 
-    public Integer withUniformDistribution(Integer origin, Integer bound) {
-        int delta = bound - origin;
-        return (int) (randomBetweenZeroAndOne() * delta) + origin;
+    public Integer segunDistribucionUniforme(Integer origen, Integer limite) {
+        int delta = limite - origen;
+        return (int) (randomEntre0Y1() * delta) + origen;
     }
 
-    private double randomBetweenZeroAndOne() {
+    private double randomEntre0Y1() {
         return this.random.nextDouble();
     }
 

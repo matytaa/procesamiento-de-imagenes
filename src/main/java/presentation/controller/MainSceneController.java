@@ -209,7 +209,7 @@ public class MainSceneController {
     }
 
     @FXML
-    public void applySaltAndPepperNoise() { this.mainPresenter.onApplySaltAndPepperNoise(); }
+    public void aplicarRuidoSalYPimiena() { this.mainPresenter.onAplicarRuidoSalYPimienta(); }
 
     public void onApplyEdgeEnhancement(){this.mainPresenter.onApplyEdgeEnhancement();}
 
