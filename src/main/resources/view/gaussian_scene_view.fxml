@@ -6,7 +6,7 @@
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.controller.GaussianSceneController">
     <Label layoutX="26.0" layoutY="25.0" text="Media"/>
     <TextField fx:id="muTextField" layoutX="49.0" layoutY="58.0" prefHeight="25.0" prefWidth="67.0"/>
-    <Button layoutX="147.0" layoutY="99.0" mnemonicParsing="false" onAction="#generate" text="Generate"/>
+    <Button layoutX="147.0" layoutY="99.0" mnemonicParsing="false" onAction="#generar" text="Aceptar"/>
     <Label layoutX="212.0" layoutY="25.0" text="Desviación estándar"/>
     <TextField fx:id="sigmaTextField" layoutX="269.0" layoutY="58.0" prefHeight="25.0" prefWidth="67.0"/>
 </AnchorPane>

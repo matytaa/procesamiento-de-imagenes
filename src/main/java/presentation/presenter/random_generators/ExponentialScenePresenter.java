@@ -36,13 +36,13 @@ public class ExponentialScenePresenter {
 
         if (isLambdaValida(lambda)) {
 
-            if (SemaforosGeneradoresDeRandoms.getValue() == RandomElement.NUMBER) {
+            if (SemaforosGeneradoresDeRandoms.getValue() == RandomElement.NUMERO) {
 
                 double number = this.generadorDeRandomsService.generarNumeroExponencial(lambda);
                 this.mostrarNumero(number);
                 this.view.closeWindow();
 
-            } else if (SemaforosGeneradoresDeRandoms.getValue() == RandomElement.SYNTHETIC_NOISE_IMAGE){
+            } else if (SemaforosGeneradoresDeRandoms.getValue() == RandomElement.IMAGEN_SINTETICA_RUIDO){
 
                 int matrizRandom[][] = this.generadorDeRandomsService.generarMatrizRandomExponencial(100, 100, lambda);
                 Image image = this.generarImagenRuidoSinteticoAction.execute(matrizRandom);

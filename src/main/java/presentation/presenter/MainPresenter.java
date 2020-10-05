@@ -343,18 +343,18 @@ public class MainPresenter {
         new ImagesOperationsSceneCreator().createScene();
     }
 
-    public void onGenerateExponentialRandomNumber() {
-        SemaforosGeneradoresDeRandoms.setValue(RandomElement.NUMBER);
+    public void onGenerarNumeroRandomExponencial() {
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.NUMERO);
         new ExponentialSceneCreator().createScene();
     }
 
-    public void onGenerateRayleighRandomNumber() {
-        SemaforosGeneradoresDeRandoms.setValue(RandomElement.NUMBER);
+    public void onGenerarNumeroRandomRayleigh() {
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.NUMERO);
         new RayleighSceneCreator().createScene();
     }
 
-    public void onGenerateGaussianRandomNumber() {
-        SemaforosGeneradoresDeRandoms.setValue(RandomElement.NUMBER);
+    public void onGenerarNumeroRandomGaussiano() {
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.NUMERO);
         new GaussianSceneCreator().createScene();
     }
 
@@ -381,17 +381,17 @@ public class MainPresenter {
     }
 
     public void onGenerateExponentialNoiseSyntheticImage() {
-        SemaforosGeneradoresDeRandoms.setValue(RandomElement.SYNTHETIC_NOISE_IMAGE);
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.IMAGEN_SINTETICA_RUIDO);
         new ExponentialSceneCreator().createScene();
     }
 
     public void onGenerateRayleighNoiseSyntheticImage() {
-        SemaforosGeneradoresDeRandoms.setValue(RandomElement.SYNTHETIC_NOISE_IMAGE);
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.IMAGEN_SINTETICA_RUIDO);
         new RayleighSceneCreator().createScene();
     }
 
     public void onGenerateGaussianNoiseSyntheticImage() {
-        SemaforosGeneradoresDeRandoms.setValue(RandomElement.SYNTHETIC_NOISE_IMAGE);
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.IMAGEN_SINTETICA_RUIDO);
         new GaussianSceneCreator().createScene();
     }
 
@@ -406,19 +406,19 @@ public class MainPresenter {
     }
 
     public void onAplicarRuidoAditivoGaussiano() {
-        SemaforosGeneradoresDeRandoms.setValue(RandomElement.NOISE);
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.RUIDO);
         new GaussianSceneCreator().createScene();
         view.aceptarBoton.setVisible(true);
     }
 
     public void onAplicarRuidoMultiplicativoRayleigh() {
-        SemaforosGeneradoresDeRandoms.setValue(RandomElement.NOISE);
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.RUIDO);
         new RayleighSceneCreator().createScene();
         view.aceptarBoton.setVisible(true);
     }
 
     public void onAplicarRuidoMultiplicativoExponencial() {
-        SemaforosGeneradoresDeRandoms.setValue(RandomElement.NOISE);
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.RUIDO);
         new ExponentialSceneCreator().createScene();
         view.aceptarBoton.setVisible(true);
     }

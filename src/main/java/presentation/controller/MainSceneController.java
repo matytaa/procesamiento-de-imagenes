@@ -174,18 +174,18 @@ public class MainSceneController {
     }
 
     @FXML
-    public void generateExponentialRandomNumber() {
-        this.mainPresenter.onGenerateExponentialRandomNumber();
+    public void generarNumeroRandomExponencial() {
+        this.mainPresenter.onGenerarNumeroRandomExponencial();
     }
 
     @FXML
-    public void generateRayleighRandomNumber() {
-        this.mainPresenter.onGenerateRayleighRandomNumber();
+    public void generarNumeroRandomRayleigh() {
+        this.mainPresenter.onGenerarNumeroRandomRayleigh();
     }
 
     @FXML
-    public void generateGaussianRandomNumber() {
-        this.mainPresenter.onGenerateGaussianRandomNumber();
+    public void generarNumeroRandomGaussiano() {
+        this.mainPresenter.onGenerarNumeroRandomGaussiano();
     }
 
     @FXML

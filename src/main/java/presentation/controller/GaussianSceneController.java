@@ -21,7 +21,7 @@ public class GaussianSceneController {
     }
 
     @FXML
-    public void generate() {
+    public void generar() {
         this.gaussianScenePresenter.onGenerate();
     }
 

@@ -38,13 +38,13 @@ public class GaussianScenePresenter {
 
         if (isSigmaValido(sigma)) {
 
-            if (SemaforosGeneradoresDeRandoms.getValue() == RandomElement.NUMBER) {
+            if (SemaforosGeneradoresDeRandoms.getValue() == RandomElement.NUMERO) {
 
                 double number = this.generadorDeRandomsService.generarNumeroGaussiano(mu, sigma);
                 this.mostrarNumero(number);
                 this.view.closeWindow();
 
-            } else if (SemaforosGeneradoresDeRandoms.getValue() == RandomElement.SYNTHETIC_NOISE_IMAGE){
+            } else if (SemaforosGeneradoresDeRandoms.getValue() == RandomElement.IMAGEN_SINTETICA_RUIDO){
 
                 int randomNumberMatrix[][] = this.generadorDeRandomsService.generarMatrizRandomGaussianos(100, 100, mu, sigma);
                 Image image = this.generarImagenRuidoSinteticoAction.execute(randomNumberMatrix);

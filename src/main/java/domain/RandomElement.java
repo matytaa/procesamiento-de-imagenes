@@ -1,5 +1,5 @@
 package domain;
 
 public enum RandomElement {
-    NUMBER, NOISE, SYNTHETIC_NOISE_IMAGE;
+    NUMERO, RUIDO, IMAGEN_SINTETICA_RUIDO;
 }

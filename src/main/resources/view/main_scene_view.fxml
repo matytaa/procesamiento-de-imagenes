@@ -78,6 +78,11 @@
             <MenuItem mnemonicParsing="false" onAction="#close" text="Cerrar" />
         </Menu>
         <Menu mnemonicParsing="false" text="Generación">
+            <Menu mnemonicParsing="false" text="Números Random">
+                <MenuItem mnemonicParsing="false" onAction="#generarNumeroRandomGaussiano" text="Gaussiano" />
+                <MenuItem mnemonicParsing="false" onAction="#generarNumeroRandomRayleigh" text="Rayleigh" />
+                <MenuItem mnemonicParsing="false" onAction="#generarNumeroRandomExponencial" text="Exponencial" />
+            </Menu>
             <MenuItem mnemonicParsing="false" onAction="#createImageHistogram" text="Histograma" />
             <MenuItem mnemonicParsing="false" onAction="#calculateNegativeImage" text="Negativo" />
         </Menu>

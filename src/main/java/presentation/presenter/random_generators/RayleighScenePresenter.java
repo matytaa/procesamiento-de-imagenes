@@ -35,13 +35,13 @@ public class RayleighScenePresenter {
 
         double psi = Double.parseDouble(this.view.psiTextField.getText());
 
-        if (SemaforosGeneradoresDeRandoms.getValue() == RandomElement.NUMBER) {
+        if (SemaforosGeneradoresDeRandoms.getValue() == RandomElement.NUMERO) {
 
             double numbero = this.randomNumberGenerationService.generarNumeroRayleigh(psi);
             this.mostrarNumero(numbero);
             this.view.closeWindow();
 
-        } else if (SemaforosGeneradoresDeRandoms.getValue() == RandomElement.SYNTHETIC_NOISE_IMAGE){
+        } else if (SemaforosGeneradoresDeRandoms.getValue() == RandomElement.IMAGEN_SINTETICA_RUIDO){
 
             int matrizNumerosRandom[][] = this.randomNumberGenerationService.generarMatrizRandomRayleigh(100,100, psi);
             Image image = this.generarImagenRuidoSinteticoAction.execute(matrizNumerosRandom);
