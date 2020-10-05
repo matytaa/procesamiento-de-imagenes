@@ -411,7 +411,7 @@ public class MainPresenter {
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplyMultiplicativeRayleighNoise() {
+    public void onAplicarRuidoMultiplicativoRayleigh() {
         RandomGeneratorsSemaphore.setValue(RandomElement.NOISE);
         new RayleighSceneCreator().createScene();
         view.aceptarBoton.setVisible(true);

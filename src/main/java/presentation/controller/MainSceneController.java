@@ -239,10 +239,10 @@ public class MainSceneController {
     }
 
     @FXML
-    public void applyAdditiveGaussianNoise() { this.mainPresenter.onApplyAdditiveGaussianNoise(); }
+    public void aplicarRuidoAditivoGaussiano() { this.mainPresenter.onApplyAdditiveGaussianNoise(); }
 
     @FXML
-    public void applyMultiplicativeRayleighNoise() { this.mainPresenter.onApplyMultiplicativeRayleighNoise(); }
+    public void aplicarRuidoMultiplicativoRayleigh() { this.mainPresenter.onAplicarRuidoMultiplicativoRayleigh(); }
 
     @FXML
     public void applyMultiplicativeExponentialNoise() { this.mainPresenter.onApplyMultiplicativeExponentialNoise(); }

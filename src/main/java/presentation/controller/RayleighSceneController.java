@@ -18,7 +18,7 @@ public class RayleighSceneController {
     }
 
     @FXML
-    public void generate() {
+    public void generar() {
         this.rayleighScenePresenter.onGenerate();
     }
 

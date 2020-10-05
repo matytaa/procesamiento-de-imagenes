@@ -37,7 +37,7 @@ public class RayleighScenePresenter {
 
         if (RandomGeneratorsSemaphore.getValue() == RandomElement.NUMBER) {
 
-            double number = this.randomNumberGenerationService.generateRayleighNumber(psi);
+            double number = this.randomNumberGenerationService.generarNumeroRayleigh(psi);
             this.showNumber(number);
             this.view.closeWindow();
 
@@ -49,7 +49,7 @@ public class RayleighScenePresenter {
             this.view.closeWindow();
 
         } else { //Noise generator to apply to an existing image
-            double percent = (Double.parseDouble(InsertValuePopup.show("Percent of noise", "0").get()))/100.00;
+            double percent = (Double.parseDouble(InsertValuePopup.show("Porcentaje de contaminación", "0").get()))/100.00;
             Image image = this.applyRayleighNoiseToImageAction.execute(percent, psi);
             this.onModifiedImage.onNext(image);
             this.view.closeWindow();
@@ -62,7 +62,7 @@ public class RayleighScenePresenter {
     }
 
     private void showNumber(double number) {
-        ShowResultPopup.show("Rayleigh Random Number Generation", "Generated number: " + number);
+        ShowResultPopup.show("Generación número random Rayleigh", "Número generado: " + number);
     }
 
 }

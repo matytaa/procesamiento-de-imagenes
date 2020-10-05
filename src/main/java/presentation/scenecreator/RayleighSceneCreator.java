@@ -15,7 +15,7 @@ public class RayleighSceneCreator implements SceneCreator {
             Parent root = FXMLLoader.load(getClass().getResource("/view/rayleigh_scene_view.fxml"));
             Scene channelScene = new Scene(root);
             Stage channelStage = new Stage(StageStyle.DECORATED);
-            channelStage.setTitle("Rayleigh parameters");
+            channelStage.setTitle("Parámetros Rayleigh");
             channelStage.setScene(channelScene);
             channelStage.show();
 

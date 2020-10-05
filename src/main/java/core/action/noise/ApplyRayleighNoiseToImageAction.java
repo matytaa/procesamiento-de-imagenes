@@ -29,17 +29,17 @@ public class ApplyRayleighNoiseToImageAction {
             return new WritableImage(100,100);
         }
 
-        Imagen customImage = this.imageRepository.getImage().get();
-        int numberOfPixelsToContaminate = (int)(percent * customImage.getPixelQuantity());
-        List<Pixel> pixelsToContaminate = customImage.seleccionarNPiexelesRandom(numberOfPixelsToContaminate);
+        Imagen imagen = this.imageRepository.getImage().get();
+        int numberOfPixelsToContaminate = (int)(percent * imagen.getPixelQuantity());
+        List<Pixel> pixelsToContaminate = imagen.seleccionarNPiexelesRandom(numberOfPixelsToContaminate);
 
         //Generate a matrix where N cells contain noise, and the rest contain zeros
-        int[][] noiseMatrix = this.generateNoiseMatrix(psi, customImage, pixelsToContaminate);
+        int[][] noiseMatrix = this.generateNoiseMatrix(psi, imagen, pixelsToContaminate);
 
         //Now, we sum the noise matrix to the image and normalize the scale (for each channel)
-        int[][] redChannelValues = this.multiplyImageChannelAndNoiseMatrix(customImage, noiseMatrix, (i, j) -> (int) (customImage.getPixelReader().getColor(i, j).getRed() * 255));
-        int[][] greenChannelValues = this.multiplyImageChannelAndNoiseMatrix(customImage, noiseMatrix, (i, j) -> (int) (customImage.getPixelReader().getColor(i, j).getGreen() * 255));
-        int[][] blueChannelValues = this.multiplyImageChannelAndNoiseMatrix(customImage, noiseMatrix, (i, j) -> (int) (customImage.getPixelReader().getColor(i, j).getBlue() * 255));
+        int[][] redChannelValues = this.multiplyImageChannelAndNoiseMatrix(imagen, noiseMatrix, (i, j) -> (int) (imagen.getPixelReader().getColor(i, j).getRed() * 255));
+        int[][] greenChannelValues = this.multiplyImageChannelAndNoiseMatrix(imagen, noiseMatrix, (i, j) -> (int) (imagen.getPixelReader().getColor(i, j).getGreen() * 255));
+        int[][] blueChannelValues = this.multiplyImageChannelAndNoiseMatrix(imagen, noiseMatrix, (i, j) -> (int) (imagen.getPixelReader().getColor(i, j).getBlue() * 255));
 
         //Now, we multiply the noise matrix and the image and normalize the scale
         int[][] adjustedRedChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(redChannelValues, pixelsToContaminate);
@@ -62,19 +62,19 @@ public class ApplyRayleighNoiseToImageAction {
 
     }
 
-    private int[][] generateNoiseMatrix(double psi, Imagen customImage, List<Pixel> pixelsToContaminate) {
-        int[][] noiseMatrix = new int[customImage.getAncho()][customImage.getAltura()];
-        for (int i=0; i < noiseMatrix.length; i++) {
-            for (int j=0; j < noiseMatrix[i].length; j++) {
-                noiseMatrix[i][j] = 1; //Since the noise is multiplicative, the not-noise cells must contain 1
+    private int[][] generateNoiseMatrix(double psi, Imagen customImage, List<Pixel> pixelesAContaminar) {
+        int[][] matrizDeRuido = new int[customImage.getAncho()][customImage.getAltura()];
+        for (int i=0; i < matrizDeRuido.length; i++) {
+            for (int j=0; j < matrizDeRuido[i].length; j++) {
+                matrizDeRuido[i][j] = 1; //COMO ES MULTIPLICATIVO LOS PIXELES SIN RIUDO TIENEN QUE VALER 1
             }
         }
-        for (Pixel pixel : pixelsToContaminate) {
+        for (Pixel pixel : pixelesAContaminar) {
             int i = pixel.getX();
             int j = pixel.getY();
-            noiseMatrix[i][j] = (int) (this.randomNumberGenerationService.generateRayleighNumber(psi));
+            matrizDeRuido[i][j] = (int) (this.randomNumberGenerationService.generarNumeroRayleigh(psi));
         }
-        return noiseMatrix;
+        return matrizDeRuido;
     }
 
 }

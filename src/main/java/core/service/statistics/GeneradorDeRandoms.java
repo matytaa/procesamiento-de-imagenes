@@ -15,9 +15,12 @@ public class GeneradorDeRandoms {
         return (-1 / lambda) * (Math.log(randomEntre0Y1())); // Exponential Number
     }
 
-    // y = psi * (-2 * log(1 - x))^(1/2)
-    public double generateRayleighNumber(double psi) {
-        return psi * Math.sqrt(-2 * Math.log(1 - randomEntre0Y1())); // Rayleigh Number
+
+
+
+    // https://en.wikipedia.org/wiki/Rayleigh_distribution
+    public double generarNumeroRayleigh(double psi) {
+        return psi * Math.sqrt(-2 * Math.log(1 - randomEntre0Y1())); // NUMERO RAYLEIGH
     }
 
     // y = (((y1 + y2) / 2) * sigma) + mu
@@ -70,7 +73,7 @@ public class GeneradorDeRandoms {
         for(int i=0; i < randomNumberMatrix.length; i++) {
             for (int j=0; j < randomNumberMatrix[i].length; j++) {
 
-                double number = this.generateRayleighNumber(psi);
+                double number = this.generarNumeroRayleigh(psi);
                 randomNumberMatrix[i][j] = (int) (number*100); //This is a scale adjustment, just to avoid getting all zeros, in case the random number generated is < 1
 
             }

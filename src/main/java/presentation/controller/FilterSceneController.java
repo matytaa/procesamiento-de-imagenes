@@ -35,11 +35,11 @@ public class FilterSceneController {
                 break;
 
             case MEDIANA:
-                label.setText("Tamaño de la máscara (Impar)");
+                label.setText("Tamaño de la máscara");
                 break;
 
             case MEDIANA_PONDERADA:
-                label.setText("OTamaño de la máscara fijo 3x3");
+                label.setText("Tamaño de la máscara fijo 3x3");
                 textField.setDisable(true);
                 break;
 
