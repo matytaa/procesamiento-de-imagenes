@@ -1,8 +1,8 @@
 package core.action.noise;
 
 import core.repository.ImageRepository;
-import core.service.ImageOperationsService;
-import core.service.statistics.GeneradorDeRandoms;
+import core.service.OperacionesImagenesService;
+import core.service.statistics.GeneradorDeRandomsService;
 import domain.customimage.Imagen;
 import domain.customimage.Pixel;
 import javafx.scene.image.Image;
@@ -14,12 +14,12 @@ import java.util.function.BiFunction;
 public class ApplyExponentialNoiseToImageAction {
 
     private final ImageRepository imageRepository;
-    private final ImageOperationsService imageOperationsService;
-    private final GeneradorDeRandoms randomNumberGenerationService;
+    private final OperacionesImagenesService operacionesImagenesService;
+    private final GeneradorDeRandomsService randomNumberGenerationService;
 
-    public ApplyExponentialNoiseToImageAction(ImageRepository imageRepository, ImageOperationsService imageOperationsService, GeneradorDeRandoms randomNumberGenerationService) {
+    public ApplyExponentialNoiseToImageAction(ImageRepository imageRepository, OperacionesImagenesService operacionesImagenesService, GeneradorDeRandomsService randomNumberGenerationService) {
         this.imageRepository = imageRepository;
-        this.imageOperationsService = imageOperationsService;
+        this.operacionesImagenesService = operacionesImagenesService;
         this.randomNumberGenerationService = randomNumberGenerationService;
     }
 
@@ -40,12 +40,12 @@ public class ApplyExponentialNoiseToImageAction {
         int[][] greenChannelValues = this.multiplyImageChannelAndNoiseMatrix(customImage, noiseMatrix, (i, j) -> (int) (customImage.getPixelReader().getColor(i, j).getGreen() * 255));
         int[][] blueChannelValues = this.multiplyImageChannelAndNoiseMatrix(customImage, noiseMatrix, (i, j) -> (int) (customImage.getPixelReader().getColor(i, j).getBlue() * 255));
 
-        int[][] adjustedRedChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(redChannelValues, pixelsToContaminate);
-        int[][] adjustedGreenChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(greenChannelValues, pixelsToContaminate);
-        int[][] adjustedBlueChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(blueChannelValues, pixelsToContaminate);
+        int[][] adjustedRedChannelValues = this.operacionesImagenesService.convertirAImagenContaminadaValida(redChannelValues, pixelsToContaminate);
+        int[][] adjustedGreenChannelValues = this.operacionesImagenesService.convertirAImagenContaminadaValida(greenChannelValues, pixelsToContaminate);
+        int[][] adjustedBlueChannelValues = this.operacionesImagenesService.convertirAImagenContaminadaValida(blueChannelValues, pixelsToContaminate);
 
         //Finally, we write the resultant matrix to a new image
-        return this.imageOperationsService.escribirNuevosValoresDePixelesEnLaImagen(adjustedRedChannelValues, adjustedGreenChannelValues, adjustedBlueChannelValues);
+        return this.operacionesImagenesService.escribirNuevosValoresDePixelesEnLaImagen(adjustedRedChannelValues, adjustedGreenChannelValues, adjustedBlueChannelValues);
 
     }
 
@@ -69,7 +69,7 @@ public class ApplyExponentialNoiseToImageAction {
         for (Pixel pixel : pixelsToContaminate) {
             int i = pixel.getX();
             int j = pixel.getY();
-            noiseMatrix[i][j] = (int) (this.randomNumberGenerationService.generateExponentialNumber(lambda));
+            noiseMatrix[i][j] = (int) (this.randomNumberGenerationService.generarNumeroExponencial(lambda));
         }
         return noiseMatrix;
     }

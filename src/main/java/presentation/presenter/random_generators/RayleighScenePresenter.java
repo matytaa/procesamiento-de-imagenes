@@ -1,9 +1,9 @@
 package presentation.presenter.random_generators;
 
-import core.action.noise.ApplyRayleighNoiseToImageAction;
-import core.action.noise.generator.GenerateSyntheticNoiseImageAction;
-import core.semaphore.RandomGeneratorsSemaphore;
-import core.service.statistics.GeneradorDeRandoms;
+import core.action.noise.AplicarRuidoRayleighAction;
+import core.action.noise.generator.GenerarImagenRuidoSinteticoAction;
+import core.semaphore.SemaforosGeneradoresDeRandoms;
+import core.service.statistics.GeneradorDeRandomsService;
 import domain.RandomElement;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
@@ -16,18 +16,18 @@ public class RayleighScenePresenter {
 
 
     private final RayleighSceneController view;
-    private final GeneradorDeRandoms randomNumberGenerationService;
-    private final GenerateSyntheticNoiseImageAction generateSyntheticNoiseImageAction;
+    private final GeneradorDeRandomsService randomNumberGenerationService;
+    private final GenerarImagenRuidoSinteticoAction generarImagenRuidoSinteticoAction;
     private final PublishSubject<Image> onNoiseImage;
-    private final ApplyRayleighNoiseToImageAction applyRayleighNoiseToImageAction;
+    private final AplicarRuidoRayleighAction aplicarRuidoRayleighAction;
     private final PublishSubject<Image> onModifiedImage;
 
-    public RayleighScenePresenter(RayleighSceneController rayleighSceneController, GeneradorDeRandoms randomNumberGenerationService, GenerateSyntheticNoiseImageAction generateSyntheticNoiseImageAction, PublishSubject<Image> imagePublishSubject, ApplyRayleighNoiseToImageAction applyRayleighNoiseToImageAction, PublishSubject<Image> onModifiedImage) {
+    public RayleighScenePresenter(RayleighSceneController rayleighSceneController, GeneradorDeRandomsService randomNumberGenerationService, GenerarImagenRuidoSinteticoAction generarImagenRuidoSinteticoAction, PublishSubject<Image> imagePublishSubject, AplicarRuidoRayleighAction aplicarRuidoRayleighAction, PublishSubject<Image> onModifiedImage) {
         this.view = rayleighSceneController;
         this.randomNumberGenerationService = randomNumberGenerationService;
-        this.generateSyntheticNoiseImageAction = generateSyntheticNoiseImageAction;
+        this.generarImagenRuidoSinteticoAction = generarImagenRuidoSinteticoAction;
         this.onNoiseImage = imagePublishSubject;
-        this.applyRayleighNoiseToImageAction = applyRayleighNoiseToImageAction;
+        this.aplicarRuidoRayleighAction = aplicarRuidoRayleighAction;
         this.onModifiedImage = onModifiedImage;
     }
 
@@ -35,33 +35,33 @@ public class RayleighScenePresenter {
 
         double psi = Double.parseDouble(this.view.psiTextField.getText());
 
-        if (RandomGeneratorsSemaphore.getValue() == RandomElement.NUMBER) {
+        if (SemaforosGeneradoresDeRandoms.getValue() == RandomElement.NUMBER) {
 
-            double number = this.randomNumberGenerationService.generarNumeroRayleigh(psi);
-            this.showNumber(number);
+            double numbero = this.randomNumberGenerationService.generarNumeroRayleigh(psi);
+            this.mostrarNumero(numbero);
             this.view.closeWindow();
 
-        } else if (RandomGeneratorsSemaphore.getValue() == RandomElement.SYNTHETIC_NOISE_IMAGE){
+        } else if (SemaforosGeneradoresDeRandoms.getValue() == RandomElement.SYNTHETIC_NOISE_IMAGE){
 
-            int randomNumberMatrix[][] = this.randomNumberGenerationService.generateRandomRayleighMatrix(100,100, psi);
-            Image image = this.generateSyntheticNoiseImageAction.execute(randomNumberMatrix);
-            this.sendNoiseImageToNewWindow(image);
+            int matrizNumerosRandom[][] = this.randomNumberGenerationService.generarMatrizRandomRayleigh(100,100, psi);
+            Image image = this.generarImagenRuidoSinteticoAction.execute(matrizNumerosRandom);
+            this.enviarImagenAUnaVentanaNueva(image);
             this.view.closeWindow();
 
-        } else { //Noise generator to apply to an existing image
+        } else { //GENERADOR DE RUIDO PARA UNA IMAGEN EXISTENTE
             double percent = (Double.parseDouble(InsertValuePopup.show("Porcentaje de contaminación", "0").get()))/100.00;
-            Image image = this.applyRayleighNoiseToImageAction.execute(percent, psi);
+            Image image = this.aplicarRuidoRayleighAction.execute(percent, psi);
             this.onModifiedImage.onNext(image);
             this.view.closeWindow();
         }
     }
 
-    private void sendNoiseImageToNewWindow(Image image) {
+    private void enviarImagenAUnaVentanaNueva(Image image) {
         new NoiseImageSceneCreator().createScene();
         onNoiseImage.onNext(image);
     }
 
-    private void showNumber(double number) {
+    private void mostrarNumero(double number) {
         ShowResultPopup.show("Generación número random Rayleigh", "Número generado: " + number);
     }
 

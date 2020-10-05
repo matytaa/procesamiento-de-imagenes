@@ -15,7 +15,7 @@ public class ExponentialSceneCreator implements SceneCreator {
             Parent root = FXMLLoader.load(getClass().getResource("/view/exponential_scene_view.fxml"));
             Scene channelScene = new Scene(root);
             Stage channelStage = new Stage(StageStyle.DECORATED);
-            channelStage.setTitle("Exponential parameters");
+            channelStage.setTitle("Parámetros exponencial");
             channelStage.setScene(channelScene);
             channelStage.show();
 

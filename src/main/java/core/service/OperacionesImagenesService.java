@@ -12,12 +12,12 @@ import javafx.scene.paint.Color;
 
 import java.util.List;
 
-public class ImageOperationsService {
+public class OperacionesImagenesService {
 
     static final int MAXIMO_VALOR_DE_UN_PIXEL = 255;
     private GrayLevelStatisticsService grayLevelStatisticsService;
 
-    public ImageOperationsService(GrayLevelStatisticsService grayLevelStatisticsService) {
+    public OperacionesImagenesService(GrayLevelStatisticsService grayLevelStatisticsService) {
         this.grayLevelStatisticsService = grayLevelStatisticsService;
     }
 

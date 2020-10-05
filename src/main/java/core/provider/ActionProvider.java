@@ -20,10 +20,10 @@ import core.action.histogram.CreateImageHistogramAction;
 import core.action.histogram.EqualizeGrayImageAction;
 import core.action.image.*;
 import core.action.noise.ApplyExponentialNoiseToImageAction;
-import core.action.noise.ApplyGaussianNoiseToImageAction;
-import core.action.noise.ApplyRayleighNoiseToImageAction;
+import core.action.noise.AplicarRuidoGaussianoAction;
+import core.action.noise.AplicarRuidoRayleighAction;
 import core.action.noise.AplicarRuidoSalYPimientaAction;
-import core.action.noise.generator.GenerateSyntheticNoiseImageAction;
+import core.action.noise.generator.GenerarImagenRuidoSinteticoAction;
 import core.action.threshold.ApplyGlobalThresholdEstimationAction;
 import core.action.threshold.ApplyOtsuThresholdEstimationAction;
 import core.action.threshold.ApplyThresholdAction;
@@ -56,9 +56,9 @@ class ActionProvider {
     private static SubstractImagesAction substractImagesAction;
     private static AplicarRuidoSalYPimientaAction applySaltAndPepperAction;
     private static ApplyFilterAction applyFilterAction;
-    private static GenerateSyntheticNoiseImageAction generateSyntheticNoiseImageAction;
-    private static ApplyGaussianNoiseToImageAction applyGaussianNoiseToImageAction;
-    private static ApplyRayleighNoiseToImageAction applyRayleighNoiseToImageAction;
+    private static GenerarImagenRuidoSinteticoAction generarImagenRuidoSinteticoAction;
+    private static AplicarRuidoGaussianoAction aplicarRuidoGaussianoAction;
+    private static AplicarRuidoRayleighAction aplicarRuidoRayleighAction;
     private static ApplyExponentialNoiseToImageAction applyExponentialNoiseToImageAction;
     private static ApplyEdgeDetectorByGradientAction applyEdgeDetectorByGradientAction;
     private static UpdateCurrentImageAction updateCurrentImageAction;
@@ -271,30 +271,30 @@ class ActionProvider {
         return applyFilterAction;
     }
 
-    public static GenerateSyntheticNoiseImageAction provideGenerateSyntheticNoiseImageAction() {
-        if (generateSyntheticNoiseImageAction == null) {
-            generateSyntheticNoiseImageAction = new GenerateSyntheticNoiseImageAction(
+    public static GenerarImagenRuidoSinteticoAction provideGenerateSyntheticNoiseImageAction() {
+        if (generarImagenRuidoSinteticoAction == null) {
+            generarImagenRuidoSinteticoAction = new GenerarImagenRuidoSinteticoAction(
                     ServiceProvider.provideImageOperationsService());
         }
-        return generateSyntheticNoiseImageAction;
+        return generarImagenRuidoSinteticoAction;
     }
 
-    public static ApplyGaussianNoiseToImageAction provideApplyGaussianNoiseToImageAction() {
-        if (applyGaussianNoiseToImageAction == null) {
-            applyGaussianNoiseToImageAction = new ApplyGaussianNoiseToImageAction(RepositoryProvider.provideImageRepository(),
+    public static AplicarRuidoGaussianoAction provideApplyGaussianNoiseToImageAction() {
+        if (aplicarRuidoGaussianoAction == null) {
+            aplicarRuidoGaussianoAction = new AplicarRuidoGaussianoAction(RepositoryProvider.provideImageRepository(),
                     ServiceProvider.provideImageOperationsService(),
                     ServiceProvider.provideRandomNumberGenerationService());
         }
-        return applyGaussianNoiseToImageAction;
+        return aplicarRuidoGaussianoAction;
     }
 
-    public static ApplyRayleighNoiseToImageAction provideApplyRayleighNoiseToImageAction() {
-        if (applyRayleighNoiseToImageAction == null) {
-            applyRayleighNoiseToImageAction = new ApplyRayleighNoiseToImageAction(RepositoryProvider.provideImageRepository(),
+    public static AplicarRuidoRayleighAction provideApplyRayleighNoiseToImageAction() {
+        if (aplicarRuidoRayleighAction == null) {
+            aplicarRuidoRayleighAction = new AplicarRuidoRayleighAction(RepositoryProvider.provideImageRepository(),
                     ServiceProvider.provideImageOperationsService(),
                     ServiceProvider.provideRandomNumberGenerationService());
         }
-        return applyRayleighNoiseToImageAction;
+        return aplicarRuidoRayleighAction;
     }
 
     public static ApplyExponentialNoiseToImageAction provideApplyExponentialNoiseToImageAction() {

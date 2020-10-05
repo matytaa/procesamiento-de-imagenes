@@ -1,6 +1,6 @@
 package core.action.edgedetector;
 
-import core.service.ImageOperationsService;
+import core.service.OperacionesImagenesService;
 import core.service.MatrizService;
 import domain.customimage.MatrizCanales;
 import domain.customimage.Imagen;
@@ -11,14 +11,14 @@ import javafx.scene.image.Image;
 
 public class ApplyDirectionalDerivativeOperatorAction {
 
-    private final ImageOperationsService imageOperationsService;
+    private final OperacionesImagenesService operacionesImagenesService;
     private final PublishSubject<Image> imagePublishSubject;
     private final MatrizService matrizService;
 
-    public ApplyDirectionalDerivativeOperatorAction(ImageOperationsService imageOperationsService,
-            PublishSubject<Image> imagePublishSubject, MatrizService matrizService) {
+    public ApplyDirectionalDerivativeOperatorAction(OperacionesImagenesService operacionesImagenesService,
+                                                    PublishSubject<Image> imagePublishSubject, MatrizService matrizService) {
 
-        this.imageOperationsService = imageOperationsService;
+        this.operacionesImagenesService = operacionesImagenesService;
         this.imagePublishSubject = imagePublishSubject;
         this.matrizService = matrizService;
     }
@@ -62,7 +62,7 @@ public class ApplyDirectionalDerivativeOperatorAction {
             }
         }
 
-        return this.imageOperationsService.aMatrizValida(channelMatrix);
+        return this.operacionesImagenesService.aMatrizValida(channelMatrix);
     }
 
     private RGB getMaxRGB(RGB horizontalRGB, RGB verticalRGB, RGB mainDiagonalRGB, RGB secondaryDiagonalRGB) {

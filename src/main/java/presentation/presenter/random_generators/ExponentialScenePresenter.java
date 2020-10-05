@@ -1,9 +1,9 @@
 package presentation.presenter.random_generators;
 
 import core.action.noise.ApplyExponentialNoiseToImageAction;
-import core.action.noise.generator.GenerateSyntheticNoiseImageAction;
-import core.semaphore.RandomGeneratorsSemaphore;
-import core.service.statistics.GeneradorDeRandoms;
+import core.action.noise.generator.GenerarImagenRuidoSinteticoAction;
+import core.semaphore.SemaforosGeneradoresDeRandoms;
+import core.service.statistics.GeneradorDeRandomsService;
 import domain.RandomElement;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
@@ -14,17 +14,17 @@ import presentation.util.ShowResultPopup;
 
 public class ExponentialScenePresenter {
 
-    private final GeneradorDeRandoms randomNumberGenerationService;
+    private final GeneradorDeRandomsService generadorDeRandomsService;
     private final ExponentialSceneController view;
-    private final GenerateSyntheticNoiseImageAction generateSyntheticNoiseImageAction;
+    private final GenerarImagenRuidoSinteticoAction generarImagenRuidoSinteticoAction;
     private final PublishSubject<Image> onNoiseImage;
     private final ApplyExponentialNoiseToImageAction applyExponentialNoiseToImageAction;
     private final PublishSubject<Image> onModifiedImage;
 
-    public ExponentialScenePresenter(ExponentialSceneController exponentialSceneController, GeneradorDeRandoms randomNumberGenerationService, GenerateSyntheticNoiseImageAction generateSyntheticNoiseImageAction, PublishSubject<Image> noiseImagePublishSubject, ApplyExponentialNoiseToImageAction applyExponentialNoiseToImageAction, PublishSubject<Image> onModifiedImage) {
+    public ExponentialScenePresenter(ExponentialSceneController exponentialSceneController, GeneradorDeRandomsService generadorDeRandomsService, GenerarImagenRuidoSinteticoAction generarImagenRuidoSinteticoAction, PublishSubject<Image> noiseImagePublishSubject, ApplyExponentialNoiseToImageAction applyExponentialNoiseToImageAction, PublishSubject<Image> onModifiedImage) {
         this.view = exponentialSceneController;
-        this.randomNumberGenerationService = randomNumberGenerationService;
-        this.generateSyntheticNoiseImageAction = generateSyntheticNoiseImageAction;
+        this.generadorDeRandomsService = generadorDeRandomsService;
+        this.generarImagenRuidoSinteticoAction = generarImagenRuidoSinteticoAction;
         this.onNoiseImage = noiseImagePublishSubject;
         this.applyExponentialNoiseToImageAction = applyExponentialNoiseToImageAction;
         this.onModifiedImage = onModifiedImage;
@@ -34,23 +34,23 @@ public class ExponentialScenePresenter {
         
         double lambda = Double.parseDouble(this.view.lambdaTextField.getText());
 
-        if (isLambdaValid(lambda)) {
+        if (isLambdaValida(lambda)) {
 
-            if (RandomGeneratorsSemaphore.getValue() == RandomElement.NUMBER) {
+            if (SemaforosGeneradoresDeRandoms.getValue() == RandomElement.NUMBER) {
 
-                double number = this.randomNumberGenerationService.generateExponentialNumber(lambda);
-                this.showNumber(number);
+                double number = this.generadorDeRandomsService.generarNumeroExponencial(lambda);
+                this.mostrarNumero(number);
                 this.view.closeWindow();
 
-            } else if (RandomGeneratorsSemaphore.getValue() == RandomElement.SYNTHETIC_NOISE_IMAGE){
+            } else if (SemaforosGeneradoresDeRandoms.getValue() == RandomElement.SYNTHETIC_NOISE_IMAGE){
 
-                int randomNumberMatrix[][] = this.randomNumberGenerationService.generateRandomExponentialMatrix(100, 100, lambda);
-                Image image = this.generateSyntheticNoiseImageAction.execute(randomNumberMatrix);
-                this.sendNoiseImageToNewWindow(image);
+                int matrizRandom[][] = this.generadorDeRandomsService.generarMatrizRandomExponencial(100, 100, lambda);
+                Image image = this.generarImagenRuidoSinteticoAction.execute(matrizRandom);
+                this.enviarImagenAUnaVentanaNueva(image);
                 this.view.closeWindow();
 
-            } else { //Noise generator to apply to an existing image
-                double percent = (Double.parseDouble(InsertValuePopup.show("Percent of noise", "0").get()))/100.00;
+            } else { //GENERADOR DE RUIDO PARA UNA IMAGEN EXISTENTE
+                double percent = (Double.parseDouble(InsertValuePopup.show("Porcentaje de contaminación", "0").get()))/100.00;
                 Image image = this.applyExponentialNoiseToImageAction.execute(percent, lambda);
                 this.onModifiedImage.onNext(image);
                 this.view.closeWindow();
@@ -58,16 +58,16 @@ public class ExponentialScenePresenter {
         }
     }
 
-    public void sendNoiseImageToNewWindow(Image image) {
+    public void enviarImagenAUnaVentanaNueva(Image image) {
         new NoiseImageSceneCreator().createScene();
         onNoiseImage.onNext(image);
     }
 
-    private void showNumber(double number) {
-        ShowResultPopup.show("Exponential Random Number Generation", "Generated number: " + number);
+    private void mostrarNumero(double number) {
+        ShowResultPopup.show("Generación de número random exponencial", "Número generado: " + number);
     }
 
-    private boolean isLambdaValid(double lambda) {
+    private boolean isLambdaValida(double lambda) {
         return lambda > 0;
     }
 }

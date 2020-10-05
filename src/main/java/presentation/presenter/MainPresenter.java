@@ -17,7 +17,7 @@ import core.action.threshold.ApplyGlobalThresholdEstimationAction;
 import core.action.threshold.ApplyOtsuThresholdEstimationAction;
 import core.action.threshold.ApplyThresholdAction;
 import core.provider.PresenterProvider;
-import core.semaphore.RandomGeneratorsSemaphore;
+import core.semaphore.SemaforosGeneradoresDeRandoms;
 import domain.SemaforoFiltro;
 import domain.RandomElement;
 import domain.activecontour.ActiveContourMode;
@@ -344,17 +344,17 @@ public class MainPresenter {
     }
 
     public void onGenerateExponentialRandomNumber() {
-        RandomGeneratorsSemaphore.setValue(RandomElement.NUMBER);
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.NUMBER);
         new ExponentialSceneCreator().createScene();
     }
 
     public void onGenerateRayleighRandomNumber() {
-        RandomGeneratorsSemaphore.setValue(RandomElement.NUMBER);
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.NUMBER);
         new RayleighSceneCreator().createScene();
     }
 
     public void onGenerateGaussianRandomNumber() {
-        RandomGeneratorsSemaphore.setValue(RandomElement.NUMBER);
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.NUMBER);
         new GaussianSceneCreator().createScene();
     }
 
@@ -381,17 +381,17 @@ public class MainPresenter {
     }
 
     public void onGenerateExponentialNoiseSyntheticImage() {
-        RandomGeneratorsSemaphore.setValue(RandomElement.SYNTHETIC_NOISE_IMAGE);
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.SYNTHETIC_NOISE_IMAGE);
         new ExponentialSceneCreator().createScene();
     }
 
     public void onGenerateRayleighNoiseSyntheticImage() {
-        RandomGeneratorsSemaphore.setValue(RandomElement.SYNTHETIC_NOISE_IMAGE);
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.SYNTHETIC_NOISE_IMAGE);
         new RayleighSceneCreator().createScene();
     }
 
     public void onGenerateGaussianNoiseSyntheticImage() {
-        RandomGeneratorsSemaphore.setValue(RandomElement.SYNTHETIC_NOISE_IMAGE);
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.SYNTHETIC_NOISE_IMAGE);
         new GaussianSceneCreator().createScene();
     }
 
@@ -405,20 +405,20 @@ public class MainPresenter {
         new EqualizeImageByHistogramSceneCreator().createScene();
     }
 
-    public void onApplyAdditiveGaussianNoise() {
-        RandomGeneratorsSemaphore.setValue(RandomElement.NOISE);
+    public void onAplicarRuidoAditivoGaussiano() {
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.NOISE);
         new GaussianSceneCreator().createScene();
         view.aceptarBoton.setVisible(true);
     }
 
     public void onAplicarRuidoMultiplicativoRayleigh() {
-        RandomGeneratorsSemaphore.setValue(RandomElement.NOISE);
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.NOISE);
         new RayleighSceneCreator().createScene();
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplyMultiplicativeExponentialNoise() {
-        RandomGeneratorsSemaphore.setValue(RandomElement.NOISE);
+    public void onAplicarRuidoMultiplicativoExponencial() {
+        SemaforosGeneradoresDeRandoms.setValue(RandomElement.NOISE);
         new ExponentialSceneCreator().createScene();
         view.aceptarBoton.setVisible(true);
     }

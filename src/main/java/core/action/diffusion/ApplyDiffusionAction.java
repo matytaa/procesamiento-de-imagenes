@@ -1,6 +1,6 @@
 package core.action.diffusion;
 
-import core.service.ImageOperationsService;
+import core.service.OperacionesImagenesService;
 import domain.customimage.MatrizCanales;
 import domain.customimage.Imagen;
 import domain.customimage.RGB;
@@ -11,12 +11,12 @@ import javafx.scene.image.Image;
 
 public class ApplyDiffusionAction {
 
-    private final ImageOperationsService imageOperationsService;
+    private final OperacionesImagenesService operacionesImagenesService;
     private final PublishSubject<Image> onModifiedImagePublishSubject;
 
-    public ApplyDiffusionAction(ImageOperationsService imageOperationsService,
+    public ApplyDiffusionAction(OperacionesImagenesService operacionesImagenesService,
                                 PublishSubject<Image> onModifiedImagePublishSubject) {
-        this.imageOperationsService = imageOperationsService;
+        this.operacionesImagenesService = operacionesImagenesService;
         this.onModifiedImagePublishSubject = onModifiedImagePublishSubject;
     }
 
@@ -42,7 +42,7 @@ public class ApplyDiffusionAction {
                 }
             }
 
-            channelMatrix = this.imageOperationsService.aMatrizValida(channelMatrix);
+            channelMatrix = this.operacionesImagenesService.aMatrizValida(channelMatrix);
         }
 
         Imagen image = new Imagen(channelMatrix, customImage.getFormatString());

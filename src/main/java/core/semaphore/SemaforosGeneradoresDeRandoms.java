@@ -2,7 +2,7 @@ package core.semaphore;
 
 import domain.RandomElement;
 
-public class RandomGeneratorsSemaphore {
+public class SemaforosGeneradoresDeRandoms {
 
     private static RandomElement value;
 

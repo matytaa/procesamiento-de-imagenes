@@ -1,6 +1,6 @@
 package core.action.edgedetector;
 
-import core.service.ImageOperationsService;
+import core.service.OperacionesImagenesService;
 import core.service.MatrizService;
 import domain.customimage.MatrizCanales;
 import domain.customimage.Imagen;
@@ -12,11 +12,11 @@ import java.util.List;
 
 public class ApplyCannyDetectorAction {
 
-    private final ImageOperationsService imageOperationsService;
+    private final OperacionesImagenesService operacionesImagenesService;
     private final MatrizService matrizService;
 
-    public ApplyCannyDetectorAction(ImageOperationsService imageOperationsService, MatrizService matrizService) {
-        this.imageOperationsService = imageOperationsService;
+    public ApplyCannyDetectorAction(OperacionesImagenesService operacionesImagenesService, MatrizService matrizService) {
+        this.operacionesImagenesService = operacionesImagenesService;
         this.matrizService = matrizService;
     }
 
@@ -26,7 +26,7 @@ public class ApplyCannyDetectorAction {
         MatrizCanales sobelYDerivative = new SobelYDerivativeMascara().apply(filteredImage);
 
         int[][] gradientAngleMatrix = this.calculateGradientAngle(sobelXDerivative, sobelYDerivative);
-        int[][] derivativesAbsoluteSumMatrix = this.imageOperationsService.calculateAbsoluteSum(sobelXDerivative, sobelYDerivative)
+        int[][] derivativesAbsoluteSumMatrix = this.operacionesImagenesService.calculateAbsoluteSum(sobelXDerivative, sobelYDerivative)
                                                                           .getRedChannel(); //Again, easily extended for 3 channels
 
         int[][] roughSingleEdgedMatrix = this.applyNonMaximumSuppression(derivativesAbsoluteSumMatrix, gradientAngleMatrix);
@@ -34,7 +34,7 @@ public class ApplyCannyDetectorAction {
         int[][] finalEdgedMatrix = this.applyHysteresisThresholding(roughSingleEdgedMatrix, t1, t2);
 
         return new Imagen(
-                this.imageOperationsService.aMatrizValida(new MatrizCanales(finalEdgedMatrix, finalEdgedMatrix, finalEdgedMatrix)),
+                this.operacionesImagenesService.aMatrizValida(new MatrizCanales(finalEdgedMatrix, finalEdgedMatrix, finalEdgedMatrix)),
                 filteredImage.getFormatString());
 
     }

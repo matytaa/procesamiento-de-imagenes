@@ -1,6 +1,6 @@
 package core.action.noise;
 
-import core.service.statistics.GeneradorDeRandoms;
+import core.service.statistics.GeneradorDeRandomsService;
 import domain.customimage.Imagen;
 import io.reactivex.subjects.PublishSubject;
 import javafx.embed.swing.SwingFXUtils;
@@ -12,12 +12,12 @@ import javafx.scene.paint.Color;
 
 public class AplicarRuidoSalYPimientaAction {
 
-    private final GeneradorDeRandoms generadorDeRandoms;
+    private final GeneradorDeRandomsService generadorDeRandomsService;
     private final PublishSubject<Image> imagePublishSubject;
 
-    public AplicarRuidoSalYPimientaAction(GeneradorDeRandoms randomNumberGenerationService,
+    public AplicarRuidoSalYPimientaAction(GeneradorDeRandomsService randomNumberGenerationService,
                                           PublishSubject<Image> imagePublishSubject) {
-        this.generadorDeRandoms = randomNumberGenerationService;
+        this.generadorDeRandomsService = randomNumberGenerationService;
         this.imagePublishSubject = imagePublishSubject;
     }
 
@@ -44,7 +44,7 @@ public class AplicarRuidoSalYPimientaAction {
     private void aplicarRuido(PixelReader pixelReader, PixelWriter pixelWriter, double p0, double p1, int x, int y) {
 
         //OBTENGO UN RANDOM SEGUN LA DISTRIBUCION UNIFORME
-        int valorRandomDistribucionUniforme = generadorDeRandoms.segunDistribucionUniforme(0, 100);
+        int valorRandomDistribucionUniforme = generadorDeRandomsService.segunDistribucionUniforme(0, 100);
 
         //SI EL RANDOM OBTENIDO ES MAYOR O IGUAL AL PARAMETRO P0, PINTO EL PIXEL DE NEGRO
         if (valorRandomDistribucionUniforme <= p0) {

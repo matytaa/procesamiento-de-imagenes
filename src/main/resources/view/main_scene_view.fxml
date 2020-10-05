@@ -88,6 +88,7 @@
             <MenuItem mnemonicParsing="false" onAction="#aplicarRuidoSalYPimiena" text="Sal y Pimienta" />
             <MenuItem mnemonicParsing="false" onAction="#aplicarRuidoAditivoGaussiano" text="Aditivo Gaussiano" />
             <MenuItem mnemonicParsing="false" onAction="#aplicarRuidoMultiplicativoRayleigh" text="Multiplicativo Rayleigh" />
+            <MenuItem mnemonicParsing="false" onAction="#aplicarRuidoMultiplicativoExponencial" text="Multiplicativo Exponencial" />
         </Menu>
         <Menu mnemonicParsing="false" text="Filtros">
             <MenuItem mnemonicParsing="false" onAction="#onAplicarFiltroMedia" text="Media" />

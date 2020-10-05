@@ -15,7 +15,7 @@ public class GaussianSceneCreator implements SceneCreator {
             Parent root = FXMLLoader.load(getClass().getResource("/view/gaussian_scene_view.fxml"));
             Scene channelScene = new Scene(root);
             Stage channelStage = new Stage(StageStyle.DECORATED);
-            channelStage.setTitle("Gaussian parameters");
+            channelStage.setTitle("Parámetros Gaussianos");
             channelStage.setScene(channelScene);
             channelStage.show();
 

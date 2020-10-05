@@ -1,21 +1,21 @@
 package core.action.edit.space_domain.operations;
 
-import core.service.ImageOperationsService;
+import core.service.OperacionesImagenesService;
 import javafx.scene.image.Image;
 
 public class SumImagesAction {
 
-    private ImageOperationsService imageOperationsService;
+    private OperacionesImagenesService operacionesImagenesService;
 
-    public SumImagesAction(ImageOperationsService imageOperationsService){
-        this.imageOperationsService = imageOperationsService;
+    public SumImagesAction(OperacionesImagenesService operacionesImagenesService){
+        this.operacionesImagenesService = operacionesImagenesService;
     }
 
     public Image execute(Image image1, Image image2) {
-        int[][] redChannelResultantValues = this.imageOperationsService.sumaValoresPixelesRojos(image1, image2);
-        int[][] greenChannelResultantValues = this.imageOperationsService.sumaValoresPixelesVerde(image1, image2);
-        int[][] blueChannelResultantValues = this.imageOperationsService.sumaValoresPixelesAzul(image1, image2);
-        return this.imageOperationsService.escribirNuevosValoresDePixelesEnLaImagen(redChannelResultantValues,
+        int[][] redChannelResultantValues = this.operacionesImagenesService.sumaValoresPixelesRojos(image1, image2);
+        int[][] greenChannelResultantValues = this.operacionesImagenesService.sumaValoresPixelesVerde(image1, image2);
+        int[][] blueChannelResultantValues = this.operacionesImagenesService.sumaValoresPixelesAzul(image1, image2);
+        return this.operacionesImagenesService.escribirNuevosValoresDePixelesEnLaImagen(redChannelResultantValues,
                 greenChannelResultantValues, blueChannelResultantValues);
     }
 

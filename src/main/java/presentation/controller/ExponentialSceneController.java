@@ -19,7 +19,7 @@ public class ExponentialSceneController {
     }
 
     @FXML
-    public void generate() {
+    public void generar() {
         this.exponentialScenePresenter.onGenerate();
     }
 

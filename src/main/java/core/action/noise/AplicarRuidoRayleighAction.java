@@ -1,8 +1,8 @@
 package core.action.noise;
 
 import core.repository.ImageRepository;
-import core.service.ImageOperationsService;
-import core.service.statistics.GeneradorDeRandoms;
+import core.service.OperacionesImagenesService;
+import core.service.statistics.GeneradorDeRandomsService;
 import domain.customimage.Imagen;
 import domain.customimage.Pixel;
 import javafx.scene.image.Image;
@@ -11,15 +11,15 @@ import javafx.scene.image.WritableImage;
 import java.util.List;
 import java.util.function.BiFunction;
 
-public class ApplyRayleighNoiseToImageAction {
+public class AplicarRuidoRayleighAction {
 
     private final ImageRepository imageRepository;
-    private final ImageOperationsService imageOperationsService;
-    private final GeneradorDeRandoms randomNumberGenerationService;
+    private final OperacionesImagenesService operacionesImagenesService;
+    private final GeneradorDeRandomsService randomNumberGenerationService;
 
-    public ApplyRayleighNoiseToImageAction(ImageRepository imageRepository, ImageOperationsService imageOperationsService, GeneradorDeRandoms randomNumberGenerationService) {
+    public AplicarRuidoRayleighAction(ImageRepository imageRepository, OperacionesImagenesService operacionesImagenesService, GeneradorDeRandomsService randomNumberGenerationService) {
         this.imageRepository = imageRepository;
-        this.imageOperationsService = imageOperationsService;
+        this.operacionesImagenesService = operacionesImagenesService;
         this.randomNumberGenerationService = randomNumberGenerationService;
     }
 
@@ -41,13 +41,13 @@ public class ApplyRayleighNoiseToImageAction {
         int[][] canalGreen = this.multiplicarMatrizRuidoPorMatrizCanal(imagen, matrizDeRuido, (i, j) -> (int) (imagen.getPixelReader().getColor(i, j).getGreen() * 255));
         int[][] canalBlue = this.multiplicarMatrizRuidoPorMatrizCanal(imagen, matrizDeRuido, (i, j) -> (int) (imagen.getPixelReader().getColor(i, j).getBlue() * 255));
 
-        //NORMALIZO
-        int[][] adjustedRedChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(canalRed, pixelesAContaminar);
-        int[][] adjustedGreenChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(canalGreen, pixelesAContaminar);
-        int[][] adjustedBlueChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(canalBlue, pixelesAContaminar);
+        //AJUSTO LA MATRIZ RESULTANTE
+        int[][] adjustedRedChannelValues = this.operacionesImagenesService.convertirAImagenContaminadaValida(canalRed, pixelesAContaminar);
+        int[][] adjustedGreenChannelValues = this.operacionesImagenesService.convertirAImagenContaminadaValida(canalGreen, pixelesAContaminar);
+        int[][] adjustedBlueChannelValues = this.operacionesImagenesService.convertirAImagenContaminadaValida(canalBlue, pixelesAContaminar);
 
         //ESCRIBO LA MATRIZ RESULTANTE EN UNA NUEVA IMAGEN
-        return this.imageOperationsService.escribirNuevosValoresDePixelesEnLaImagen(adjustedRedChannelValues, adjustedGreenChannelValues, adjustedBlueChannelValues);
+        return this.operacionesImagenesService.escribirNuevosValoresDePixelesEnLaImagen(adjustedRedChannelValues, adjustedGreenChannelValues, adjustedBlueChannelValues);
 
     }
 

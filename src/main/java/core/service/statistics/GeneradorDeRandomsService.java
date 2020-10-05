@@ -2,21 +2,18 @@ package core.service.statistics;
 
 import java.util.Random;
 
-public class GeneradorDeRandoms {
+public class GeneradorDeRandomsService {
 
     private Random random;
 
-    public GeneradorDeRandoms(Random random) {
+    public GeneradorDeRandomsService(Random random) {
         this.random = random;
     }
 
     // y = (-1/lambda) * log(x)
-    public double generateExponentialNumber(double lambda) {
-        return (-1 / lambda) * (Math.log(randomEntre0Y1())); // Exponential Number
+    public double generarNumeroExponencial(double lambda) {
+        return (-1 / lambda) * (Math.log(randomEntre0Y1())); // NUMERO EXPONENCIAL
     }
-
-
-
 
     // https://en.wikipedia.org/wiki/Rayleigh_distribution
     public double generarNumeroRayleigh(double psi) {
@@ -55,42 +52,42 @@ public class GeneradorDeRandoms {
         return this.random.nextDouble();
     }
 
-    public int[][] generateRandomGaussianMatrix(int width, int height, double mu, double sigma) {
-        int[][] randomNumberMatrix = new int[width][height];
-        for(int i=0; i < randomNumberMatrix.length; i++) {
-            for (int j=0; j < randomNumberMatrix[i].length; j++) {
+    public int[][] generarMatrizRandomGaussianos(int width, int height, double mu, double sigma) {
+        int[][] matrizRandom = new int[width][height];
+        for(int i=0; i < matrizRandom.length; i++) {
+            for (int j=0; j < matrizRandom[i].length; j++) {
 
                 double number = this.generarNumeroGaussiano(mu, sigma);
-                randomNumberMatrix[i][j] = (int) (number*100); //This is a scale adjustment, just to avoid getting all zeros, in case the random number generated is < 1
+                matrizRandom[i][j] = (int) (number*100); //AJUSTE PARA EVITAR TODOS CEROS SI EL NRO < 1
 
             }
         }
-        return randomNumberMatrix;
+        return matrizRandom;
     }
 
-    public int [][] generateRandomRayleighMatrix(int width, int height, double psi) {
-        int randomNumberMatrix[][] = new int[width][height];
-        for(int i=0; i < randomNumberMatrix.length; i++) {
-            for (int j=0; j < randomNumberMatrix[i].length; j++) {
+    public int [][] generarMatrizRandomRayleigh(int width, int height, double psi) {
+        int matrizRandom[][] = new int[width][height];
+        for(int i=0; i < matrizRandom.length; i++) {
+            for (int j=0; j < matrizRandom[i].length; j++) {
 
                 double number = this.generarNumeroRayleigh(psi);
-                randomNumberMatrix[i][j] = (int) (number*100); //This is a scale adjustment, just to avoid getting all zeros, in case the random number generated is < 1
+                matrizRandom[i][j] = (int) (number*100); //AJUSTE PARA EVITAR TODOS CEROS SI EL NRO < 1
 
             }
         }
-        return randomNumberMatrix;
+        return matrizRandom;
     }
 
-    public int[][] generateRandomExponentialMatrix(int width, int height, double lambda) {
-        int randomNumberMatrix[][] = new int[100][100];
-        for(int i=0; i < randomNumberMatrix.length; i++) {
-            for (int j=0; j < randomNumberMatrix[i].length; j++) {
+    public int[][] generarMatrizRandomExponencial(int width, int height, double lambda) {
+        int matrizRandom[][] = new int[100][100];
+        for(int i=0; i < matrizRandom.length; i++) {
+            for (int j=0; j < matrizRandom[i].length; j++) {
 
-                double number = this.generateExponentialNumber(lambda);
-                randomNumberMatrix[i][j] = (int) (number*100); //This is a scale adjustment, just to avoid getting all zeros, in case the random number generated is < 1
+                double number = this.generarNumeroExponencial(lambda);
+                matrizRandom[i][j] = (int) (number*100); //AJUSTE PARA EVITAR TODOS CEROS SI EL NRO < 1
 
             }
         }
-        return randomNumberMatrix;
+        return matrizRandom;
     }
 }
