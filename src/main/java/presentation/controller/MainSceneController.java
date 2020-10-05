@@ -214,18 +214,18 @@ public class MainSceneController {
     public void onApplyEdgeEnhancement(){this.mainPresenter.onApplyEdgeEnhancement();}
 
     @FXML
-    public void generateExponentialNoiseSyntheticImage() {
-        this.mainPresenter.onGenerateExponentialNoiseSyntheticImage();
+    public void generarImagenSinteticaRuidoExponencial() {
+        this.mainPresenter.onGenerarImagenSinteticaRuidoExponencial();
     }
 
     @FXML
-    public void generateRayleighNoiseSyntheticImage() {
-        this.mainPresenter.onGenerateRayleighNoiseSyntheticImage();
+    public void generarImagenSinteticaRuidoRayleigh() {
+        this.mainPresenter.onGenerarImagenSinteticaRuidoRayleigh();
     }
 
     @FXML
-    public void generateGaussianNoiseSyntheticImage() {
-        this.mainPresenter.onGenerateGaussianNoiseSyntheticImage();
+    public void generarImagenSinteticaRuidoGaussiano() {
+        this.mainPresenter.onGenerarImagenSinteticaRuidoGaussiano();
     }
 
     @FXML

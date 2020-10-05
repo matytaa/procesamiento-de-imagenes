@@ -16,10 +16,10 @@
                 <VBox />
                  <BarChart fx:id="barChart" barGap="0.0" horizontalGridLinesVisible="false" layoutX="14.0" layoutY="21.0" legendVisible="false" prefHeight="293.0" prefWidth="858.0" verticalGridLinesVisible="false">
                      <xAxis>
-                         <CategoryAxis endMargin="0.0" label="GrayScale" side="BOTTOM" startMargin="0.0" />
+                         <CategoryAxis endMargin="0.0" label="Niveles de grises" side="BOTTOM" startMargin="0.0" />
                      </xAxis>
                      <yAxis>
-                         <NumberAxis label="Pixel Occurrency" side="LEFT" upperBound="0.0" />
+                         <NumberAxis label="Frecuencia relativa" side="LEFT" upperBound="0.0" />
                      </yAxis>
                  </BarChart>
             </Pane>

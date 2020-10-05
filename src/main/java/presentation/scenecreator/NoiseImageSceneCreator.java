@@ -15,7 +15,7 @@ public class NoiseImageSceneCreator implements SceneCreator {
             Parent root = FXMLLoader.load(getClass().getResource("/view/noise_image_scene_view.fxml"));
             Scene channelScene = new Scene(root);
             Stage channelStage = new Stage(StageStyle.DECORATED);
-            channelStage.setTitle("Noise");
+            channelStage.setTitle("Ruido");
             channelStage.setScene(channelScene);
             channelStage.show();
 

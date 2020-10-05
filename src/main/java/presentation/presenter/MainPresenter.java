@@ -380,17 +380,17 @@ public class MainPresenter {
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onGenerateExponentialNoiseSyntheticImage() {
+    public void onGenerarImagenSinteticaRuidoExponencial() {
         SemaforosGeneradoresDeRandoms.setValue(RandomElement.IMAGEN_SINTETICA_RUIDO);
         new ExponentialSceneCreator().createScene();
     }
 
-    public void onGenerateRayleighNoiseSyntheticImage() {
+    public void onGenerarImagenSinteticaRuidoRayleigh() {
         SemaforosGeneradoresDeRandoms.setValue(RandomElement.IMAGEN_SINTETICA_RUIDO);
         new RayleighSceneCreator().createScene();
     }
 
-    public void onGenerateGaussianNoiseSyntheticImage() {
+    public void onGenerarImagenSinteticaRuidoGaussiano() {
         SemaforosGeneradoresDeRandoms.setValue(RandomElement.IMAGEN_SINTETICA_RUIDO);
         new GaussianSceneCreator().createScene();
     }
