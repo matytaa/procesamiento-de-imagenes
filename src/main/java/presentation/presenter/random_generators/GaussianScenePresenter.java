@@ -40,7 +40,7 @@ public class GaussianScenePresenter {
 
             if (RandomGeneratorsSemaphore.getValue() == RandomElement.NUMBER) {
 
-                double number = this.randomNumberGenerationService.generateGaussianNumber(mu, sigma);
+                double number = this.randomNumberGenerationService.generarNumeroGaussiano(mu, sigma);
                 this.showNumber(number);
                 this.view.closeWindow();
 

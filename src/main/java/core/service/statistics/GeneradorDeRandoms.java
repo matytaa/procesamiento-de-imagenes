@@ -24,25 +24,25 @@ public class GeneradorDeRandoms {
     }
 
     // y = (((y1 + y2) / 2) * sigma) + mu
-    public double generateGaussianNumber(double mu, double sigma) {
+    public double generarNumeroGaussiano(double mu, double sigma) {
 
-        double firstUniformNumber = randomEntre0Y1();
-        double secondUniformNumber = randomEntre0Y1();
+        double primerNumeroUniforme = randomEntre0Y1();
+        double segundoNumeroUniforme = randomEntre0Y1();
 
-        //This block is to make sure that none of the generated numbers is 0, so the logarithm will exist
-        while (firstUniformNumber * secondUniformNumber == 0) {
-            firstUniformNumber = Math.random();
-            secondUniformNumber = Math.random();
+        //ASEGURO QUE NINGUNO DE LOS NUMEROS SEAN 0, SINO EL LOGARITMO NO EXISTE
+        while (primerNumeroUniforme * segundoNumeroUniforme == 0) {
+            primerNumeroUniforme = Math.random();
+            segundoNumeroUniforme = Math.random();
         }
 
         // y1 = (-2 * log(x1) * cos(2 * pi * x2))^(1/2)
-        double firstGaussianNumber = (Math.sqrt(-2 * Math.log(firstUniformNumber))) * Math.cos(2 * Math.PI * secondUniformNumber);
+        double primerNumeroGaussiano = (Math.sqrt(-2 * Math.log(primerNumeroUniforme))) * Math.cos(2 * Math.PI * segundoNumeroUniforme);
 
         // y1 = (-2 * log(x1) * sen(2 * pi * x2))^(1/2)
-        double secondGaussianNumber = (Math.sqrt(-2 * Math.log(firstUniformNumber))) * Math.sin(2 * Math.PI * secondUniformNumber);
+        double segundoNumeroGaussiano = (Math.sqrt(-2 * Math.log(primerNumeroUniforme))) * Math.sin(2 * Math.PI * segundoNumeroUniforme);
 
-        //This I'm allowed to do because the sum of two gaussian variables is also gaussian
-        double standardGaussianNumber = (firstGaussianNumber + secondGaussianNumber) / 2;
+        //LA SUMA DE DOS NUMEROS GAUSSIANOS ES UN NUMERO GAUSSIANO TAMBIEN
+        double standardGaussianNumber = (primerNumeroGaussiano + segundoNumeroGaussiano) / 2;
         return standardGaussianNumber * sigma + mu;
     }
 
@@ -60,7 +60,7 @@ public class GeneradorDeRandoms {
         for(int i=0; i < randomNumberMatrix.length; i++) {
             for (int j=0; j < randomNumberMatrix[i].length; j++) {
 
-                double number = this.generateGaussianNumber(mu, sigma);
+                double number = this.generarNumeroGaussiano(mu, sigma);
                 randomNumberMatrix[i][j] = (int) (number*100); //This is a scale adjustment, just to avoid getting all zeros, in case the random number generated is < 1
 
             }

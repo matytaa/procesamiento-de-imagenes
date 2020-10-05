@@ -30,40 +30,40 @@ public class ApplyRayleighNoiseToImageAction {
         }
 
         Imagen imagen = this.imageRepository.getImage().get();
-        int numberOfPixelsToContaminate = (int)(percent * imagen.getPixelQuantity());
-        List<Pixel> pixelsToContaminate = imagen.seleccionarNPiexelesRandom(numberOfPixelsToContaminate);
+        int cantidadDePixelesAContaminar = (int)(percent * imagen.getPixelQuantity());
+        List<Pixel> pixelesAContaminar = imagen.seleccionarNPiexelesRandom(cantidadDePixelesAContaminar);
 
-        //Generate a matrix where N cells contain noise, and the rest contain zeros
-        int[][] noiseMatrix = this.generateNoiseMatrix(psi, imagen, pixelsToContaminate);
+        //GENERO LA MATRIZ, CON N ELEMENTOS CON RUIDO, EL RESTO SIN RUIDO.
+        int[][] matrizDeRuido = this.generarMatrizDeRuido(psi, imagen, pixelesAContaminar);
 
-        //Now, we sum the noise matrix to the image and normalize the scale (for each channel)
-        int[][] redChannelValues = this.multiplyImageChannelAndNoiseMatrix(imagen, noiseMatrix, (i, j) -> (int) (imagen.getPixelReader().getColor(i, j).getRed() * 255));
-        int[][] greenChannelValues = this.multiplyImageChannelAndNoiseMatrix(imagen, noiseMatrix, (i, j) -> (int) (imagen.getPixelReader().getColor(i, j).getGreen() * 255));
-        int[][] blueChannelValues = this.multiplyImageChannelAndNoiseMatrix(imagen, noiseMatrix, (i, j) -> (int) (imagen.getPixelReader().getColor(i, j).getBlue() * 255));
+        //MULTIPLICO LA MATRIZ DE RUIDO A LA MATRIZ DE CADA CANAL
+        int[][] canalRed = this.multiplicarMatrizRuidoPorMatrizCanal(imagen, matrizDeRuido, (i, j) -> (int) (imagen.getPixelReader().getColor(i, j).getRed() * 255));
+        int[][] canalGreen = this.multiplicarMatrizRuidoPorMatrizCanal(imagen, matrizDeRuido, (i, j) -> (int) (imagen.getPixelReader().getColor(i, j).getGreen() * 255));
+        int[][] canalBlue = this.multiplicarMatrizRuidoPorMatrizCanal(imagen, matrizDeRuido, (i, j) -> (int) (imagen.getPixelReader().getColor(i, j).getBlue() * 255));
 
-        //Now, we multiply the noise matrix and the image and normalize the scale
-        int[][] adjustedRedChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(redChannelValues, pixelsToContaminate);
-        int[][] adjustedGreenChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(greenChannelValues, pixelsToContaminate);
-        int[][] adjustedBlueChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(blueChannelValues, pixelsToContaminate);
+        //NORMALIZO
+        int[][] adjustedRedChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(canalRed, pixelesAContaminar);
+        int[][] adjustedGreenChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(canalGreen, pixelesAContaminar);
+        int[][] adjustedBlueChannelValues = this.imageOperationsService.convertirAImagenContaminadaValida(canalBlue, pixelesAContaminar);
 
-        //Finally, we write the resultant matrix to a new image
+        //ESCRIBO LA MATRIZ RESULTANTE EN UNA NUEVA IMAGEN
         return this.imageOperationsService.escribirNuevosValoresDePixelesEnLaImagen(adjustedRedChannelValues, adjustedGreenChannelValues, adjustedBlueChannelValues);
 
     }
 
-    private int[][] multiplyImageChannelAndNoiseMatrix(Imagen customImage, int[][] noiseMatrix, BiFunction<Integer, Integer, Integer> channel) {
-        int[][] productMatrix = new int[customImage.getAncho()][customImage.getAltura()];
-        for (int i = 0; i < customImage.getAncho(); i ++) {
-            for (int j = 0; j < customImage.getAltura(); j++) {
-                productMatrix[i][j] = channel.apply(i, j) * noiseMatrix[i][j];
+    private int[][] multiplicarMatrizRuidoPorMatrizCanal(Imagen imagen, int[][] matrizDeRuido, BiFunction<Integer, Integer, Integer> canal) {
+        int[][] matrizProducto = new int[imagen.getAncho()][imagen.getAltura()];
+        for (int i = 0; i < imagen.getAncho(); i ++) {
+            for (int j = 0; j < imagen.getAltura(); j++) {
+                matrizProducto[i][j] = canal.apply(i, j) * matrizDeRuido[i][j];
             }
         }
-        return productMatrix;
+        return matrizProducto;
 
     }
 
-    private int[][] generateNoiseMatrix(double psi, Imagen customImage, List<Pixel> pixelesAContaminar) {
-        int[][] matrizDeRuido = new int[customImage.getAncho()][customImage.getAltura()];
+    private int[][] generarMatrizDeRuido(double psi, Imagen imagen, List<Pixel> pixelesAContaminar) {
+        int[][] matrizDeRuido = new int[imagen.getAncho()][imagen.getAltura()];
         for (int i=0; i < matrizDeRuido.length; i++) {
             for (int j=0; j < matrizDeRuido[i].length; j++) {
                 matrizDeRuido[i][j] = 1; //COMO ES MULTIPLICATIVO LOS PIXELES SIN RIUDO TIENEN QUE VALER 1

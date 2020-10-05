@@ -70,7 +70,7 @@ public class ApplyGaussianNoiseToImageAction {
         for (Pixel pixel : pixelsToContaminate) {
             int i = pixel.getX();
             int j = pixel.getY();
-            noiseMatrix[i][j] = (int) (this.randomNumberGenerationService.generateGaussianNumber(mu, sigma));
+            noiseMatrix[i][j] = (int) (this.randomNumberGenerationService.generarNumeroGaussiano(mu, sigma));
         }
 
         return noiseMatrix;
