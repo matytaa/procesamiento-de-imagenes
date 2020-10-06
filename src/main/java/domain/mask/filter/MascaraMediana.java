@@ -28,12 +28,12 @@ public class MascaraMediana extends Mascara {
     @Override
     public RGB aplicarMascaraAPixel(Imagen imagen, int x, int y) {
         //AGARRO TODOS LOS COLORES DE ALREDEDOR DEL PIXEL, SEGUN EL TAMAÑO DE LA MASCARA
-        List<RGB> pixelsWithinMaskRange = this.obtainPixelsWithinMaskRange(imagen, x, y);
+        List<RGB> pixelsWithinMaskRange = this.obtenerPixelesSegunMascara(imagen, x, y);
 
         //ORDENO ESOS COLORES DE MENOR A MAYOR
-        List<Integer> redValues = this.sortRedValues(pixelsWithinMaskRange);
-        List<Integer> greenValues = this.sortGreenValues(pixelsWithinMaskRange);
-        List<Integer> blueValues = this.sortBlueValues(pixelsWithinMaskRange);
+        List<Integer> redValues = this.ordenarRed(pixelsWithinMaskRange);
+        List<Integer> greenValues = this.ordenarVerde(pixelsWithinMaskRange);
+        List<Integer> blueValues = this.ordenarAzul(pixelsWithinMaskRange);
 
         //AGARRO LA POSICION DE LA MEDIANA, QUE ES EL ELEMENTO DEL MEDIO
         int medianPosition = pixelsWithinMaskRange.size() / 2;
@@ -52,7 +52,7 @@ public class MascaraMediana extends Mascara {
         return new RGB((int) redMedian, (int) greenMedian, (int) blueMedian);
     }
 
-    private List<Integer> sortRedValues(List<RGB> colorValuesWithinMaskRange) {
+    private List<Integer> ordenarRed(List<RGB> colorValuesWithinMaskRange) {
         List<Integer> redValues = new ArrayList<>();
 
         for (RGB value : colorValuesWithinMaskRange) {
@@ -63,7 +63,7 @@ public class MascaraMediana extends Mascara {
         return redValues;
     }
 
-    private List<Integer> sortGreenValues(List<RGB> colorValuesWithinMaskRange) {
+    private List<Integer> ordenarVerde(List<RGB> colorValuesWithinMaskRange) {
         List<Integer> greenValues = new ArrayList<>();
 
         for (RGB value : colorValuesWithinMaskRange) {
@@ -74,7 +74,7 @@ public class MascaraMediana extends Mascara {
         return greenValues;
     }
 
-    private List<Integer> sortBlueValues(List<RGB> colorValuesWithinMaskRange) {
+    private List<Integer> ordenarAzul(List<RGB> colorValuesWithinMaskRange) {
         List<Integer> blueValues = new ArrayList<>();
 
         for (RGB value : colorValuesWithinMaskRange) {
@@ -85,29 +85,28 @@ public class MascaraMediana extends Mascara {
         return blueValues;
     }
 
-    private List<RGB> obtainPixelsWithinMaskRange(Imagen image, int x, int y) {
-        List<RGB> pixelsWithinMaskRange = new ArrayList<>();
-        int width = image.getAncho();
-        int height = image.getAltura();
+    private List<RGB> obtenerPixelesSegunMascara(Imagen image, int x, int y) {
+        List<RGB> pixelesSegunMascara = new ArrayList<>();
+        int ancho = image.getAncho();
+        int alto = image.getAltura();
 
         for (int j = y - (tamanio / 2); j <= y + (tamanio / 2); j++) {
             for (int i = x - (tamanio / 2); i <= x + (tamanio / 2); i++) {
 
-                int maskColumn = j + (tamanio / 2) - y;
-                int maskRow = i + (tamanio / 2) - x;
-                double value = this.matriz[maskRow][maskColumn];
+                int columnaMascara = j + (tamanio / 2) - y;
+                int filaMascara = i + (tamanio / 2) - x;
+                double value = this.matriz[filaMascara][columnaMascara];
 
-                //Apply weights. For regular median mask, every weight is 1
                 for (int n = 0; n < value; n++) {
-                    if (image.isPosicionValida(width, height, i, j)) {
-                        pixelsWithinMaskRange.add(new RGB(image.getRChannelValue(i, j), image.getGChannelValue(i, j), image.getBChannelValue(i, j)));
+                    if (image.isPosicionValida(ancho, alto, i, j)) {
+                        pixelesSegunMascara.add(new RGB(image.getRChannelValue(i, j), image.getGChannelValue(i, j), image.getBChannelValue(i, j)));
                     } else {
-                        pixelsWithinMaskRange.add(new RGB(0, 0, 0)); //Zero padding
+                        pixelesSegunMascara.add(new RGB(0, 0, 0));
                     }
                 }
             }
         }
 
-        return pixelsWithinMaskRange;
+        return pixelesSegunMascara;
     }
 }
