@@ -86,6 +86,7 @@
                 <MenuItem mnemonicParsing="false" onAction="#generarNumeroRandomRayleigh" text="Rayleigh" />
                 <MenuItem mnemonicParsing="false" onAction="#generarNumeroRandomExponencial" text="Exponencial" />
             </Menu>
+            <MenuItem mnemonicParsing="false" onAction="#calculateNegativeImage" text="Negativo" />
             <Menu mnemonicParsing="false" text="Imágenes sintéticas del ruido">
                 <MenuItem mnemonicParsing="false" onAction="#generarImagenSinteticaRuidoGaussiano" text="Gaussiano" />
                 <MenuItem mnemonicParsing="false" onAction="#generarImagenSinteticaRuidoRayleigh" text="Rayleigh" />
