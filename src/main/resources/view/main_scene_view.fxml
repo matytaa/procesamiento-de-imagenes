@@ -89,9 +89,13 @@
                 <MenuItem mnemonicParsing="false" onAction="#generarImagenSinteticaRuidoExponencial" text="Exponencial" />
 
             </Menu>
-
-            <MenuItem mnemonicParsing="false" onAction="#createImageHistogram" text="Histograma" />
-            <MenuItem mnemonicParsing="false" onAction="#calculateNegativeImage" text="Negativo" />
+            <Menu mnemonicParsing="false" text="Histogramas">
+                <MenuItem mnemonicParsing="false" onAction="#createImageHistogram" text="Generar Histograma" />
+                <Menu mnemonicParsing="false" text="Ecualización">
+                    <MenuItem mnemonicParsing="false" onAction="#createEqualizedImageByHistogram" text="Ecualizar imagen" />
+                    <MenuItem mnemonicParsing="false" onAction="#createImageEqualizedTwiceByHistogram" text="Ecualizar dos veces la imagen" />
+                </Menu>
+            </Menu>
         </Menu>
         <Menu mnemonicParsing="false" text="Algebra">
             <MenuItem mnemonicParsing="false" onAction="#calculateImagesOperations" text="Operaciones sobre imágenes" />

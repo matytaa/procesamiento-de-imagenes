@@ -23,4 +23,11 @@ public class Histograma {
     public Double getValorMinimo() {
         return valorMinimo;
     }
+
+    public Histograma getAbsoluto(){
+        double[] histogramaAbsoluto = valores;
+        for (int i = 0; i < valores.length; i++)
+            histogramaAbsoluto[i] = histogramaAbsoluto[i] * totalPixeles;
+        return new Histograma(histogramaAbsoluto, this.totalPixeles, this.valorMinimo);
+    }
 }

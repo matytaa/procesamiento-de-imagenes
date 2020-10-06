@@ -37,8 +37,8 @@ public class EqualizedImagePresenter {
 
         imagePublishSubject.subscribe(image -> view.equalizedImageView.setImage(image));
 
-        getImageAction.execute().ifPresent(customImage -> {
-            Image image = equalizeGrayImageAction.execute(customImage, EqualizedTimes.getValue());
+        getImageAction.execute().ifPresent(imagenAEcualizar -> {
+            Image image = equalizeGrayImageAction.execute(imagenAEcualizar, EqualizedTimes.getValue());
             Histograma histogram = createImageHistogramAction.execute(new Imagen(image, "png"));
             setHistogramData(histogram.getValores());
         });

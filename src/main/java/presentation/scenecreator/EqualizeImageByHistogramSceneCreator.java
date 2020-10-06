@@ -15,7 +15,7 @@ public class EqualizeImageByHistogramSceneCreator implements SceneCreator{
             Parent root = FXMLLoader.load(getClass().getResource("/view/equalized_image_scene_view.fxml"));
             Scene channelScene = new Scene(root);
             Stage channelStage = new Stage(StageStyle.DECORATED);
-            channelStage.setTitle("Equalize Image by Histogram");
+            channelStage.setTitle("Ecualización de la Imagen y del Histogram");
             channelStage.setScene(channelScene);
             channelStage.show();
 

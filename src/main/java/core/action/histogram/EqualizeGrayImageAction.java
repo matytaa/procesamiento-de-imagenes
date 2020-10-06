@@ -25,62 +25,63 @@ public class EqualizeGrayImageAction {
         this.imagePublishSubject = imagePublishSubject;
     }
 
-    public Image execute(Imagen customImage, int times) {
+    public Image execute(Imagen imagenAEcualizar, int cantidadDeVecesQueSeEjecutaLaEcualización) {
 
-        Image equalizedImage = recursive(customImage, times);
+        Image equalizedImage = recursivo(imagenAEcualizar, cantidadDeVecesQueSeEjecutaLaEcualización);
 
         this.imagePublishSubject.onNext(equalizedImage);
 
         return equalizedImage;
     }
 
-    private Image recursive(Imagen customImage, int times) {
+    private Image recursivo(Imagen imagenAEcualizar, int cantidadDeVecesQueSeEjecutaLaEcualización) {
 
-        Histograma histogram = this.histogramService.crear(customImage);
-        Image equalizedImage = equalizeImage(customImage, histogram);
+        Histograma histogram = this.histogramService.crear(imagenAEcualizar).getAbsoluto();
+        Image imagenEcualizada = ecualizarImagen(imagenAEcualizar, histogram);
 
-        times--;
+        cantidadDeVecesQueSeEjecutaLaEcualización--;
 
-        if (times == 0) return equalizedImage;
+        if (cantidadDeVecesQueSeEjecutaLaEcualización == 0) return imagenEcualizada;
 
-        return recursive(new Imagen(equalizedImage, customImage.getFormatString()), times);
+        return recursivo(new Imagen(imagenEcualizada, imagenAEcualizar.getFormatString()), cantidadDeVecesQueSeEjecutaLaEcualización);
     }
 
-    private Image equalizeImage(Imagen customImage, Histograma histogram) {
-        WritableImage image = new WritableImage(customImage.getAncho(), customImage.getAltura());
-        PixelWriter pixelWriter = image.getPixelWriter();
+    private Image ecualizarImagen(Imagen imagenAEcualizar, Histograma histogram) {
+        WritableImage imagen = new WritableImage(imagenAEcualizar.getAncho(), imagenAEcualizar.getAltura());
+        PixelWriter pixelWriter = imagen.getPixelWriter();
 
-        for (int i = 0; i < image.getWidth(); i++) {
-            for (int j = 0; j < image.getHeight(); j++) {
+        for (int i = 0; i < imagen.getWidth(); i++) {
+            for (int j = 0; j < imagen.getHeight(); j++) {
 
-                Double sK = cumulativeProbability(customImage, histogram, i, j);
+                Double probabilidad = funcionDeDistribucionAcumuladaPorPixel(imagenAEcualizar, histogram, i, j);
                 Double sMin = histogram.getValorMinimo();
-                Integer sHat = applyTransform(sK, sMin);
 
-                Color greyValue = Color.rgb(sHat, sHat, sHat);
+                Integer transformacion = aplicarTransformacionANivelDeGris(probabilidad, sMin);
 
-                pixelWriter.setColor(i, j, greyValue);
+                Color escalaEnGrises = Color.rgb(transformacion, transformacion, transformacion);
+
+                pixelWriter.setColor(i, j, escalaEnGrises);
             }
         }
 
-        Imagen updated = new Imagen(SwingFXUtils.fromFXImage(image, null), customImage.getFormatString());
+        Imagen updated = new Imagen(SwingFXUtils.fromFXImage(imagen, null), imagenAEcualizar.getFormatString());
         this.imageRepository.saveModifiedImage(updated);
 
-        return image;
+        return imagen;
     }
 
-    private Double cumulativeProbability(Imagen customImage, Histograma histogram, int x, int y) {
-        Double value = 0.0;
-        Integer limit = customImage.getPromedioPixel(x, y);
-        for (int i1 = 0; i1 <= limit; i1++) {
-            value += histogram.getValores()[i1];
+    private Double funcionDeDistribucionAcumuladaPorPixel(Imagen imagenAEcualizar, Histograma histogram, int x, int y) {
+        Double valorAcumulado = 0.0;
+        Integer promedioPixel = imagenAEcualizar.getPromedioPixel(x, y);
+        for (int indice = 0; indice <= promedioPixel; indice++) {
+            valorAcumulado += histogram.getValores()[indice];
         }
 
-        return value / histogram.getTotalPixeles();
+        return valorAcumulado / histogram.getTotalPixeles();
     }
 
-    private Integer applyTransform(Double s, Double smin) {
-        return (int) (255 * (((s - smin) / (1 - smin))));
+    private Integer aplicarTransformacionANivelDeGris(Double sK, Double sMin) {
+        return (int) (255 * (((sK - sMin) / (1 - sMin))));
     }
 
 }

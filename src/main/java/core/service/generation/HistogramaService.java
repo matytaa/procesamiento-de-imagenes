@@ -19,12 +19,15 @@ public class HistogramaService {
                 total++;
             }
         }
-        for (int i = 0; i < valores.length; i++) {
-            valores[i] = valores[i] / total;
-        }
-
+        obtenerValoresRelativos(total, valores);
         Double valorMinimo = Arrays.stream(valores).min().orElse(0.0);
 
         return new Histograma(valores, total, valorMinimo);
+    }
+
+    private void obtenerValoresRelativos(Integer total, double[] valores) {
+        for (int i = 0; i < valores.length; i++) {
+            valores[i] = valores[i] / total;
+        }
     }
 }
