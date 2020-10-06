@@ -1,6 +1,6 @@
 package core.action.image;
 
-import core.repository.ImageRepository;
+import core.repository.ImagenRepository;
 import core.service.ImageRawService;
 import core.service.OpenFileService;
 import domain.customimage.Imagen;
@@ -14,7 +14,7 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
 public class LoadImageAction {
 
-    private final ImageRepository imageRepository;
+    private final ImagenRepository imagenRepository;
     private final OpenFileService openFileService;
     private final Opener opener;
     private final ImageRawService imageRawService;
@@ -22,9 +22,9 @@ public class LoadImageAction {
     private String path = "";
     private Imagen image;
 
-    public LoadImageAction(ImageRepository imageRepository, OpenFileService openFileService, Opener opener,
+    public LoadImageAction(ImagenRepository imagenRepository, OpenFileService openFileService, Opener opener,
                            ImageRawService imageRawService) {
-        this.imageRepository = imageRepository;
+        this.imagenRepository = imagenRepository;
         this.openFileService = openFileService;
         this.opener = opener;
         this.imageRawService = imageRawService;
@@ -50,7 +50,7 @@ public class LoadImageAction {
     }
 
     private Imagen putOnRepository(String extension, BufferedImage bufferedImage) {
-        imageRepository.setOriginalImageBackup(new Imagen(bufferedImage, extension));
-        return imageRepository.saveImage(new Imagen(bufferedImage, extension));
+        imagenRepository.setImagenOriginalBackup(new Imagen(bufferedImage, extension));
+        return imagenRepository.salvarImagen(new Imagen(bufferedImage, extension));
     }
 }

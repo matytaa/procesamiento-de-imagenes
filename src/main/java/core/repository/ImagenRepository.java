@@ -5,46 +5,46 @@ import domain.customimage.Imagen;
 import java.util.List;
 import java.util.Optional;
 
-public class ImageRepository {
+public class ImagenRepository {
 
-    private Imagen image;
-    private Imagen modifiedImage;
-    private Imagen originalImageBackup;
-    private List<Imagen> imageSequence;
+    private Imagen imagen;
+    private Imagen imagenModificada;
+    private Imagen imagenOriginalBackup;
+    private List<Imagen> imagenes;
 
-    public Imagen saveImage(Imagen image) {
-        this.image = image;
-        return this.image;
+    public Imagen salvarImagen(Imagen imagen) {
+        this.imagen = imagen;
+        return this.imagen;
     }
 
-    public Optional<Imagen> getImage() {
-        return Optional.ofNullable(this.image);
+    public Optional<Imagen> getImagen() {
+        return Optional.ofNullable(this.imagen);
     }
 
-    public Imagen saveModifiedImage(Imagen image) {
-        this.modifiedImage = image;
-        return modifiedImage;
+    public Imagen salvarImagenModificada(Imagen imagen) {
+        this.imagenModificada = imagen;
+        return imagenModificada;
     }
 
-    public Optional<Imagen> getModifiedImage() {
-        return Optional.ofNullable(this.modifiedImage);
+    public Optional<Imagen> getImagenModificada() {
+        return Optional.ofNullable(this.imagenModificada);
     }
 
-    public void setOriginalImageBackup(Imagen originalImageBackup) {
-        this.originalImageBackup = originalImageBackup;
+    public void setImagenOriginalBackup(Imagen imagenOriginalBackup) {
+        this.imagenOriginalBackup = imagenOriginalBackup;
     }
 
-    public Imagen getOriginalImageBackup(){
-        return this.originalImageBackup;
+    public Imagen getImagenOriginalBackup(){
+        return this.imagenOriginalBackup;
     }
 
     public List<Imagen> guardarSecuenciaImagenes(List<Imagen> secuenciaImagenes) {
-        if(!secuenciaImagenes.isEmpty()) this.image = secuenciaImagenes.get(0);
-        this.imageSequence = secuenciaImagenes;
+        if(!secuenciaImagenes.isEmpty()) this.imagen = secuenciaImagenes.get(0);
+        this.imagenes = secuenciaImagenes;
         return secuenciaImagenes;
     }
 
-    public Optional<List<Imagen>> getImageSequence() {
-        return Optional.ofNullable(imageSequence);
+    public Optional<List<Imagen>> getImagenes() {
+        return Optional.ofNullable(imagenes);
     }
 }

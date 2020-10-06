@@ -7,13 +7,13 @@ import domain.mask.Mascara;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
 
-public class ApplyFilterAction {
+public class AplicarFiltroAction {
 
     private final PublishSubject<Image> onModifiedImagePublishSubject;
     private final OperacionesImagenesService operacionesImagenesService;
 
-    public ApplyFilterAction(PublishSubject<Image> imagePublishSubject,
-                             OperacionesImagenesService operacionesImagenesService) {
+    public AplicarFiltroAction(PublishSubject<Image> imagePublishSubject,
+                               OperacionesImagenesService operacionesImagenesService) {
 
         this.onModifiedImagePublishSubject = imagePublishSubject;
         this.operacionesImagenesService = operacionesImagenesService;

@@ -1,7 +1,7 @@
 package presentation.presenter;
 
 import core.action.edgedetector.ApplyCannyDetectorAction;
-import core.action.filter.ApplyFilterAction;
+import core.action.filter.AplicarFiltroAction;
 import core.action.image.GetImageAction;
 import domain.customimage.Imagen;
 import domain.mask.filter.MascaraGaussiana;
@@ -13,16 +13,16 @@ public class CannyPresenter {
 
     private final CannySceneController view;
     private final GetImageAction getImageAction;
-    private final ApplyFilterAction applyFilterAction;
+    private final AplicarFiltroAction aplicarFiltroAction;
     private final PublishSubject<Image> imagePublishSubject;
     private final ApplyCannyDetectorAction applyCannyDetectorAction;
     private final PublishSubject<Image> cannyPublishSubject;
 
-    public CannyPresenter(CannySceneController view, GetImageAction getImageAction, ApplyFilterAction applyFilterAction,
+    public CannyPresenter(CannySceneController view, GetImageAction getImageAction, AplicarFiltroAction aplicarFiltroAction,
                           PublishSubject<Image> imagePublishSubject, ApplyCannyDetectorAction applyCannyDetectorAction, PublishSubject<Image> cannyPublishSubject) {
         this.view = view;
         this.getImageAction = getImageAction;
-        this.applyFilterAction = applyFilterAction;
+        this.aplicarFiltroAction = aplicarFiltroAction;
         this.imagePublishSubject = imagePublishSubject;
         this.applyCannyDetectorAction = applyCannyDetectorAction;
         this.cannyPublishSubject = cannyPublishSubject;
@@ -40,7 +40,7 @@ public class CannyPresenter {
 
                 this.getImageAction.execute().ifPresent(customImage -> {
 
-                            Imagen filteredImage = this.applyFilterAction.execute(customImage, new MascaraGaussiana(sigma));
+                            Imagen filteredImage = this.aplicarFiltroAction.execute(customImage, new MascaraGaussiana(sigma));
                             Image canniedImage = this.applyCannyDetectorAction.execute(filteredImage, t1, t2).toFXImage();
                             //NO invertir el orden, o rompe Hough (deberiamos buscar una manera de fixear esto)
                             this.imagePublishSubject.onNext(canniedImage);

@@ -1,6 +1,6 @@
 package core.action.noise;
 
-import core.repository.ImageRepository;
+import core.repository.ImagenRepository;
 import core.service.OperacionesImagenesService;
 import core.service.statistics.GeneradorDeRandomsService;
 import domain.customimage.Imagen;
@@ -14,22 +14,22 @@ import java.util.function.BiFunction;
 public class AplicarRuidoGaussianoAction {
 
     private final OperacionesImagenesService operacionesImagenesService;
-    private final ImageRepository imageRepository;
+    private final ImagenRepository imagenRepository;
     private final GeneradorDeRandomsService randomNumberGenerationService;
 
-    public AplicarRuidoGaussianoAction(ImageRepository imageRepository, OperacionesImagenesService operacionesImagenesService, GeneradorDeRandomsService randomNumberGenerationService) {
-        this.imageRepository = imageRepository;
+    public AplicarRuidoGaussianoAction(ImagenRepository imagenRepository, OperacionesImagenesService operacionesImagenesService, GeneradorDeRandomsService randomNumberGenerationService) {
+        this.imagenRepository = imagenRepository;
         this.operacionesImagenesService = operacionesImagenesService;
         this.randomNumberGenerationService = randomNumberGenerationService;
     }
 
     public Image execute(double percent, double mu, double sigma) {
 
-        if (!this.imageRepository.getImage().isPresent()) {
+        if (!this.imagenRepository.getImagen().isPresent()) {
             return new WritableImage(100, 100);
         }
 
-        Imagen customImage = this.imageRepository.getImage().get();
+        Imagen customImage = this.imagenRepository.getImagen().get();
         int numberOfPixelsToContaminate = (int) (percent * customImage.getPixelQuantity());
         List<Pixel> pixelsToContaminate = customImage.seleccionarNPiexelesRandom(numberOfPixelsToContaminate);
 

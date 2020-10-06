@@ -1,6 +1,6 @@
 package core.action.gradient;
 
-import core.repository.ImageRepository;
+import core.repository.ImagenRepository;
 import core.service.generation.ImageGradientService;
 import domain.customimage.Imagen;
 import domain.customimage.Format;
@@ -13,11 +13,11 @@ import java.awt.image.BufferedImage;
 public class CreateImageWithGradientAction {
 
     private final ImageGradientService imageGradientService;
-    private final ImageRepository imageRepository;
+    private final ImagenRepository imagenRepository;
 
-    public CreateImageWithGradientAction(ImageGradientService imageGradientService, ImageRepository imageRepository) {
+    public CreateImageWithGradientAction(ImageGradientService imageGradientService, ImagenRepository imagenRepository) {
         this.imageGradientService = imageGradientService;
-        this.imageRepository = imageRepository;
+        this.imagenRepository = imagenRepository;
     }
 
     public Imagen execute(int width, int height, Gradient value) {
@@ -34,6 +34,6 @@ public class CreateImageWithGradientAction {
     }
 
     private Imagen putOnRepository(BufferedImage bufferedImage) {
-        return imageRepository.saveImage(new Imagen(bufferedImage, Format.PNG));
+        return imagenRepository.salvarImagen(new Imagen(bufferedImage, Format.PNG));
     }
 }

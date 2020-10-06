@@ -73,7 +73,8 @@
     </AnchorPane>
     <MenuBar AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
         <Menu mnemonicParsing="false" text="Archivo">
-            <MenuItem mnemonicParsing="false" onAction="#openImage" text="Abrir" />
+            <MenuItem mnemonicParsing="false" onAction="#abrirImagen" text="Abrir" />
+            <MenuItem mnemonicParsing="false" onAction="#abrirImagenMultipleProcesamiento" text="Abrir Imagen Múltiple Procesamiento" />
             <MenuItem mnemonicParsing="false" onAction="#saveModifiedImage" text="Guardar" />
             <MenuItem mnemonicParsing="false" onAction="#close" text="Cerrar" />
         </Menu>

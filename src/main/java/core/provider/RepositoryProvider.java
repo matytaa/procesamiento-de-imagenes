@@ -1,16 +1,16 @@
 package core.provider;
 
-import core.repository.ImageRepository;
+import core.repository.ImagenRepository;
 
 class RepositoryProvider {
 
-    private static ImageRepository imageRepository;
+    private static ImagenRepository imagenRepository;
 
-    public static ImageRepository provideImageRepository() {
-        if (imageRepository == null) {
-            imageRepository = new ImageRepository();
+    public static ImagenRepository provideImageRepository() {
+        if (imagenRepository == null) {
+            imagenRepository = new ImagenRepository();
         }
-        return imageRepository;
+        return imagenRepository;
     }
 
 }

@@ -1,6 +1,6 @@
 package presentation.presenter;
 
-import core.action.filter.ApplyFilterAction;
+import core.action.filter.AplicarFiltroAction;
 import core.action.image.GetImageAction;
 import domain.SemaforoFiltro;
 import domain.mask.Mascara;
@@ -14,14 +14,14 @@ public class FilterPresenter {
 
     private final FilterSceneController view;
     private final GetImageAction getImageAction;
-    private final ApplyFilterAction applyFilterAction;
+    private final AplicarFiltroAction aplicarFiltroAction;
 
     public FilterPresenter(FilterSceneController view,
                            GetImageAction getImageAction,
-                           ApplyFilterAction applyFilterAction) {
+                           AplicarFiltroAction aplicarFiltroAction) {
         this.view = view;
         this.getImageAction = getImageAction;
-        this.applyFilterAction = applyFilterAction;
+        this.aplicarFiltroAction = aplicarFiltroAction;
     }
 
     public void onAplicarFiltro() {
@@ -67,7 +67,7 @@ public class FilterPresenter {
     private void aplicarConMascara(Mascara mascara) {
         this.getImageAction.execute()
                 .ifPresent(imagen -> {
-                    applyFilterAction.execute(imagen, mascara);
+                    aplicarFiltroAction.execute(imagen, mascara);
                     view.closeWindow();
                 });
     }

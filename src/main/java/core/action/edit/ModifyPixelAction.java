@@ -1,6 +1,6 @@
 package core.action.edit;
 
-import core.repository.ImageRepository;
+import core.repository.ImagenRepository;
 import core.service.ModifyImageService;
 import domain.customimage.Imagen;
 import javafx.embed.swing.SwingFXUtils;
@@ -11,24 +11,24 @@ import java.util.Optional;
 
 public class ModifyPixelAction {
 
-    private final ImageRepository imageRepository;
+    private final ImagenRepository imagenRepository;
     private final ModifyImageService modifyImageService;
 
-    public ModifyPixelAction(ImageRepository imageRepository, ModifyImageService modifyImageService) {
-        this.imageRepository = imageRepository;
+    public ModifyPixelAction(ImagenRepository imagenRepository, ModifyImageService modifyImageService) {
+        this.imagenRepository = imagenRepository;
         this.modifyImageService = modifyImageService;
     }
 
     public Image execute(Integer pixelX, Integer pixelY, String valueR, String valueG, String valueB) {
 
-        Optional<Imagen> image = this.imageRepository.getImage();
+        Optional<Imagen> image = this.imagenRepository.getImagen();
 
         if (!image.isPresent()) {
             return new WritableImage(1, 1);
         }
 
         Imagen modifiedImage = modifyImageService.createModifiedImage(image.get(), pixelX, pixelY, Integer.parseInt(valueR), Integer.parseInt(valueG), Integer.parseInt(valueB));
-        this.imageRepository.saveModifiedImage(modifiedImage);
+        this.imagenRepository.salvarImagenModificada(modifiedImage);
         return SwingFXUtils.toFXImage(modifiedImage.getBufferedImage(), null);
     }
 }

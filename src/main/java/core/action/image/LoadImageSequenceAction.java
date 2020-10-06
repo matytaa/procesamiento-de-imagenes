@@ -1,6 +1,6 @@
 package core.action.image;
 
-import core.repository.ImageRepository;
+import core.repository.ImagenRepository;
 import core.service.ImageRawService;
 import core.service.OpenFileService;
 import domain.customimage.Imagen;
@@ -13,16 +13,16 @@ import java.util.List;
 
 public class LoadImageSequenceAction {
 
-    private final ImageRepository imageRepository;
+    private final ImagenRepository imagenRepository;
     private final OpenFileService openFileService;
     private final Opener opener;
     private final ImageRawService imageRawService;
 
-    private List<Imagen> images;
+    private List<Imagen> imagenes;
 
-    public LoadImageSequenceAction(ImageRepository imageRepository, OpenFileService openFileService, Opener opener,
-            ImageRawService imageRawService) {
-        this.imageRepository = imageRepository;
+    public LoadImageSequenceAction(ImagenRepository imagenRepository, OpenFileService openFileService, Opener opener,
+                                   ImageRawService imageRawService) {
+        this.imagenRepository = imagenRepository;
         this.openFileService = openFileService;
         this.opener = opener;
         this.imageRawService = imageRawService;
@@ -30,7 +30,7 @@ public class LoadImageSequenceAction {
 
     public List<Imagen> execute() {
 
-        this.images = new ArrayList<>();
+        this.imagenes = new ArrayList<>();
 
         openFileService.openMultiple().ifPresent(files -> {
 
@@ -39,15 +39,15 @@ public class LoadImageSequenceAction {
                 String extension = FilenameUtils.getExtension(path);
 
                 if(extension.equalsIgnoreCase("raw")){
-                    int width = Integer.parseInt(InsertValuePopup.show("Insert width", "256").get());
-                    int height = Integer.parseInt(InsertValuePopup.show("Insert height", "256").get());
-                    images.add(new Imagen(imageRawService.load(file, width, height), extension));
+                    int ancho = Integer.parseInt(InsertValuePopup.show("Insert width", "256").get());
+                    int alto = Integer.parseInt(InsertValuePopup.show("Insert height", "256").get());
+                    imagenes.add(new Imagen(imageRawService.load(file, ancho, alto), extension));
                 } else {
-                    images.add(new Imagen(opener.openImage(path).getBufferedImage(), extension));
+                    imagenes.add(new Imagen(opener.openImage(path).getBufferedImage(), extension));
                 }
             });
         });
 
-        return imageRepository.saveImageSequence(images);
+        return imagenRepository.guardarSecuenciaImagenes(imagenes);
     }
 }

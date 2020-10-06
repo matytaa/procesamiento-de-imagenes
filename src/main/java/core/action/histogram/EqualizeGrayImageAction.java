@@ -1,6 +1,6 @@
 package core.action.histogram;
 
-import core.repository.ImageRepository;
+import core.repository.ImagenRepository;
 import core.service.generation.HistogramaService;
 import domain.Histograma;
 import domain.customimage.Imagen;
@@ -14,14 +14,14 @@ import javafx.scene.paint.Color;
 public class EqualizeGrayImageAction {
 
     private final HistogramaService histogramService;
-    private final ImageRepository imageRepository;
+    private final ImagenRepository imagenRepository;
     private final PublishSubject<Image> imagePublishSubject;
 
     public EqualizeGrayImageAction(HistogramaService histogramService,
-                                   ImageRepository imageRepository,
+                                   ImagenRepository imagenRepository,
                                    PublishSubject<Image> imagePublishSubject) {
         this.histogramService = histogramService;
-        this.imageRepository = imageRepository;
+        this.imagenRepository = imagenRepository;
         this.imagePublishSubject = imagePublishSubject;
     }
 
@@ -65,7 +65,7 @@ public class EqualizeGrayImageAction {
         }
 
         Imagen updated = new Imagen(SwingFXUtils.fromFXImage(imagen, null), imagenAEcualizar.getFormatString());
-        this.imageRepository.saveModifiedImage(updated);
+        this.imagenRepository.salvarImagenModificada(updated);
 
         return imagen;
     }

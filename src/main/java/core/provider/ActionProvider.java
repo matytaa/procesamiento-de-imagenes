@@ -14,7 +14,7 @@ import core.action.edit.space_domain.operations.MultiplyImagesAction;
 import core.action.edit.space_domain.operations.SubstractImagesAction;
 import core.action.edit.space_domain.operations.SumImagesAction;
 import core.action.figure.CreateImageWithFigureAction;
-import core.action.filter.ApplyFilterAction;
+import core.action.filter.AplicarFiltroAction;
 import core.action.gradient.CreateImageWithGradientAction;
 import core.action.histogram.CreateImageHistogramAction;
 import core.action.histogram.EqualizeGrayImageAction;
@@ -55,7 +55,7 @@ class ActionProvider {
     private static NormalizeImageAction normalizeImageAction;
     private static SubstractImagesAction substractImagesAction;
     private static AplicarRuidoSalYPimientaAction applySaltAndPepperAction;
-    private static ApplyFilterAction applyFilterAction;
+    private static AplicarFiltroAction aplicarFiltroAction;
     private static GenerarImagenRuidoSinteticoAction generarImagenRuidoSinteticoAction;
     private static AplicarRuidoGaussianoAction aplicarRuidoGaussianoAction;
     private static AplicarRuidoRayleighAction aplicarRuidoRayleighAction;
@@ -261,14 +261,14 @@ class ActionProvider {
         return applySaltAndPepperAction;
     }
 
-    public static ApplyFilterAction provideApplyFilterAction() {
-        if (applyFilterAction == null) {
-            applyFilterAction = new ApplyFilterAction(
+    public static AplicarFiltroAction provideApplyFilterAction() {
+        if (aplicarFiltroAction == null) {
+            aplicarFiltroAction = new AplicarFiltroAction(
                     PublishSubjectProvider.provideOnModifiedImagePublishSubject(),
                     ServiceProvider.provideImageOperationsService()
             );
         }
-        return applyFilterAction;
+        return aplicarFiltroAction;
     }
 
     public static GenerarImagenRuidoSinteticoAction provideGenerateSyntheticNoiseImageAction() {

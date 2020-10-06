@@ -54,13 +54,13 @@ public class MainSceneController {
     }
 
     @FXML
-    public void openImage() {
-        this.mainPresenter.onOpenImage();
+    public void abrirImagen() {
+        this.mainPresenter.onAbrirImagen();
     }
 
     @FXML
-    public void openImageSequence() {
-        this.mainPresenter.onOpenImageSequence();
+    public void abrirImagenMultipleProcesamiento() {
+        this.mainPresenter.onAbrirImagenMultipleProcesamiento();
     }
 
     @FXML

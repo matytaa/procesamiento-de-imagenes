@@ -1,6 +1,6 @@
 package core.action.edit.space_domain;
 
-import core.repository.ImageRepository;
+import core.repository.ImagenRepository;
 import core.service.ModifyImageService;
 import domain.customimage.Imagen;
 import domain.customimage.RGB;
@@ -12,17 +12,17 @@ import java.util.Optional;
 
 public class CalculateNegativeImageAction {
 
-    private final ImageRepository imageRepository;
+    private final ImagenRepository imagenRepository;
     private final ModifyImageService modifyImageService;
 
-    public CalculateNegativeImageAction(ImageRepository imageRepository, ModifyImageService modifyImageService) {
-        this.imageRepository = imageRepository;
+    public CalculateNegativeImageAction(ImagenRepository imagenRepository, ModifyImageService modifyImageService) {
+        this.imagenRepository = imagenRepository;
         this.modifyImageService = modifyImageService;
     }
 
     public Image execute() {
 
-        Optional<Imagen> imageOptional = this.imageRepository.getImage();
+        Optional<Imagen> imageOptional = this.imagenRepository.getImagen();
         if (!imageOptional.isPresent())
             return null;
         Imagen customImage = imageOptional.get();

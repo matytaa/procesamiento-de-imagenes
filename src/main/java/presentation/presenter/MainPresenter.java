@@ -8,7 +8,7 @@ import core.action.edit.ModifyPixelAction;
 import core.action.edit.space_domain.CalculateNegativeImageAction;
 import core.action.edit.space_domain.CompressDynamicRangeAction;
 import core.action.figure.CreateImageWithFigureAction;
-import core.action.filter.ApplyFilterAction;
+import core.action.filter.AplicarFiltroAction;
 import core.action.gradient.CreateImageWithGradientAction;
 import core.action.histogram.EqualizeGrayImageAction;
 import core.action.histogram.utils.EqualizedTimes;
@@ -55,7 +55,7 @@ public class MainPresenter {
 
     private final MainSceneController view;
     private final LoadImageAction loadImageAction;
-    private final LoadImageSequenceAction loadImageSequenceAction;
+    private final LoadImageSequenceAction cargarImagenParaMultipleProcesamientoAction;
     private final GetImageAction getImageAction;
     private final ModifyPixelAction modifyPixelAction;
     private final PutModifiedImageAction putModifiedImageAction;
@@ -68,7 +68,7 @@ public class MainPresenter {
     private final EqualizeGrayImageAction equalizeGrayImageAction;
     private final Observable<Image> onModifiedImage;
     private final CompressDynamicRangeAction compressDynamicRangeAction;
-    private final ApplyFilterAction applyFilterAction;
+    private final AplicarFiltroAction aplicarFiltroAction;
     private final UpdateCurrentImageAction updateCurrentImageAction;
     private final ApplyGlobalThresholdEstimationAction applyGlobalThresholdEstimationAction;
     private final ApplyOtsuThresholdEstimationAction applyOtsuThresholdEstimationAction;
@@ -79,7 +79,7 @@ public class MainPresenter {
 
     public MainPresenter(MainSceneController view,
                          LoadImageAction loadImageAction,
-                         LoadImageSequenceAction loadImageSequenceAction, GetImageAction getImageAction,
+                         LoadImageSequenceAction cargarImagenParaMultipleProcesamientoAction, GetImageAction getImageAction,
                          PutModifiedImageAction putModifiedImageAction,
                          ModifyPixelAction modifyPixelAction,
                          CalculateNegativeImageAction calculateNegativeImageAction,
@@ -91,7 +91,7 @@ public class MainPresenter {
                          EqualizeGrayImageAction equalizeGrayImageAction,
                          Observable<Image> onModifiedImage,
                          CompressDynamicRangeAction compressDynamicRangeAction,
-                         ApplyFilterAction applyFilterAction,
+                         AplicarFiltroAction aplicarFiltroAction,
                          UpdateCurrentImageAction updateCurrentImageAction,
                          ApplyGlobalThresholdEstimationAction applyGlobalThresholdEstimationAction,
                          ApplyOtsuThresholdEstimationAction applyOtsuThresholdEstimationAction,
@@ -103,7 +103,7 @@ public class MainPresenter {
         this.view = view;
 
         this.loadImageAction = loadImageAction;
-        this.loadImageSequenceAction = loadImageSequenceAction;
+        this.cargarImagenParaMultipleProcesamientoAction = cargarImagenParaMultipleProcesamientoAction;
         this.getImageAction = getImageAction;
         this.modifyPixelAction = modifyPixelAction;
         this.putModifiedImageAction = putModifiedImageAction;
@@ -116,7 +116,7 @@ public class MainPresenter {
         this.createImageWithFigureAction = createImageWithFigureAction;
         this.equalizeGrayImageAction = equalizeGrayImageAction;
         this.compressDynamicRangeAction = compressDynamicRangeAction;
-        this.applyFilterAction = applyFilterAction;
+        this.aplicarFiltroAction = aplicarFiltroAction;
         this.updateCurrentImageAction = updateCurrentImageAction;
         this.applyGlobalThresholdEstimationAction = applyGlobalThresholdEstimationAction;
         this.applyOtsuThresholdEstimationAction = applyOtsuThresholdEstimationAction;
@@ -150,19 +150,19 @@ public class MainPresenter {
         });
     }
 
-    public void onOpenImage() {
-        setImageOnCustomImageView(this.loadImageAction.execute());
+    public void onAbrirImagen() {
+        setImagenEnVistaPreliminar(this.loadImageAction.execute());
     }
 
-    public void onOpenImageSequence() {
-        List<Imagen> customImages = this.loadImageSequenceAction.execute();
-        if(!customImages.isEmpty()) {
-            setImageOnCustomImageView(customImages.get(0));
+    public void onAbrirImagenMultipleProcesamiento() {
+        List<Imagen> imagenes = this.cargarImagenParaMultipleProcesamientoAction.execute();
+        if(!imagenes.isEmpty()) {
+            setImagenEnVistaPreliminar(imagenes.get(0));
         }
     }
 
-    private void setImageOnCustomImageView(Imagen customImage) {
-        view.customImageView.setImage(SwingFXUtils.toFXImage(customImage.getBufferedImage(), null));
+    private void setImagenEnVistaPreliminar(Imagen imagen) {
+        view.customImageView.setImagen(SwingFXUtils.toFXImage(imagen.getBufferedImage(), null));
     }
 
     public void onSaveImage() {
@@ -171,7 +171,7 @@ public class MainPresenter {
 
     public void onApplyChanges() {
         Imagen modifiedCustomImage = new Imagen(view.modifiedImageView.getImage(), "png");
-        view.customImageView.setImage(view.modifiedImageView.getImage());
+        view.customImageView.setImagen(view.modifiedImageView.getImage());
         updateCurrentImageAction.execute(modifiedCustomImage);
         view.modifiedImageView.setImage(null);
         view.aceptarBoton.setVisible(false);
@@ -179,11 +179,11 @@ public class MainPresenter {
     }
 
     public void onShowGreyGradient() {
-        setImageOnCustomImageView(createImageWithGradientAction.execute(DEFAULT_WIDTH, DEFAULT_HEIGHT, Gradient.GREY));
+        setImagenEnVistaPreliminar(createImageWithGradientAction.execute(DEFAULT_WIDTH, DEFAULT_HEIGHT, Gradient.GREY));
     }
 
     public void onShowColorGradient() {
-        setImageOnCustomImageView(createImageWithGradientAction.execute(DEFAULT_WIDTH, DEFAULT_HEIGHT, Gradient.COLOR));
+        setImagenEnVistaPreliminar(createImageWithGradientAction.execute(DEFAULT_WIDTH, DEFAULT_HEIGHT, Gradient.COLOR));
     }
 
     public void onShowRGBImageRedChannel() {
@@ -199,11 +199,11 @@ public class MainPresenter {
     }
 
     public void onShowImageWithQuadrate() {
-        setImageOnCustomImageView(createImageWithFigureAction.execute(200, 200, Figure.QUADRATE));
+        setImagenEnVistaPreliminar(createImageWithFigureAction.execute(200, 200, Figure.QUADRATE));
     }
 
     public void onShowImageWithCircle() {
-        setImageOnCustomImageView(createImageWithFigureAction.execute(200, 200, Figure.CIRCLE));
+        setImagenEnVistaPreliminar(createImageWithFigureAction.execute(200, 200, Figure.CIRCLE));
     }
 
     public void onShowHueHSVChannel() {
@@ -372,7 +372,7 @@ public class MainPresenter {
         int size = insertedSize;
         this.getImageAction.execute()
                            .ifPresent(customImage -> {
-                               Imagen filteredCustomImage = applyFilterAction.execute(customImage, new HighPassMascara(size));
+                               Imagen filteredCustomImage = aplicarFiltroAction.execute(customImage, new HighPassMascara(size));
                                view.modifiedImageView.setImage(filteredCustomImage.toFXImage());
 
                                this.applyThresholdToModifiedImage(filteredCustomImage);

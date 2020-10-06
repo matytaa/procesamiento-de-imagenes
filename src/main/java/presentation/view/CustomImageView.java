@@ -18,15 +18,15 @@ import javafx.scene.shape.StrokeLineCap;
 
 public class CustomImageView {
 
-    private final ImageView imageView;
+    private final ImageView imagenView;
     private final Group group;
     private Double mouseAnchorX;
     private Double mouseAnchorY;
     private Rectangle rect;
     private BiFunction<Integer, Integer, Action> onPixelClick;
 
-    public CustomImageView(Group group, ImageView imageView) {
-        this.imageView = imageView;
+    public CustomImageView(Group group, ImageView imagenView) {
+        this.imagenView = imagenView;
         this.group = group;
     }
 
@@ -110,7 +110,7 @@ public class CustomImageView {
     };
 
     public CustomImageView withSetPickOnBounds(boolean b) {
-        this.imageView.setPickOnBounds(b);
+        this.imagenView.setPickOnBounds(b);
         return this;
     }
 
@@ -128,11 +128,11 @@ public class CustomImageView {
         parameters.setFill(Color.TRANSPARENT);
         parameters.setViewport(new Rectangle2D(bounds.getMinX(), bounds.getMinY(), width, height));
 
-        return imageView.snapshot(parameters, new WritableImage(width, height));
+        return imagenView.snapshot(parameters, new WritableImage(width, height));
     }
 
-    public void setImage(Image image) {
-        this.imageView.setImage(image);
+    public void setImagen(Image imagen) {
+        this.imagenView.setImage(imagen);
     }
 
     public SelectionSquare getSelectionSquare() {

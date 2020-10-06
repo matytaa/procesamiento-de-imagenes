@@ -1,18 +1,18 @@
 package core.action.image;
 
-import core.repository.ImageRepository;
+import core.repository.ImagenRepository;
 import domain.customimage.Imagen;
 
 
 public class UpdateCurrentImageAction {
 
-    private final ImageRepository imageRepository;
+    private final ImagenRepository imagenRepository;
 
-    public UpdateCurrentImageAction(ImageRepository imageRepository) {
-        this.imageRepository = imageRepository;
+    public UpdateCurrentImageAction(ImagenRepository imagenRepository) {
+        this.imagenRepository = imagenRepository;
     }
 
     public void execute(Imagen customImage) {
-        this.imageRepository.saveImage(customImage);
+        this.imagenRepository.salvarImagen(customImage);
     }
 }

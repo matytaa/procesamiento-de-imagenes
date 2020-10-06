@@ -176,7 +176,7 @@ public class ActiveContourSceneController {
     }
 
     public void setImage(Image image) {
-        this.customImageView.setImage(image);
+        this.customImageView.setImagen(image);
     }
 
     public Image getPartialImage() {
