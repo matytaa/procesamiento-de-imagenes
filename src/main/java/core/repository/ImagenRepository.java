@@ -38,10 +38,10 @@ public class ImageRepository {
         return this.originalImageBackup;
     }
 
-    public List<Imagen> saveImageSequence(List<Imagen> imageSequence) {
-        if(!imageSequence.isEmpty()) this.image = imageSequence.get(0);
-        this.imageSequence = imageSequence;
-        return imageSequence;
+    public List<Imagen> guardarSecuenciaImagenes(List<Imagen> secuenciaImagenes) {
+        if(!secuenciaImagenes.isEmpty()) this.image = secuenciaImagenes.get(0);
+        this.imageSequence = secuenciaImagenes;
+        return secuenciaImagenes;
     }
 
     public Optional<List<Imagen>> getImageSequence() {
