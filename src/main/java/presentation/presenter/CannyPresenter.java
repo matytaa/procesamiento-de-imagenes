@@ -40,7 +40,7 @@ public class CannyPresenter {
 
                 this.getImageAction.execute().ifPresent(customImage -> {
 
-                            Imagen filteredImage = this.aplicarFiltroAction.execute(customImage, new MascaraGaussiana(sigma));
+                            Imagen filteredImage = this.aplicarFiltroAction.aplicar(customImage, new MascaraGaussiana(sigma));
                             Image canniedImage = this.applyCannyDetectorAction.execute(filteredImage, t1, t2).toFXImage();
                             //NO invertir el orden, o rompe Hough (deberiamos buscar una manera de fixear esto)
                             this.imagePublishSubject.onNext(canniedImage);

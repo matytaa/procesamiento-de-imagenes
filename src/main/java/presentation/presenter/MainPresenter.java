@@ -372,7 +372,7 @@ public class MainPresenter {
         int size = insertedSize;
         this.getImageAction.execute()
                            .ifPresent(customImage -> {
-                               Imagen filteredCustomImage = aplicarFiltroAction.execute(customImage, new HighPassMascara(size));
+                               Imagen filteredCustomImage = aplicarFiltroAction.aplicar(customImage, new HighPassMascara(size));
                                view.modifiedImageView.setImage(filteredCustomImage.toFXImage());
 
                                this.applyThresholdToModifiedImage(filteredCustomImage);

@@ -19,7 +19,7 @@ import core.action.gradient.CreateImageWithGradientAction;
 import core.action.histogram.CreateImageHistogramAction;
 import core.action.histogram.EqualizeGrayImageAction;
 import core.action.image.*;
-import core.action.noise.ApplyExponentialNoiseToImageAction;
+import core.action.noise.AplicarRuidoExponencialAction;
 import core.action.noise.AplicarRuidoGaussianoAction;
 import core.action.noise.AplicarRuidoRayleighAction;
 import core.action.noise.AplicarRuidoSalYPimientaAction;
@@ -59,7 +59,7 @@ class ActionProvider {
     private static GenerarImagenRuidoSinteticoAction generarImagenRuidoSinteticoAction;
     private static AplicarRuidoGaussianoAction aplicarRuidoGaussianoAction;
     private static AplicarRuidoRayleighAction aplicarRuidoRayleighAction;
-    private static ApplyExponentialNoiseToImageAction applyExponentialNoiseToImageAction;
+    private static AplicarRuidoExponencialAction aplicarRuidoExponencialAction;
     private static ApplyEdgeDetectorByGradientAction applyEdgeDetectorByGradientAction;
     private static UpdateCurrentImageAction updateCurrentImageAction;
     private static ApplyDirectionalDerivativeOperatorAction applyDirectionalDerivativeOperatorAction;
@@ -297,13 +297,13 @@ class ActionProvider {
         return aplicarRuidoRayleighAction;
     }
 
-    public static ApplyExponentialNoiseToImageAction provideApplyExponentialNoiseToImageAction() {
-        if (applyExponentialNoiseToImageAction == null) {
-            applyExponentialNoiseToImageAction = new ApplyExponentialNoiseToImageAction(RepositoryProvider.provideImageRepository(),
+    public static AplicarRuidoExponencialAction provideApplyExponentialNoiseToImageAction() {
+        if (aplicarRuidoExponencialAction == null) {
+            aplicarRuidoExponencialAction = new AplicarRuidoExponencialAction(RepositoryProvider.provideImageRepository(),
                     ServiceProvider.provideImageOperationsService(),
                     ServiceProvider.provideRandomNumberGenerationService());
         }
-        return applyExponentialNoiseToImageAction;
+        return aplicarRuidoExponencialAction;
     }
 
     public static ApplyEdgeDetectorByGradientAction provideApplyEdgeDetectorByGradient() {

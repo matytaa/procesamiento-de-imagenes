@@ -1,6 +1,6 @@
 package presentation.presenter.random_generators;
 
-import core.action.noise.ApplyExponentialNoiseToImageAction;
+import core.action.noise.AplicarRuidoExponencialAction;
 import core.action.noise.generator.GenerarImagenRuidoSinteticoAction;
 import core.semaphore.SemaforosGeneradoresDeRandoms;
 import core.service.statistics.GeneradorDeRandomsService;
@@ -18,15 +18,15 @@ public class ExponentialScenePresenter {
     private final ExponentialSceneController view;
     private final GenerarImagenRuidoSinteticoAction generarImagenRuidoSinteticoAction;
     private final PublishSubject<Image> onNoiseImage;
-    private final ApplyExponentialNoiseToImageAction applyExponentialNoiseToImageAction;
+    private final AplicarRuidoExponencialAction aplicarRuidoExponencialAction;
     private final PublishSubject<Image> onModifiedImage;
 
-    public ExponentialScenePresenter(ExponentialSceneController exponentialSceneController, GeneradorDeRandomsService generadorDeRandomsService, GenerarImagenRuidoSinteticoAction generarImagenRuidoSinteticoAction, PublishSubject<Image> noiseImagePublishSubject, ApplyExponentialNoiseToImageAction applyExponentialNoiseToImageAction, PublishSubject<Image> onModifiedImage) {
+    public ExponentialScenePresenter(ExponentialSceneController exponentialSceneController, GeneradorDeRandomsService generadorDeRandomsService, GenerarImagenRuidoSinteticoAction generarImagenRuidoSinteticoAction, PublishSubject<Image> noiseImagePublishSubject, AplicarRuidoExponencialAction aplicarRuidoExponencialAction, PublishSubject<Image> onModifiedImage) {
         this.view = exponentialSceneController;
         this.generadorDeRandomsService = generadorDeRandomsService;
         this.generarImagenRuidoSinteticoAction = generarImagenRuidoSinteticoAction;
         this.onNoiseImage = noiseImagePublishSubject;
-        this.applyExponentialNoiseToImageAction = applyExponentialNoiseToImageAction;
+        this.aplicarRuidoExponencialAction = aplicarRuidoExponencialAction;
         this.onModifiedImage = onModifiedImage;
     }
 
@@ -51,7 +51,7 @@ public class ExponentialScenePresenter {
 
             } else { //GENERADOR DE RUIDO PARA UNA IMAGEN EXISTENTE
                 double percent = (Double.parseDouble(InsertValuePopup.show("Porcentaje de contaminación", "0").get()))/100.00;
-                Image image = this.applyExponentialNoiseToImageAction.execute(percent, lambda);
+                Image image = this.aplicarRuidoExponencialAction.execute(percent, lambda);
                 this.onModifiedImage.onNext(image);
                 this.view.closeWindow();
             }

@@ -67,7 +67,7 @@ public class FilterPresenter {
     private void aplicarConMascara(Mascara mascara) {
         this.getImageAction.execute()
                 .ifPresent(imagen -> {
-                    aplicarFiltroAction.execute(imagen, mascara);
+                    aplicarFiltroAction.aplicar(imagen, mascara);
                     view.closeWindow();
                 });
     }

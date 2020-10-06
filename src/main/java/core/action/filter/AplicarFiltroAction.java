@@ -19,7 +19,7 @@ public class AplicarFiltroAction {
         this.operacionesImagenesService = operacionesImagenesService;
     }
 
-    public Imagen execute(Imagen imagen, Mascara mascara) {
+    public Imagen aplicar(Imagen imagen, Mascara mascara) {
         MatrizCanales mascaraAplicada = mascara.apply(imagen);
         MatrizCanales matrizImagenValida = this.operacionesImagenesService.aMatrizValida(mascaraAplicada);
         Imagen imagenFinal = new Imagen(matrizImagenValida, imagen.getFormatString());
