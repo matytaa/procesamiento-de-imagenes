@@ -60,7 +60,7 @@ public class ApplyOtsuThresholdEstimationAction {
         int[][] imageMatrix = this.matrizService.aMatrizDeGrises(customImage.toFXImage());
 
         //le aplico el umbral calculado
-        int[][] transformedImage = this.applyThresholdService.applyThreshold(imageMatrix, threshold);
+        int[][] transformedImage = this.applyThresholdService.aplicarUmbral(imageMatrix, threshold);
 
         //creo un objeto con la imagen modificada y el umbral usado, y lo devuelvo
         Image image = this.matrizService.toImage(transformedImage, transformedImage, transformedImage);

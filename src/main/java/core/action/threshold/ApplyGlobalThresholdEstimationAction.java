@@ -31,7 +31,7 @@ public class ApplyGlobalThresholdEstimationAction {
         this.iterations = 0;
 
         while (currentDeltaT > deltaT){
-            transformedImage = this.applyThresholdService.applyThreshold(imageMatrix, threshold);
+            transformedImage = this.applyThresholdService.aplicarUmbral(imageMatrix, threshold);
             GlobalThresholdGroups globalThresholdGroups = this.calculateGroups(transformedImage);
             int m1 = this.calculateM1(imageMatrix, globalThresholdGroups);
             int m2 = this.calculateM2(imageMatrix, globalThresholdGroups);

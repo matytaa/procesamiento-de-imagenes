@@ -26,7 +26,7 @@ import core.action.noise.AplicarRuidoSalYPimientaAction;
 import core.action.noise.generator.GenerarImagenRuidoSinteticoAction;
 import core.action.threshold.ApplyGlobalThresholdEstimationAction;
 import core.action.threshold.ApplyOtsuThresholdEstimationAction;
-import core.action.threshold.ApplyThresholdAction;
+import core.action.threshold.AplicarUmbralAction;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
 
@@ -45,7 +45,7 @@ class ActionProvider {
     private static CreateImageWithFigureAction createImageWithFigureAction;
     private static CreateImageWithGradientAction createImageWithGradientAction;
     private static CalculateNegativeImageAction calculateNegativeImageAction;
-    private static ApplyThresholdAction applyThresholdAction;
+    private static AplicarUmbralAction aplicarUmbralAction;
     private static CreateImageHistogramAction createImageHistogramAction;
     private static ApplyContrastAction applyContrastAction;
     private static CompressDynamicRangeAction compressDynamicRangeAction;
@@ -179,11 +179,11 @@ class ActionProvider {
         return calculateNegativeImageAction;
     }
 
-    public static ApplyThresholdAction provideApplyThresholdAction() {
-        if (applyThresholdAction == null) {
-            applyThresholdAction = new ApplyThresholdAction(ServiceProvider.provideApplyThresholdService());
+    public static AplicarUmbralAction provideApplyThresholdAction() {
+        if (aplicarUmbralAction == null) {
+            aplicarUmbralAction = new AplicarUmbralAction(ServiceProvider.provideApplyThresholdService());
         }
-        return applyThresholdAction;
+        return aplicarUmbralAction;
     }
 
     public static CreateImageHistogramAction provideCreateImageHistogram() {

@@ -5,16 +5,16 @@ import domain.customimage.Imagen;
 import javafx.scene.image.Image;
 
 
-public class ApplyThresholdAction {
+public class AplicarUmbralAction {
 
     private final ApplyThresholdService applyThresholdService;
 
-    public ApplyThresholdAction(ApplyThresholdService applyThresholdService) {
+    public AplicarUmbralAction(ApplyThresholdService applyThresholdService) {
         this.applyThresholdService = applyThresholdService;
     }
 
-    public Image execute(Imagen customImage, int threshold) {
-        return this.applyThresholdService.applyThreshold(customImage, threshold);
+    public Image execute(Imagen imagen, int umbral) {
+        return this.applyThresholdService.aplicarUmbral(imagen, umbral);
     }
 
 }

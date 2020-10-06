@@ -154,8 +154,8 @@ public class MainSceneController {
     }
 
     @FXML
-    public void threshold() {
-        this.mainPresenter.onThreshold();
+    public void umbralizar() {
+        this.mainPresenter.onUmbralizar();
     }
 
     @FXML

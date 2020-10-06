@@ -112,5 +112,8 @@
             <MenuItem mnemonicParsing="false" onAction="#onAplicarFiltroMediana" text="Mediana" />
             <MenuItem mnemonicParsing="false" onAction="#onAplicarFiltroGausseano" text="Gauss" />
         </Menu>
+        <Menu mnemonicParsing="false" text="Umbral">
+            <MenuItem mnemonicParsing="false" onAction="#umbralizar" text="Umbralizar" />
+        </Menu>
     </MenuBar>
 </AnchorPane>
