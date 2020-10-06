@@ -19,13 +19,13 @@ public class AplicarFiltroAction {
         this.operacionesImagenesService = operacionesImagenesService;
     }
 
-    public Imagen execute(Imagen customImage, Mascara mascara) {
-        MatrizCanales mascaraAplicada = mascara.apply(customImage);
-        MatrizCanales validImageMatrix = this.operacionesImagenesService.aMatrizValida(mascaraAplicada);
-        Imagen image = new Imagen(validImageMatrix, customImage.getFormatString());
+    public Imagen execute(Imagen imagen, Mascara mascara) {
+        MatrizCanales mascaraAplicada = mascara.apply(imagen);
+        MatrizCanales matrizImagenValida = this.operacionesImagenesService.aMatrizValida(mascaraAplicada);
+        Imagen imagenFinal = new Imagen(matrizImagenValida, imagen.getFormatString());
 
-        onModifiedImagePublishSubject.onNext(image.toFXImage());
+        onModifiedImagePublishSubject.onNext(imagenFinal.toFXImage());
 
-        return image;
+        return imagenFinal;
     }
 }

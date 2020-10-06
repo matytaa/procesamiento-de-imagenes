@@ -74,7 +74,7 @@ class ActionProvider {
     private static LineHoughTransformAction lineHoughTransformAction;
     private static CircleHoughTransformAction circleHoughTransformAction;
     private static ApplyActiveContourAction applyActiveContourAction;
-    private static LoadImageSequenceAction loadImageSequenceAction;
+    private static CargarSecuenciaImagenesAction cargarSecuenciaImagenesAction;
     private static GetImageSequenceAction getImageSequenceAction;
     private static ApplyActiveContourOnImageSequenceAction applyActiveContourOnImageSequenceAction;
     private static ApplyHarrisDetectorAction applyHarrisDetectorAction;
@@ -421,15 +421,15 @@ class ActionProvider {
         return applyActiveContourAction;
     }
 
-    public static LoadImageSequenceAction provideLoadImageSequenceAction() {
-        if (loadImageSequenceAction == null) {
-            loadImageSequenceAction = new LoadImageSequenceAction(
+    public static CargarSecuenciaImagenesAction provideLoadImageSequenceAction() {
+        if (cargarSecuenciaImagenesAction == null) {
+            cargarSecuenciaImagenesAction = new CargarSecuenciaImagenesAction(
                     RepositoryProvider.provideImageRepository(),
                     ServiceProvider.provideOpenFileService(),
                     CommonProvider.provideOpener(),
                     ServiceProvider.provideImageRawService());
         }
-        return loadImageSequenceAction;
+        return cargarSecuenciaImagenesAction;
     }
 
     public static GetImageSequenceAction provideImageSequenceAcion() {

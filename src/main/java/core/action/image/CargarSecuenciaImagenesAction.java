@@ -11,7 +11,7 @@ import presentation.util.InsertValuePopup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoadImageSequenceAction {
+public class CargarSecuenciaImagenesAction {
 
     private final ImagenRepository imagenRepository;
     private final OpenFileService openFileService;
@@ -20,8 +20,8 @@ public class LoadImageSequenceAction {
 
     private List<Imagen> imagenes;
 
-    public LoadImageSequenceAction(ImagenRepository imagenRepository, OpenFileService openFileService, Opener opener,
-                                   ImageRawService imageRawService) {
+    public CargarSecuenciaImagenesAction(ImagenRepository imagenRepository, OpenFileService openFileService, Opener opener,
+                                         ImageRawService imageRawService) {
         this.imagenRepository = imagenRepository;
         this.openFileService = openFileService;
         this.opener = opener;

@@ -54,8 +54,8 @@ public class MainPresenter {
     private static final int DEFAULT_HEIGHT = 510;
 
     private final MainSceneController view;
-    private final LoadImageAction loadImageAction;
-    private final LoadImageSequenceAction cargarImagenParaMultipleProcesamientoAction;
+    private final LoadImageAction cargarImagenAction;
+    private final CargarSecuenciaImagenesAction cargarImagenParaMultipleProcesamientoAction;
     private final GetImageAction getImageAction;
     private final ModifyPixelAction modifyPixelAction;
     private final PutModifiedImageAction putModifiedImageAction;
@@ -78,8 +78,8 @@ public class MainPresenter {
     private final ApplySusanDetectorAction applySusanDetectorAction;
 
     public MainPresenter(MainSceneController view,
-                         LoadImageAction loadImageAction,
-                         LoadImageSequenceAction cargarImagenParaMultipleProcesamientoAction, GetImageAction getImageAction,
+                         LoadImageAction cargarImagenAction,
+                         CargarSecuenciaImagenesAction cargarImagenParaMultipleProcesamientoAction, GetImageAction getImageAction,
                          PutModifiedImageAction putModifiedImageAction,
                          ModifyPixelAction modifyPixelAction,
                          CalculateNegativeImageAction calculateNegativeImageAction,
@@ -102,7 +102,7 @@ public class MainPresenter {
 
         this.view = view;
 
-        this.loadImageAction = loadImageAction;
+        this.cargarImagenAction = cargarImagenAction;
         this.cargarImagenParaMultipleProcesamientoAction = cargarImagenParaMultipleProcesamientoAction;
         this.getImageAction = getImageAction;
         this.modifyPixelAction = modifyPixelAction;
@@ -151,7 +151,7 @@ public class MainPresenter {
     }
 
     public void onAbrirImagen() {
-        setImagenEnVistaPreliminar(this.loadImageAction.execute());
+        setImagenEnVistaPreliminar(this.cargarImagenAction.execute());
     }
 
     public void onAbrirImagenMultipleProcesamiento() {
