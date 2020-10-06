@@ -69,8 +69,8 @@ public class MainSceneController {
     }
 
     @FXML
-    public void applyChanges() {
-        this.mainPresenter.onApplyChanges();
+    public void aplicarCambios() {
+        this.mainPresenter.onAplicarCambios();
     }
 
     @FXML
@@ -189,13 +189,13 @@ public class MainSceneController {
     }
 
     @FXML
-    public void close() {
+    public void cerrar() {
         Platform.exit();
     }
 
     @FXML
-    public void createImageHistogram() {
-        this.mainPresenter.onCreateHistograma();
+    public void crearHistograma() {
+        this.mainPresenter.onCrearHistograma();
     }
 
     @FXML

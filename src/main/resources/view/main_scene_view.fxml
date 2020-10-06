@@ -40,6 +40,7 @@
                     <ImageView fx:id="modifiedImageView" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
                 </center>
             </BorderPane>
+
             <VBox alignment="CENTER" prefHeight="400.0" prefWidth="215.0" GridPane.columnIndex="2">
                 <Pane prefHeight="153.0" prefWidth="125.0">
                     <Label alignment="CENTER" layoutX="52.0" layoutY="6.0" text="Pixel" textAlignment="CENTER" />
@@ -68,15 +69,16 @@
                         </GridPane>
                     </Pane>
                 </Pane>
+                <Button fx:id="aceptarBoton" alignment="BOTTOM_LEFT" contentDisplay="LEFT" layoutX="21.0" layoutY="265.0" mnemonicParsing="false" onAction="#aplicarCambios" text="Aplicar Cambios" visible="false" />
+
             </VBox>
         </GridPane>
     </AnchorPane>
     <MenuBar AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
         <Menu mnemonicParsing="false" text="Archivo">
             <MenuItem mnemonicParsing="false" onAction="#abrirImagen" text="Abrir" />
-            <MenuItem mnemonicParsing="false" onAction="#abrirImagenMultipleProcesamiento" text="Abrir Imagen Múltiple Procesamiento" />
             <MenuItem mnemonicParsing="false" onAction="#saveModifiedImage" text="Guardar" />
-            <MenuItem mnemonicParsing="false" onAction="#close" text="Cerrar" />
+            <MenuItem mnemonicParsing="false" onAction="#cerrar" text="Cerrar" />
         </Menu>
         <Menu mnemonicParsing="false" text="Generar">
             <Menu mnemonicParsing="false" text="Números Random">
@@ -91,7 +93,7 @@
 
             </Menu>
             <Menu mnemonicParsing="false" text="Histogramas">
-                <MenuItem mnemonicParsing="false" onAction="#createImageHistogram" text="Generar Histograma" />
+                <MenuItem mnemonicParsing="false" onAction="#crearHistograma" text="Generar Histograma" />
                 <Menu mnemonicParsing="false" text="Ecualización">
                     <MenuItem mnemonicParsing="false" onAction="#createEqualizedImageByHistogram" text="Ecualizar imagen" />
                     <MenuItem mnemonicParsing="false" onAction="#createImageEqualizedTwiceByHistogram" text="Ecualizar dos veces la imagen" />

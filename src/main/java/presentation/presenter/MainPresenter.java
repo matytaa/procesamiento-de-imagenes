@@ -169,13 +169,13 @@ public class MainPresenter {
         new SaveImageSceneCreator().createScene();
     }
 
-    public void onApplyChanges() {
+    public void onAplicarCambios() {
         Imagen modifiedCustomImage = new Imagen(view.modifiedImageView.getImage(), "png");
         view.customImageView.setImagen(view.modifiedImageView.getImage());
         updateCurrentImageAction.execute(modifiedCustomImage);
         view.modifiedImageView.setImage(null);
         view.aceptarBoton.setVisible(false);
-        view.undoChangesButton.setVisible(true);
+        //view.undoChangesButton.setVisible(true);
     }
 
     public void onShowGreyGradient() {
@@ -303,7 +303,7 @@ public class MainPresenter {
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onCreateHistograma() {
+    public void onCrearHistograma() {
         new HistogramaSceneCreator().createScene();
     }
 
