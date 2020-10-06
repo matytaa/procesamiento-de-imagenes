@@ -15,7 +15,7 @@ import core.action.histogram.utils.EqualizedTimes;
 import core.action.image.*;
 import core.action.threshold.ApplyGlobalThresholdEstimationAction;
 import core.action.threshold.ApplyOtsuThresholdEstimationAction;
-import core.action.threshold.ApplyThresholdAction;
+import core.action.threshold.AplicarUmbralAction;
 import core.provider.PresenterProvider;
 import core.semaphore.SemaforosGeneradoresDeRandoms;
 import domain.SemaforoFiltro;
@@ -60,7 +60,7 @@ public class MainPresenter {
     private final ModifyPixelAction modifyPixelAction;
     private final PutModifiedImageAction putModifiedImageAction;
     private final CalculateNegativeImageAction calculateNegativeImageAction;
-    private final ApplyThresholdAction applyThresholdAction;
+    private final AplicarUmbralAction aplicarUmbralAction;
     private final CreateImageWithGradientAction createImageWithGradientAction;
     private final ObtainRGBChannelAction obtainRGBChannelAction;
     private final ObtainHSVChannelAction obtainHSVChannelAction;
@@ -83,7 +83,7 @@ public class MainPresenter {
                          PutModifiedImageAction putModifiedImageAction,
                          ModifyPixelAction modifyPixelAction,
                          CalculateNegativeImageAction calculateNegativeImageAction,
-                         ApplyThresholdAction applyThresholdAction,
+                         AplicarUmbralAction aplicarUmbralAction,
                          CreateImageWithGradientAction createImageWithGradientAction,
                          ObtainRGBChannelAction obtainRGBChannelAction,
                          ObtainHSVChannelAction obtainHSVChannelAction,
@@ -108,7 +108,7 @@ public class MainPresenter {
         this.modifyPixelAction = modifyPixelAction;
         this.putModifiedImageAction = putModifiedImageAction;
         this.calculateNegativeImageAction = calculateNegativeImageAction;
-        this.applyThresholdAction = applyThresholdAction;
+        this.aplicarUmbralAction = aplicarUmbralAction;
         this.onModifiedImage = onModifiedImage;
         this.createImageWithGradientAction = createImageWithGradientAction;
         this.obtainRGBChannelAction = obtainRGBChannelAction;
@@ -290,16 +290,16 @@ public class MainPresenter {
     }
 
     private void applyThresholdToModifiedImage(Imagen customImage) {
-        applyThreshold(customImage);
+        aplicarUmbralizacion(customImage);
     }
 
-    public void onThreshold() {
-        this.getImageAction.execute().ifPresent(this::applyThreshold);
+    public void onUmbralizar() {
+        this.getImageAction.execute().ifPresent(this::aplicarUmbralizacion);
     }
 
-    private void applyThreshold(Imagen customImage) {
-        int threshold = Integer.parseInt(InsertValuePopup.show("Threshold", "0").get());
-        view.modifiedImageView.setImage(applyThresholdAction.execute(customImage, threshold));
+    private void aplicarUmbralizacion(Imagen customImage) {
+        int threshold = Integer.parseInt(InsertValuePopup.show("Umbral", "0").get());
+        view.modifiedImageView.setImage(aplicarUmbralAction.execute(customImage, threshold));
         view.aceptarBoton.setVisible(true);
     }
 
