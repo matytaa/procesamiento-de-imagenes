@@ -18,8 +18,8 @@ public class GammaSceneController {
     }
 
     @FXML
-    public void applyFunction() {
-        this.gammaScenePresenter.onApplyFunction();
+    public void aplicarFuncion() {
+        this.gammaScenePresenter.onAplicarFuncion();
     }
 
     public void closeWindow() {

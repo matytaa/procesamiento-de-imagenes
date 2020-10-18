@@ -49,7 +49,7 @@ class ActionProvider {
     private static CreateImageHistogramAction createImageHistogramAction;
     private static ApplyContrastAction applyContrastAction;
     private static CompressDynamicRangeAction compressDynamicRangeAction;
-    private static GammaFunctionAction gammaFunctionAction;
+    private static FuncionGammaAction funcionGammaAction;
     private static MultiplyImagesAction multiplyImagesAction;
     private static SumImagesAction sumImagesAction;
     private static NormalizeImageAction normalizeImageAction;
@@ -217,11 +217,11 @@ class ActionProvider {
         return compressDynamicRangeAction;
     }
 
-    public static GammaFunctionAction provideGammaFunctionAction() {
-        if (gammaFunctionAction == null) {
-            gammaFunctionAction = new GammaFunctionAction(RepositoryProvider.provideImageRepository());
+    public static FuncionGammaAction provideGammaFunctionAction() {
+        if (funcionGammaAction == null) {
+            funcionGammaAction = new FuncionGammaAction(RepositoryProvider.provideImageRepository());
         }
-        return gammaFunctionAction;
+        return funcionGammaAction;
     }
 
     public static SumImagesAction provideSumImagesAction() {

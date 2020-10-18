@@ -169,8 +169,8 @@ public class MainSceneController {
     }
 
     @FXML
-    public void gammaPowerFunction() {
-        this.mainPresenter.onGammaPowerFunction();
+    public void FuncionDePotenciaGamma() {
+        this.mainPresenter.onFuncionDePotenciaGamma();
     }
 
     @FXML
