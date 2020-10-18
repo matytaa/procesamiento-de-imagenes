@@ -58,7 +58,7 @@ public class AplicarRuidoGaussianoAction {
             }
         }
 
-        return sumMatrix;
+        return operacionesImagenesService.ajustarEscalaDeGrises(sumMatrix);
     }
 
     private int[][] generarMatrizDeRuido(double mu, double sigma, Imagen imagen, List<Pixel> pixelesAContaminar) {
