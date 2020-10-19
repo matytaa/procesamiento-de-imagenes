@@ -27,7 +27,7 @@ public class AplicarDetectorDeBordesAction {
         MatrizCanales derivadaAlCuadradoX = this.operacionesImagenesService.multiplyChannelMatrixs(matrizCanalesDerivadaX, matrizCanalesDerivadaX);
         MatrizCanales derivadaAlCuadradoY = this.operacionesImagenesService.multiplyChannelMatrixs(matrizCanalesDerivadaY, matrizCanalesDerivadaY);
         MatrizCanales gradiente = operacionesImagenesService
-                .cuadradoMatrizCanal(operacionesImagenesService.sumarMatrizCanales(derivadaAlCuadradoX, derivadaAlCuadradoY));
+                .raizMatrizCanal(operacionesImagenesService.sumarMatrizCanales(derivadaAlCuadradoX, derivadaAlCuadradoY));
 
         //Se normaliza y se devuelve la imagen resultante
         Image imagenResultante = this.matrizService

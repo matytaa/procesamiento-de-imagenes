@@ -26,7 +26,7 @@ public class ApplyCannyDetectorAction {
         MatrizCanales sobelYDerivative = new MascaraSobelY().apply(filteredImage);
 
         int[][] gradientAngleMatrix = this.calculateGradientAngle(sobelXDerivative, sobelYDerivative);
-        int[][] derivativesAbsoluteSumMatrix = this.operacionesImagenesService.calculateAbsoluteSum(sobelXDerivative, sobelYDerivative)
+        int[][] derivativesAbsoluteSumMatrix = this.operacionesImagenesService.calcularSumaAbsoluta(sobelXDerivative, sobelYDerivative)
                                                                           .getRedChannel(); //Again, easily extended for 3 channels
 
         int[][] roughSingleEdgedMatrix = this.applyNonMaximumSuppression(derivativesAbsoluteSumMatrix, gradientAngleMatrix);
