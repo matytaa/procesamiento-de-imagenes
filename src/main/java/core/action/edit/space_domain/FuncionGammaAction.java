@@ -43,10 +43,12 @@ public class FuncionGammaAction {
         return imagenDeEscritura;
     }
 
+    //T(r) = c.rγ
     private int AplicarFuncionGamma(double gamma, double c, int nivelDeGris) {
         return (int) (c * (Math.pow(nivelDeGris, gamma)));
     }
 
+    //c = L−1 / (L−1)γ
     private double calcularC(double gamma) {
         return 255/(Math.pow(255,gamma));
     }

@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class GammaPowerFunctionSceneCreator implements SceneCreator {
+public class FuncionPotenciaGammaSceneCreator implements SceneCreator {
 
     @Override
     public void createScene() {
@@ -15,7 +15,7 @@ public class GammaPowerFunctionSceneCreator implements SceneCreator {
             Parent root = FXMLLoader.load(getClass().getResource("/view/gamma_scene_view.fxml"));
             Scene channelScene = new Scene(root);
             Stage channelStage = new Stage(StageStyle.DECORATED);
-            channelStage.setTitle("Gamma Power Function");
+            channelStage.setTitle("Función de Potencia Gamma");
             channelStage.setScene(channelScene);
             channelStage.show();
 

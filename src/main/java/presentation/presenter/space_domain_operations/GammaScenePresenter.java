@@ -30,9 +30,9 @@ public class GammaScenePresenter {
     }
 
     private boolean esUnGammaValido() {
-        String text = this.view.gammaTextField.getText();
-        if (text.equals(EMPTY)) return false;
-        else if ((Double.parseDouble(text) == 0) || (Double.parseDouble(text) == 1) || (Double.parseDouble(text) > 2) ) return false;
+        String ingreso = this.view.gammaTextField.getText();
+        if (ingreso.equals(EMPTY)) return false;
+        else if ((Double.parseDouble(ingreso) == 0) || (Double.parseDouble(ingreso) == 1) || (Double.parseDouble(ingreso) > 2) ) return false;
         else return true;
     }
 

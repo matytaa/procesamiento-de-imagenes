@@ -335,7 +335,7 @@ public class MainPresenter {
     }
 
     public void onFuncionDePotenciaGamma() {
-        new GammaPowerFunctionSceneCreator().createScene();
+        new FuncionPotenciaGammaSceneCreator().createScene();
         view.aceptarBoton.setVisible(true);
     }
 
