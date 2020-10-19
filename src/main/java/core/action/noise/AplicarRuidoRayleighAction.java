@@ -1,6 +1,6 @@
 package core.action.noise;
 
-import core.repository.ImagenRepository;
+import core.repository.RepositorioImagen;
 import core.service.OperacionesImagenesService;
 import core.service.statistics.GeneradorDeRandomsService;
 import domain.customimage.Imagen;
@@ -13,23 +13,23 @@ import java.util.function.BiFunction;
 
 public class AplicarRuidoRayleighAction {
 
-    private final ImagenRepository imagenRepository;
+    private final RepositorioImagen repositorioImagen;
     private final OperacionesImagenesService operacionesImagenesService;
     private final GeneradorDeRandomsService randomNumberGenerationService;
 
-    public AplicarRuidoRayleighAction(ImagenRepository imagenRepository, OperacionesImagenesService operacionesImagenesService, GeneradorDeRandomsService randomNumberGenerationService) {
-        this.imagenRepository = imagenRepository;
+    public AplicarRuidoRayleighAction(RepositorioImagen repositorioImagen, OperacionesImagenesService operacionesImagenesService, GeneradorDeRandomsService randomNumberGenerationService) {
+        this.repositorioImagen = repositorioImagen;
         this.operacionesImagenesService = operacionesImagenesService;
         this.randomNumberGenerationService = randomNumberGenerationService;
     }
 
     public Image execute(double percent, double psi) {
 
-        if(!this.imagenRepository.getImagen().isPresent()) {
+        if(!this.repositorioImagen.obtenerImagen().isPresent()) {
             return new WritableImage(100,100);
         }
 
-        Imagen imagen = this.imagenRepository.getImagen().get();
+        Imagen imagen = this.repositorioImagen.obtenerImagen().get();
         int cantidadDePixelesAContaminar = (int)(percent * imagen.getPixelQuantity());
         List<Pixel> pixelesAContaminar = imagen.seleccionarNPiexelesRandom(cantidadDePixelesAContaminar);
 

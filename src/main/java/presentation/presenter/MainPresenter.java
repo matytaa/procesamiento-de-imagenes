@@ -5,7 +5,7 @@ import core.action.channels.ObtainRGBChannelAction;
 import core.action.edgedetector.ApplyLaplacianDetectorAction;
 import core.action.edgedetector.ApplySusanDetectorAction;
 import core.action.edit.ModifyPixelAction;
-import core.action.edit.space_domain.CalculateNegativeImageAction;
+import core.action.edit.space_domain.CalcularNegativoAction;
 import core.action.edit.space_domain.CompressDynamicRangeAction;
 import core.action.figure.CreateImageWithFigureAction;
 import core.action.filter.AplicarFiltroAction;
@@ -59,7 +59,7 @@ public class MainPresenter {
     private final GetImageAction getImageAction;
     private final ModifyPixelAction modifyPixelAction;
     private final PutModifiedImageAction putModifiedImageAction;
-    private final CalculateNegativeImageAction calculateNegativeImageAction;
+    private final CalcularNegativoAction calcularNegativoAction;
     private final AplicarUmbralAction aplicarUmbralAction;
     private final CreateImageWithGradientAction createImageWithGradientAction;
     private final ObtainRGBChannelAction obtainRGBChannelAction;
@@ -82,7 +82,7 @@ public class MainPresenter {
                          CargarSecuenciaImagenesAction cargarImagenParaMultipleProcesamientoAction, GetImageAction getImageAction,
                          PutModifiedImageAction putModifiedImageAction,
                          ModifyPixelAction modifyPixelAction,
-                         CalculateNegativeImageAction calculateNegativeImageAction,
+                         CalcularNegativoAction calcularNegativoAction,
                          AplicarUmbralAction aplicarUmbralAction,
                          CreateImageWithGradientAction createImageWithGradientAction,
                          ObtainRGBChannelAction obtainRGBChannelAction,
@@ -107,7 +107,7 @@ public class MainPresenter {
         this.getImageAction = getImageAction;
         this.modifyPixelAction = modifyPixelAction;
         this.putModifiedImageAction = putModifiedImageAction;
-        this.calculateNegativeImageAction = calculateNegativeImageAction;
+        this.calcularNegativoAction = calcularNegativoAction;
         this.aplicarUmbralAction = aplicarUmbralAction;
         this.onModifiedImage = onModifiedImage;
         this.createImageWithGradientAction = createImageWithGradientAction;
@@ -283,8 +283,8 @@ public class MainPresenter {
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onCalculateNegativeImage() {
-        Image image = this.calculateNegativeImageAction.execute();
+    public void calcularNegativo() {
+        Image image = this.calcularNegativoAction.execute();
         view.modifiedImageView.setImage(image);
         view.aceptarBoton.setVisible(true);
     }
@@ -449,13 +449,25 @@ public class MainPresenter {
 
     public void onApplyPrewittEdgeDetector() {
         SemaforoFiltro.setValue(Mascara.Tipo.PREWITT);
-        PresenterProvider.provideEdgeDetectorPresenter().onInitialize();
+        PresenterProvider.providerDetectorBordesPresenter().onInitialize();
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplySobelEdgeDetector() {
+    public void onAplicarDetectorBordesSobel() {
         SemaforoFiltro.setValue(Mascara.Tipo.SOBEL);
-        PresenterProvider.provideEdgeDetectorPresenter().onInitialize();
+        PresenterProvider.providerDetectorBordesPresenter().onInitialize();
+        view.aceptarBoton.setVisible(true);
+    }
+
+    public void onAplicarDetectorBordesSobelVertical() {
+        SemaforoFiltro.setValue(Mascara.Tipo.SOBEL_VERTICAL);
+        PresenterProvider.providerDetectorBordesPresenter().onInitialize();
+        view.aceptarBoton.setVisible(true);
+    }
+
+    public void onAplicarDetectorBordesSobelHorizontal() {
+        SemaforoFiltro.setValue(Mascara.Tipo.SOBEL_HORIZONTAL);
+        PresenterProvider.providerDetectorBordesPresenter().onInitialize();
         view.aceptarBoton.setVisible(true);
     }
 

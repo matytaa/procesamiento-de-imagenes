@@ -5,8 +5,8 @@ import core.service.MatrizService;
 import domain.customimage.MatrizCanales;
 import domain.customimage.Imagen;
 import domain.customimage.RGB;
-import domain.mask.sobel.SobelXDerivativeMascara;
-import domain.mask.sobel.SobelYDerivativeMascara;
+import domain.mask.sobel.MascaraSobelX;
+import domain.mask.sobel.MascaraSobelY;
 
 import java.util.List;
 
@@ -22,8 +22,8 @@ public class ApplyCannyDetectorAction {
 
     public Imagen execute(Imagen filteredImage, int t1, int t2) {
 
-        MatrizCanales sobelXDerivative = new SobelXDerivativeMascara().apply(filteredImage);
-        MatrizCanales sobelYDerivative = new SobelYDerivativeMascara().apply(filteredImage);
+        MatrizCanales sobelXDerivative = new MascaraSobelX().apply(filteredImage);
+        MatrizCanales sobelYDerivative = new MascaraSobelY().apply(filteredImage);
 
         int[][] gradientAngleMatrix = this.calculateGradientAngle(sobelXDerivative, sobelYDerivative);
         int[][] derivativesAbsoluteSumMatrix = this.operacionesImagenesService.calculateAbsoluteSum(sobelXDerivative, sobelYDerivative)

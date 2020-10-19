@@ -145,8 +145,8 @@ public class PresenterProvider {
                 PublishSubjectProvider.provideOnEqualizeImagePublishSubject());
     }
 
-    public static EdgeDetectorPresenter provideEdgeDetectorPresenter() {
-        return new EdgeDetectorPresenter(
+    public static DetectorBordesPresenter providerDetectorBordesPresenter() {
+        return new DetectorBordesPresenter(
                 ActionProvider.provideGetImageAction(),
                 ActionProvider.provideApplyEdgeDetectorByGradient(),
                 PublishSubjectProvider.provideOnModifiedImagePublishSubject()

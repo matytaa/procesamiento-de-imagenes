@@ -149,8 +149,8 @@ public class MainSceneController {
     }
 
     @FXML
-    public void calculateNegativeImage() {
-        this.mainPresenter.onCalculateNegativeImage();
+    public void calcularNegativo() {
+        this.mainPresenter.calcularNegativo();
     }
 
     @FXML
@@ -209,9 +209,13 @@ public class MainSceneController {
     }
 
     @FXML
-    public void aplicarRuidoSalYPimiena() { this.mainPresenter.onAplicarRuidoSalYPimienta(); }
+    public void aplicarRuidoSalYPimiena() {
+        this.mainPresenter.onAplicarRuidoSalYPimienta();
+    }
 
-    public void onApplyEdgeEnhancement(){this.mainPresenter.onApplyEdgeEnhancement();}
+    public void onApplyEdgeEnhancement() {
+        this.mainPresenter.onApplyEdgeEnhancement();
+    }
 
     @FXML
     public void generarImagenSinteticaRuidoExponencial() {
@@ -239,13 +243,19 @@ public class MainSceneController {
     }
 
     @FXML
-    public void aplicarRuidoAditivoGaussiano() { this.mainPresenter.onAplicarRuidoAditivoGaussiano(); }
+    public void aplicarRuidoAditivoGaussiano() {
+        this.mainPresenter.onAplicarRuidoAditivoGaussiano();
+    }
 
     @FXML
-    public void aplicarRuidoMultiplicativoRayleigh() { this.mainPresenter.onAplicarRuidoMultiplicativoRayleigh(); }
+    public void aplicarRuidoMultiplicativoRayleigh() {
+        this.mainPresenter.onAplicarRuidoMultiplicativoRayleigh();
+    }
 
     @FXML
-    public void aplicarRuidoMultiplicativoExponencial() { this.mainPresenter.onAplicarRuidoMultiplicativoExponencial(); }
+    public void aplicarRuidoMultiplicativoExponencial() {
+        this.mainPresenter.onAplicarRuidoMultiplicativoExponencial();
+    }
 
     @FXML
     public void onAplicarFiltroMedia() {
@@ -273,8 +283,18 @@ public class MainSceneController {
     }
 
     @FXML
-    public void onApplySobelEdgeDetector() {
-        this.mainPresenter.onApplySobelEdgeDetector();
+    public void onAplicarDetectorBordesSobel() {
+        this.mainPresenter.onAplicarDetectorBordesSobel();
+    }
+
+    @FXML
+    public void onAplicarDetectorBordesSobelVertical() {
+        this.mainPresenter.onAplicarDetectorBordesSobelVertical();
+    }
+
+    @FXML
+    public void onAplicarDetectorBordesSobelHorizontal() {
+        this.mainPresenter.onAplicarDetectorBordesSobelHorizontal();
     }
 
     @FXML

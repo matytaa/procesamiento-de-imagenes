@@ -4,8 +4,8 @@ import core.service.MatrizService;
 import domain.XYPoint;
 import domain.customimage.Imagen;
 import domain.mask.filter.MascaraGaussiana;
-import domain.mask.sobel.SobelXDerivativeMascara;
-import domain.mask.sobel.SobelYDerivativeMascara;
+import domain.mask.sobel.MascaraSobelX;
+import domain.mask.sobel.MascaraSobelY;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +21,8 @@ public class ApplyHarrisDetectorAction {
 
     public List<XYPoint> execute(Imagen image, double tolerance) {
 
-        int[][] xDeriv = new SobelXDerivativeMascara().apply(image).getRedChannel();
-        int[][] yDeriv = new SobelYDerivativeMascara().apply(image).getRedChannel();
+        int[][] xDeriv = new MascaraSobelX().apply(image).getRedChannel();
+        int[][] yDeriv = new MascaraSobelY().apply(image).getRedChannel();
 
         double[][] xSquareDeriv = this.applyGaussianFilter(this.matrizService.calculateSquare(xDeriv));
         double[][] ySquareDeriv = this.applyGaussianFilter(this.matrizService.calculateSquare(yDeriv));

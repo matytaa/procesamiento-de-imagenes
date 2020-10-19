@@ -86,7 +86,7 @@
                 <MenuItem mnemonicParsing="false" onAction="#generarNumeroRandomRayleigh" text="Rayleigh" />
                 <MenuItem mnemonicParsing="false" onAction="#generarNumeroRandomExponencial" text="Exponencial" />
             </Menu>
-            <MenuItem mnemonicParsing="false" onAction="#calculateNegativeImage" text="Negativo" />
+            <MenuItem mnemonicParsing="false" onAction="#calcularNegativo" text="Negativo" />
             <MenuItem mnemonicParsing="false" onAction="#FuncionDePotenciaGamma" text="Funcion de potencia Gamma" />
             <Menu mnemonicParsing="false" text="Imágenes sintéticas del ruido">
                 <MenuItem mnemonicParsing="false" onAction="#generarImagenSinteticaRuidoGaussiano" text="Gaussiano" />
@@ -119,6 +119,11 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Umbral">
             <MenuItem mnemonicParsing="false" onAction="#umbralizar" text="Umbralizar" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="Detección de Bordes">
+            <MenuItem mnemonicParsing="false" onAction="#onAplicarDetectorBordesSobelHorizontal" text="Máscara Sobel Horizontal" />
+            <MenuItem mnemonicParsing="false" onAction="#onAplicarDetectorBordesSobelVertical" text="Máscara  Sobel Vertical" />
+            <MenuItem mnemonicParsing="false" onAction="#onAplicarDetectorBordesSobel" text="Máscara Sobel" />
         </Menu>
     </MenuBar>
 </AnchorPane>

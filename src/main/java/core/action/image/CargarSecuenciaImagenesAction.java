@@ -1,6 +1,6 @@
 package core.action.image;
 
-import core.repository.ImagenRepository;
+import core.repository.RepositorioImagen;
 import core.service.ImageRawService;
 import core.service.OpenFileService;
 import domain.customimage.Imagen;
@@ -13,16 +13,16 @@ import java.util.List;
 
 public class CargarSecuenciaImagenesAction {
 
-    private final ImagenRepository imagenRepository;
+    private final RepositorioImagen repositorioImagen;
     private final OpenFileService openFileService;
     private final Opener opener;
     private final ImageRawService imageRawService;
 
     private List<Imagen> imagenes;
 
-    public CargarSecuenciaImagenesAction(ImagenRepository imagenRepository, OpenFileService openFileService, Opener opener,
+    public CargarSecuenciaImagenesAction(RepositorioImagen repositorioImagen, OpenFileService openFileService, Opener opener,
                                          ImageRawService imageRawService) {
-        this.imagenRepository = imagenRepository;
+        this.repositorioImagen = repositorioImagen;
         this.openFileService = openFileService;
         this.opener = opener;
         this.imageRawService = imageRawService;
@@ -48,6 +48,6 @@ public class CargarSecuenciaImagenesAction {
             });
         });
 
-        return imagenRepository.guardarSecuenciaImagenes(imagenes);
+        return repositorioImagen.guardarSecuenciaImagenes(imagenes);
     }
 }

@@ -5,7 +5,7 @@ import domain.customimage.Imagen;
 import java.util.List;
 import java.util.Optional;
 
-public class ImagenRepository {
+public class RepositorioImagen {
 
     private Imagen imagen;
     private Imagen imagenModificada;
@@ -17,7 +17,7 @@ public class ImagenRepository {
         return this.imagen;
     }
 
-    public Optional<Imagen> getImagen() {
+    public Optional<Imagen> obtenerImagen() {
         return Optional.ofNullable(this.imagen);
     }
 

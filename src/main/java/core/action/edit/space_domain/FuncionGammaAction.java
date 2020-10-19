@@ -1,6 +1,6 @@
 package core.action.edit.space_domain;
 
-import core.repository.ImagenRepository;
+import core.repository.RepositorioImagen;
 import domain.customimage.Imagen;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -14,15 +14,15 @@ import java.util.Optional;
 public class FuncionGammaAction {
 
 
-    private final ImagenRepository imagenRepository;
+    private final RepositorioImagen repositorioImagen;
 
-    public FuncionGammaAction(ImagenRepository imagenRepository) {
-        this.imagenRepository = imagenRepository;
+    public FuncionGammaAction(RepositorioImagen repositorioImagen) {
+        this.repositorioImagen = repositorioImagen;
     }
 
     public Image ejecutar(double gamma) {
 
-        Optional<Imagen> imagenAlmacenada = this.imagenRepository.getImagen();
+        Optional<Imagen> imagenAlmacenada = this.repositorioImagen.obtenerImagen();
         if (!imagenAlmacenada.isPresent()) {
             return new WritableImage(300,300);
         }

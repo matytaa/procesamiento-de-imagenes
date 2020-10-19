@@ -1,6 +1,6 @@
 package core.action.figure;
 
-import core.repository.ImagenRepository;
+import core.repository.RepositorioImagen;
 import core.service.generation.ImageFigureService;
 import domain.customimage.Imagen;
 import domain.customimage.Format;
@@ -13,11 +13,11 @@ import java.awt.image.BufferedImage;
 public class CreateImageWithFigureAction {
 
     private final ImageFigureService imageFigureService;
-    private final ImagenRepository imagenRepository;
+    private final RepositorioImagen repositorioImagen;
 
-    public CreateImageWithFigureAction(ImageFigureService imageFigureService, ImagenRepository imagenRepository) {
+    public CreateImageWithFigureAction(ImageFigureService imageFigureService, RepositorioImagen repositorioImagen) {
         this.imageFigureService = imageFigureService;
-        this.imagenRepository = imagenRepository;
+        this.repositorioImagen = repositorioImagen;
     }
 
     public Imagen execute(int width, int height, Figure value) {
@@ -35,6 +35,6 @@ public class CreateImageWithFigureAction {
     }
 
     private Imagen putOnRepository(BufferedImage bufferedImage) {
-        return imagenRepository.salvarImagen(new Imagen(bufferedImage, Format.PNG));
+        return repositorioImagen.salvarImagen(new Imagen(bufferedImage, Format.PNG));
     }
 }

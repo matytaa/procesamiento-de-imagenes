@@ -21,7 +21,7 @@ public class PrewittYDerivativeMascara extends Mascara {
     }
 
     @Override
-    public double getValue(int x, int y) {
+    public double obtenerValor(int x, int y) {
         return matriz[x][y];
     }
 }

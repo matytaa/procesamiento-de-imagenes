@@ -1,6 +1,6 @@
 package presentation.presenter;
 
-import core.action.edgedetector.ApplyEdgeDetectorByGradientAction;
+import core.action.edgedetector.AplicarDetectorDeBordesAction;
 import core.action.edgedetector.hough.CircleHoughTransformAction;
 import core.action.edgedetector.hough.LineHoughTransformAction;
 import core.action.image.GetImageAction;
@@ -23,7 +23,7 @@ public class HoughPresenter {
     private final CircleHoughTransformAction circleHoughTransformAction;
     private final ApplyOtsuThresholdEstimationAction applyOtsuThresholdEstimationAction;
     private final GetImageAction getImageAction;
-    private final ApplyEdgeDetectorByGradientAction applyEdgeDetectorByGradientAction;
+    private final AplicarDetectorDeBordesAction aplicarDetectorDeBordesAction;
 
     public HoughPresenter(HoughSceneController houghSceneController,
                           PublishSubject<Image> onModifiedImagePublishSubject,
@@ -31,14 +31,14 @@ public class HoughPresenter {
                           CircleHoughTransformAction circleHoughTransformAction,
                           ApplyOtsuThresholdEstimationAction applyOtsuThresholdEstimationAction,
                           GetImageAction getImageAction,
-                          ApplyEdgeDetectorByGradientAction applyEdgeDetectorByGradientAction) {
+                          AplicarDetectorDeBordesAction aplicarDetectorDeBordesAction) {
         this.view = houghSceneController;
         this.imagePublishSubject = onModifiedImagePublishSubject;
         this.lineHoughTransformAction = lineHoughTransformAction;
         this.circleHoughTransformAction = circleHoughTransformAction;
         this.getImageAction = getImageAction;
         this.applyOtsuThresholdEstimationAction = applyOtsuThresholdEstimationAction;
-        this.applyEdgeDetectorByGradientAction = applyEdgeDetectorByGradientAction;
+        this.aplicarDetectorDeBordesAction = aplicarDetectorDeBordesAction;
     }
 
     public void onApply() {
@@ -58,7 +58,7 @@ public class HoughPresenter {
         if (isXCenterValid(xCenterDivisions) && isYCenterValid(yCenterDivisions) && isRadiusValid(radiusDivisions) && isToleranceValid(tolerance)) {
 
             this.getImageAction.execute().ifPresent(customImage -> {
-                Imagen edgedImage = new Imagen(this.applyEdgeDetectorByGradientAction.execute(customImage, new PrewittXDerivativeMascara(), new PrewittYDerivativeMascara()), "png");
+                Imagen edgedImage = new Imagen(this.aplicarDetectorDeBordesAction.ejecutar(customImage, new PrewittXDerivativeMascara(), new PrewittYDerivativeMascara()), "png");
                 OtsuThresholdResult otsuThresholdResult = this.applyOtsuThresholdEstimationAction.execute(edgedImage);
                 Imagen thresholdizedImage = new Imagen(otsuThresholdResult.getImage(), "png");
                 Imagen houghImage = this.circleHoughTransformAction.execute(customImage, thresholdizedImage, xCenterDivisions, yCenterDivisions, radiusDivisions, tolerance);
@@ -92,7 +92,7 @@ public class HoughPresenter {
         if (isRhoValid(rhoDivisions) && isThetaValid(thetaDivisions) && isToleranceValid(tolerance)) {
 
             this.getImageAction.execute().ifPresent(customImage -> {
-                Imagen edgedImage = new Imagen(this.applyEdgeDetectorByGradientAction.execute(customImage, new PrewittXDerivativeMascara(), new PrewittYDerivativeMascara()), "png");
+                Imagen edgedImage = new Imagen(this.aplicarDetectorDeBordesAction.ejecutar(customImage, new PrewittXDerivativeMascara(), new PrewittYDerivativeMascara()), "png");
                 OtsuThresholdResult otsuThresholdResult = this.applyOtsuThresholdEstimationAction.execute(edgedImage);
                 Imagen thresholdizedImage = new Imagen(otsuThresholdResult.getImage(), "png");
                 Imagen houghImage = this.lineHoughTransformAction.execute(customImage, thresholdizedImage, rhoDivisions, thetaDivisions, tolerance);

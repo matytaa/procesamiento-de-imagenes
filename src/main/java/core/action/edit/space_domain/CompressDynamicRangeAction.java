@@ -1,6 +1,6 @@
 package core.action.edit.space_domain;
 
-import core.repository.ImagenRepository;
+import core.repository.RepositorioImagen;
 import core.service.statistics.GrayLevelStatisticsService;
 import domain.customimage.Imagen;
 import javafx.embed.swing.SwingFXUtils;
@@ -15,16 +15,16 @@ import java.util.Optional;
 public class CompressDynamicRangeAction {
 
     private final GrayLevelStatisticsService grayLevelStatisticsService;
-    private final ImagenRepository imagenRepository;
+    private final RepositorioImagen repositorioImagen;
 
-    public CompressDynamicRangeAction(GrayLevelStatisticsService grayLevelStatisticsService, ImagenRepository imagenRepository) {
+    public CompressDynamicRangeAction(GrayLevelStatisticsService grayLevelStatisticsService, RepositorioImagen repositorioImagen) {
         this.grayLevelStatisticsService = grayLevelStatisticsService;
-        this.imagenRepository = imagenRepository;
+        this.repositorioImagen = repositorioImagen;
     }
 
     public Image execute() {
 
-        Optional<Imagen> optional = this.imagenRepository.getImagen();
+        Optional<Imagen> optional = this.repositorioImagen.obtenerImagen();
         if (!optional.isPresent()) {
             return new WritableImage(300, 300);
         }

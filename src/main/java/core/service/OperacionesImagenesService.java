@@ -251,59 +251,59 @@ public class OperacionesImagenesService {
     }
 
     public MatrizCanales multiplyChannelMatrixs(MatrizCanales channelMatrix1, MatrizCanales channelMatrix2) {
-        int[][] redChannel = multiplyMatrix(channelMatrix1.getRedChannel(), channelMatrix2.getRedChannel());
-        int[][] greenChannel = multiplyMatrix(channelMatrix1.getGreenChannel(), channelMatrix2.getGreenChannel());
-        int[][] blueChannel = multiplyMatrix(channelMatrix1.getBlueChannel(), channelMatrix2.getBlueChannel());
+        int[][] redChannel = multiplicarMatriz(channelMatrix1.getRedChannel(), channelMatrix2.getRedChannel());
+        int[][] greenChannel = multiplicarMatriz(channelMatrix1.getGreenChannel(), channelMatrix2.getGreenChannel());
+        int[][] blueChannel = multiplicarMatriz(channelMatrix1.getBlueChannel(), channelMatrix2.getBlueChannel());
         return aMatrizValida(new MatrizCanales(redChannel, greenChannel, blueChannel));
     }
 
-    public MatrizCanales sumChannelMatrixs(MatrizCanales channelMatrix1, MatrizCanales channelMatrix2) {
-        int[][] redChannel = sumMatrix(channelMatrix1.getRedChannel(), channelMatrix2.getRedChannel());
-        int[][] greenChannel = sumMatrix(channelMatrix1.getGreenChannel(), channelMatrix2.getGreenChannel());
-        int[][] blueChannel = sumMatrix(channelMatrix1.getBlueChannel(), channelMatrix2.getBlueChannel());
+    public MatrizCanales sumarMatrizCanales(MatrizCanales matrizCanal1, MatrizCanales matrizCanal2) {
+        int[][] redChannel = sumarMatriz(matrizCanal1.getRedChannel(), matrizCanal2.getRedChannel());
+        int[][] greenChannel = sumarMatriz(matrizCanal1.getGreenChannel(), matrizCanal2.getGreenChannel());
+        int[][] blueChannel = sumarMatriz(matrizCanal1.getBlueChannel(), matrizCanal2.getBlueChannel());
         return aMatrizValida(new MatrizCanales(redChannel, greenChannel, blueChannel));
     }
 
-    public MatrizCanales sqrtChannelMatrixs(MatrizCanales channelMatrix) {
-        int[][] redChannel = sqrtMatrix(channelMatrix.getRedChannel());
-        int[][] greenChannel = sqrtMatrix(channelMatrix.getGreenChannel());
-        int[][] blueChannel = sqrtMatrix(channelMatrix.getBlueChannel());
+    public MatrizCanales cuadradoMatrizCanal(MatrizCanales matrizCanales) {
+        int[][] redChannel = matrizAlCuadrado(matrizCanales.getRedChannel());
+        int[][] greenChannel = matrizAlCuadrado(matrizCanales.getGreenChannel());
+        int[][] blueChannel = matrizAlCuadrado(matrizCanales.getBlueChannel());
         return aMatrizValida(new MatrizCanales(redChannel, greenChannel, blueChannel));
     }
 
-    public int[][] sumMatrix(int[][] matrix1, int[][] matrix2) {
-        int width = matrix1.length;
-        int height = matrix1[0].length;
-        int[][] result = new int[width][height];
-        for (int i = 0; i < width; i++)
-            for (int j = 0; j < height; j++)
-                result[i][j] = matrix1[i][j] + matrix2[i][j];
-        return result;
+    public int[][] sumarMatriz(int[][] matriz1, int[][] matriz2) {
+        int ancho = matriz1.length;
+        int alto = matriz1[0].length;
+        int[][] salida = new int[ancho][alto];
+        for (int i = 0; i < ancho; i++)
+            for (int j = 0; j < alto; j++)
+                salida[i][j] = matriz1[i][j] + matriz2[i][j];
+        return salida;
     }
 
-    public int[][] multiplyMatrix(int[][] matrix1, int[][] matrix2) {
-        int width = matrix1.length;
-        int height = matrix1[0].length;
-        int[][] result = new int[width][height];
-        for (int i = 0; i < width; i++)
-            for (int j = 0; j < height; j++) {
-                double productResult = matrix1[i][j] * matrix2[i][j];
-                result[i][j] = (int) Math.round(productResult);
+    public int[][] multiplicarMatriz(int[][] matriz1, int[][] matriz2) {
+        int ancho = matriz1.length;
+        int alto = matriz1[0].length;
+        int[][] salida = new int[ancho][alto];
+        for (int i = 0; i < ancho; i++)
+            for (int j = 0; j < alto; j++) {
+                double productResult = matriz1[i][j] * matriz2[i][j];
+                salida[i][j] = (int) Math.round(productResult);
             }
-        return result;
+        return salida;
     }
 
-    private int[][] sqrtMatrix(int[][] matrix) {
-        int width = matrix.length;
-        int height = matrix[0].length;
+    private int[][] matrizAlCuadrado(int[][] matriz) {
+        int ancho = matriz.length;
+        int alto = matriz[0].length;
 
-        int[][] result = new int[width][height];
-        for (int i = 0; i < width; i++)
-            for (int j = 0; j < height; j++) {
-                double value = Math.sqrt(matrix[i][j]);
-                result[i][j] = (int) Math.round(value);
+        int[][] salida = new int[ancho][alto];
+        for (int i = 0; i < ancho; i++)
+            for (int j = 0; j < alto; j++) {
+                double value = Math.sqrt(matriz[i][j]);
+                salida[i][j] = (int) Math.round(value);
             }
-        return result;
+        return salida;
     }
 
     public MatrizCanales calculateAbsoluteSum(MatrizCanales firstImage, MatrizCanales secondImage) {

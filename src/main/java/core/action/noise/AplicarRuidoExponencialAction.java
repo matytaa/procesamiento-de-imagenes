@@ -1,6 +1,6 @@
 package core.action.noise;
 
-import core.repository.ImagenRepository;
+import core.repository.RepositorioImagen;
 import core.service.OperacionesImagenesService;
 import core.service.statistics.GeneradorDeRandomsService;
 import domain.customimage.Imagen;
@@ -13,22 +13,22 @@ import java.util.function.BiFunction;
 
 public class AplicarRuidoExponencialAction {
 
-    private final ImagenRepository imagenRepository;
+    private final RepositorioImagen repositorioImagen;
     private final OperacionesImagenesService operacionesImagenesService;
     private final GeneradorDeRandomsService randomNumberGenerationService;
 
-    public AplicarRuidoExponencialAction(ImagenRepository imagenRepository, OperacionesImagenesService operacionesImagenesService, GeneradorDeRandomsService randomNumberGenerationService) {
-        this.imagenRepository = imagenRepository;
+    public AplicarRuidoExponencialAction(RepositorioImagen repositorioImagen, OperacionesImagenesService operacionesImagenesService, GeneradorDeRandomsService randomNumberGenerationService) {
+        this.repositorioImagen = repositorioImagen;
         this.operacionesImagenesService = operacionesImagenesService;
         this.randomNumberGenerationService = randomNumberGenerationService;
     }
 
     public Image execute(double percent, double lambda) {
-        if(!this.imagenRepository.getImagen().isPresent()) {
+        if(!this.repositorioImagen.obtenerImagen().isPresent()) {
             return new WritableImage(100,100);
         }
 
-        Imagen customImage = this.imagenRepository.getImagen().get();
+        Imagen customImage = this.repositorioImagen.obtenerImagen().get();
                 int numberOfPixelsToContaminate = (int)(percent * customImage.getPixelQuantity());
         List<Pixel> pixelsToContaminate = customImage.seleccionarNPiexelesRandom(numberOfPixelsToContaminate);
 

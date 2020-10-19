@@ -2,13 +2,13 @@ package domain.mask.sobel;
 
 import domain.mask.Mascara;
 
-public class SobelYDerivativeMascara extends Mascara {
+public class MascaraSobelY extends Mascara {
 
-    private static final int AVAILABLE_SIZE = 3;
+    private static final int TAMANIO_MASCARA = 3;
 
-    public SobelYDerivativeMascara() {
-        super(Tipo.SOBEL, AVAILABLE_SIZE);
-        this.matriz = crearMatriz(AVAILABLE_SIZE);
+    public MascaraSobelY() {
+        super(Tipo.SOBEL, TAMANIO_MASCARA);
+        this.matriz = crearMatriz(TAMANIO_MASCARA);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class SobelYDerivativeMascara extends Mascara {
     }
 
     @Override
-    public double getValue(int x, int y) {
+    public double obtenerValor(int x, int y) {
         return matriz[x][y];
     }
 }

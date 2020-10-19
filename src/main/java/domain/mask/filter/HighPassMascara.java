@@ -14,7 +14,7 @@ public class HighPassMascara extends Mascara {
     }
 
     @Override
-    public double getValue(int x, int y) {
+    public double obtenerValor(int x, int y) {
         return this.matriz[x][y];
     }
 

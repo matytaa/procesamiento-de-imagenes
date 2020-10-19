@@ -1,19 +1,19 @@
 package core.action.image;
 
-import core.repository.ImagenRepository;
+import core.repository.RepositorioImagen;
 import domain.customimage.Imagen;
 
 import java.util.Optional;
 
 public class GetImageAction {
 
-    private final ImagenRepository imagenRepository;
+    private final RepositorioImagen repositorioImagen;
 
-    public GetImageAction(ImagenRepository imagenRepository) {
-        this.imagenRepository = imagenRepository;
+    public GetImageAction(RepositorioImagen repositorioImagen) {
+        this.repositorioImagen = repositorioImagen;
     }
 
     public Optional<Imagen> execute() {
-        return imagenRepository.getImagen();
+        return repositorioImagen.obtenerImagen();
     }
 }

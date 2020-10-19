@@ -44,7 +44,7 @@ class ActionProvider {
     private static ObtainHSVChannelAction obtainHSVChannelAction;
     private static CreateImageWithFigureAction createImageWithFigureAction;
     private static CreateImageWithGradientAction createImageWithGradientAction;
-    private static CalculateNegativeImageAction calculateNegativeImageAction;
+    private static CalcularNegativoAction calcularNegativoAction;
     private static AplicarUmbralAction aplicarUmbralAction;
     private static CreateImageHistogramAction createImageHistogramAction;
     private static ApplyContrastAction applyContrastAction;
@@ -60,7 +60,7 @@ class ActionProvider {
     private static AplicarRuidoGaussianoAction aplicarRuidoGaussianoAction;
     private static AplicarRuidoRayleighAction aplicarRuidoRayleighAction;
     private static AplicarRuidoExponencialAction aplicarRuidoExponencialAction;
-    private static ApplyEdgeDetectorByGradientAction applyEdgeDetectorByGradientAction;
+    private static AplicarDetectorDeBordesAction aplicarDetectorDeBordesAction;
     private static UpdateCurrentImageAction updateCurrentImageAction;
     private static ApplyDirectionalDerivativeOperatorAction applyDirectionalDerivativeOperatorAction;
     private static ApplyGlobalThresholdEstimationAction applyGlobalThresholdEstimationAction;
@@ -170,13 +170,13 @@ class ActionProvider {
         return createImageWithGradientAction;
     }
 
-    public static CalculateNegativeImageAction provideCalculateNegativeImageAction() {
-        if (calculateNegativeImageAction == null) {
-            calculateNegativeImageAction = new CalculateNegativeImageAction(
+    public static CalcularNegativoAction provideCalculateNegativeImageAction() {
+        if (calcularNegativoAction == null) {
+            calcularNegativoAction = new CalcularNegativoAction(
                     RepositoryProvider.provideImageRepository(),
                     ServiceProvider.provideModifyImageService());
         }
-        return calculateNegativeImageAction;
+        return calcularNegativoAction;
     }
 
     public static AplicarUmbralAction provideApplyThresholdAction() {
@@ -306,14 +306,14 @@ class ActionProvider {
         return aplicarRuidoExponencialAction;
     }
 
-    public static ApplyEdgeDetectorByGradientAction provideApplyEdgeDetectorByGradient() {
-        if (applyEdgeDetectorByGradientAction == null) {
-            applyEdgeDetectorByGradientAction = new ApplyEdgeDetectorByGradientAction(
+    public static AplicarDetectorDeBordesAction provideApplyEdgeDetectorByGradient() {
+        if (aplicarDetectorDeBordesAction == null) {
+            aplicarDetectorDeBordesAction = new AplicarDetectorDeBordesAction(
                     ServiceProvider.provideImageOperationsService(),
                     ServiceProvider.provideMatrixService()
             );
         }
-        return applyEdgeDetectorByGradientAction;
+        return aplicarDetectorDeBordesAction;
     }
 
     public static UpdateCurrentImageAction provideUpdateCurrentImageAction() {

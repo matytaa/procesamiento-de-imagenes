@@ -1,6 +1,6 @@
 package core.action.channels;
 
-import core.repository.ImagenRepository;
+import core.repository.RepositorioImagen;
 import domain.customimage.Imagen;
 import domain.customimage.Format;
 import domain.generation.Channel;
@@ -15,15 +15,15 @@ import java.util.function.BiFunction;
 
 public class ObtainRGBChannelAction {
 
-    private final ImagenRepository imagenRepository;
+    private final RepositorioImagen repositorioImagen;
 
-    public ObtainRGBChannelAction(ImagenRepository imagenRepository) {
-        this.imagenRepository = imagenRepository;
+    public ObtainRGBChannelAction(RepositorioImagen repositorioImagen) {
+        this.repositorioImagen = repositorioImagen;
     }
 
     public Imagen execute(Channel channel) {
 
-        Optional<Imagen> currentImage = this.imagenRepository.getImagen();
+        Optional<Imagen> currentImage = this.repositorioImagen.obtenerImagen();
         if (!currentImage.isPresent()) {
             return new Imagen(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), Format.PNG);
         }
@@ -51,7 +51,7 @@ public class ObtainRGBChannelAction {
     }
 
     private Imagen putOnRepository(BufferedImage bufferedImage) {
-        return imagenRepository.salvarImagenModificada(new Imagen(bufferedImage, Format.PNG));
+        return repositorioImagen.salvarImagenModificada(new Imagen(bufferedImage, Format.PNG));
     }
 
     private void getChannel(int width, int height, PixelWriter pixelWriter, BiFunction<Integer, Integer, Color> channel) {
