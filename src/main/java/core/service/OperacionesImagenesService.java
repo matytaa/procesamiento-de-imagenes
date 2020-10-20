@@ -287,8 +287,8 @@ public class OperacionesImagenesService {
         int[][] salida = new int[ancho][alto];
         for (int i = 0; i < ancho; i++)
             for (int j = 0; j < alto; j++) {
-                double productResult = matriz1[i][j] * matriz2[i][j];
-                salida[i][j] = (int) Math.round(productResult);
+                double resultado = matriz1[i][j] * matriz2[i][j];
+                salida[i][j] = (int) Math.round(resultado);
             }
         return salida;
     }
@@ -300,8 +300,8 @@ public class OperacionesImagenesService {
         int[][] salida = new int[ancho][alto];
         for (int i = 0; i < ancho; i++)
             for (int j = 0; j < alto; j++) {
-                double value = Math.sqrt(matriz[i][j]);
-                salida[i][j] = (int) Math.round(value);
+                double raiz = Math.sqrt(matriz[i][j]);
+                salida[i][j] = (int) Math.round(raiz);
             }
         return salida;
     }
