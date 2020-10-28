@@ -82,9 +82,9 @@ public class MascaraGaussiana extends Mascara {
                     int row = i + (tamanio / 2) - x;
                     double value = this.matriz[row][column];
 
-                    red += 255 * imagen.getPixelReader().getColor(i, j).getRed() * value * factor;
-                    green += 255 * imagen.getPixelReader().getColor(i, j).getGreen() * value * factor;
-                    blue += 255 * imagen.getPixelReader().getColor(i, j).getBlue() * value * factor;
+                    red += 255 * imagen.getPixelReader().getColor(i, j).getRed() * value;
+                    green += 255 * imagen.getPixelReader().getColor(i, j).getGreen() * value;
+                    blue += 255 * imagen.getPixelReader().getColor(i, j).getBlue() * value;
                 }
             }
         }
