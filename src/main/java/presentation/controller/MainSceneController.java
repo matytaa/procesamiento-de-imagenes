@@ -313,8 +313,8 @@ public class MainSceneController {
     }
 
     @FXML
-    public void onApplyDirectionalDerivativeOperatorSobelMask() {
-        this.mainPresenter.onApplyDirectionalDerivativeOperatorSobelMask();
+    public void onAplicarMascaraDerivativaDireccionalDeSobel() {
+        this.mainPresenter.onAplicarMascaraDerivativaDireccionalDeSobel();
     }
 
     @FXML

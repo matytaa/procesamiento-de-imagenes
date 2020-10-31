@@ -2,10 +2,10 @@ package domain.mask.directional_derivative_operator.sobel;
 
 import domain.mask.Mascara;
 
-public class SobelHorizontalStraightMascara extends Mascara {
+public class MascaraSobelHorizontalDireccionalDerivativo extends Mascara {
 
-    public SobelHorizontalStraightMascara() {
-        super(Tipo.DERIVATE_DIRECTIONAL_OPERATOR_KIRSH, AVAILABLE_SIZE);
+    public MascaraSobelHorizontalDireccionalDerivativo() {
+        super(Tipo.DERIVATE_DIRECTIONAL_OPERATOR_SOBEL, AVAILABLE_SIZE);
 
         this.matriz = crearMatriz(AVAILABLE_SIZE);
     }

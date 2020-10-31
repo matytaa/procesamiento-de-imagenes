@@ -489,7 +489,7 @@ public class MainPresenter {
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplyDirectionalDerivativeOperatorSobelMask() {
+    public void onAplicarMascaraDerivativaDireccionalDeSobel() {
         SemaforoFiltro.setValue(Mascara.Tipo.DERIVATE_DIRECTIONAL_OPERATOR_SOBEL);
         PresenterProvider.provideDirectionalDerivativeOperatorPresenter().onInitialize();
         view.aceptarBoton.setVisible(true);

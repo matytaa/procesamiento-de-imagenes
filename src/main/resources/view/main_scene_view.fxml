@@ -126,5 +126,8 @@
             <MenuItem mnemonicParsing="false" onAction="#onAplicarDetectorBordesSobel" text="Máscara Sobel" />
             <MenuItem mnemonicParsing="false" onAction="#OnAplicarDetectorBordesPrewitt" text="Máscara Prewitt" />
         </Menu>
+        <Menu mnemonicParsing="false" text="Operadores derivativos direccionales">
+            <MenuItem mnemonicParsing="false" onAction="#onAplicarMascaraDerivativaDireccionalDeSobel" text="Máscara derivativa direccional de Sobel" />
+        </Menu>
     </MenuBar>
 </AnchorPane>

@@ -2,10 +2,10 @@ package domain.mask.directional_derivative_operator.sobel;
 
 import domain.mask.Mascara;
 
-public class SobelMainDiagonalMascara extends Mascara {
+public class MascaraSobelDiagonalSecundariaDireccionalDerivativo extends Mascara {
 
-    public SobelMainDiagonalMascara() {
-        super(Tipo.DERIVATE_DIRECTIONAL_OPERATOR_KIRSH, AVAILABLE_SIZE);
+    public MascaraSobelDiagonalSecundariaDireccionalDerivativo() {
+        super(Tipo.DERIVATE_DIRECTIONAL_OPERATOR_SOBEL, AVAILABLE_SIZE);
 
         this.matriz = crearMatriz(AVAILABLE_SIZE);
     }
@@ -13,9 +13,9 @@ public class SobelMainDiagonalMascara extends Mascara {
     @Override
     protected double[][] crearMatriz(int size) {
         return new double[][]{
-                {0, -1, -2},
+                {2,  1,  0},
                 {1,  0, -1},
-                {2,  1,  0}
+                {0, -1, -2}
         };
     }
 

@@ -23,14 +23,15 @@ public class ApplyDirectionalDerivativeOperatorAction {
         this.matrizService = matrizService;
     }
 
-    public void execute(Imagen customImage,
-                        Mascara horizontalStraightMascara,
-                        Mascara verticalStraightMascara,
-                        Mascara mainDiagonalMascara,
-                        Mascara secondaryDiagonalMascara) {
+    public void execute(Imagen imagen,
+                        Mascara mascaraHorizontal,
+                        Mascara mascaraVertical,
+                        Mascara mascaraDiagonalPrincipal,
+                        Mascara mascaraDiagonalSecundaria) {
 
-        MatrizCanales channelMatrix = applyMasks(customImage, horizontalStraightMascara, verticalStraightMascara,
-                mainDiagonalMascara, secondaryDiagonalMascara);
+        MatrizCanales channelMatrix = aplicarMascaras(imagen,
+                mascaraHorizontal, mascaraVertical,
+                mascaraDiagonalPrincipal, mascaraDiagonalSecundaria);
 
         int[][] redChannel = channelMatrix.getRedChannel();
         int[][] greenChannel = channelMatrix.getGreenChannel();
@@ -40,38 +41,40 @@ public class ApplyDirectionalDerivativeOperatorAction {
         imagePublishSubject.onNext(resultantImage);
     }
 
-    private MatrizCanales applyMasks(Imagen image,
-                                     Mascara horizontalStraightMascara, Mascara verticalStraightMascara,
-                                     Mascara mainDiagonalMascara, Mascara secondaryDiagonalMascara) {
+    private MatrizCanales aplicarMascaras(Imagen imagen,
+                                          Mascara mascaraHorizontal,
+                                          Mascara mascaraVertical,
+                                          Mascara mascaraDiagonalPrincipal,
+                                          Mascara mascaraDiagonalSecundaria) {
 
-        Integer width = image.getAncho();
-        Integer height = image.getAltura();
-        MatrizCanales channelMatrix = new MatrizCanales(width, height);
+        Integer ancho = imagen.getAncho();
+        Integer alto = imagen.getAltura();
+        MatrizCanales matrizDeCanales = new MatrizCanales(ancho, alto);
 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
+        for (int y = 0; y < alto; y++) {
+            for (int x = 0; x < ancho; x++) {
 
-                RGB horizontalRGB = horizontalStraightMascara.aplicarMascaraAPixel(image, x, y);
-                RGB verticalRGB = verticalStraightMascara.aplicarMascaraAPixel(image, x, y);
-                RGB mainDiagonalRGB = mainDiagonalMascara.aplicarMascaraAPixel(image, x, y);
-                RGB secondaryDiagonalRGB = secondaryDiagonalMascara.aplicarMascaraAPixel(image, x, y);
+                RGB horizontalRGB = mascaraHorizontal.aplicarMascaraAPixel(imagen, x, y);
+                RGB verticalRGB = mascaraVertical.aplicarMascaraAPixel(imagen, x, y);
+                RGB diagonalPrincipalRGB = mascaraDiagonalPrincipal.aplicarMascaraAPixel(imagen, x, y);
+                RGB diagonalSecundariaRGB = mascaraDiagonalSecundaria.aplicarMascaraAPixel(imagen, x, y);
 
-                RGB maxRGB = getMaxRGB(horizontalRGB, verticalRGB, mainDiagonalRGB, secondaryDiagonalRGB);
+                RGB maximoRGB = obtenerElMaximoRGB(horizontalRGB, verticalRGB, diagonalPrincipalRGB, diagonalSecundariaRGB);
 
-                channelMatrix.setValue(x, y, maxRGB);
+                matrizDeCanales.setValue(x, y, maximoRGB);
             }
         }
 
-        return this.operacionesImagenesService.aMatrizValida(channelMatrix);
+        return this.operacionesImagenesService.aMatrizValida(matrizDeCanales);
     }
 
-    private RGB getMaxRGB(RGB horizontalRGB, RGB verticalRGB, RGB mainDiagonalRGB, RGB secondaryDiagonalRGB) {
+    private RGB obtenerElMaximoRGB(RGB horizontalRGB, RGB verticalRGB, RGB diagonalPrincipalRGB, RGB diagonalSecundariaRGB) {
         int maxRed = Integer
-                .max(horizontalRGB.getRed(), Integer.max(verticalRGB.getRed(), Integer.max(mainDiagonalRGB.getRed(), secondaryDiagonalRGB.getRed())));
+                .max(horizontalRGB.getRed(), Integer.max(verticalRGB.getRed(), Integer.max(diagonalPrincipalRGB.getRed(), diagonalSecundariaRGB.getRed())));
         int maxGreen = Integer.max(horizontalRGB.getGreen(),
-                Integer.max(verticalRGB.getGreen(), Integer.max(mainDiagonalRGB.getGreen(), secondaryDiagonalRGB.getGreen())));
+                Integer.max(verticalRGB.getGreen(), Integer.max(diagonalPrincipalRGB.getGreen(), diagonalSecundariaRGB.getGreen())));
         int maxBlue = Integer.max(horizontalRGB.getBlue(),
-                Integer.max(verticalRGB.getBlue(), Integer.max(mainDiagonalRGB.getBlue(), secondaryDiagonalRGB.getBlue())));
+                Integer.max(verticalRGB.getBlue(), Integer.max(diagonalPrincipalRGB.getBlue(), diagonalSecundariaRGB.getBlue())));
 
         return new RGB(maxRed, maxGreen, maxBlue);
     }
