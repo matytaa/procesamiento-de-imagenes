@@ -278,8 +278,8 @@ public class MainSceneController {
     }
 
     @FXML
-    public void onApplyPrewittEdgeDetector() {
-        this.mainPresenter.onApplyPrewittEdgeDetector();
+    public void OnAplicarDetectorBordesPrewitt() {
+        this.mainPresenter.OnAplicarDetectorBordesPrewitt();
     }
 
     @FXML

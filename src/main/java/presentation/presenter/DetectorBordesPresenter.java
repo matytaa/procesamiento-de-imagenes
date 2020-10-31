@@ -5,8 +5,8 @@ import core.action.image.GetImageAction;
 import domain.SemaforoFiltro;
 import domain.customimage.Imagen;
 import domain.mask.Mascara;
-import domain.mask.prewitt.PrewittXDerivativeMascara;
-import domain.mask.prewitt.PrewittYDerivativeMascara;
+import domain.mask.prewitt.MascaraDerivativaPrewittX;
+import domain.mask.prewitt.MascaraDerivativaPrewittY;
 import domain.mask.sobel.MascaraSobelX;
 import domain.mask.sobel.MascaraSobelY;
 import io.reactivex.subjects.PublishSubject;
@@ -31,7 +31,7 @@ public class DetectorBordesPresenter {
         this.getImageAction.execute()
                 .ifPresent(imagen -> {
                     if (SemaforoFiltro.is(Mascara.Tipo.PREWITT)) {
-                        this.applyPrewittEdgeDetector(imagen);
+                        this.aplicarDetectorBordesPrewitt(imagen);
                     }
 
                     if (SemaforoFiltro.is(Mascara.Tipo.SOBEL)) {
@@ -48,10 +48,10 @@ public class DetectorBordesPresenter {
                 });
     }
 
-    private void applyPrewittEdgeDetector(Imagen customImage) {
-        Mascara prewittXDerivativeMascara = new PrewittXDerivativeMascara();
-        Mascara prewittYDerivativeMascara = new PrewittYDerivativeMascara();
-        Image edgedImage = aplicarDetectorDeBordesAction.ejecutar(customImage, prewittXDerivativeMascara, prewittYDerivativeMascara);
+    private void aplicarDetectorBordesPrewitt(Imagen customImage) {
+        Mascara mascaraDerivativaPrewittX = new MascaraDerivativaPrewittX();
+        Mascara mascaraDerivativaPrewittY = new MascaraDerivativaPrewittY();
+        Image edgedImage = aplicarDetectorDeBordesAction.ejecutar(customImage, mascaraDerivativaPrewittX, mascaraDerivativaPrewittY);
         imagePublishSubject.onNext(edgedImage);
     }
 

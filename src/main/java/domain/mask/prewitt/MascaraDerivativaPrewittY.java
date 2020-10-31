@@ -2,11 +2,11 @@ package domain.mask.prewitt;
 
 import domain.mask.Mascara;
 
-public class PrewittXDerivativeMascara extends Mascara {
+public class MascaraDerivativaPrewittY extends Mascara {
 
     private static final int AVAILABLE_SIZE = 3;
 
-    public PrewittXDerivativeMascara() {
+    public MascaraDerivativaPrewittY() {
         super(Tipo.PREWITT, AVAILABLE_SIZE);
         this.matriz = crearMatriz(AVAILABLE_SIZE);
     }
@@ -14,9 +14,9 @@ public class PrewittXDerivativeMascara extends Mascara {
     @Override
     protected double[][] crearMatriz(int size) {
         return new double[][]{
-                {-1, -1, -1},
-                {0, 0, 0},
-                {1, 1, 1}
+                {-1, 0, 1},
+                {-1, 0, 1},
+                {-1, 0, 1}
         };
     }
 

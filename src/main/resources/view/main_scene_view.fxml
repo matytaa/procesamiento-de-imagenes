@@ -124,6 +124,7 @@
             <MenuItem mnemonicParsing="false" onAction="#onAplicarDetectorBordesSobelHorizontal" text="Máscara Sobel Horizontal" />
             <MenuItem mnemonicParsing="false" onAction="#onAplicarDetectorBordesSobelVertical" text="Máscara Sobel Vertical" />
             <MenuItem mnemonicParsing="false" onAction="#onAplicarDetectorBordesSobel" text="Máscara Sobel" />
+            <MenuItem mnemonicParsing="false" onAction="#OnAplicarDetectorBordesPrewitt" text="Máscara Prewitt" />
         </Menu>
     </MenuBar>
 </AnchorPane>

@@ -243,17 +243,17 @@ public class OperacionesImagenesService {
         return this.ajustarEscalaDeGrises(this.desplazarValoresDeLosPixelesHaciaCero(pixels));
     }
 
-    public MatrizCanales aMatrizValida(MatrizCanales channelMatrix) {
-        int[][] redChannel = this.aMatrizValida(channelMatrix.getRedChannel());
-        int[][] greenChannel = this.aMatrizValida(channelMatrix.getGreenChannel());
-        int[][] blueChannel = this.aMatrizValida(channelMatrix.getBlueChannel());
+    public MatrizCanales aMatrizValida(MatrizCanales matrizCanal) {
+        int[][] redChannel = this.aMatrizValida(matrizCanal.getRedChannel());
+        int[][] greenChannel = this.aMatrizValida(matrizCanal.getGreenChannel());
+        int[][] blueChannel = this.aMatrizValida(matrizCanal.getBlueChannel());
         return new MatrizCanales(redChannel, greenChannel, blueChannel);
     }
 
-    public MatrizCanales multiplyChannelMatrixs(MatrizCanales channelMatrix1, MatrizCanales channelMatrix2) {
-        int[][] redChannel = multiplicarMatriz(channelMatrix1.getRedChannel(), channelMatrix2.getRedChannel());
-        int[][] greenChannel = multiplicarMatriz(channelMatrix1.getGreenChannel(), channelMatrix2.getGreenChannel());
-        int[][] blueChannel = multiplicarMatriz(channelMatrix1.getBlueChannel(), channelMatrix2.getBlueChannel());
+    public MatrizCanales multiplicarMatrizPorCanal(MatrizCanales matrizCanal1, MatrizCanales matrizCanal2) {
+        int[][] redChannel = multiplicarMatriz(matrizCanal1.getRedChannel(), matrizCanal2.getRedChannel());
+        int[][] greenChannel = multiplicarMatriz(matrizCanal1.getGreenChannel(), matrizCanal2.getGreenChannel());
+        int[][] blueChannel = multiplicarMatriz(matrizCanal1.getBlueChannel(), matrizCanal2.getBlueChannel());
         return aMatrizValida(new MatrizCanales(redChannel, greenChannel, blueChannel));
     }
 

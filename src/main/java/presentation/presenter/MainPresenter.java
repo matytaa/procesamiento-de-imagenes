@@ -447,7 +447,7 @@ public class MainPresenter {
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplyPrewittEdgeDetector() {
+    public void OnAplicarDetectorBordesPrewitt() {
         SemaforoFiltro.setValue(Mascara.Tipo.PREWITT);
         PresenterProvider.providerDetectorBordesPresenter().onInitialize();
         view.aceptarBoton.setVisible(true);
