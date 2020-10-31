@@ -62,7 +62,7 @@ class ActionProvider {
     private static AplicarRuidoExponencialAction aplicarRuidoExponencialAction;
     private static AplicarDetectorDeBordesAction aplicarDetectorDeBordesAction;
     private static UpdateCurrentImageAction updateCurrentImageAction;
-    private static ApplyDirectionalDerivativeOperatorAction applyDirectionalDerivativeOperatorAction;
+    private static AplicarOperadorDireccionalDerivativoAction aplicarOperadorDireccionalDerivativoAction;
     private static ApplyGlobalThresholdEstimationAction applyGlobalThresholdEstimationAction;
     private static ApplyOtsuThresholdEstimationAction applyOtsuThresholdEstimationAction;
     private static ApplyLaplacianDetectorAction applyLaplacianDetectorAction;
@@ -323,15 +323,15 @@ class ActionProvider {
         return updateCurrentImageAction;
     }
 
-    public static ApplyDirectionalDerivativeOperatorAction provideApplyDerivateDirectionalOperatorAction() {
-        if (applyDirectionalDerivativeOperatorAction == null) {
-            applyDirectionalDerivativeOperatorAction = new ApplyDirectionalDerivativeOperatorAction(
+    public static AplicarOperadorDireccionalDerivativoAction provideApplyDerivateDirectionalOperatorAction() {
+        if (aplicarOperadorDireccionalDerivativoAction == null) {
+            aplicarOperadorDireccionalDerivativoAction = new AplicarOperadorDireccionalDerivativoAction(
                     ServiceProvider.provideImageOperationsService(),
                     PublishSubjectProvider.provideOnModifiedImagePublishSubject(),
                     ServiceProvider.provideMatrixService()
             );
         }
-        return applyDirectionalDerivativeOperatorAction;
+        return aplicarOperadorDireccionalDerivativoAction;
     }
 
     public static ApplyGlobalThresholdEstimationAction provideApplyGlobalThresholdEstimation() {

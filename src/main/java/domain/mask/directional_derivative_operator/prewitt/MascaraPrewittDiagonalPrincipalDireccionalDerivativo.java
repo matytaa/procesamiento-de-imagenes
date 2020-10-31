@@ -2,10 +2,10 @@ package domain.mask.directional_derivative_operator.prewitt;
 
 import domain.mask.Mascara;
 
-public class PrewittVerticalStraightMascara extends Mascara {
+public class MascaraPrewittDiagonalPrincipalDireccionalDerivativo extends Mascara {
 
-    public PrewittVerticalStraightMascara() {
-        super(Tipo.DERIVATE_DIRECTIONAL_OPERATOR_KIRSH, AVAILABLE_SIZE);
+    public MascaraPrewittDiagonalPrincipalDireccionalDerivativo() {
+        super(Tipo.DERIVATE_DIRECTIONAL_OPERATOR_PREWITT, AVAILABLE_SIZE);
 
         this.matriz = crearMatriz(AVAILABLE_SIZE);
     }
@@ -13,9 +13,9 @@ public class PrewittVerticalStraightMascara extends Mascara {
     @Override
     protected double[][] crearMatriz(int size) {
         return new double[][]{
-                {1, 0, -1},
-                {1, 0, -1},
-                {1, 0, -1}
+                {0, -1, -1},
+                {1,  0, -1},
+                {1,  1,  0}
         };
     }
 

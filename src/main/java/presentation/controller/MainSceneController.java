@@ -308,8 +308,8 @@ public class MainSceneController {
     }
 
     @FXML
-    public void onApplyDirectionalDerivativeOperatorPrewittMask() {
-        this.mainPresenter.onApplyDirectionalDerivativeOperatorPrewittMask();
+    public void onAplicarMascaraDerivativaDireccionalDePrewitt() {
+        this.mainPresenter.onAplicarMascaraDerivativaDireccionalDePrewitt();
     }
 
     @FXML

@@ -483,7 +483,7 @@ public class MainPresenter {
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplyDirectionalDerivativeOperatorPrewittMask() {
+    public void onAplicarMascaraDerivativaDireccionalDePrewitt() {
         SemaforoFiltro.setValue(Mascara.Tipo.DERIVATE_DIRECTIONAL_OPERATOR_PREWITT);
         PresenterProvider.provideDirectionalDerivativeOperatorPresenter().onInitialize();
         view.aceptarBoton.setVisible(true);

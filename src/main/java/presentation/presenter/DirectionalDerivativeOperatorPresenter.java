@@ -1,6 +1,6 @@
 package presentation.presenter;
 
-import core.action.edgedetector.ApplyDirectionalDerivativeOperatorAction;
+import core.action.edgedetector.AplicarOperadorDireccionalDerivativoAction;
 import core.action.image.GetImageAction;
 import domain.SemaforoFiltro;
 import domain.customimage.Imagen;
@@ -9,10 +9,10 @@ import domain.mask.directional_derivative_operator.kirsh.KirshHorizontalStraight
 import domain.mask.directional_derivative_operator.kirsh.KirshMainDiagonalMascara;
 import domain.mask.directional_derivative_operator.kirsh.KirshSecondaryDiagonalMascara;
 import domain.mask.directional_derivative_operator.kirsh.KirshVerticalStraightMascara;
-import domain.mask.directional_derivative_operator.prewitt.PrewittHorizontalStraightMascara;
-import domain.mask.directional_derivative_operator.prewitt.PrewittMainDiagonalMascara;
-import domain.mask.directional_derivative_operator.prewitt.PrewittSecondaryDiagonalMascara;
-import domain.mask.directional_derivative_operator.prewitt.PrewittVerticalStraightMascara;
+import domain.mask.directional_derivative_operator.prewitt.MascaraPrewittHorizontalDireccionalDerivativo;
+import domain.mask.directional_derivative_operator.prewitt.MascaraPrewittDiagonalPrincipalDireccionalDerivativo;
+import domain.mask.directional_derivative_operator.prewitt.MascaraPrewittDiagonalSecundariaDireccionalDerivativo;
+import domain.mask.directional_derivative_operator.prewitt.MascaraPrewittVerticalDireccionalDerivativo;
 import domain.mask.directional_derivative_operator.sobel.MascaraSobelHorizontalDireccionalDerivativo;
 import domain.mask.directional_derivative_operator.sobel.MascaraSobelDiagonalPrincipalDireccionalDerivativo;
 import domain.mask.directional_derivative_operator.sobel.MascaraSobelDiagonalSecundariaDireccionalDerivativo;
@@ -25,13 +25,13 @@ import domain.mask.directional_derivative_operator.standard.StandardVerticalStra
 public class DirectionalDerivativeOperatorPresenter {
 
     private final GetImageAction getImageAction;
-    private final ApplyDirectionalDerivativeOperatorAction applyDirectionalDerivativeOperatorAction;
+    private final AplicarOperadorDireccionalDerivativoAction aplicarOperadorDireccionalDerivativoAction;
 
     public DirectionalDerivativeOperatorPresenter(GetImageAction getImageAction,
-                                                  ApplyDirectionalDerivativeOperatorAction applyDirectionalDerivativeOperatorAction) {
+                                                  AplicarOperadorDireccionalDerivativoAction aplicarOperadorDireccionalDerivativoAction) {
 
         this.getImageAction = getImageAction;
-        this.applyDirectionalDerivativeOperatorAction = applyDirectionalDerivativeOperatorAction;
+        this.aplicarOperadorDireccionalDerivativoAction = aplicarOperadorDireccionalDerivativoAction;
     }
 
     public void onInitialize() {
@@ -39,6 +39,8 @@ public class DirectionalDerivativeOperatorPresenter {
                 .ifPresent(customImage -> {
                     if (SemaforoFiltro.is(Mascara.Tipo.DERIVATE_DIRECTIONAL_OPERATOR_SOBEL))
                         this.aplicarMascaraDerivativaDireccionalDeSobel(customImage);
+                    if (SemaforoFiltro.is(Mascara.Tipo.DERIVATE_DIRECTIONAL_OPERATOR_PREWITT))
+                        this.aplicarMascaraDerivativaDireccionalDePrewitt(customImage);
                     if (SemaforoFiltro.is(Mascara.Tipo.DERIVATE_DIRECTIONAL_OPERATOR_STANDARD)) {
                         this.applyStandardMask(customImage);
                     }
@@ -47,9 +49,6 @@ public class DirectionalDerivativeOperatorPresenter {
                         this.applyKirshMask(customImage);
                     }
 
-                    if (SemaforoFiltro.is(Mascara.Tipo.DERIVATE_DIRECTIONAL_OPERATOR_PREWITT)) {
-                        this.applyPrewittMask(customImage);
-                    }
                 });
     }
 
@@ -59,7 +58,7 @@ public class DirectionalDerivativeOperatorPresenter {
         Mascara mainDiagonalMascara = new StandardMainDiagonalMascara();
         Mascara secondaryDiagonalMascara = new StandardSecondaryDiagonalMascara();
 
-        applyDirectionalDerivativeOperatorAction.execute(customImage,
+        aplicarOperadorDireccionalDerivativoAction.executar(customImage,
                 horizontalStraightMascara, verticalStraightMascara,
                 mainDiagonalMascara, secondaryDiagonalMascara);
     }
@@ -70,20 +69,22 @@ public class DirectionalDerivativeOperatorPresenter {
         Mascara mainDiagonalMascara = new KirshMainDiagonalMascara();
         Mascara secondaryDiagonalMascara = new KirshSecondaryDiagonalMascara();
 
-        applyDirectionalDerivativeOperatorAction.execute(customImage,
+        aplicarOperadorDireccionalDerivativoAction.executar(customImage,
                 horizontalStraightMascara, verticalStraightMascara,
                 mainDiagonalMascara, secondaryDiagonalMascara);
     }
 
-    private void applyPrewittMask(Imagen customImage) {
-        Mascara horizontalStraightMascara = new PrewittHorizontalStraightMascara();
-        Mascara verticalStraightMascara = new PrewittVerticalStraightMascara();
-        Mascara mainDiagonalMascara = new PrewittMainDiagonalMascara();
-        Mascara secondaryDiagonalMascara = new PrewittSecondaryDiagonalMascara();
+    private void aplicarMascaraDerivativaDireccionalDePrewitt(Imagen customImage) {
+        Mascara mascaraPrewittHorizontalDireccionalDerivativo = new MascaraPrewittHorizontalDireccionalDerivativo();
+        Mascara mascaraPrewittVerticalDireccionalDerivativo = new MascaraPrewittVerticalDireccionalDerivativo();
+        Mascara mascaraPrewittDiagonalPrincipalDireccionalDerivativo = new MascaraPrewittDiagonalPrincipalDireccionalDerivativo();
+        Mascara mascaraPrewittDiagonalSecundariaDireccionalDerivativo = new MascaraPrewittDiagonalSecundariaDireccionalDerivativo();
 
-        applyDirectionalDerivativeOperatorAction.execute(customImage,
-                horizontalStraightMascara, verticalStraightMascara,
-                mainDiagonalMascara, secondaryDiagonalMascara);
+        aplicarOperadorDireccionalDerivativoAction.executar(customImage,
+                mascaraPrewittHorizontalDireccionalDerivativo,
+                mascaraPrewittVerticalDireccionalDerivativo,
+                mascaraPrewittDiagonalPrincipalDireccionalDerivativo,
+                mascaraPrewittDiagonalSecundariaDireccionalDerivativo);
     }
 
     private void aplicarMascaraDerivativaDireccionalDeSobel(Imagen customImage) {
@@ -92,8 +93,10 @@ public class DirectionalDerivativeOperatorPresenter {
         Mascara mascaraSobelDiagonalPrincipalDireccionalDerivativo = new MascaraSobelDiagonalPrincipalDireccionalDerivativo();
         Mascara mascaraSobelDiagonalSecundariaDireccionalDerivativo = new MascaraSobelDiagonalSecundariaDireccionalDerivativo();
 
-        applyDirectionalDerivativeOperatorAction.execute(customImage,
-                mascaraSobelHorizontalDireccionalDerivativo, mascaraSobelVerticalDireccionalDerivativo,
-                mascaraSobelDiagonalPrincipalDireccionalDerivativo, mascaraSobelDiagonalSecundariaDireccionalDerivativo);
+        aplicarOperadorDireccionalDerivativoAction.executar(customImage,
+                mascaraSobelHorizontalDireccionalDerivativo,
+                mascaraSobelVerticalDireccionalDerivativo,
+                mascaraSobelDiagonalPrincipalDireccionalDerivativo,
+                mascaraSobelDiagonalSecundariaDireccionalDerivativo);
     }
 }

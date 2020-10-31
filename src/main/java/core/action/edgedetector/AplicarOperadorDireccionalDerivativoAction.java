@@ -9,25 +9,25 @@ import domain.mask.Mascara;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
 
-public class ApplyDirectionalDerivativeOperatorAction {
+public class AplicarOperadorDireccionalDerivativoAction {
 
     private final OperacionesImagenesService operacionesImagenesService;
     private final PublishSubject<Image> imagePublishSubject;
     private final MatrizService matrizService;
 
-    public ApplyDirectionalDerivativeOperatorAction(OperacionesImagenesService operacionesImagenesService,
-                                                    PublishSubject<Image> imagePublishSubject, MatrizService matrizService) {
+    public AplicarOperadorDireccionalDerivativoAction(OperacionesImagenesService operacionesImagenesService,
+                                                      PublishSubject<Image> imagePublishSubject, MatrizService matrizService) {
 
         this.operacionesImagenesService = operacionesImagenesService;
         this.imagePublishSubject = imagePublishSubject;
         this.matrizService = matrizService;
     }
 
-    public void execute(Imagen imagen,
-                        Mascara mascaraHorizontal,
-                        Mascara mascaraVertical,
-                        Mascara mascaraDiagonalPrincipal,
-                        Mascara mascaraDiagonalSecundaria) {
+    public void executar(Imagen imagen,
+                         Mascara mascaraHorizontal,
+                         Mascara mascaraVertical,
+                         Mascara mascaraDiagonalPrincipal,
+                         Mascara mascaraDiagonalSecundaria) {
 
         MatrizCanales channelMatrix = aplicarMascaras(imagen,
                 mascaraHorizontal, mascaraVertical,
@@ -50,6 +50,10 @@ public class ApplyDirectionalDerivativeOperatorAction {
         Integer ancho = imagen.getAncho();
         Integer alto = imagen.getAltura();
         MatrizCanales matrizDeCanales = new MatrizCanales(ancho, alto);
+        
+        //Máscaras direccionales
+        //La dirección ortogonal al gradiente es la dirección de máxima variación
+        //Para conseguir esto hay que pasar las 4 máscaras y conseguir el máximo valor de un píxel entre las 4 máscaras.
 
         for (int y = 0; y < alto; y++) {
             for (int x = 0; x < ancho; x++) {
