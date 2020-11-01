@@ -2,9 +2,9 @@ package domain.mask.directional_derivative_operator.standard;
 
 import domain.mask.Mascara;
 
-public class StandardHorizontalStraightMascara extends Mascara {
+public class MascaraStandardHorizontalDireccionalDerivativo extends Mascara {
 
-    public StandardHorizontalStraightMascara() {
+    public MascaraStandardHorizontalDireccionalDerivativo() {
         super(Tipo.DERIVATE_DIRECTIONAL_OPERATOR_STANDARD, AVAILABLE_SIZE);
 
         this.matriz = crearMatriz(AVAILABLE_SIZE);

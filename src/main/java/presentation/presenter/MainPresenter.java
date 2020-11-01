@@ -471,7 +471,7 @@ public class MainPresenter {
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplyDirectionalDerivativeOperatorStandardMask() {
+    public void onAplicarMascaraStadardDerivativaDireccional() {
         SemaforoFiltro.setValue(Mascara.Tipo.DERIVATE_DIRECTIONAL_OPERATOR_STANDARD);
         PresenterProvider.provideDirectionalDerivativeOperatorPresenter().onInitialize();
         view.aceptarBoton.setVisible(true);

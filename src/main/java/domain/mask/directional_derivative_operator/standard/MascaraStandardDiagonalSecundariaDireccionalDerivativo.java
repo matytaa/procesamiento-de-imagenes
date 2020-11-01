@@ -2,9 +2,9 @@ package domain.mask.directional_derivative_operator.standard;
 
 import domain.mask.Mascara;
 
-public class StandardMainDiagonalMascara extends Mascara {
+public class MascaraStandardDiagonalSecundariaDireccionalDerivativo extends Mascara {
 
-    public StandardMainDiagonalMascara() {
+    public MascaraStandardDiagonalSecundariaDireccionalDerivativo() {
         super(Tipo.DERIVATE_DIRECTIONAL_OPERATOR_STANDARD, AVAILABLE_SIZE);
 
         this.matriz = crearMatriz(AVAILABLE_SIZE);
@@ -13,9 +13,9 @@ public class StandardMainDiagonalMascara extends Mascara {
     @Override
     protected double[][] crearMatriz(int size) {
         return new double[][]{
-                {1, -1, -1},
+                {1,  1,  1},
                 {1, -2, -1},
-                {1,  1,  1}
+                {1, -1, -1}
         };
     }
 

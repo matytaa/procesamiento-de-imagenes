@@ -298,8 +298,8 @@ public class MainSceneController {
     }
 
     @FXML
-    public void onApplyDirectionalDerivativeOperatorStandardMask() {
-        this.mainPresenter.onApplyDirectionalDerivativeOperatorStandardMask();
+    public void onAplicarMascaraStadardDerivativaDireccional() {
+        this.mainPresenter.onAplicarMascaraStadardDerivativaDireccional();
     }
 
     @FXML
