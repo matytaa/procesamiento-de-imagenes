@@ -477,7 +477,7 @@ public class MainPresenter {
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplyDirectionalDerivativeOperatorKirshMask() {
+    public void onAplicarMascaraDerivativaDireccionalDeKirsh() {
         SemaforoFiltro.setValue(Mascara.Tipo.DERIVATE_DIRECTIONAL_OPERATOR_KIRSH);
         PresenterProvider.provideDirectionalDerivativeOperatorPresenter().onInitialize();
         view.aceptarBoton.setVisible(true);

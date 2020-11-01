@@ -2,9 +2,9 @@ package domain.mask.directional_derivative_operator.kirsh;
 
 import domain.mask.Mascara;
 
-public class KirshMainDiagonalMascara extends Mascara {
+public class MascaraKirshDiagonalPrincipalDireccionalDerivativo extends Mascara {
 
-    public KirshMainDiagonalMascara() {
+    public MascaraKirshDiagonalPrincipalDireccionalDerivativo() {
         super(Tipo.DERIVATE_DIRECTIONAL_OPERATOR_KIRSH, AVAILABLE_SIZE);
 
         this.matriz = crearMatriz(AVAILABLE_SIZE);

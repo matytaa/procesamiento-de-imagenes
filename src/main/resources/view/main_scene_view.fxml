@@ -129,6 +129,7 @@
         <Menu mnemonicParsing="false" text="Operadores direccionales derivativos">
             <MenuItem mnemonicParsing="false" onAction="#onAplicarMascaraDerivativaDireccionalDeSobel" text="Máscara direccional derivativa de Sobel" />
             <MenuItem mnemonicParsing="false" onAction="#onAplicarMascaraDerivativaDireccionalDePrewitt" text="Máscara direccional derivativa de Prewitt" />
+            <MenuItem mnemonicParsing="false" onAction="#onAplicarMascaraDerivativaDireccionalDeKirsh" text="Máscara direccional derivativa de Kirsh" />
         </Menu>
     </MenuBar>
 </AnchorPane>

@@ -303,8 +303,8 @@ public class MainSceneController {
     }
 
     @FXML
-    public void onApplyDirectionalDerivativeOperatorKirshMask() {
-        this.mainPresenter.onApplyDirectionalDerivativeOperatorKirshMask();
+    public void onAplicarMascaraDerivativaDireccionalDeKirsh() {
+        this.mainPresenter.onAplicarMascaraDerivativaDireccionalDeKirsh();
     }
 
     @FXML
