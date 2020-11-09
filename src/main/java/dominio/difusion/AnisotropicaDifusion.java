@@ -9,21 +9,21 @@ public abstract class AnisotropicaDifusion implements Difusion {
     }
 
     @Override
-    public int aplicar(Derivativo derivativo) {
-        float northDerivativeG = aplicarFuncionG(derivativo.getNorte(), sigma);
-        float southDerivativeG = aplicarFuncionG(derivativo.getSur(), sigma);
-        float eastDerivativeG = aplicarFuncionG(derivativo.getEste(), sigma);
-        float westDerivativeG = aplicarFuncionG(derivativo.getOeste(), sigma);
+    public int aplicar(Derivada derivada) {
+        float derivadaNorteG = aplicarFuncionG(derivada.getNorte(), sigma);
+        float derivadaSurG = aplicarFuncionG(derivada.getSur(), sigma);
+        float derivadaEsteG = aplicarFuncionG(derivada.getEste(), sigma);
+        float derivadaOesteG = aplicarFuncionG(derivada.getOeste(), sigma);
 
-        float northIij = derivativo.getNorte() * northDerivativeG;
-        float southIij = derivativo.getSur() * southDerivativeG;
-        float eastIij = derivativo.getEste() * eastDerivativeG;
-        float westIij = derivativo.getOeste() * westDerivativeG;
+        float norteIij = derivada.getNorte() * derivadaNorteG;
+        float surIij = derivada.getSur() * derivadaSurG;
+        float esteIij = derivada.getEste() * derivadaEsteG;
+        float oesteIij = derivada.getOeste() * derivadaOesteG;
 
         float lambda = 0.25f;
 
         //DISCRETIZACION
-        return (int) (derivativo.getValor() + lambda * (northIij + southIij + eastIij + westIij));
+        return (int) (derivada.getValor() + lambda * (norteIij + surIij + esteIij + oesteIij));
     }
 
     public abstract float aplicarFuncionG(float derivative, double sigma);

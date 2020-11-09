@@ -4,7 +4,7 @@ import core.service.OperacionesImagenesService;
 import dominio.customimage.MatrizCanales;
 import dominio.customimage.Imagen;
 import dominio.customimage.RGB;
-import dominio.difusion.Derivativo;
+import dominio.difusion.Derivada;
 import dominio.difusion.Difusion;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
@@ -29,13 +29,13 @@ public class AplicarDifusionAction {
         for (int i = 0; i < iteraciones; i++) {
             for (int y = 0; y < alto; y++) {
                 for (int x = 0; x < ancho; x++) {
-                    Derivativo redDerivativo = new Derivativo(matrizCanales.getCanalRojo(), x, y);
-                    Derivativo greenDerivativo = new Derivativo(matrizCanales.getCanalVerde(), x, y);
-                    Derivativo blueDerivativo = new Derivativo(matrizCanales.getCanalAzul(), x, y);
+                    Derivada redDerivada = new Derivada(matrizCanales.getCanalRojo(), x, y);
+                    Derivada greenDerivada = new Derivada(matrizCanales.getCanalVerde(), x, y);
+                    Derivada blueDerivada = new Derivada(matrizCanales.getCanalAzul(), x, y);
 
-                    int red = difusion.aplicar(redDerivativo);
-                    int green = difusion.aplicar(greenDerivativo);
-                    int blue = difusion.aplicar(blueDerivativo);
+                    int red = difusion.aplicar(redDerivada);
+                    int green = difusion.aplicar(greenDerivada);
+                    int blue = difusion.aplicar(blueDerivada);
                     RGB value = new RGB(red, green, blue);
 
                     matrizCanales.setValue(x, y, value);

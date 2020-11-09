@@ -2,7 +2,7 @@ package dominio.difusion;
 
 public interface Difusion {
 
-    int aplicar(Derivativo derivativo);
+    int aplicar(Derivada derivada);
 
     enum Type {
         ISOTROPICA,

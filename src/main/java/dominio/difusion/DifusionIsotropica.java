@@ -3,9 +3,9 @@ package dominio.difusion;
 public class DifusionIsotropica implements Difusion {
     
     @Override
-    public int aplicar(Derivativo derivativo) {
+    public int aplicar(Derivada derivada) {
         float lambda = 0.25f;
-        float suma = derivativo.getNorte() + derivativo.getSur() + derivativo.getEste() + derivativo.getOeste();
-        return (int)(derivativo.getValor() + lambda * suma);
+        float suma = derivada.getNorte() + derivada.getSur() + derivada.getEste() + derivada.getOeste();
+        return (int)(derivada.getValor() + lambda * suma);
     }
 }

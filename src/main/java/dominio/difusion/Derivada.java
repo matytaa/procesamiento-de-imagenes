@@ -1,6 +1,6 @@
 package dominio.difusion;
 
-public class Derivativo {
+public class Derivada {
 
     private final int valor;
     private final float norte;
@@ -8,7 +8,7 @@ public class Derivativo {
     private final float este;
     private final float oeste;
 
-    public Derivativo(int[][] matriz, int x, int y) {
+    public Derivada(int[][] matriz, int x, int y) {
         valor = matriz[x][y];
         norte = calcularNorte(matriz, x, y);
         sur = calcularSur(matriz, x, y);
