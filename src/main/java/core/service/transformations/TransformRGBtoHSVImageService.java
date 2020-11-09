@@ -1,8 +1,8 @@
 package core.service.transformations;
 
-import domain.customimage.Imagen;
-import domain.hsvimage.HSVImage;
-import domain.hsvimage.HSVPixel;
+import dominio.customimage.Imagen;
+import dominio.hsvimage.HSVImage;
+import dominio.hsvimage.HSVPixel;
 
 public class TransformRGBtoHSVImageService {
 

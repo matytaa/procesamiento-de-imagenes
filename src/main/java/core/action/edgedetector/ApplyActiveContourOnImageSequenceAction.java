@@ -1,8 +1,8 @@
 package core.action.edgedetector;
 
-import domain.activecontour.ActiveContour;
-import domain.activecontour.ContourCustomImage;
-import domain.customimage.Imagen;
+import dominio.activecontour.ActiveContour;
+import dominio.activecontour.ContourCustomImage;
+import dominio.customimage.Imagen;
 
 import java.util.ArrayList;
 import java.util.List;

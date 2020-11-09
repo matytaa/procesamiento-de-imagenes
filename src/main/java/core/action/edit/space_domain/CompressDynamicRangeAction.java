@@ -2,7 +2,7 @@ package core.action.edit.space_domain;
 
 import core.repository.RepositorioImagen;
 import core.service.statistics.GrayLevelStatisticsService;
-import domain.customimage.Imagen;
+import dominio.customimage.Imagen;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;

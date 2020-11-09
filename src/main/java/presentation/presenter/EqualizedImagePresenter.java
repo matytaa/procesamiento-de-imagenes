@@ -3,9 +3,9 @@ package presentation.presenter;
 import core.action.histogram.CreateImageHistogramAction;
 import core.action.histogram.EqualizeGrayImageAction;
 import core.action.histogram.utils.EqualizedTimes;
-import core.action.image.GetImageAction;
-import domain.Histograma;
-import domain.customimage.Imagen;
+import core.action.image.ObtenerImagenAction;
+import dominio.Histograma;
+import dominio.customimage.Imagen;
 import io.reactivex.subjects.PublishSubject;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
@@ -18,16 +18,16 @@ public class EqualizedImagePresenter {
     private final EqualizedImageSceneController view;
     private final EqualizeGrayImageAction equalizeGrayImageAction;
     private final PublishSubject<Image> imagePublishSubject;
-    private final GetImageAction getImageAction;
+    private final ObtenerImagenAction obtenerImagenAction;
     private final CreateImageHistogramAction createImageHistogramAction;
 
     public EqualizedImagePresenter(EqualizedImageSceneController view,
-                                   GetImageAction getImageAction,
+                                   ObtenerImagenAction obtenerImagenAction,
                                    EqualizeGrayImageAction equalizeGrayImageAction,
                                    CreateImageHistogramAction createImageHistogramAction,
                                    PublishSubject<Image> imagePublishSubject) {
         this.view = view;
-        this.getImageAction = getImageAction;
+        this.obtenerImagenAction = obtenerImagenAction;
         this.equalizeGrayImageAction = equalizeGrayImageAction;
         this.createImageHistogramAction = createImageHistogramAction;
         this.imagePublishSubject = imagePublishSubject;
@@ -37,7 +37,7 @@ public class EqualizedImagePresenter {
 
         imagePublishSubject.subscribe(image -> view.equalizedImageView.setImage(image));
 
-        getImageAction.execute().ifPresent(imagenAEcualizar -> {
+        obtenerImagenAction.ejecutar().ifPresent(imagenAEcualizar -> {
             Image image = equalizeGrayImageAction.execute(imagenAEcualizar, EqualizedTimes.getValue());
             Histograma histogram = createImageHistogramAction.execute(new Imagen(image, "png"));
             setHistogramData(histogram.getValores());

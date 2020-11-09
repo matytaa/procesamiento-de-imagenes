@@ -2,11 +2,11 @@ package core.action.edgedetector;
 
 import core.service.OperacionesImagenesService;
 import core.service.MatrizService;
-import domain.customimage.MatrizCanales;
-import domain.customimage.Imagen;
-import domain.customimage.RGB;
-import domain.mask.sobel.MascaraSobelX;
-import domain.mask.sobel.MascaraSobelY;
+import dominio.customimage.MatrizCanales;
+import dominio.customimage.Imagen;
+import dominio.customimage.RGB;
+import dominio.mask.sobel.MascaraSobelX;
+import dominio.mask.sobel.MascaraSobelY;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class ApplyCannyDetectorAction {
 
         int[][] gradientAngleMatrix = this.calculateGradientAngle(sobelXDerivative, sobelYDerivative);
         int[][] derivativesAbsoluteSumMatrix = this.operacionesImagenesService.calcularSumaAbsoluta(sobelXDerivative, sobelYDerivative)
-                                                                          .getRedChannel(); //Again, easily extended for 3 channels
+                                                                          .getCanalRojo(); //Again, easily extended for 3 channels
 
         int[][] roughSingleEdgedMatrix = this.applyNonMaximumSuppression(derivativesAbsoluteSumMatrix, gradientAngleMatrix);
 
@@ -157,8 +157,8 @@ public class ApplyCannyDetectorAction {
 
         //This can be easily extended to 3 channels
 
-        int[][] xDerivativeRedChannel = sobelXDerivative.getRedChannel();
-        int[][] yDerivativeRedChannel = sobelYDerivative.getRedChannel();
+        int[][] xDerivativeRedChannel = sobelXDerivative.getCanalRojo();
+        int[][] yDerivativeRedChannel = sobelYDerivative.getCanalRojo();
 
         int[][] gradientAngleMatrix = new int[sobelXDerivative.getWidth()][sobelXDerivative.getHeight()];
 

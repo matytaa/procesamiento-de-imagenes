@@ -4,7 +4,7 @@ import core.action.noise.AplicarRuidoExponencialAction;
 import core.action.noise.generator.GenerarImagenRuidoSinteticoAction;
 import core.semaphore.SemaforosGeneradoresDeRandoms;
 import core.service.statistics.GeneradorDeRandomsService;
-import domain.RandomElement;
+import dominio.RandomElement;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
 import presentation.controller.ExponentialSceneController;

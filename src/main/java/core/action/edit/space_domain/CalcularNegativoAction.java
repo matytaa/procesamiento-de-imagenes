@@ -2,8 +2,8 @@ package core.action.edit.space_domain;
 
 import core.repository.RepositorioImagen;
 import core.service.ModifyImageService;
-import domain.customimage.Imagen;
-import domain.customimage.RGB;
+import dominio.customimage.Imagen;
+import dominio.customimage.RGB;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;

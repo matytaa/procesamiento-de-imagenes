@@ -1,8 +1,8 @@
 package core.action.edgedetector;
 
-import domain.customimage.MatrizCanales;
-import domain.customimage.Imagen;
-import domain.mask.Mascara;
+import dominio.customimage.MatrizCanales;
+import dominio.customimage.Imagen;
+import dominio.mask.Mascara;
 
 public class ApplySusanDetectorAction {
 
@@ -15,17 +15,17 @@ public class ApplySusanDetectorAction {
             for (int j = 0; j < originalImageMatrix.getHeight(); j++) {
 
                 //edge case --> rojo
-                if (maskResult.getRedChannel()[i][j] == 255) {
-                    originalImageMatrix.getRedChannel()[i][j] = 255;
-                    originalImageMatrix.getGreenChannel()[i][j] = 0;
-                    originalImageMatrix.getBlueChannel()[i][j] = 0;
+                if (maskResult.getCanalRojo()[i][j] == 255) {
+                    originalImageMatrix.getCanalRojo()[i][j] = 255;
+                    originalImageMatrix.getCanalVerde()[i][j] = 0;
+                    originalImageMatrix.getCanalAzul()[i][j] = 0;
                 }
 
                 //corner case --> verde
-                if (maskResult.getRedChannel()[i][j] == 150) {
-                    originalImageMatrix.getRedChannel()[i][j] = 0;
-                    originalImageMatrix.getGreenChannel()[i][j] = 255;
-                    originalImageMatrix.getBlueChannel()[i][j] = 0;
+                if (maskResult.getCanalRojo()[i][j] == 150) {
+                    originalImageMatrix.getCanalRojo()[i][j] = 0;
+                    originalImageMatrix.getCanalVerde()[i][j] = 255;
+                    originalImageMatrix.getCanalAzul()[i][j] = 0;
                 }
 
             }

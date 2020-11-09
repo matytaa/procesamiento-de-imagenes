@@ -1,7 +1,7 @@
 package presentation.presenter.space_domain_operations;
 
 import core.action.histogram.CreateImageHistogramAction;
-import core.action.image.GetImageAction;
+import core.action.image.ObtenerImagenAction;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
 import javafx.scene.chart.XYChart;
@@ -10,20 +10,20 @@ import presentation.controller.ImageHistogramSceneController;
 public class ImageHistogramPresenter {
 
     private final ImageHistogramSceneController view;
-    private final GetImageAction getImageAction;
+    private final ObtenerImagenAction obtenerImagenAction;
     private final CreateImageHistogramAction createImageHistogramAction;
 
     public ImageHistogramPresenter(ImageHistogramSceneController view,
-                                   GetImageAction getImageAction,
+                                   ObtenerImagenAction obtenerImagenAction,
                                    CreateImageHistogramAction createImageHistogramAction) {
 
         this.view = view;
-        this.getImageAction = getImageAction;
+        this.obtenerImagenAction = obtenerImagenAction;
         this.createImageHistogramAction = createImageHistogramAction;
     }
 
     public void initialize() {
-        this.getImageAction.execute()
+        this.obtenerImagenAction.ejecutar()
                 .ifPresent(customImage -> this.setData(this.createImageHistogramAction.execute(customImage).getValores()));
     }
 

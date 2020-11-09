@@ -3,9 +3,9 @@ package core.action.threshold;
 import core.service.ApplyThresholdService;
 import core.service.MatrizService;
 import core.service.generation.HistogramaService;
-import domain.Histograma;
-import domain.automaticthreshold.OtsuThresholdResult;
-import domain.customimage.Imagen;
+import dominio.Histograma;
+import dominio.automaticthreshold.OtsuThresholdResult;
+import dominio.customimage.Imagen;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;

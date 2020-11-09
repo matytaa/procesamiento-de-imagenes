@@ -2,7 +2,7 @@ package presentation.presenter;
 
 import core.action.image.CreateImageInformAction;
 import core.action.image.GetModifiedImageAction;
-import domain.ImageInform;
+import dominio.ImageInform;
 import javafx.embed.swing.SwingFXUtils;
 
 import java.util.Optional;

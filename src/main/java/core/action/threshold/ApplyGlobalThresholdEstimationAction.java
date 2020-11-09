@@ -2,10 +2,10 @@ package core.action.threshold;
 
 import core.service.ApplyThresholdService;
 import core.service.MatrizService;
-import domain.automaticthreshold.GlobalThresholdGroups;
-import domain.automaticthreshold.GlobalThresholdResult;
-import domain.customimage.Imagen;
-import domain.customimage.Pixel;
+import dominio.automaticthreshold.GlobalThresholdGroups;
+import dominio.automaticthreshold.GlobalThresholdResult;
+import dominio.customimage.Imagen;
+import dominio.customimage.Pixel;
 import javafx.scene.image.Image;
 
 public class ApplyGlobalThresholdEstimationAction {

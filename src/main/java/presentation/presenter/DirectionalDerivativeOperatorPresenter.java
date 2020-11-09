@@ -1,41 +1,41 @@
 package presentation.presenter;
 
 import core.action.edgedetector.AplicarOperadorDireccionalDerivativoAction;
-import core.action.image.GetImageAction;
-import domain.SemaforoFiltro;
-import domain.customimage.Imagen;
-import domain.mask.Mascara;
-import domain.mask.directional_derivative_operator.kirsh.MascaraKirshHorizontalDireccionalDerivativo;
-import domain.mask.directional_derivative_operator.kirsh.MascaraKirshDiagonalPrincipalDireccionalDerivativo;
-import domain.mask.directional_derivative_operator.kirsh.MascaraKirshDiagonalSecundariaDireccionalDerivativo;
-import domain.mask.directional_derivative_operator.kirsh.MascaraKirshVerticalDireccionalDerivativo;
-import domain.mask.directional_derivative_operator.prewitt.MascaraPrewittHorizontalDireccionalDerivativo;
-import domain.mask.directional_derivative_operator.prewitt.MascaraPrewittDiagonalPrincipalDireccionalDerivativo;
-import domain.mask.directional_derivative_operator.prewitt.MascaraPrewittDiagonalSecundariaDireccionalDerivativo;
-import domain.mask.directional_derivative_operator.prewitt.MascaraPrewittVerticalDireccionalDerivativo;
-import domain.mask.directional_derivative_operator.sobel.MascaraSobelHorizontalDireccionalDerivativo;
-import domain.mask.directional_derivative_operator.sobel.MascaraSobelDiagonalPrincipalDireccionalDerivativo;
-import domain.mask.directional_derivative_operator.sobel.MascaraSobelDiagonalSecundariaDireccionalDerivativo;
-import domain.mask.directional_derivative_operator.sobel.MascaraSobelVerticalDireccionalDerivativo;
-import domain.mask.directional_derivative_operator.standard.MascaraStandardHorizontalDireccionalDerivativo;
-import domain.mask.directional_derivative_operator.standard.MascaraStandardDiagonalPrincipalDireccionalDerivativo;
-import domain.mask.directional_derivative_operator.standard.MascaraStandardDiagonalSecundariaDireccionalDerivativo;
-import domain.mask.directional_derivative_operator.standard.MascaraStandardVerticalDireccionalDerivativo;
+import core.action.image.ObtenerImagenAction;
+import dominio.SemaforoFiltro;
+import dominio.customimage.Imagen;
+import dominio.mask.Mascara;
+import dominio.mask.directional_derivative_operator.kirsh.MascaraKirshHorizontalDireccionalDerivativo;
+import dominio.mask.directional_derivative_operator.kirsh.MascaraKirshDiagonalPrincipalDireccionalDerivativo;
+import dominio.mask.directional_derivative_operator.kirsh.MascaraKirshDiagonalSecundariaDireccionalDerivativo;
+import dominio.mask.directional_derivative_operator.kirsh.MascaraKirshVerticalDireccionalDerivativo;
+import dominio.mask.directional_derivative_operator.prewitt.MascaraPrewittHorizontalDireccionalDerivativo;
+import dominio.mask.directional_derivative_operator.prewitt.MascaraPrewittDiagonalPrincipalDireccionalDerivativo;
+import dominio.mask.directional_derivative_operator.prewitt.MascaraPrewittDiagonalSecundariaDireccionalDerivativo;
+import dominio.mask.directional_derivative_operator.prewitt.MascaraPrewittVerticalDireccionalDerivativo;
+import dominio.mask.directional_derivative_operator.sobel.MascaraSobelHorizontalDireccionalDerivativo;
+import dominio.mask.directional_derivative_operator.sobel.MascaraSobelDiagonalPrincipalDireccionalDerivativo;
+import dominio.mask.directional_derivative_operator.sobel.MascaraSobelDiagonalSecundariaDireccionalDerivativo;
+import dominio.mask.directional_derivative_operator.sobel.MascaraSobelVerticalDireccionalDerivativo;
+import dominio.mask.directional_derivative_operator.standard.MascaraStandardHorizontalDireccionalDerivativo;
+import dominio.mask.directional_derivative_operator.standard.MascaraStandardDiagonalPrincipalDireccionalDerivativo;
+import dominio.mask.directional_derivative_operator.standard.MascaraStandardDiagonalSecundariaDireccionalDerivativo;
+import dominio.mask.directional_derivative_operator.standard.MascaraStandardVerticalDireccionalDerivativo;
 
 public class DirectionalDerivativeOperatorPresenter {
 
-    private final GetImageAction getImageAction;
+    private final ObtenerImagenAction obtenerImagenAction;
     private final AplicarOperadorDireccionalDerivativoAction aplicarOperadorDireccionalDerivativoAction;
 
-    public DirectionalDerivativeOperatorPresenter(GetImageAction getImageAction,
+    public DirectionalDerivativeOperatorPresenter(ObtenerImagenAction obtenerImagenAction,
                                                   AplicarOperadorDireccionalDerivativoAction aplicarOperadorDireccionalDerivativoAction) {
 
-        this.getImageAction = getImageAction;
+        this.obtenerImagenAction = obtenerImagenAction;
         this.aplicarOperadorDireccionalDerivativoAction = aplicarOperadorDireccionalDerivativoAction;
     }
 
     public void onInitialize() {
-        this.getImageAction.execute()
+        this.obtenerImagenAction.ejecutar()
                 .ifPresent(customImage -> {
                     if (SemaforoFiltro.is(Mascara.Tipo.DERIVATE_DIRECTIONAL_OPERATOR_SOBEL))
                         this.aplicarMascaraDerivativaDireccionalDeSobel(customImage);

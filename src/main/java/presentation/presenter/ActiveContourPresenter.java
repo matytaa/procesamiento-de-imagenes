@@ -3,9 +3,9 @@ package presentation.presenter;
 import core.action.edgedetector.ApplyActiveContourAction;
 import core.action.edgedetector.ApplyActiveContourOnImageSequenceAction;
 import core.action.edgedetector.GetImageSequenceAction;
-import core.action.image.GetImageAction;
-import domain.activecontour.*;
-import domain.customimage.Imagen;
+import core.action.image.ObtenerImagenAction;
+import dominio.activecontour.*;
+import dominio.customimage.Imagen;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
@@ -22,7 +22,7 @@ public class ActiveContourPresenter {
     private static final double DEFAULT_EPSILON = 0;
 
     private final ActiveContourSceneController view;
-    private final GetImageAction getImageAction;
+    private final ObtenerImagenAction obtenerImagenAction;
     private final GetImageSequenceAction getImageSequenceAction;
     private final ApplyActiveContourAction applyActiveContourAction;
     private final ApplyActiveContourOnImageSequenceAction applyActiveContourOnImageSequenceAction;
@@ -38,13 +38,13 @@ public class ActiveContourPresenter {
     private int contourIndex = 0;
 
     public ActiveContourPresenter(ActiveContourSceneController view,
-                                  ApplyActiveContourAction applyActiveContourAction, GetImageAction getImageAction,
+                                  ApplyActiveContourAction applyActiveContourAction, ObtenerImagenAction obtenerImagenAction,
                                   GetImageSequenceAction getImageSequenceAction,
                                   ApplyActiveContourOnImageSequenceAction applyActiveContourOnImageSequenceAction,
                                   PublishSubject<Image> onModifiedImagePublishSubject) {
         this.view = view;
         this.applyActiveContourAction = applyActiveContourAction;
-        this.getImageAction = getImageAction;
+        this.obtenerImagenAction = obtenerImagenAction;
         this.getImageSequenceAction = getImageSequenceAction;
         this.applyActiveContourOnImageSequenceAction = applyActiveContourOnImageSequenceAction;
         this.onModifiedImagePublishSubject = onModifiedImagePublishSubject;
@@ -63,7 +63,7 @@ public class ActiveContourPresenter {
 
     public void onInitializeContours() {
         if (ActiveContourMode.isSingle()) {
-            this.getImageAction.execute().ifPresent(customImage -> {
+            this.obtenerImagenAction.ejecutar().ifPresent(customImage -> {
                 currentCustomImage = customImage;
                 modifiedImage = customImage.toFXImage();
                 view.setImage(modifiedImage);

@@ -2,7 +2,7 @@ package presentation.controller;
 
 import core.provider.PresenterProvider;
 import core.provider.ViewProvider;
-import domain.flags.LaplacianDetector;
+import dominio.flags.LaplacianDetector;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -59,11 +59,6 @@ public class MainSceneController {
     }
 
     @FXML
-    public void abrirImagenMultipleProcesamiento() {
-        this.mainPresenter.onAbrirImagenMultipleProcesamiento();
-    }
-
-    @FXML
     public void saveModifiedImage() {
         this.mainPresenter.onSaveImage();
     }
@@ -71,76 +66,6 @@ public class MainSceneController {
     @FXML
     public void aplicarCambios() {
         this.mainPresenter.onAplicarCambios();
-    }
-
-    @FXML
-    public void showGreyGradient() {
-        this.mainPresenter.onShowGreyGradient();
-    }
-
-    @FXML
-    public void showColorGradient() {
-        this.mainPresenter.onShowColorGradient();
-    }
-
-    @FXML
-    public void showRGBImageRedChannel() {
-        this.mainPresenter.onShowRGBImageRedChannel();
-    }
-
-    @FXML
-    public void showRGBImageGreenChannel() {
-        this.mainPresenter.onShowRGBImageGreenChannel();
-    }
-
-    @FXML
-    public void showRGBImageBlueChannel() {
-        this.mainPresenter.onShowRGBImageBlueChannel();
-    }
-
-    @FXML
-    public void showImageWithQuadrate() {
-        this.mainPresenter.onShowImageWithQuadrate();
-    }
-
-    @FXML
-    public void showImageWithCircle() {
-        this.mainPresenter.onShowImageWithCircle();
-    }
-
-    @FXML
-    public void showHueHSVChannel() {
-        this.mainPresenter.onShowHueHSVChannel();
-    }
-
-    @FXML
-    public void showSaturationHSVChannel() {
-        this.mainPresenter.onShowSaturationHSVChannel();
-    }
-
-    @FXML
-    public void showValueHSVChannel() {
-        this.mainPresenter.onShowValueHSVChannel();
-    }
-
-    @FXML
-    public void calculatePixelValue() {
-        this.mainPresenter.onCalculatePixelValue();
-    }
-
-    @FXML
-    public void modifyPixelValue() {
-        this.mainPresenter.onModifyPixelValue();
-    }
-
-    @FXML
-    public void showReport() {
-        this.mainPresenter.onShowReport();
-    }
-
-    @FXML
-    public void cutPartialImage() {
-        this.mainPresenter.onCutPartialImage();
     }
 
     @FXML
@@ -156,16 +81,6 @@ public class MainSceneController {
     @FXML
     public void umbralizar() {
         this.mainPresenter.onUmbralizar();
-    }
-
-    @FXML
-    public void contrast() {
-        this.mainPresenter.onContrast();
-    }
-
-    @FXML
-    public void compressDynamicRange() {
-        this.mainPresenter.onCompressDynamicRange();
     }
 
     @FXML
@@ -199,22 +114,8 @@ public class MainSceneController {
     }
 
     @FXML
-    public void createEqualizedImage() {
-        this.mainPresenter.onCreateEqualizedImageOnce();
-    }
-
-    @FXML
-    public void createImageEqualizedTwice() {
-        this.mainPresenter.onCreateEqualizedImageTwice();
-    }
-
-    @FXML
     public void aplicarRuidoSalYPimiena() {
         this.mainPresenter.onAplicarRuidoSalYPimienta();
-    }
-
-    public void onApplyEdgeEnhancement() {
-        this.mainPresenter.onApplyEdgeEnhancement();
     }
 
     @FXML
@@ -318,6 +219,95 @@ public class MainSceneController {
     }
 
     @FXML
+    public void onAplicarDifusion() {
+        this.mainPresenter.onAplicarDifusion();
+    }
+
+    public void onApplyEdgeEnhancement() {
+        this.mainPresenter.onApplyEdgeEnhancement();
+    }
+
+    @FXML
+    public void showGreyGradient() {
+        this.mainPresenter.onShowGreyGradient();
+    }
+
+    @FXML
+    public void showColorGradient() {
+        this.mainPresenter.onShowColorGradient();
+    }
+
+    @FXML
+    public void showRGBImageRedChannel() {
+        this.mainPresenter.onShowRGBImageRedChannel();
+    }
+
+    @FXML
+    public void showRGBImageGreenChannel() {
+        this.mainPresenter.onShowRGBImageGreenChannel();
+    }
+
+    @FXML
+    public void showRGBImageBlueChannel() {
+        this.mainPresenter.onShowRGBImageBlueChannel();
+    }
+
+    @FXML
+    public void showImageWithQuadrate() {
+        this.mainPresenter.onShowImageWithQuadrate();
+    }
+
+    @FXML
+    public void showImageWithCircle() {
+        this.mainPresenter.onShowImageWithCircle();
+    }
+
+    @FXML
+    public void showHueHSVChannel() {
+        this.mainPresenter.onShowHueHSVChannel();
+    }
+
+    @FXML
+    public void showSaturationHSVChannel() {
+        this.mainPresenter.onShowSaturationHSVChannel();
+    }
+
+    @FXML
+    public void showValueHSVChannel() {
+        this.mainPresenter.onShowValueHSVChannel();
+    }
+
+    @FXML
+    public void calculatePixelValue() {
+        this.mainPresenter.onCalculatePixelValue();
+    }
+
+    @FXML
+    public void modifyPixelValue() {
+        this.mainPresenter.onModifyPixelValue();
+    }
+
+    @FXML
+    public void showReport() {
+        this.mainPresenter.onShowReport();
+    }
+
+    @FXML
+    public void cutPartialImage() {
+        this.mainPresenter.onCutPartialImage();
+    }
+
+    @FXML
+    public void contrast() {
+        this.mainPresenter.onContrast();
+    }
+
+    @FXML
+    public void compressDynamicRange() {
+        this.mainPresenter.onCompressDynamicRange();
+    }
+
+    @FXML
     public void applyGlobalThresholdEstimation(){
         this.mainPresenter.onApplyGlobalThresholdEstimation();
     }
@@ -333,6 +323,16 @@ public class MainSceneController {
     }
 
     @FXML
+    public void createEqualizedImage() {
+        this.mainPresenter.onCreateEqualizedImageOnce();
+    }
+
+    @FXML
+    public void createImageEqualizedTwice() {
+        this.mainPresenter.onCreateEqualizedImageTwice();
+    }
+
+    @FXML
     public void onApplyLaplacianEdgeDetectorWithSlopeEvaluation() {
         this.mainPresenter.onApplyLaplacianEdgeDetector(LaplacianDetector.WITH_SLOPE_EVALUATION);
     }
@@ -340,11 +340,6 @@ public class MainSceneController {
     @FXML
     public void onApplyMarrHildrethEdgeDetector() {
         this.mainPresenter.onApplyMarrHildrethEdgeDetector();
-    }
-
-    @FXML
-    public void onApplyDiffusion() {
-        this.mainPresenter.onApplyDiffusion();
     }
 
     @FXML
@@ -387,4 +382,9 @@ public class MainSceneController {
 
     @FXML
     public void onApplySift() { this.mainPresenter.onApplySift(); }
+
+    @FXML
+    public void abrirImagenMultipleProcesamiento() {
+        this.mainPresenter.onAbrirImagenMultipleProcesamiento();
+    }
 }

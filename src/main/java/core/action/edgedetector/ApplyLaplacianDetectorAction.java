@@ -1,8 +1,8 @@
 package core.action.edgedetector;
 
-import domain.customimage.MatrizCanales;
-import domain.customimage.Imagen;
-import domain.mask.Mascara;
+import dominio.customimage.MatrizCanales;
+import dominio.customimage.Imagen;
+import dominio.mask.Mascara;
 
 public class ApplyLaplacianDetectorAction {
 
@@ -14,13 +14,13 @@ public class ApplyLaplacianDetectorAction {
 
     private MatrizCanales markZeroCrossings(MatrizCanales channelMatrix, int slopeThreshold) {
 
-        int edgedRedMatrix[][] = this.markHorizontalZeroCrossings(channelMatrix.getRedChannel(), slopeThreshold);
-        int edgedGreenMatrix[][] = this.markHorizontalZeroCrossings(channelMatrix.getGreenChannel(), slopeThreshold);
-        int edgedBlueMatrix[][] = this.markHorizontalZeroCrossings(channelMatrix.getBlueChannel(), slopeThreshold);
+        int edgedRedMatrix[][] = this.markHorizontalZeroCrossings(channelMatrix.getCanalRojo(), slopeThreshold);
+        int edgedGreenMatrix[][] = this.markHorizontalZeroCrossings(channelMatrix.getCanalVerde(), slopeThreshold);
+        int edgedBlueMatrix[][] = this.markHorizontalZeroCrossings(channelMatrix.getCanalAzul(), slopeThreshold);
 
-        int resultantRedMatrix[][] = this.markVerticalZeroCrossings(channelMatrix.getRedChannel(), edgedRedMatrix, slopeThreshold);
-        int resultantGreenMatrix[][] = this.markVerticalZeroCrossings(channelMatrix.getGreenChannel(), edgedGreenMatrix, slopeThreshold);
-        int resultantBlueMatrix[][] = this.markVerticalZeroCrossings(channelMatrix.getBlueChannel(), edgedBlueMatrix, slopeThreshold);
+        int resultantRedMatrix[][] = this.markVerticalZeroCrossings(channelMatrix.getCanalRojo(), edgedRedMatrix, slopeThreshold);
+        int resultantGreenMatrix[][] = this.markVerticalZeroCrossings(channelMatrix.getCanalVerde(), edgedGreenMatrix, slopeThreshold);
+        int resultantBlueMatrix[][] = this.markVerticalZeroCrossings(channelMatrix.getCanalAzul(), edgedBlueMatrix, slopeThreshold);
 
         return new MatrizCanales(resultantRedMatrix, resultantGreenMatrix, resultantBlueMatrix);
     }

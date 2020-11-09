@@ -2,8 +2,8 @@ package core.action.histogram;
 
 import core.repository.RepositorioImagen;
 import core.service.generation.HistogramaService;
-import domain.Histograma;
-import domain.customimage.Imagen;
+import dominio.Histograma;
+import dominio.customimage.Imagen;
 import io.reactivex.subjects.PublishSubject;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;

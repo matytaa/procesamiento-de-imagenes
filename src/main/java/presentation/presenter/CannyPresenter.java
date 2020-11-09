@@ -2,9 +2,9 @@ package presentation.presenter;
 
 import core.action.edgedetector.ApplyCannyDetectorAction;
 import core.action.filter.AplicarFiltroAction;
-import core.action.image.GetImageAction;
-import domain.customimage.Imagen;
-import domain.mask.filter.MascaraGaussiana;
+import core.action.image.ObtenerImagenAction;
+import dominio.customimage.Imagen;
+import dominio.mask.filter.MascaraGaussiana;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
 import presentation.controller.CannySceneController;
@@ -12,16 +12,16 @@ import presentation.controller.CannySceneController;
 public class CannyPresenter {
 
     private final CannySceneController view;
-    private final GetImageAction getImageAction;
+    private final ObtenerImagenAction obtenerImagenAction;
     private final AplicarFiltroAction aplicarFiltroAction;
     private final PublishSubject<Image> imagePublishSubject;
     private final ApplyCannyDetectorAction applyCannyDetectorAction;
     private final PublishSubject<Image> cannyPublishSubject;
 
-    public CannyPresenter(CannySceneController view, GetImageAction getImageAction, AplicarFiltroAction aplicarFiltroAction,
+    public CannyPresenter(CannySceneController view, ObtenerImagenAction obtenerImagenAction, AplicarFiltroAction aplicarFiltroAction,
                           PublishSubject<Image> imagePublishSubject, ApplyCannyDetectorAction applyCannyDetectorAction, PublishSubject<Image> cannyPublishSubject) {
         this.view = view;
-        this.getImageAction = getImageAction;
+        this.obtenerImagenAction = obtenerImagenAction;
         this.aplicarFiltroAction = aplicarFiltroAction;
         this.imagePublishSubject = imagePublishSubject;
         this.applyCannyDetectorAction = applyCannyDetectorAction;
@@ -38,7 +38,7 @@ public class CannyPresenter {
 
             if (areThresholdsValid(t1, t2)) {
 
-                this.getImageAction.execute().ifPresent(customImage -> {
+                this.obtenerImagenAction.ejecutar().ifPresent(customImage -> {
 
                             Imagen filteredImage = this.aplicarFiltroAction.aplicar(customImage, new MascaraGaussiana(sigma));
                             Image canniedImage = this.applyCannyDetectorAction.execute(filteredImage, t1, t2).toFXImage();

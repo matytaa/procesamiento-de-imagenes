@@ -1,7 +1,7 @@
 package presentation.controller;
 
 import core.provider.PresenterProvider;
-import domain.SemaforoFiltro;
+import dominio.SemaforoFiltro;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

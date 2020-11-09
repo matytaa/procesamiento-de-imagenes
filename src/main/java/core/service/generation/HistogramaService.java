@@ -1,7 +1,7 @@
 package core.service.generation;
 
-import domain.Histograma;
-import domain.customimage.Imagen;
+import dominio.Histograma;
+import dominio.customimage.Imagen;
 
 import java.util.Arrays;
 

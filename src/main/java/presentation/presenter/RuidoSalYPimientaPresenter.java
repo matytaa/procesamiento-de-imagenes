@@ -1,8 +1,8 @@
 package presentation.presenter;
 
-import core.action.image.GetImageAction;
+import core.action.image.ObtenerImagenAction;
 import core.action.noise.AplicarRuidoSalYPimientaAction;
-import domain.customimage.Imagen;
+import dominio.customimage.Imagen;
 import presentation.controller.SaltAndPepperNoiseController;
 
 import java.util.Optional;
@@ -11,16 +11,16 @@ public class RuidoSalYPimientaPresenter {
 
     private static final String EMPTY = "";
     private final SaltAndPepperNoiseController view;
-    private final GetImageAction getImageAction;
+    private final ObtenerImagenAction obtenerImagenAction;
     private final AplicarRuidoSalYPimientaAction aplicarRuidoSalYPimientaAction;
 
     public RuidoSalYPimientaPresenter(
             SaltAndPepperNoiseController view,
-            GetImageAction getImageAction,
+            ObtenerImagenAction obtenerImagenAction,
             AplicarRuidoSalYPimientaAction applySaltAndPepperNoiseAction) {
 
         this.view = view;
-        this.getImageAction = getImageAction;
+        this.obtenerImagenAction = obtenerImagenAction;
         this.aplicarRuidoSalYPimientaAction = applySaltAndPepperNoiseAction;
     }
 
@@ -32,7 +32,7 @@ public class RuidoSalYPimientaPresenter {
 
     public void onAplicarRuido() {
 
-        Optional<Imagen> imagenOpcional = getImageAction.execute();
+        Optional<Imagen> imagenOpcional = obtenerImagenAction.ejecutar();
 
         if (!imagenOpcional.isPresent()) {
             view.closeWindow();

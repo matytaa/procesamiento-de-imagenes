@@ -4,7 +4,7 @@ import core.action.channels.ObtainHSVChannelAction;
 import core.action.channels.ObtainRGBChannelAction;
 import core.action.characteristic_points.ApplyHarrisDetectorAction;
 import core.action.characteristic_points.ApplySiftDetectorAction;
-import core.action.diffusion.ApplyDiffusionAction;
+import core.action.difusion.AplicarDifusionAction;
 import core.action.edgedetector.*;
 import core.action.edgedetector.hough.CircleHoughTransformAction;
 import core.action.edgedetector.hough.LineHoughTransformAction;
@@ -34,7 +34,7 @@ import javafx.scene.image.Image;
 class ActionProvider {
 
     private static LoadImageAction loadImageAction;
-    private static GetImageAction getImageAction;
+    private static ObtenerImagenAction obtenerImagenAction;
     private static SaveImageAction saveImageAction;
     private static ModifyPixelAction modifyPixelAction;
     private static PutModifiedImageAction putModifiedImageAction;
@@ -66,7 +66,7 @@ class ActionProvider {
     private static ApplyGlobalThresholdEstimationAction applyGlobalThresholdEstimationAction;
     private static ApplyOtsuThresholdEstimationAction applyOtsuThresholdEstimationAction;
     private static ApplyLaplacianDetectorAction applyLaplacianDetectorAction;
-    private static ApplyDiffusionAction applyDiffusionAction;
+    private static AplicarDifusionAction aplicarDifusionAction;
     private static UndoChangesAction undoChangesAction;
     private static GetImageLimitValuesAction getImageLimitValuesAction;
     private static ApplyCannyDetectorAction applyCannyDetectorAction;
@@ -80,11 +80,11 @@ class ActionProvider {
     private static ApplyHarrisDetectorAction applyHarrisDetectorAction;
     private static ApplySiftDetectorAction applySiftDetectorAction;
 
-    public static GetImageAction provideGetImageAction() {
-        if (getImageAction == null) {
-            getImageAction = new GetImageAction(RepositoryProvider.provideImageRepository());
+    public static ObtenerImagenAction provideGetImageAction() {
+        if (obtenerImagenAction == null) {
+            obtenerImagenAction = new ObtenerImagenAction(RepositoryProvider.provideImageRepository());
         }
-        return getImageAction;
+        return obtenerImagenAction;
     }
 
     public static LoadImageAction provideLoadImageAction() {
@@ -360,14 +360,14 @@ class ActionProvider {
         return applyLaplacianDetectorAction;
     }
 
-    public static ApplyDiffusionAction provideApplyDiffusionAction() {
-        if (applyDiffusionAction == null) {
-            applyDiffusionAction = new ApplyDiffusionAction(
+    public static AplicarDifusionAction provideApplyDiffusionAction() {
+        if (aplicarDifusionAction == null) {
+            aplicarDifusionAction = new AplicarDifusionAction(
                     ServiceProvider.provideImageOperationsService(),
                     PublishSubjectProvider.provideOnModifiedImagePublishSubject()
             );
         }
-        return applyDiffusionAction;
+        return aplicarDifusionAction;
     }
 
     public static UndoChangesAction provideUndoChangesAction() {

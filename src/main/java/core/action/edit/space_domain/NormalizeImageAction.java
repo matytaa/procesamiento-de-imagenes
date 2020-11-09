@@ -1,7 +1,7 @@
 package core.action.edit.space_domain;
 
 import core.service.OperacionesImagenesService;
-import domain.customimage.Imagen;
+import dominio.customimage.Imagen;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 

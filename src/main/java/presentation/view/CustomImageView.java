@@ -1,6 +1,6 @@
 package presentation.view;
 
-import domain.activecontour.SelectionSquare;
+import dominio.activecontour.SelectionSquare;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.BiFunction;
 import javafx.event.EventHandler;

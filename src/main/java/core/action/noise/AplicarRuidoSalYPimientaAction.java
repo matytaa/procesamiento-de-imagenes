@@ -1,7 +1,7 @@
 package core.action.noise;
 
 import core.service.statistics.GeneradorDeRandomsService;
-import domain.customimage.Imagen;
+import dominio.customimage.Imagen;
 import io.reactivex.subjects.PublishSubject;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;

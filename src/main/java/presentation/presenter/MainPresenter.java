@@ -18,23 +18,23 @@ import core.action.threshold.ApplyOtsuThresholdEstimationAction;
 import core.action.threshold.AplicarUmbralAction;
 import core.provider.PresenterProvider;
 import core.semaphore.SemaforosGeneradoresDeRandoms;
-import domain.SemaforoFiltro;
-import domain.RandomElement;
-import domain.activecontour.ActiveContourMode;
-import domain.automaticthreshold.GlobalThresholdResult;
-import domain.automaticthreshold.ImageLimitValues;
-import domain.automaticthreshold.OtsuThresholdResult;
-import domain.customimage.Imagen;
-import domain.customimage.Format;
-import domain.flags.LaplacianDetector;
-import domain.generation.Channel;
-import domain.generation.Figure;
-import domain.generation.Gradient;
-import domain.mask.LaplacianMascaraGaussiana;
-import domain.mask.LaplacianMascara;
-import domain.mask.Mascara;
-import domain.mask.SusanMascara;
-import domain.mask.filter.HighPassMascara;
+import dominio.SemaforoFiltro;
+import dominio.RandomElement;
+import dominio.activecontour.ActiveContourMode;
+import dominio.automaticthreshold.GlobalThresholdResult;
+import dominio.automaticthreshold.ImageLimitValues;
+import dominio.automaticthreshold.OtsuThresholdResult;
+import dominio.customimage.Imagen;
+import dominio.customimage.Format;
+import dominio.flags.LaplacianDetector;
+import dominio.generation.Channel;
+import dominio.generation.Figure;
+import dominio.generation.Gradient;
+import dominio.mask.LaplacianMascaraGaussiana;
+import dominio.mask.LaplacianMascara;
+import dominio.mask.Mascara;
+import dominio.mask.SusanMascara;
+import dominio.mask.filter.HighPassMascara;
 import io.reactivex.Observable;
 import io.reactivex.functions.Action;
 import javafx.embed.swing.SwingFXUtils;
@@ -56,7 +56,7 @@ public class MainPresenter {
     private final MainSceneController view;
     private final LoadImageAction cargarImagenAction;
     private final CargarSecuenciaImagenesAction cargarImagenParaMultipleProcesamientoAction;
-    private final GetImageAction getImageAction;
+    private final ObtenerImagenAction obtenerImagenAction;
     private final ModifyPixelAction modifyPixelAction;
     private final PutModifiedImageAction putModifiedImageAction;
     private final CalcularNegativoAction calcularNegativoAction;
@@ -79,7 +79,7 @@ public class MainPresenter {
 
     public MainPresenter(MainSceneController view,
                          LoadImageAction cargarImagenAction,
-                         CargarSecuenciaImagenesAction cargarImagenParaMultipleProcesamientoAction, GetImageAction getImageAction,
+                         CargarSecuenciaImagenesAction cargarImagenParaMultipleProcesamientoAction, ObtenerImagenAction obtenerImagenAction,
                          PutModifiedImageAction putModifiedImageAction,
                          ModifyPixelAction modifyPixelAction,
                          CalcularNegativoAction calcularNegativoAction,
@@ -104,7 +104,7 @@ public class MainPresenter {
 
         this.cargarImagenAction = cargarImagenAction;
         this.cargarImagenParaMultipleProcesamientoAction = cargarImagenParaMultipleProcesamientoAction;
-        this.getImageAction = getImageAction;
+        this.obtenerImagenAction = obtenerImagenAction;
         this.modifyPixelAction = modifyPixelAction;
         this.putModifiedImageAction = putModifiedImageAction;
         this.calcularNegativoAction = calcularNegativoAction;
@@ -234,7 +234,7 @@ public class MainPresenter {
             int pixelX = Integer.parseInt(view.pixelX.getText());
             int pixelY = Integer.parseInt(view.pixelY.getText());
 
-            this.getImageAction.execute()
+            this.obtenerImagenAction.ejecutar()
                                .map(customImage -> customImage.getPixelValue(pixelX, pixelY))
                                .ifPresent(rgb -> {
                                    view.valueR.setText(String.valueOf(rgb.getRed()));
@@ -294,7 +294,7 @@ public class MainPresenter {
     }
 
     public void onUmbralizar() {
-        this.getImageAction.execute().ifPresent(this::aplicarUmbralizacion);
+        this.obtenerImagenAction.ejecutar().ifPresent(this::aplicarUmbralizacion);
     }
 
     private void aplicarUmbralizacion(Imagen customImage) {
@@ -317,13 +317,13 @@ public class MainPresenter {
     }
 
     public void onCreateEqualizedImageOnce() {
-        this.getImageAction.execute()
+        this.obtenerImagenAction.ejecutar()
                            .ifPresent(customImage -> equalizeGrayImageAction.execute(customImage, 1));
         view.aceptarBoton.setVisible(true);
     }
 
     public void onCreateEqualizedImageTwice() {
-        this.getImageAction.execute()
+        this.obtenerImagenAction.ejecutar()
                            .ifPresent(customImage -> equalizeGrayImageAction.execute(customImage, 2));
         view.aceptarBoton.setVisible(true);
     }
@@ -370,7 +370,7 @@ public class MainPresenter {
         }
         //hago esto, porque sino una expresion lambda que la usa despues tiene problemas
         int size = insertedSize;
-        this.getImageAction.execute()
+        this.obtenerImagenAction.ejecutar()
                            .ifPresent(customImage -> {
                                Imagen filteredCustomImage = aplicarFiltroAction.aplicar(customImage, new HighPassMascara(size));
                                view.modifiedImageView.setImage(filteredCustomImage.toFXImage());
@@ -496,7 +496,7 @@ public class MainPresenter {
     }
 
     public void onApplyGlobalThresholdEstimation() {
-        this.getImageAction.execute()
+        this.obtenerImagenAction.ejecutar()
                            .ifPresent(customImage -> {
                                ImageLimitValues imageLimitValues = this.getImageLimitValuesAction.execute(customImage);
                                int initialThreshold = Integer.parseInt(InsertValuePopup.show("Initial Threshold " +
@@ -515,7 +515,7 @@ public class MainPresenter {
     }
 
     public void onApplyOtsuThresholdEstimation() {
-        this.getImageAction.execute()
+        this.obtenerImagenAction.ejecutar()
                            .ifPresent(customImage -> {
                                OtsuThresholdResult otsuThresholdResult = applyOtsuThresholdEstimationAction.execute(customImage);
                                view.modifiedImageView.setImage(otsuThresholdResult.getImage());
@@ -527,7 +527,7 @@ public class MainPresenter {
     }
 
     public void onApplyLaplacianEdgeDetector(LaplacianDetector detector) {
-        this.getImageAction.execute()
+        this.obtenerImagenAction.ejecutar()
                            .ifPresent(customImage -> {
                                int slopeThreshold = 0;
                                if (detector == LaplacianDetector.WITH_SLOPE_EVALUATION) {
@@ -539,7 +539,7 @@ public class MainPresenter {
     }
 
     public void onApplyMarrHildrethEdgeDetector() {
-        this.getImageAction.execute()
+        this.obtenerImagenAction.ejecutar()
                            .ifPresent(customImage -> {
                                double sigma = Double.parseDouble(InsertValuePopup.show("Insert standard deviation value", "0").get());
                                int slopeThreshold = Integer.parseInt(InsertValuePopup.show("Insert slope threshold", "0").get());
@@ -549,8 +549,8 @@ public class MainPresenter {
                            });
     }
 
-    public void onApplyDiffusion() {
-        new DiffusionSceneCreator().createScene();
+    public void onAplicarDifusion() {
+        new DifusionSceneCreator().createScene();
         view.aceptarBoton.setVisible(true);
     }
 
@@ -571,7 +571,7 @@ public class MainPresenter {
     }
 
     public void onApplySusanEdgeDetector() {
-        this.getImageAction.execute()
+        this.obtenerImagenAction.ejecutar()
                            .ifPresent(customImage -> {
                                Mascara susanMascara = new SusanMascara();
                                Imagen edgedImage = this.applySusanDetectorAction.execute(customImage, susanMascara);

@@ -1,7 +1,7 @@
 package core.action.threshold;
 
 import core.service.ApplyThresholdService;
-import domain.customimage.Imagen;
+import dominio.customimage.Imagen;
 import javafx.scene.image.Image;
 
 

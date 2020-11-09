@@ -2,9 +2,9 @@ package core.action.figure;
 
 import core.repository.RepositorioImagen;
 import core.service.generation.ImageFigureService;
-import domain.customimage.Imagen;
-import domain.customimage.Format;
-import domain.generation.Figure;
+import dominio.customimage.Imagen;
+import dominio.customimage.Format;
+import dominio.generation.Figure;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 

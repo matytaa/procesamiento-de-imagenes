@@ -2,10 +2,10 @@ package core.action.channels;
 
 import core.repository.RepositorioImagen;
 import core.service.transformations.TransformRGBtoHSVImageService;
-import domain.customimage.Imagen;
-import domain.customimage.Format;
-import domain.generation.Channel;
-import domain.hsvimage.HSVImage;
+import dominio.customimage.Imagen;
+import dominio.customimage.Format;
+import dominio.generation.Channel;
+import dominio.hsvimage.HSVImage;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;

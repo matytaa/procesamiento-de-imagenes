@@ -2,8 +2,8 @@ package presentation.presenter;
 
 import core.action.characteristic_points.ApplyHarrisDetectorAction;
 import core.action.image.LoadImageAction;
-import domain.XYPoint;
-import domain.customimage.Imagen;
+import dominio.XYPoint;
+import dominio.customimage.Imagen;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;

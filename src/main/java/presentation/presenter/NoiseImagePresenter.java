@@ -1,8 +1,8 @@
 package presentation.presenter;
 
 import core.action.histogram.CreateImageHistogramAction;
-import domain.Histograma;
-import domain.customimage.Imagen;
+import dominio.Histograma;
+import dominio.customimage.Imagen;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 import javafx.beans.value.ChangeListener;

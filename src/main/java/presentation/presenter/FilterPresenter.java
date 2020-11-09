@@ -1,26 +1,26 @@
 package presentation.presenter;
 
 import core.action.filter.AplicarFiltroAction;
-import core.action.image.GetImageAction;
-import domain.SemaforoFiltro;
-import domain.mask.Mascara;
-import domain.mask.filter.MascaraGaussiana;
-import domain.mask.filter.MascaraMedia;
-import domain.mask.filter.MascaraMediana;
-import domain.mask.filter.MascaraMedianaPonderada;
+import core.action.image.ObtenerImagenAction;
+import dominio.SemaforoFiltro;
+import dominio.mask.Mascara;
+import dominio.mask.filter.MascaraGaussiana;
+import dominio.mask.filter.MascaraMedia;
+import dominio.mask.filter.MascaraMediana;
+import dominio.mask.filter.MascaraMedianaPonderada;
 import presentation.controller.FilterSceneController;
 
 public class FilterPresenter {
 
     private final FilterSceneController view;
-    private final GetImageAction getImageAction;
+    private final ObtenerImagenAction obtenerImagenAction;
     private final AplicarFiltroAction aplicarFiltroAction;
 
     public FilterPresenter(FilterSceneController view,
-                           GetImageAction getImageAction,
+                           ObtenerImagenAction obtenerImagenAction,
                            AplicarFiltroAction aplicarFiltroAction) {
         this.view = view;
-        this.getImageAction = getImageAction;
+        this.obtenerImagenAction = obtenerImagenAction;
         this.aplicarFiltroAction = aplicarFiltroAction;
     }
 
@@ -65,7 +65,7 @@ public class FilterPresenter {
     }
 
     private void aplicarConMascara(Mascara mascara) {
-        this.getImageAction.execute()
+        this.obtenerImagenAction.ejecutar()
                 .ifPresent(imagen -> {
                     aplicarFiltroAction.aplicar(imagen, mascara);
                     view.closeWindow();

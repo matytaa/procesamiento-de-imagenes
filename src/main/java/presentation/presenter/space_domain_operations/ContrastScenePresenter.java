@@ -1,9 +1,9 @@
 package presentation.presenter.space_domain_operations;
 
 import core.action.edit.space_domain.ApplyContrastAction;
-import core.action.image.GetImageAction;
+import core.action.image.ObtenerImagenAction;
 import core.service.statistics.GrayLevelStatisticsService;
-import domain.customimage.Imagen;
+import dominio.customimage.Imagen;
 import io.reactivex.subjects.PublishSubject;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -17,7 +17,7 @@ public class ContrastScenePresenter {
 
     private final ContrastSceneController view;
     private final ApplyContrastAction applyContrastAction;
-    private final GetImageAction getImageAction;
+    private final ObtenerImagenAction obtenerImagenAction;
     private final GrayLevelStatisticsService grayLevelStatisticsService;
     private final PublishSubject<Image> modifiedImagePublishSubject;
 
@@ -27,19 +27,19 @@ public class ContrastScenePresenter {
 
     public ContrastScenePresenter(ContrastSceneController contrastSceneController,
                                   ApplyContrastAction applyContrastAction,
-                                  GetImageAction getImageAction,
+                                  ObtenerImagenAction obtenerImagenAction,
                                   GrayLevelStatisticsService grayLevelStatisticsService,
                                   PublishSubject<Image> modifiedImagePublishSubject) {
 
         this.view = contrastSceneController;
         this.applyContrastAction = applyContrastAction;
-        this.getImageAction = getImageAction;
+        this.obtenerImagenAction = obtenerImagenAction;
         this.grayLevelStatisticsService = grayLevelStatisticsService;
         this.modifiedImagePublishSubject = modifiedImagePublishSubject;
     }
 
     public void onInitializeView() {
-        Optional<Imagen> customImageOptional = this.getImageAction.execute();
+        Optional<Imagen> customImageOptional = this.obtenerImagenAction.ejecutar();
         if (!customImageOptional.isPresent()) {
             this.view.closeWindow();
             return;

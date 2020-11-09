@@ -1,7 +1,7 @@
 package core.action.characteristic_points;
 
-import domain.customimage.Imagen;
-import domain.sift.SiftResult;
+import dominio.customimage.Imagen;
+import dominio.sift.SiftResult;
 import org.openimaj.feature.local.list.LocalFeatureList;
 import org.openimaj.feature.local.matcher.FastBasicKeypointMatcher;
 import org.openimaj.feature.local.matcher.LocalFeatureMatcher;

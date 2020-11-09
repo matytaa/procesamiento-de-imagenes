@@ -2,8 +2,8 @@ package presentation.presenter;
 
 import core.action.characteristic_points.ApplySiftDetectorAction;
 import core.action.image.LoadImageAction;
-import domain.customimage.Imagen;
-import domain.sift.SiftResult;
+import dominio.customimage.Imagen;
+import dominio.sift.SiftResult;
 import org.openimaj.image.DisplayUtilities;
 import presentation.controller.SiftSceneController;
 import presentation.util.ShowResultPopup;

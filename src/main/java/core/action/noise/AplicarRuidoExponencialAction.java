@@ -3,8 +3,8 @@ package core.action.noise;
 import core.repository.RepositorioImagen;
 import core.service.OperacionesImagenesService;
 import core.service.statistics.GeneradorDeRandomsService;
-import domain.customimage.Imagen;
-import domain.customimage.Pixel;
+import dominio.customimage.Imagen;
+import dominio.customimage.Pixel;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 

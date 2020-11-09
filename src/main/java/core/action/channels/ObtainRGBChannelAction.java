@@ -1,9 +1,9 @@
 package core.action.channels;
 
 import core.repository.RepositorioImagen;
-import domain.customimage.Imagen;
-import domain.customimage.Format;
-import domain.generation.Channel;
+import dominio.customimage.Imagen;
+import dominio.customimage.Format;
+import dominio.generation.Channel;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;

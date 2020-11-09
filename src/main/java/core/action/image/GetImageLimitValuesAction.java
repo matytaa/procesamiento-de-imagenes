@@ -1,8 +1,8 @@
 package core.action.image;
 
 import core.service.statistics.GrayLevelStatisticsService;
-import domain.automaticthreshold.ImageLimitValues;
-import domain.customimage.Imagen;
+import dominio.automaticthreshold.ImageLimitValues;
+import dominio.customimage.Imagen;
 
 
 public class GetImageLimitValuesAction {

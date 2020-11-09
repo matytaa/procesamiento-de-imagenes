@@ -1,12 +1,12 @@
 package core.action.edgedetector;
 
-import domain.XYPoint;
-import domain.activecontour.ActiveContour;
-import domain.activecontour.ContourCustomImage;
-import domain.activecontour.FdFunction;
-import domain.activecontour.FdFunctionMode;
-import domain.customimage.Imagen;
-import domain.mask.filter.MascaraGaussiana;
+import dominio.XYPoint;
+import dominio.activecontour.ActiveContour;
+import dominio.activecontour.ContourCustomImage;
+import dominio.activecontour.FdFunction;
+import dominio.activecontour.FdFunctionMode;
+import dominio.customimage.Imagen;
+import dominio.mask.filter.MascaraGaussiana;
 
 import java.util.ArrayList;
 import java.util.List;

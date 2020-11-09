@@ -1,8 +1,8 @@
 package presentation.controller;
 
 import core.provider.PresenterProvider;
-import domain.activecontour.FdFunctionMode;
-import domain.activecontour.SelectionSquare;
+import dominio.activecontour.FdFunctionMode;
+import dominio.activecontour.SelectionSquare;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Button;

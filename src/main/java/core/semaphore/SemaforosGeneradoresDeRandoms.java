@@ -1,6 +1,6 @@
 package core.semaphore;
 
-import domain.RandomElement;
+import dominio.RandomElement;
 
 public class SemaforosGeneradoresDeRandoms {
 

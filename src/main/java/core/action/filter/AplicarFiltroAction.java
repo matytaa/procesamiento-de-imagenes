@@ -1,9 +1,9 @@
 package core.action.filter;
 
 import core.service.OperacionesImagenesService;
-import domain.customimage.MatrizCanales;
-import domain.customimage.Imagen;
-import domain.mask.Mascara;
+import dominio.customimage.MatrizCanales;
+import dominio.customimage.Imagen;
+import dominio.mask.Mascara;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
 

@@ -1,6 +1,6 @@
 package core.action.image;
 
-import domain.ImageInform;
+import dominio.ImageInform;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;

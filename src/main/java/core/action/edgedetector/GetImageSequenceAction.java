@@ -1,7 +1,7 @@
 package core.action.edgedetector;
 
 import core.repository.RepositorioImagen;
-import domain.customimage.Imagen;
+import dominio.customimage.Imagen;
 
 import java.util.List;
 import java.util.Optional;

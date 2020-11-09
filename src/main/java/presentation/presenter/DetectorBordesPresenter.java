@@ -1,34 +1,34 @@
 package presentation.presenter;
 
 import core.action.edgedetector.AplicarDetectorDeBordesAction;
-import core.action.image.GetImageAction;
-import domain.SemaforoFiltro;
-import domain.customimage.Imagen;
-import domain.mask.Mascara;
-import domain.mask.prewitt.MascaraDerivativaPrewittX;
-import domain.mask.prewitt.MascaraDerivativaPrewittY;
-import domain.mask.sobel.MascaraSobelX;
-import domain.mask.sobel.MascaraSobelY;
+import core.action.image.ObtenerImagenAction;
+import dominio.SemaforoFiltro;
+import dominio.customimage.Imagen;
+import dominio.mask.Mascara;
+import dominio.mask.prewitt.MascaraDerivativaPrewittX;
+import dominio.mask.prewitt.MascaraDerivativaPrewittY;
+import dominio.mask.sobel.MascaraSobelX;
+import dominio.mask.sobel.MascaraSobelY;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
 
 public class DetectorBordesPresenter {
 
-    private final GetImageAction getImageAction;
+    private final ObtenerImagenAction obtenerImagenAction;
     private final AplicarDetectorDeBordesAction aplicarDetectorDeBordesAction;
     private final PublishSubject<Image> imagePublishSubject;
 
-    public DetectorBordesPresenter(GetImageAction getImageAction,
+    public DetectorBordesPresenter(ObtenerImagenAction obtenerImagenAction,
                                    AplicarDetectorDeBordesAction aplicarDetectorDeBordesAction,
                                    PublishSubject<Image> imagePublishSubject) {
 
-        this.getImageAction = getImageAction;
+        this.obtenerImagenAction = obtenerImagenAction;
         this.aplicarDetectorDeBordesAction = aplicarDetectorDeBordesAction;
         this.imagePublishSubject = imagePublishSubject;
     }
 
     public void onInitialize() {
-        this.getImageAction.execute()
+        this.obtenerImagenAction.ejecutar()
                 .ifPresent(imagen -> {
                     if (SemaforoFiltro.is(Mascara.Tipo.PREWITT)) {
                         this.aplicarDetectorBordesPrewitt(imagen);

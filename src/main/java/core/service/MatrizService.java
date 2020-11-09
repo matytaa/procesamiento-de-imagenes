@@ -1,6 +1,6 @@
 package core.service;
 
-import domain.customimage.RGB;
+import dominio.customimage.RGB;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;

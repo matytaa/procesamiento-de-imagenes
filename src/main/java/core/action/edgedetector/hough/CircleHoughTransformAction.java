@@ -1,7 +1,7 @@
 package core.action.edgedetector.hough;
 
-import domain.customimage.Imagen;
-import domain.hough.XYRCircle;
+import dominio.customimage.Imagen;
+import dominio.hough.XYRCircle;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;

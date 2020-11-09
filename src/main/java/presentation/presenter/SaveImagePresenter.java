@@ -1,19 +1,19 @@
 package presentation.presenter;
 
-import core.action.image.GetImageAction;
+import core.action.image.ObtenerImagenAction;
 import core.action.image.SaveImageAction;
-import domain.customimage.Format;
+import dominio.customimage.Format;
 import presentation.controller.SaveImageController;
 
 public class SaveImagePresenter {
 
     private final SaveImageController view;
-    private final GetImageAction getImageAction;
+    private final ObtenerImagenAction obtenerImagenAction;
     private final SaveImageAction saveImageAction;
 
-    public SaveImagePresenter(SaveImageController view, GetImageAction getImageAction,
+    public SaveImagePresenter(SaveImageController view, ObtenerImagenAction obtenerImagenAction,
                               SaveImageAction saveImageAction) {
-        this.getImageAction = getImageAction;
+        this.obtenerImagenAction = obtenerImagenAction;
         this.saveImageAction = saveImageAction;
         this.view = view;
     }
@@ -21,7 +21,7 @@ public class SaveImagePresenter {
     public void saveImage() {
         String filename = this.view.outputName.getText();
         String extension = this.view.formatList.getSelectionModel().getSelectedItems().get(0);
-        this.getImageAction.execute()
+        this.obtenerImagenAction.ejecutar()
                 .ifPresent(image -> {
                     if(saveImageAction.execute(image, filename, extension) != null) {
                         this.view.closeWindow();

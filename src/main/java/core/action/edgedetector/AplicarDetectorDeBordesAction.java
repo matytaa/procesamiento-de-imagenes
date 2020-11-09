@@ -2,9 +2,9 @@ package core.action.edgedetector;
 
 import core.service.OperacionesImagenesService;
 import core.service.MatrizService;
-import domain.customimage.MatrizCanales;
-import domain.customimage.Imagen;
-import domain.mask.Mascara;
+import dominio.customimage.MatrizCanales;
+import dominio.customimage.Imagen;
+import dominio.mask.Mascara;
 import javafx.scene.image.Image;
 
 public class AplicarDetectorDeBordesAction {
@@ -31,7 +31,7 @@ public class AplicarDetectorDeBordesAction {
 
         //Se normaliza y se devuelve la imagen resultante
         Image imagenResultante = this.matrizService
-                .toImage(gradiente.getRedChannel(), gradiente.getGreenChannel(), gradiente.getBlueChannel());
+                .toImage(gradiente.getCanalRojo(), gradiente.getCanalVerde(), gradiente.getCanalAzul());
 
         return imagenResultante;
     }
@@ -42,7 +42,7 @@ public class AplicarDetectorDeBordesAction {
 
         //Se normaliza y se devuelve la imagen resultante
         Image imagenResultante = this.matrizService
-                .toImage(matrizCanalesDerivada.getRedChannel(), matrizCanalesDerivada.getGreenChannel(), matrizCanalesDerivada.getBlueChannel());
+                .toImage(matrizCanalesDerivada.getCanalRojo(), matrizCanalesDerivada.getCanalVerde(), matrizCanalesDerivada.getCanalAzul());
 
         return imagenResultante;
     }

@@ -2,10 +2,10 @@ package core.action.edgedetector;
 
 import core.service.OperacionesImagenesService;
 import core.service.MatrizService;
-import domain.customimage.MatrizCanales;
-import domain.customimage.Imagen;
-import domain.customimage.RGB;
-import domain.mask.Mascara;
+import dominio.customimage.MatrizCanales;
+import dominio.customimage.Imagen;
+import dominio.customimage.RGB;
+import dominio.mask.Mascara;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
 
@@ -33,9 +33,9 @@ public class AplicarOperadorDireccionalDerivativoAction {
                 mascaraHorizontal, mascaraVertical,
                 mascaraDiagonalPrincipal, mascaraDiagonalSecundaria);
 
-        int[][] redChannel = channelMatrix.getRedChannel();
-        int[][] greenChannel = channelMatrix.getGreenChannel();
-        int[][] blueChannel = channelMatrix.getBlueChannel();
+        int[][] redChannel = channelMatrix.getCanalRojo();
+        int[][] greenChannel = channelMatrix.getCanalVerde();
+        int[][] blueChannel = channelMatrix.getCanalAzul();
         Image resultantImage = this.matrizService.toImage(redChannel, greenChannel, blueChannel);
 
         imagePublishSubject.onNext(resultantImage);

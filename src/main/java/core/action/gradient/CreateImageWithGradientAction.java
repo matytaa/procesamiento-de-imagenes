@@ -2,9 +2,9 @@ package core.action.gradient;
 
 import core.repository.RepositorioImagen;
 import core.service.generation.ImageGradientService;
-import domain.customimage.Imagen;
-import domain.customimage.Format;
-import domain.generation.Gradient;
+import dominio.customimage.Imagen;
+import dominio.customimage.Format;
+import dominio.generation.Gradient;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 

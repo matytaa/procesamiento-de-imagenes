@@ -1,9 +1,9 @@
 package core.service;
 
 import core.service.statistics.GrayLevelStatisticsService;
-import domain.customimage.MatrizCanales;
-import domain.customimage.Imagen;
-import domain.customimage.Pixel;
+import dominio.customimage.MatrizCanales;
+import dominio.customimage.Imagen;
+import dominio.customimage.Pixel;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
@@ -244,30 +244,30 @@ public class OperacionesImagenesService {
     }
 
     public MatrizCanales aMatrizValida(MatrizCanales matrizCanal) {
-        int[][] redChannel = this.aMatrizValida(matrizCanal.getRedChannel());
-        int[][] greenChannel = this.aMatrizValida(matrizCanal.getGreenChannel());
-        int[][] blueChannel = this.aMatrizValida(matrizCanal.getBlueChannel());
+        int[][] redChannel = this.aMatrizValida(matrizCanal.getCanalRojo());
+        int[][] greenChannel = this.aMatrizValida(matrizCanal.getCanalVerde());
+        int[][] blueChannel = this.aMatrizValida(matrizCanal.getCanalAzul());
         return new MatrizCanales(redChannel, greenChannel, blueChannel);
     }
 
     public MatrizCanales multiplicarMatrizPorCanal(MatrizCanales matrizCanal1, MatrizCanales matrizCanal2) {
-        int[][] redChannel = multiplicarMatriz(matrizCanal1.getRedChannel(), matrizCanal2.getRedChannel());
-        int[][] greenChannel = multiplicarMatriz(matrizCanal1.getGreenChannel(), matrizCanal2.getGreenChannel());
-        int[][] blueChannel = multiplicarMatriz(matrizCanal1.getBlueChannel(), matrizCanal2.getBlueChannel());
+        int[][] redChannel = multiplicarMatriz(matrizCanal1.getCanalRojo(), matrizCanal2.getCanalRojo());
+        int[][] greenChannel = multiplicarMatriz(matrizCanal1.getCanalVerde(), matrizCanal2.getCanalVerde());
+        int[][] blueChannel = multiplicarMatriz(matrizCanal1.getCanalAzul(), matrizCanal2.getCanalAzul());
         return aMatrizValida(new MatrizCanales(redChannel, greenChannel, blueChannel));
     }
 
     public MatrizCanales sumarMatrizCanales(MatrizCanales matrizCanal1, MatrizCanales matrizCanal2) {
-        int[][] redChannel = sumarMatriz(matrizCanal1.getRedChannel(), matrizCanal2.getRedChannel());
-        int[][] greenChannel = sumarMatriz(matrizCanal1.getGreenChannel(), matrizCanal2.getGreenChannel());
-        int[][] blueChannel = sumarMatriz(matrizCanal1.getBlueChannel(), matrizCanal2.getBlueChannel());
+        int[][] redChannel = sumarMatriz(matrizCanal1.getCanalRojo(), matrizCanal2.getCanalRojo());
+        int[][] greenChannel = sumarMatriz(matrizCanal1.getCanalVerde(), matrizCanal2.getCanalVerde());
+        int[][] blueChannel = sumarMatriz(matrizCanal1.getCanalAzul(), matrizCanal2.getCanalAzul());
         return aMatrizValida(new MatrizCanales(redChannel, greenChannel, blueChannel));
     }
 
     public MatrizCanales raizMatrizCanal(MatrizCanales matrizCanales) {
-        int[][] redChannel = raizMatriz(matrizCanales.getRedChannel());
-        int[][] greenChannel = raizMatriz(matrizCanales.getGreenChannel());
-        int[][] blueChannel = raizMatriz(matrizCanales.getBlueChannel());
+        int[][] redChannel = raizMatriz(matrizCanales.getCanalRojo());
+        int[][] greenChannel = raizMatriz(matrizCanales.getCanalVerde());
+        int[][] blueChannel = raizMatriz(matrizCanales.getCanalAzul());
         return aMatrizValida(new MatrizCanales(redChannel, greenChannel, blueChannel));
     }
 
@@ -307,9 +307,9 @@ public class OperacionesImagenesService {
     }
 
     public MatrizCanales calcularSumaAbsoluta(MatrizCanales firstImage, MatrizCanales secondImage) {
-        int[][] redChannel = this.calcularSumaAbsoluta(firstImage.getRedChannel(), secondImage.getRedChannel());
-        int[][] greenChannel = this.calcularSumaAbsoluta(firstImage.getGreenChannel(), secondImage.getGreenChannel());
-        int[][] blueChannel = this.calcularSumaAbsoluta(firstImage.getBlueChannel(), secondImage.getBlueChannel());
+        int[][] redChannel = this.calcularSumaAbsoluta(firstImage.getCanalRojo(), secondImage.getCanalRojo());
+        int[][] greenChannel = this.calcularSumaAbsoluta(firstImage.getCanalVerde(), secondImage.getCanalVerde());
+        int[][] blueChannel = this.calcularSumaAbsoluta(firstImage.getCanalAzul(), secondImage.getCanalAzul());
         return new MatrizCanales(redChannel, greenChannel, blueChannel);
     }
 
