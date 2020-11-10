@@ -2,6 +2,6 @@ package dominio.flags;
 
 public enum LaplacianDetector {
 
-    STANDARD, WITH_SLOPE_EVALUATION
+    STANDARD, CON_EVALUACION_DE_LA_PENDIENTE
 
 }

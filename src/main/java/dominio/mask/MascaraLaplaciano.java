@@ -1,9 +1,9 @@
 package dominio.mask;
 
-public class LaplacianMascara extends Mascara {
+public class MascaraLaplaciano extends Mascara {
 
-    public LaplacianMascara() {
-        super(Tipo.LAPLACIAN, AVAILABLE_SIZE);
+    public MascaraLaplaciano() {
+        super(Tipo.LAPLACIANO, AVAILABLE_SIZE);
         this.matriz = crearMatriz(AVAILABLE_SIZE);
     }
 

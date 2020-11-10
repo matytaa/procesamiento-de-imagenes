@@ -2,7 +2,7 @@ package presentation.presenter;
 
 import core.action.channels.ObtainHSVChannelAction;
 import core.action.channels.ObtainRGBChannelAction;
-import core.action.edgedetector.ApplyLaplacianDetectorAction;
+import core.action.edgedetector.AplicarDetectorLaplacianoAction;
 import core.action.edgedetector.ApplySusanDetectorAction;
 import core.action.edit.ModifyPixelAction;
 import core.action.edit.space_domain.CalcularNegativoAction;
@@ -30,8 +30,8 @@ import dominio.flags.LaplacianDetector;
 import dominio.generation.Channel;
 import dominio.generation.Figure;
 import dominio.generation.Gradient;
-import dominio.mask.LaplacianMascaraGaussiana;
-import dominio.mask.LaplacianMascara;
+import dominio.mask.MascaraLaplacianoDelGaussiano;
+import dominio.mask.MascaraLaplaciano;
 import dominio.mask.Mascara;
 import dominio.mask.SusanMascara;
 import dominio.mask.filter.HighPassMascara;
@@ -72,7 +72,7 @@ public class MainPresenter {
     private final UpdateCurrentImageAction updateCurrentImageAction;
     private final ApplyGlobalThresholdEstimationAction applyGlobalThresholdEstimationAction;
     private final ApplyOtsuThresholdEstimationAction applyOtsuThresholdEstimationAction;
-    private final ApplyLaplacianDetectorAction applyLaplacianDetectorAction;
+    private final AplicarDetectorLaplacianoAction aplicarDetectorLaplacianoAction;
     private final UndoChangesAction undoChangesAction;
     private final GetImageLimitValuesAction getImageLimitValuesAction;
     private final ApplySusanDetectorAction applySusanDetectorAction;
@@ -95,7 +95,7 @@ public class MainPresenter {
                          UpdateCurrentImageAction updateCurrentImageAction,
                          ApplyGlobalThresholdEstimationAction applyGlobalThresholdEstimationAction,
                          ApplyOtsuThresholdEstimationAction applyOtsuThresholdEstimationAction,
-                         ApplyLaplacianDetectorAction applyLaplacianDetectorAction,
+                         AplicarDetectorLaplacianoAction aplicarDetectorLaplacianoAction,
                          UndoChangesAction undoChangesAction,
                          GetImageLimitValuesAction getImageLimitValuesAction,
                          ApplySusanDetectorAction applySusanDetectorAction) {
@@ -120,7 +120,7 @@ public class MainPresenter {
         this.updateCurrentImageAction = updateCurrentImageAction;
         this.applyGlobalThresholdEstimationAction = applyGlobalThresholdEstimationAction;
         this.applyOtsuThresholdEstimationAction = applyOtsuThresholdEstimationAction;
-        this.applyLaplacianDetectorAction = applyLaplacianDetectorAction;
+        this.aplicarDetectorLaplacianoAction = aplicarDetectorLaplacianoAction;
         this.undoChangesAction = undoChangesAction;
         this.getImageLimitValuesAction = getImageLimitValuesAction;
         this.applySusanDetectorAction = applySusanDetectorAction;
@@ -218,7 +218,7 @@ public class MainPresenter {
         setImageOnModifiedImageView(obtainHSVChannelAction.execute(Channel.VALUE));
     }
 
-    private void updateModifiedImage(Imagen customImage) {
+    private void actualizarImagenModificada(Imagen customImage) {
         this.putModifiedImageAction.execute(customImage);
         this.setImageOnModifiedImageView(customImage);
     }
@@ -526,26 +526,25 @@ public class MainPresenter {
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplyLaplacianEdgeDetector(LaplacianDetector detector) {
+    public void onAplicarDetectorDeBordeLaplacianoConEvaluacionDeLaPendiente(LaplacianDetector detector) {
         this.obtenerImagenAction.ejecutar()
                            .ifPresent(customImage -> {
-                               int slopeThreshold = 0;
-                               if (detector == LaplacianDetector.WITH_SLOPE_EVALUATION) {
-                                   slopeThreshold = Integer.parseInt(InsertValuePopup.show("Insert slope threshold", "0").get());
-                               }
-                               Imagen edgedImage = this.applyLaplacianDetectorAction.execute(customImage, new LaplacianMascara(), slopeThreshold);
-                               this.updateModifiedImage(edgedImage);
+                               int pendiente = 0;
+                               if (detector == LaplacianDetector.CON_EVALUACION_DE_LA_PENDIENTE)
+                                   pendiente = Integer.parseInt(InsertValuePopup.show("Ingrese la pendiente", "0").get());
+                               Imagen imagenConBordes = this.aplicarDetectorLaplacianoAction.ejecutar(customImage, new MascaraLaplaciano(), pendiente);
+                               this.actualizarImagenModificada(imagenConBordes);
                            });
     }
 
-    public void onApplyMarrHildrethEdgeDetector() {
+    public void onAplicarMarrHildrethDetectorDeBorde() {
         this.obtenerImagenAction.ejecutar()
                            .ifPresent(customImage -> {
-                               double sigma = Double.parseDouble(InsertValuePopup.show("Insert standard deviation value", "0").get());
-                               int slopeThreshold = Integer.parseInt(InsertValuePopup.show("Insert slope threshold", "0").get());
-                               Imagen edgedImage = this.applyLaplacianDetectorAction
-                                       .execute(customImage, new LaplacianMascaraGaussiana(sigma), slopeThreshold);
-                               this.updateModifiedImage(edgedImage);
+                               double sigma = Double.parseDouble(InsertValuePopup.show("Ingrese el valor de la desviación estandar", "0").get());
+                               int pendiente = Integer.parseInt(InsertValuePopup.show("Ingrese la pendiente", "0").get());
+                               Imagen imagenConBordes = this.aplicarDetectorLaplacianoAction
+                                       .ejecutar(customImage, new MascaraLaplacianoDelGaussiano(sigma), pendiente);
+                               this.actualizarImagenModificada(imagenConBordes);
                            });
     }
 
@@ -575,7 +574,7 @@ public class MainPresenter {
                            .ifPresent(customImage -> {
                                Mascara susanMascara = new SusanMascara();
                                Imagen edgedImage = this.applySusanDetectorAction.execute(customImage, susanMascara);
-                               this.updateModifiedImage(edgedImage);
+                               this.actualizarImagenModificada(edgedImage);
                            });
     }
 

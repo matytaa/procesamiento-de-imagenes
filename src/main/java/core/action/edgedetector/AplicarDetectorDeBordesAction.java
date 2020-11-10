@@ -20,8 +20,8 @@ public class AplicarDetectorDeBordesAction {
 
     public Image ejecutar(Imagen imagen, Mascara mascaraDerivativaX, Mascara mascaraDerivativaY) {
         //Se calcula la derivadas con la máscaras
-        MatrizCanales matrizCanalesDerivadaX = mascaraDerivativaX.apply(imagen);
-        MatrizCanales matrizCanalesDerivadaY = mascaraDerivativaY.apply(imagen);
+        MatrizCanales matrizCanalesDerivadaX = mascaraDerivativaX.aplicar(imagen);
+        MatrizCanales matrizCanalesDerivadaY = mascaraDerivativaY.aplicar(imagen);
 
         //Calculamos el gradiente usando: sqrt(X^2 + Y^2)
         MatrizCanales derivadaAlCuadradoX = this.operacionesImagenesService.multiplicarMatrizPorCanal(matrizCanalesDerivadaX, matrizCanalesDerivadaX);
@@ -38,7 +38,7 @@ public class AplicarDetectorDeBordesAction {
 
     public Image ejecutar(Imagen imagen, Mascara mascaraDerivativa) {
         //Se calcula la derivada con la máscara
-        MatrizCanales matrizCanalesDerivada = this.operacionesImagenesService.aMatrizValida(mascaraDerivativa.apply(imagen));
+        MatrizCanales matrizCanalesDerivada = this.operacionesImagenesService.aMatrizValida(mascaraDerivativa.aplicar(imagen));
 
         //Se normaliza y se devuelve la imagen resultante
         Image imagenResultante = this.matrizService

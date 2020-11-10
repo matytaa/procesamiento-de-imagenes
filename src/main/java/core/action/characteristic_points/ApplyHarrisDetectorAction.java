@@ -21,8 +21,8 @@ public class ApplyHarrisDetectorAction {
 
     public List<XYPoint> execute(Imagen image, double tolerance) {
 
-        int[][] xDeriv = new MascaraSobelX().apply(image).getCanalRojo();
-        int[][] yDeriv = new MascaraSobelY().apply(image).getCanalRojo();
+        int[][] xDeriv = new MascaraSobelX().aplicar(image).getCanalRojo();
+        int[][] yDeriv = new MascaraSobelY().aplicar(image).getCanalRojo();
 
         double[][] xSquareDeriv = this.applyGaussianFilter(this.matrizService.calculateSquare(xDeriv));
         double[][] ySquareDeriv = this.applyGaussianFilter(this.matrizService.calculateSquare(yDeriv));

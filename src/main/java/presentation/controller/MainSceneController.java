@@ -318,8 +318,8 @@ public class MainSceneController {
     }
 
     @FXML
-    public void onApplyLaplacianEdgeDetector() {
-        this.mainPresenter.onApplyLaplacianEdgeDetector(LaplacianDetector.STANDARD);
+    public void onAplicarDetectorDeBordeLaplaciano() {
+        this.mainPresenter.onAplicarDetectorDeBordeLaplacianoConEvaluacionDeLaPendiente(LaplacianDetector.STANDARD);
     }
 
     @FXML
@@ -333,13 +333,13 @@ public class MainSceneController {
     }
 
     @FXML
-    public void onApplyLaplacianEdgeDetectorWithSlopeEvaluation() {
-        this.mainPresenter.onApplyLaplacianEdgeDetector(LaplacianDetector.WITH_SLOPE_EVALUATION);
+    public void onAplicarDetectorDeBordeLaplacianoConEvaluacionDeLaPendiente() {
+        this.mainPresenter.onAplicarDetectorDeBordeLaplacianoConEvaluacionDeLaPendiente(LaplacianDetector.CON_EVALUACION_DE_LA_PENDIENTE);
     }
 
     @FXML
-    public void onApplyMarrHildrethEdgeDetector() {
-        this.mainPresenter.onApplyMarrHildrethEdgeDetector();
+    public void onAplicarMarrHildrethDetectorDeBorde() {
+        this.mainPresenter.onAplicarMarrHildrethDetectorDeBorde();
     }
 
     @FXML

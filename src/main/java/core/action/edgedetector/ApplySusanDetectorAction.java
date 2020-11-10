@@ -9,7 +9,7 @@ public class ApplySusanDetectorAction {
     public Imagen execute(Imagen customImage, Mascara mascara) {
 
         MatrizCanales originalImageMatrix = new MatrizCanales(customImage.getMatrizRed(), customImage.getMatrizBlue(), customImage.getMatrizGreen());
-        MatrizCanales maskResult = mascara.apply(customImage);
+        MatrizCanales maskResult = mascara.aplicar(customImage);
 
         for (int i = 0; i < originalImageMatrix.getWidth(); i++) {
             for (int j = 0; j < originalImageMatrix.getHeight(); j++) {

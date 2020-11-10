@@ -65,7 +65,7 @@ class ActionProvider {
     private static AplicarOperadorDireccionalDerivativoAction aplicarOperadorDireccionalDerivativoAction;
     private static ApplyGlobalThresholdEstimationAction applyGlobalThresholdEstimationAction;
     private static ApplyOtsuThresholdEstimationAction applyOtsuThresholdEstimationAction;
-    private static ApplyLaplacianDetectorAction applyLaplacianDetectorAction;
+    private static AplicarDetectorLaplacianoAction aplicarDetectorLaplacianoAction;
     private static AplicarDifusionAction aplicarDifusionAction;
     private static UndoChangesAction undoChangesAction;
     private static GetImageLimitValuesAction getImageLimitValuesAction;
@@ -353,11 +353,11 @@ class ActionProvider {
         return applyOtsuThresholdEstimationAction;
     }
 
-    public static ApplyLaplacianDetectorAction provideApplyLaplacianDetectorAction() {
-        if (applyLaplacianDetectorAction == null) {
-            applyLaplacianDetectorAction = new ApplyLaplacianDetectorAction();
+    public static AplicarDetectorLaplacianoAction provideApplyLaplacianDetectorAction() {
+        if (aplicarDetectorLaplacianoAction == null) {
+            aplicarDetectorLaplacianoAction = new AplicarDetectorLaplacianoAction();
         }
-        return applyLaplacianDetectorAction;
+        return aplicarDetectorLaplacianoAction;
     }
 
     public static AplicarDifusionAction provideApplyDiffusionAction() {

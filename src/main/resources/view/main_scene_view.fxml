@@ -121,16 +121,25 @@
             <MenuItem mnemonicParsing="false" onAction="#umbralizar" text="Umbralizar" />
         </Menu>
         <Menu mnemonicParsing="false" text="Detección de Bordes">
-            <MenuItem mnemonicParsing="false" onAction="#onAplicarDetectorBordesSobelHorizontal" text="Máscara Sobel Horizontal" />
-            <MenuItem mnemonicParsing="false" onAction="#onAplicarDetectorBordesSobelVertical" text="Máscara Sobel Vertical" />
-            <MenuItem mnemonicParsing="false" onAction="#onAplicarDetectorBordesSobel" text="Máscara Sobel" />
-            <MenuItem mnemonicParsing="false" onAction="#OnAplicarDetectorBordesPrewitt" text="Máscara Prewitt" />
-        </Menu>
-        <Menu mnemonicParsing="false" text="Operadores direccionales derivativos">
-            <MenuItem mnemonicParsing="false" onAction="#onAplicarMascaraDerivativaDireccionalDeSobel" text="Máscara direccional derivativa de Sobel" />
-            <MenuItem mnemonicParsing="false" onAction="#onAplicarMascaraDerivativaDireccionalDePrewitt" text="Máscara direccional derivativa de Prewitt" />
-            <MenuItem mnemonicParsing="false" onAction="#onAplicarMascaraDerivativaDireccionalDeKirsh" text="Máscara direccional derivativa de Kirsh" />
-            <MenuItem mnemonicParsing="false" onAction="#onAplicarMascaraStadardDerivativaDireccional" text="Máscara direccional derivativa Standard" />
+            <Menu mnemonicParsing="false" text="Elementales">
+                <MenuItem mnemonicParsing="false" onAction="#onAplicarDetectorBordesSobelHorizontal" text="Máscara Sobel Horizontal" />
+                <MenuItem mnemonicParsing="false" onAction="#onAplicarDetectorBordesSobelVertical" text="Máscara Sobel Vertical" />
+                <MenuItem mnemonicParsing="false" onAction="#onAplicarDetectorBordesSobel" text="Máscara Sobel" />
+                <MenuItem mnemonicParsing="false" onAction="#OnAplicarDetectorBordesPrewitt" text="Máscara Prewitt" />
+            </Menu>
+            <Menu mnemonicParsing="false" text="Operadores direccionales derivativos">
+                <MenuItem mnemonicParsing="false" onAction="#onAplicarMascaraDerivativaDireccionalDeSobel" text="Máscara direccional derivativa de Sobel" />
+                <MenuItem mnemonicParsing="false" onAction="#onAplicarMascaraDerivativaDireccionalDePrewitt" text="Máscara direccional derivativa de Prewitt" />
+                <MenuItem mnemonicParsing="false" onAction="#onAplicarMascaraDerivativaDireccionalDeKirsh" text="Máscara direccional derivativa de Kirsh" />
+                <MenuItem mnemonicParsing="false" onAction="#onAplicarMascaraStadardDerivativaDireccional" text="Máscara direccional derivativa Standard" />
+            </Menu>
+            <Menu mnemonicParsing="false" text="Laplacianos">
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#onAplicarDetectorDeBordeLaplaciano" text="Laplaciano" />
+                    <MenuItem mnemonicParsing="false" onAction="#onAplicarDetectorDeBordeLaplacianoConEvaluacionDeLaPendiente" text="Laplaciano con evaluacion de la pendiente" />
+                    <MenuItem mnemonicParsing="false" onAction="#onAplicarMarrHildrethDetectorDeBorde" text="Marr-Hildreth (Gaussiano-Laplaciano)" />
+                </items>
+            </Menu>
         </Menu>
         <Menu mnemonicParsing="false" text="Anistropía">
             <MenuItem mnemonicParsing="false" onAction="#onAplicarDifusion" text="Difusión" />

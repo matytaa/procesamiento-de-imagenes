@@ -22,8 +22,8 @@ public class ApplyCannyDetectorAction {
 
     public Imagen execute(Imagen filteredImage, int t1, int t2) {
 
-        MatrizCanales sobelXDerivative = new MascaraSobelX().apply(filteredImage);
-        MatrizCanales sobelYDerivative = new MascaraSobelY().apply(filteredImage);
+        MatrizCanales sobelXDerivative = new MascaraSobelX().aplicar(filteredImage);
+        MatrizCanales sobelYDerivative = new MascaraSobelY().aplicar(filteredImage);
 
         int[][] gradientAngleMatrix = this.calculateGradientAngle(sobelXDerivative, sobelYDerivative);
         int[][] derivativesAbsoluteSumMatrix = this.operacionesImagenesService.calcularSumaAbsoluta(sobelXDerivative, sobelYDerivative)
