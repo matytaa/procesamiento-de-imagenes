@@ -308,13 +308,13 @@ public class MainSceneController {
     }
 
     @FXML
-    public void applyGlobalThresholdEstimation(){
-        this.mainPresenter.onApplyGlobalThresholdEstimation();
+    public void onAplicarEstimacionDelUmbralGlobal(){
+        this.mainPresenter.onAplicarEstimacionDelUmbralGlobal();
     }
 
     @FXML
-    public void applyOtsuThresholdEstimation(){
-        this.mainPresenter.onApplyOtsuThresholdEstimation();
+    public void onAplicarEstimacionDelUmbralDeOtsu(){
+        this.mainPresenter.onAplicarEstimacionDelUmbralDeOtsu();
     }
 
     @FXML

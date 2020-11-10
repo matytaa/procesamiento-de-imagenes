@@ -24,8 +24,8 @@ import core.action.noise.AplicarRuidoGaussianoAction;
 import core.action.noise.AplicarRuidoRayleighAction;
 import core.action.noise.AplicarRuidoSalYPimientaAction;
 import core.action.noise.generator.GenerarImagenRuidoSinteticoAction;
-import core.action.threshold.ApplyGlobalThresholdEstimationAction;
-import core.action.threshold.ApplyOtsuThresholdEstimationAction;
+import core.action.threshold.AplicarEstimacionDeUmbralGlobalAction;
+import core.action.threshold.AplicarEstimacionDelUmbralDeOtsuAction;
 import core.action.threshold.AplicarUmbralAction;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
@@ -63,8 +63,8 @@ class ActionProvider {
     private static AplicarDetectorDeBordesAction aplicarDetectorDeBordesAction;
     private static UpdateCurrentImageAction updateCurrentImageAction;
     private static AplicarOperadorDireccionalDerivativoAction aplicarOperadorDireccionalDerivativoAction;
-    private static ApplyGlobalThresholdEstimationAction applyGlobalThresholdEstimationAction;
-    private static ApplyOtsuThresholdEstimationAction applyOtsuThresholdEstimationAction;
+    private static AplicarEstimacionDeUmbralGlobalAction aplicarEstimacionDeUmbralGlobalAction;
+    private static AplicarEstimacionDelUmbralDeOtsuAction aplicarEstimacionDelUmbralDeOtsuAction;
     private static AplicarDetectorLaplacianoAction aplicarDetectorLaplacianoAction;
     private static AplicarDifusionAction aplicarDifusionAction;
     private static UndoChangesAction undoChangesAction;
@@ -334,23 +334,23 @@ class ActionProvider {
         return aplicarOperadorDireccionalDerivativoAction;
     }
 
-    public static ApplyGlobalThresholdEstimationAction provideApplyGlobalThresholdEstimation() {
-        if (applyGlobalThresholdEstimationAction == null) {
-            applyGlobalThresholdEstimationAction = new ApplyGlobalThresholdEstimationAction(
+    public static AplicarEstimacionDeUmbralGlobalAction provideApplyGlobalThresholdEstimation() {
+        if (aplicarEstimacionDeUmbralGlobalAction == null) {
+            aplicarEstimacionDeUmbralGlobalAction = new AplicarEstimacionDeUmbralGlobalAction(
                     ServiceProvider.provideMatrixService(),
                     ServiceProvider.provideApplyThresholdService());
         }
-        return applyGlobalThresholdEstimationAction;
+        return aplicarEstimacionDeUmbralGlobalAction;
     }
 
-    public static ApplyOtsuThresholdEstimationAction provideApplyOtsuThresholdEstimation() {
-        if (applyOtsuThresholdEstimationAction == null) {
-            applyOtsuThresholdEstimationAction = new ApplyOtsuThresholdEstimationAction(
+    public static AplicarEstimacionDelUmbralDeOtsuAction provideApplyOtsuThresholdEstimation() {
+        if (aplicarEstimacionDelUmbralDeOtsuAction == null) {
+            aplicarEstimacionDelUmbralDeOtsuAction = new AplicarEstimacionDelUmbralDeOtsuAction(
                     ServiceProvider.provideHistogramService(),
                     ServiceProvider.provideMatrixService(),
                     ServiceProvider.provideApplyThresholdService());
         }
-        return applyOtsuThresholdEstimationAction;
+        return aplicarEstimacionDelUmbralDeOtsuAction;
     }
 
     public static AplicarDetectorLaplacianoAction provideApplyLaplacianDetectorAction() {

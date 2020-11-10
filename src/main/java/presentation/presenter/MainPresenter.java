@@ -13,17 +13,17 @@ import core.action.gradient.CreateImageWithGradientAction;
 import core.action.histogram.EqualizeGrayImageAction;
 import core.action.histogram.utils.EqualizedTimes;
 import core.action.image.*;
-import core.action.threshold.ApplyGlobalThresholdEstimationAction;
-import core.action.threshold.ApplyOtsuThresholdEstimationAction;
+import core.action.threshold.AplicarEstimacionDeUmbralGlobalAction;
+import core.action.threshold.AplicarEstimacionDelUmbralDeOtsuAction;
 import core.action.threshold.AplicarUmbralAction;
 import core.provider.PresenterProvider;
 import core.semaphore.SemaforosGeneradoresDeRandoms;
 import dominio.SemaforoFiltro;
 import dominio.RandomElement;
 import dominio.activecontour.ActiveContourMode;
-import dominio.automaticthreshold.GlobalThresholdResult;
+import dominio.automaticthreshold.ResultadoUmbralGlobal;
 import dominio.automaticthreshold.ImageLimitValues;
-import dominio.automaticthreshold.OtsuThresholdResult;
+import dominio.automaticthreshold.EstimacionDelUmbralDeOtsuResultante;
 import dominio.customimage.Imagen;
 import dominio.customimage.Format;
 import dominio.flags.LaplacianDetector;
@@ -70,8 +70,8 @@ public class MainPresenter {
     private final CompressDynamicRangeAction compressDynamicRangeAction;
     private final AplicarFiltroAction aplicarFiltroAction;
     private final UpdateCurrentImageAction updateCurrentImageAction;
-    private final ApplyGlobalThresholdEstimationAction applyGlobalThresholdEstimationAction;
-    private final ApplyOtsuThresholdEstimationAction applyOtsuThresholdEstimationAction;
+    private final AplicarEstimacionDeUmbralGlobalAction aplicarEstimacionDeUmbralGlobalAction;
+    private final AplicarEstimacionDelUmbralDeOtsuAction aplicarEstimacionDelUmbralDeOtsuAction;
     private final AplicarDetectorLaplacianoAction aplicarDetectorLaplacianoAction;
     private final UndoChangesAction undoChangesAction;
     private final GetImageLimitValuesAction getImageLimitValuesAction;
@@ -93,8 +93,8 @@ public class MainPresenter {
                          CompressDynamicRangeAction compressDynamicRangeAction,
                          AplicarFiltroAction aplicarFiltroAction,
                          UpdateCurrentImageAction updateCurrentImageAction,
-                         ApplyGlobalThresholdEstimationAction applyGlobalThresholdEstimationAction,
-                         ApplyOtsuThresholdEstimationAction applyOtsuThresholdEstimationAction,
+                         AplicarEstimacionDeUmbralGlobalAction aplicarEstimacionDeUmbralGlobalAction,
+                         AplicarEstimacionDelUmbralDeOtsuAction aplicarEstimacionDelUmbralDeOtsuAction,
                          AplicarDetectorLaplacianoAction aplicarDetectorLaplacianoAction,
                          UndoChangesAction undoChangesAction,
                          GetImageLimitValuesAction getImageLimitValuesAction,
@@ -118,8 +118,8 @@ public class MainPresenter {
         this.compressDynamicRangeAction = compressDynamicRangeAction;
         this.aplicarFiltroAction = aplicarFiltroAction;
         this.updateCurrentImageAction = updateCurrentImageAction;
-        this.applyGlobalThresholdEstimationAction = applyGlobalThresholdEstimationAction;
-        this.applyOtsuThresholdEstimationAction = applyOtsuThresholdEstimationAction;
+        this.aplicarEstimacionDeUmbralGlobalAction = aplicarEstimacionDeUmbralGlobalAction;
+        this.aplicarEstimacionDelUmbralDeOtsuAction = aplicarEstimacionDelUmbralDeOtsuAction;
         this.aplicarDetectorLaplacianoAction = aplicarDetectorLaplacianoAction;
         this.undoChangesAction = undoChangesAction;
         this.getImageLimitValuesAction = getImageLimitValuesAction;
@@ -299,7 +299,7 @@ public class MainPresenter {
 
     private void aplicarUmbralizacion(Imagen customImage) {
         int threshold = Integer.parseInt(InsertValuePopup.show("Umbral", "0").get());
-        view.modifiedImageView.setImage(aplicarUmbralAction.execute(customImage, threshold));
+        view.modifiedImageView.setImage(aplicarUmbralAction.ejecutar(customImage, threshold));
         view.aceptarBoton.setVisible(true);
     }
 
@@ -495,32 +495,32 @@ public class MainPresenter {
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplyGlobalThresholdEstimation() {
+    public void onAplicarEstimacionDelUmbralGlobal() {
         this.obtenerImagenAction.ejecutar()
                            .ifPresent(customImage -> {
                                ImageLimitValues imageLimitValues = this.getImageLimitValuesAction.execute(customImage);
-                               int initialThreshold = Integer.parseInt(InsertValuePopup.show("Initial Threshold " +
+                               int umbralInicial = Integer.parseInt(InsertValuePopup.show("Umbral Inicial " +
                                        "Max = " + String.valueOf(imageLimitValues.getMaxLimit()) +
                                        " ; Min = " + String.valueOf(imageLimitValues.getMinLimit()), "1").get());
-                               int deltaT = Integer.parseInt(InsertValuePopup.show("Define Delta T", "1").get());
-                               GlobalThresholdResult globalThresholdResult = applyGlobalThresholdEstimationAction
-                                       .execute(customImage, initialThreshold, deltaT);
-                               view.modifiedImageView.setImage(globalThresholdResult.getImage());
-                               ShowResultPopup.show("Global Threshold Estimation",
-                                       "Iterations: " + String.valueOf(globalThresholdResult.getIterations()) + "\n" +
-                                               "Threshold: " + String.valueOf(globalThresholdResult.getThreshold()));
+                               int deltaT = Integer.parseInt(InsertValuePopup.show("Ingrese un Delta T", "1").get());
+                               ResultadoUmbralGlobal resultadoUmbralGlobal = aplicarEstimacionDeUmbralGlobalAction
+                                       .ejecutar(customImage, umbralInicial, deltaT);
+                               view.modifiedImageView.setImage(resultadoUmbralGlobal.getImagen());
+                               ShowResultPopup.show("Estimacion del Umbral Global",
+                                       "Cantidad de iteraciones utilizadas: " + String.valueOf(resultadoUmbralGlobal.getIteraciones()) + "\n" +
+                                               "Umbral Global: " + String.valueOf(resultadoUmbralGlobal.getUmbral()));
                            });
 
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplyOtsuThresholdEstimation() {
+    public void onAplicarEstimacionDelUmbralDeOtsu() {
         this.obtenerImagenAction.ejecutar()
                            .ifPresent(customImage -> {
-                               OtsuThresholdResult otsuThresholdResult = applyOtsuThresholdEstimationAction.execute(customImage);
-                               view.modifiedImageView.setImage(otsuThresholdResult.getImage());
-                               ShowResultPopup.show("Otsu Threshold Estimation",
-                                       "Threshold: " + String.valueOf(otsuThresholdResult.getThreshold()));
+                               EstimacionDelUmbralDeOtsuResultante estimacionDelUmbralDeOtsuResultante = aplicarEstimacionDelUmbralDeOtsuAction.ejecutar(customImage);
+                               view.modifiedImageView.setImage(estimacionDelUmbralDeOtsuResultante.getImagen());
+                               ShowResultPopup.show("Estimacion Del Umbral De Otsu",
+                                       "Umbral: " + String.valueOf(estimacionDelUmbralDeOtsuResultante.getUmbral()));
                            });
 
         view.aceptarBoton.setVisible(true);

@@ -4,8 +4,8 @@ import core.action.edgedetector.AplicarDetectorDeBordesAction;
 import core.action.edgedetector.hough.CircleHoughTransformAction;
 import core.action.edgedetector.hough.LineHoughTransformAction;
 import core.action.image.ObtenerImagenAction;
-import core.action.threshold.ApplyOtsuThresholdEstimationAction;
-import dominio.automaticthreshold.OtsuThresholdResult;
+import core.action.threshold.AplicarEstimacionDelUmbralDeOtsuAction;
+import dominio.automaticthreshold.EstimacionDelUmbralDeOtsuResultante;
 import dominio.customimage.Imagen;
 import dominio.mask.prewitt.MascaraDerivativaPrewittX;
 import dominio.mask.prewitt.MascaraDerivativaPrewittY;
@@ -21,7 +21,7 @@ public class HoughPresenter {
     private final PublishSubject<Image> imagePublishSubject;
     private final LineHoughTransformAction lineHoughTransformAction;
     private final CircleHoughTransformAction circleHoughTransformAction;
-    private final ApplyOtsuThresholdEstimationAction applyOtsuThresholdEstimationAction;
+    private final AplicarEstimacionDelUmbralDeOtsuAction aplicarEstimacionDelUmbralDeOtsuAction;
     private final ObtenerImagenAction obtenerImagenAction;
     private final AplicarDetectorDeBordesAction aplicarDetectorDeBordesAction;
 
@@ -29,7 +29,7 @@ public class HoughPresenter {
                           PublishSubject<Image> onModifiedImagePublishSubject,
                           LineHoughTransformAction lineHoughTransformAction,
                           CircleHoughTransformAction circleHoughTransformAction,
-                          ApplyOtsuThresholdEstimationAction applyOtsuThresholdEstimationAction,
+                          AplicarEstimacionDelUmbralDeOtsuAction aplicarEstimacionDelUmbralDeOtsuAction,
                           ObtenerImagenAction obtenerImagenAction,
                           AplicarDetectorDeBordesAction aplicarDetectorDeBordesAction) {
         this.view = houghSceneController;
@@ -37,7 +37,7 @@ public class HoughPresenter {
         this.lineHoughTransformAction = lineHoughTransformAction;
         this.circleHoughTransformAction = circleHoughTransformAction;
         this.obtenerImagenAction = obtenerImagenAction;
-        this.applyOtsuThresholdEstimationAction = applyOtsuThresholdEstimationAction;
+        this.aplicarEstimacionDelUmbralDeOtsuAction = aplicarEstimacionDelUmbralDeOtsuAction;
         this.aplicarDetectorDeBordesAction = aplicarDetectorDeBordesAction;
     }
 
@@ -59,8 +59,8 @@ public class HoughPresenter {
 
             this.obtenerImagenAction.ejecutar().ifPresent(customImage -> {
                 Imagen edgedImage = new Imagen(this.aplicarDetectorDeBordesAction.ejecutar(customImage, new MascaraDerivativaPrewittX(), new MascaraDerivativaPrewittY()), "png");
-                OtsuThresholdResult otsuThresholdResult = this.applyOtsuThresholdEstimationAction.execute(edgedImage);
-                Imagen thresholdizedImage = new Imagen(otsuThresholdResult.getImage(), "png");
+                EstimacionDelUmbralDeOtsuResultante estimacionDelUmbralDeOtsuResultante = this.aplicarEstimacionDelUmbralDeOtsuAction.ejecutar(edgedImage);
+                Imagen thresholdizedImage = new Imagen(estimacionDelUmbralDeOtsuResultante.getImagen(), "png");
                 Imagen houghImage = this.circleHoughTransformAction.execute(customImage, thresholdizedImage, xCenterDivisions, yCenterDivisions, radiusDivisions, tolerance);
                 imagePublishSubject.onNext(houghImage.toFXImage());
                 this.view.closeWindow();
@@ -93,8 +93,8 @@ public class HoughPresenter {
 
             this.obtenerImagenAction.ejecutar().ifPresent(customImage -> {
                 Imagen edgedImage = new Imagen(this.aplicarDetectorDeBordesAction.ejecutar(customImage, new MascaraDerivativaPrewittX(), new MascaraDerivativaPrewittY()), "png");
-                OtsuThresholdResult otsuThresholdResult = this.applyOtsuThresholdEstimationAction.execute(edgedImage);
-                Imagen thresholdizedImage = new Imagen(otsuThresholdResult.getImage(), "png");
+                EstimacionDelUmbralDeOtsuResultante estimacionDelUmbralDeOtsuResultante = this.aplicarEstimacionDelUmbralDeOtsuAction.ejecutar(edgedImage);
+                Imagen thresholdizedImage = new Imagen(estimacionDelUmbralDeOtsuResultante.getImagen(), "png");
                 Imagen houghImage = this.lineHoughTransformAction.execute(customImage, thresholdizedImage, rhoDivisions, thetaDivisions, tolerance);
                 imagePublishSubject.onNext(houghImage.toFXImage());
                 this.view.closeWindow();

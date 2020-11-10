@@ -1,20 +1,20 @@
 package core.action.threshold;
 
-import core.service.ApplyThresholdService;
+import core.service.AplicarUmbralService;
 import dominio.customimage.Imagen;
 import javafx.scene.image.Image;
 
 
 public class AplicarUmbralAction {
 
-    private final ApplyThresholdService applyThresholdService;
+    private final AplicarUmbralService aplicarUmbralService;
 
-    public AplicarUmbralAction(ApplyThresholdService applyThresholdService) {
-        this.applyThresholdService = applyThresholdService;
+    public AplicarUmbralAction(AplicarUmbralService aplicarUmbralService) {
+        this.aplicarUmbralService = aplicarUmbralService;
     }
 
-    public Image execute(Imagen imagen, int umbral) {
-        return this.applyThresholdService.aplicarUmbral(imagen, umbral);
+    public Image ejecutar(Imagen imagen, int umbral) {
+        return this.aplicarUmbralService.aplicarUmbral(imagen, umbral);
     }
 
 }

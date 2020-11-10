@@ -71,7 +71,7 @@ public class ServiceProvider {
         return new MatrizService();
     }
 
-    public static ApplyThresholdService provideApplyThresholdService(){
-        return new ApplyThresholdService(provideModifyImageService());
+    public static AplicarUmbralService provideApplyThresholdService(){
+        return new AplicarUmbralService(provideModifyImageService());
     }
 }

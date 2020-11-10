@@ -119,6 +119,8 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Umbral">
             <MenuItem mnemonicParsing="false" onAction="#umbralizar" text="Umbralizar" />
+            <MenuItem mnemonicParsing="false" onAction="#onAplicarEstimacionDelUmbralGlobal" text="Estimacion Del Umbral Global" />
+            <MenuItem mnemonicParsing="false" onAction="#onAplicarEstimacionDelUmbralDeOtsu" text="Estimacion Del Umbral de Otsu" />
         </Menu>
         <Menu mnemonicParsing="false" text="Detección de Bordes">
             <Menu mnemonicParsing="false" text="Elementales">

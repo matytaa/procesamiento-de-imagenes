@@ -5,11 +5,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 
-public class ApplyThresholdService {
+public class AplicarUmbralService {
 
     private ModifyImageService modifyImageService;
 
-    public ApplyThresholdService(ModifyImageService modifyImageService){
+    public AplicarUmbralService(ModifyImageService modifyImageService){
         this.modifyImageService = modifyImageService;
     }
 
