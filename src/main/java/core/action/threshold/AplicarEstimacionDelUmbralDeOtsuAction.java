@@ -17,6 +17,12 @@ public class AplicarEstimacionDelUmbralDeOtsuAction {
     private MatrizService matrizService;
     private AplicarUmbralService aplicarUmbralService;
 
+    private int cantidadDeNivelesDeGris = 256;
+    private double[] probabilidadesAcumuladas = new double[cantidadDeNivelesDeGris];
+    private double[] mediasAcumuladas = new double[cantidadDeNivelesDeGris];
+    private double[] varianzas = new double[cantidadDeNivelesDeGris];
+    private double mediaGlobalAcumulada = 0;
+
     public AplicarEstimacionDelUmbralDeOtsuAction(HistogramaService histogramaService, MatrizService matrizService, AplicarUmbralService aplicarUmbralService){
         this.histogramaService = histogramaService;
         this.matrizService = matrizService;
@@ -27,30 +33,21 @@ public class AplicarEstimacionDelUmbralDeOtsuAction {
 
         Histograma histograma = this.histogramaService.crear(customImage);
         int totalDeValoresEnElHistograma = histograma.getTotalPixeles();
-        int cantidadDeNivelesDeGris = 256;
 
-        double[] probabilidadesAcumuladas = new double[cantidadDeNivelesDeGris];
         for (int i = 0; i < probabilidadesAcumuladas.length; i++)
             probabilidadesAcumuladas[i] = this.probabilidadesAcumuladas(histograma, i, totalDeValoresEnElHistograma);
 
         //para cada t desde 0 a 255 tengo dos grupos C1 (menor al umbral) y C2 (mayor al umbral)
 
         //calculo las medias acumulativas (similar a las sumas acumulativas) pero multiplico a pi(p sub i) * i, yendo i de 0 a t
-        double[] mediasAcumuladas = new double[cantidadDeNivelesDeGris];
-        double mediaGlobalAcumulada = 0;
+
         for (int t = 0; t < mediasAcumuladas.length; t++) {
             mediasAcumuladas[t] = this.mediasAcumuladas(histograma, t, totalDeValoresEnElHistograma);
             mediaGlobalAcumulada += mediasAcumuladas[t];
         }
         //calculo la media global igual que la acumulativa
         mediaGlobalAcumulada = mediaGlobalAcumulada/totalDeValoresEnElHistograma;
-
-        //calculo varianza entre clases para cada t: (mg * P1(t) - m(t))² / P1(t) * (1 - P1(t))
-        double[] varianzas = new double[cantidadDeNivelesDeGris];
-        for (int t = 0; t < varianzas.length; t++){
-            varianzas[t] = Math.pow(((mediaGlobalAcumulada * probabilidadesAcumuladas[t]) - mediasAcumuladas[t]), 2)
-                            / (probabilidadesAcumuladas[t] * (1 - probabilidadesAcumuladas[t]));
-        }
+        CalcularVarianzas(mediaGlobalAcumulada);
 
         //calculo el umbral final
         int umbral = this.calcularUmbralFinal(varianzas);
@@ -66,6 +63,14 @@ public class AplicarEstimacionDelUmbralDeOtsuAction {
         return new EstimacionDelUmbralDeOtsuResultante(image, umbral);
     }
 
+    private void CalcularVarianzas(double mediaGlobalAcumulada) {
+        //calculo varianza entre clases para cada t: (mg * P1(t) - m(t))² / P1(t) * (1 - P1(t))
+        for (int t = 0; t < varianzas.length; t++){
+            varianzas[t] = Math.pow(((mediaGlobalAcumulada * probabilidadesAcumuladas[t]) - mediasAcumuladas[t]), 2)
+                            / (probabilidadesAcumuladas[t] * (1 - probabilidadesAcumuladas[t]));
+        }
+    }
+
 
     private Double probabilidadesAcumuladas(Histograma histograma, int limite, int totalDeValoresEnElHistograma) {
         double valor = 0.0;
@@ -78,7 +83,7 @@ public class AplicarEstimacionDelUmbralDeOtsuAction {
     private double mediasAcumuladas(Histograma histogram, int limit, int totalDeValoresEnElHistograma) {
         double valor = 0.0;
         for (int i = 0; i <= limit; i++)
-            valor += ((histogram.getValores()[i]) * i);
+            valor += ((histogram.getValores()[i]));
 
         return valor / totalDeValoresEnElHistograma;
     }
@@ -119,5 +124,4 @@ public class AplicarEstimacionDelUmbralDeOtsuAction {
 
         return umbral;
     }
-
 }
