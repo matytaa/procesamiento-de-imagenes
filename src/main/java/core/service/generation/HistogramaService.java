@@ -25,6 +25,23 @@ public class HistogramaService {
         return new Histograma(valores, total, valorMinimo);
     }
 
+    public Histograma crearHistograma(Imagen imagen) {
+
+        Integer total = 0;
+        double[] values = new double[257];
+
+        for (int i = 0; i < imagen.getAncho(); i++) {
+            for (int j = 0; j < imagen.getAltura(); j++) {
+                values[imagen.getPromedioPixel(i, j)] += 1;
+                total++;
+            }
+        }
+
+        Double minValue = Arrays.stream(values).min().orElse(0.0);
+
+        return new Histograma(values, total, minValue);
+    }
+
     private void obtenerValoresRelativos(Integer total, double[] valores) {
         for (int i = 0; i < valores.length; i++) {
             valores[i] = valores[i] / total;
