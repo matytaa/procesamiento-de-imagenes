@@ -179,6 +179,11 @@ public class MainSceneController {
     }
 
     @FXML
+    public void onAplicarFiltroBilateral() {
+        this.mainPresenter.onAplicarFiltroBilateral();
+    }
+
+    @FXML
     public void OnAplicarDetectorBordesPrewitt() {
         this.mainPresenter.OnAplicarDetectorBordesPrewitt();
     }

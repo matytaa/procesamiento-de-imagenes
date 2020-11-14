@@ -447,6 +447,12 @@ public class MainPresenter {
         view.aceptarBoton.setVisible(true);
     }
 
+    public void onAplicarFiltroBilateral() {
+        SemaforoFiltro.setValue(Mascara.Tipo.BILATERAL);
+        new FilterSceneCreator().createScene();
+        view.aceptarBoton.setVisible(true);
+    }
+
     public void OnAplicarDetectorBordesPrewitt() {
         SemaforoFiltro.setValue(Mascara.Tipo.PREWITT);
         PresenterProvider.providerDetectorBordesPresenter().onInitialize();

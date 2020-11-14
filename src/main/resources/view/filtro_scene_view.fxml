@@ -8,5 +8,7 @@
 <AnchorPane prefHeight="141.0" prefWidth="329.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.controller.FilterSceneController">
     <Label fx:id="label" layoutX="36.0" layoutY="21.0" prefHeight="17.0" prefWidth="258.0" />
     <TextField fx:id="textField" layoutX="131.0" layoutY="57.0" prefHeight="25.0" prefWidth="67.0" alignment="CENTER"/>
-    <Button layoutX="127.0" layoutY="100.0" mnemonicParsing="false" onAction="#aplicar" text="Aceptar" />
+    <Label fx:id="label2" layoutX="36.0" layoutY="100.0"  prefHeight="17.0" prefWidth="258.0" />
+    <TextField fx:id="textField2" layoutX="131.0" layoutY="120.0" prefHeight="25.0" prefWidth="67.0" alignment="CENTER"/>
+    <Button layoutX="127.0" layoutY="150.0" mnemonicParsing="false" onAction="#aplicar" text="Aceptar" />
 </AnchorPane>

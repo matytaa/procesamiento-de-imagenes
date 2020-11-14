@@ -15,7 +15,11 @@ public class FilterSceneController {
     @FXML
     public TextField textField;
     @FXML
+    public TextField textField2;
+    @FXML
     public Label label;
+    @FXML
+    public Label label2;
 
     public FilterSceneController() {
         this.filterPresenter = PresenterProvider.provideFilterPresenter(this);
@@ -32,19 +36,28 @@ public class FilterSceneController {
 
             case MEDIA:
                 label.setText("Tamaño de la máscara (Impar)");
+                textField2.setDisable(true);
                 break;
 
             case MEDIANA:
                 label.setText("Tamaño de la máscara");
+                textField2.setDisable(true);
                 break;
 
             case MEDIANA_PONDERADA:
                 label.setText("Tamaño de la máscara fijo 3x3");
                 textField.setDisable(true);
+                textField2.setDisable(true);
                 break;
 
             case GAUSSIANO:
                 label.setText("Desviación Estandar");
+                textField2.setDisable(true);
+                break;
+
+            case BILATERAL:
+                label.setText("Desviación Estandar S");
+                label2.setText("Desviación Estandar R");
                 break;
 
         }

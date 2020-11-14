@@ -4,10 +4,7 @@ import core.action.filter.AplicarFiltroAction;
 import core.action.image.ObtenerImagenAction;
 import dominio.SemaforoFiltro;
 import dominio.mask.Mascara;
-import dominio.mask.filter.MascaraGaussiana;
-import dominio.mask.filter.MascaraMedia;
-import dominio.mask.filter.MascaraMediana;
-import dominio.mask.filter.MascaraMedianaPonderada;
+import dominio.mask.filter.*;
 import presentation.controller.FilterSceneController;
 
 public class FilterPresenter {
@@ -41,6 +38,10 @@ public class FilterPresenter {
             this.aplicarFiltroGaussiano();
         }
 
+        if (SemaforoFiltro.is(Mascara.Tipo.BILATERAL)) {
+            this.aplicarFiltroBilateral();
+        }
+
         view.closeWindow();
     }
 
@@ -62,6 +63,12 @@ public class FilterPresenter {
     private void aplicarFiltroGaussiano() {
         int desviacionEstandar = Integer.parseInt(view.textField.getText());
         aplicarConMascara(new MascaraGaussiana(desviacionEstandar));
+    }
+
+    private void aplicarFiltroBilateral() {
+        int desviacionEstandarS = Integer.parseInt(view.textField.getText());
+        int desviacionEstandarR = Integer.parseInt(view.textField2.getText());
+        aplicarConMascara(new MascaraBilateral(desviacionEstandarS, desviacionEstandarR));
     }
 
     private void aplicarConMascara(Mascara mascara) {
