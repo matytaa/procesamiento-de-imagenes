@@ -1,6 +1,6 @@
 package presentation.presenter;
 
-import core.action.edgedetector.ApplyCannyDetectorAction;
+import core.action.edgedetector.AplicarCannyAction;
 import core.action.filter.AplicarFiltroAction;
 import core.action.image.ObtenerImagenAction;
 import dominio.customimage.Imagen;
@@ -15,20 +15,20 @@ public class CannyPresenter {
     private final ObtenerImagenAction obtenerImagenAction;
     private final AplicarFiltroAction aplicarFiltroAction;
     private final PublishSubject<Image> imagePublishSubject;
-    private final ApplyCannyDetectorAction applyCannyDetectorAction;
+    private final AplicarCannyAction aplicarCannyAction;
     private final PublishSubject<Image> cannyPublishSubject;
 
     public CannyPresenter(CannySceneController view, ObtenerImagenAction obtenerImagenAction, AplicarFiltroAction aplicarFiltroAction,
-                          PublishSubject<Image> imagePublishSubject, ApplyCannyDetectorAction applyCannyDetectorAction, PublishSubject<Image> cannyPublishSubject) {
+                          PublishSubject<Image> imagePublishSubject, AplicarCannyAction aplicarCannyAction, PublishSubject<Image> cannyPublishSubject) {
         this.view = view;
         this.obtenerImagenAction = obtenerImagenAction;
         this.aplicarFiltroAction = aplicarFiltroAction;
         this.imagePublishSubject = imagePublishSubject;
-        this.applyCannyDetectorAction = applyCannyDetectorAction;
+        this.aplicarCannyAction = aplicarCannyAction;
         this.cannyPublishSubject = cannyPublishSubject;
     }
 
-    public void onApply() {
+    public void aplicar() {
 
         int sigma = Integer.parseInt(view.sigmaTextField.getText());
         int t1 = Integer.parseInt(view.t1TextField.getText());
@@ -38,15 +38,17 @@ public class CannyPresenter {
 
             if (areThresholdsValid(t1, t2)) {
 
-                this.obtenerImagenAction.ejecutar().ifPresent(customImage -> {
+                this.obtenerImagenAction.ejecutar().ifPresent(imagen -> {
 
-                            Imagen filteredImage = this.aplicarFiltroAction.aplicar(customImage, new MascaraGaussiana(sigma));
-                            Image canniedImage = this.applyCannyDetectorAction.execute(filteredImage, t1, t2).toFXImage();
+                            //PRIMERO APLICO FILTRO GAUSSEANO
+                            Imagen imagenFiltrada = this.aplicarFiltroAction.aplicar(imagen, new MascaraGaussiana(sigma));
+                            //LUEGO CANNY
+                            Image imagenConCanny = this.aplicarCannyAction.ejecutar(imagenFiltrada, t1, t2).toFXImage();
                             //NO invertir el orden, o rompe Hough (deberiamos buscar una manera de fixear esto)
-                            this.imagePublishSubject.onNext(canniedImage);
-                            this.cannyPublishSubject.onNext(canniedImage);
+                            this.imagePublishSubject.onNext(imagenConCanny);
+                            this.cannyPublishSubject.onNext(imagenConCanny);
 
-                            this.view.closeWindow();
+                            this.view.cerrar();
                         }
                 );
             }

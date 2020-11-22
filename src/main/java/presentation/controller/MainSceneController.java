@@ -358,18 +358,18 @@ public class MainSceneController {
     }
 
     @FXML
-    public void onApplyCannyEdgeDetector() {
-        this.mainPresenter.onApplyCannyEdgeDetector();
+    public void aplicarCanny() {
+        this.mainPresenter.onAplicarCanny();
     }
 
     @FXML
-    public void applySusanEdgeDetector(){
-        this.mainPresenter.onApplySusanEdgeDetector();
+    public void aplicarSusan(){
+        this.mainPresenter.onAplicarSusan();
     }
 
     @FXML
-    public void onHoughTransform() {
-        this.mainPresenter.onHoughTransform();
+    public void aplicarHough() {
+        this.mainPresenter.onAplicarHough();
     }
 
     @FXML

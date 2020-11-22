@@ -69,7 +69,7 @@ class ActionProvider {
     private static AplicarDifusionAction aplicarDifusionAction;
     private static UndoChangesAction undoChangesAction;
     private static GetImageLimitValuesAction getImageLimitValuesAction;
-    private static ApplyCannyDetectorAction applyCannyDetectorAction;
+    private static AplicarCannyAction aplicarCannyAction;
     private static ApplySusanDetectorAction applySusanDetectorAction;
     private static LineHoughTransformAction lineHoughTransformAction;
     private static CircleHoughTransformAction circleHoughTransformAction;
@@ -385,12 +385,12 @@ class ActionProvider {
         return getImageLimitValuesAction;
     }
 
-    public static ApplyCannyDetectorAction provideApplyCannyDetectorAction() {
-        if (applyCannyDetectorAction == null) {
-            applyCannyDetectorAction = new ApplyCannyDetectorAction(ServiceProvider.provideImageOperationsService(),
+    public static AplicarCannyAction provideApplyCannyDetectorAction() {
+        if (aplicarCannyAction == null) {
+            aplicarCannyAction = new AplicarCannyAction(ServiceProvider.provideImageOperationsService(),
                     ServiceProvider.provideMatrixService());
         }
-        return applyCannyDetectorAction;
+        return aplicarCannyAction;
     }
 
     public static ApplySusanDetectorAction provideApplySusanDetectorAction() {

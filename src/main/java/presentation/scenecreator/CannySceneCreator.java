@@ -15,7 +15,7 @@ public class CannySceneCreator implements SceneCreator {
             Parent root = FXMLLoader.load(getClass().getResource("/view/canny_scene_view.fxml"));
             Scene channelScene = new Scene(root);
             Stage channelStage = new Stage(StageStyle.DECORATED);
-            channelStage.setTitle("Canny Edge Detector");
+            channelStage.setTitle("Canny");
             channelStage.setScene(channelScene);
             channelStage.show();
 

@@ -22,11 +22,11 @@ public class CannySceneController {
     }
 
     @FXML
-    public void onApply() {
-        this.cannyPresenter.onApply();
+    public void aplicar() {
+        this.cannyPresenter.aplicar();
     }
 
-    public void closeWindow() {
+    public void cerrar() {
         Stage stage = (Stage) this.sigmaTextField.getScene().getWindow();
         stage.close();
     }

@@ -570,12 +570,12 @@ public class MainPresenter {
         view.imageView.setImage(originalImage.toFXImage());
     }
 
-    public void onApplyCannyEdgeDetector() {
+    public void onAplicarCanny() {
         new CannySceneCreator().createScene();
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplySusanEdgeDetector() {
+    public void onAplicarSusan() {
         this.obtenerImagenAction.ejecutar()
                            .ifPresent(customImage -> {
                                Mascara susanMascara = new SusanMascara();
@@ -584,7 +584,7 @@ public class MainPresenter {
                            });
     }
 
-    public void onHoughTransform() {
+    public void onAplicarHough() {
         new HoughSceneCreator().createScene();
         view.aceptarBoton.setVisible(true);
     }

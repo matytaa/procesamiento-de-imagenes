@@ -76,7 +76,7 @@ public class MatrizService {
 
     //We will mostly have to refactor this methods to support color images, i.e., using a ChannelMatrix instead of int[][]
 
-    public List<RGB> obtainNeighbors(int[][] matrix, int x, int y) {
+    public List<RGB> obtenerVecinos(int[][] matrix, int x, int y) {
 
         //If the pixel is in a corner
         if (x == 0 && y == 0) {
