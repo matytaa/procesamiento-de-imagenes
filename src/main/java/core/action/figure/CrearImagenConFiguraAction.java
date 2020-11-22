@@ -1,34 +1,34 @@
 package core.action.figure;
 
 import core.repository.RepositorioImagen;
-import core.service.generation.ImageFigureService;
+import core.service.generation.FiguraImagenService;
 import dominio.customimage.Imagen;
 import dominio.customimage.Format;
-import dominio.generation.Figure;
+import dominio.generation.Figura;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
 import java.awt.image.BufferedImage;
 
-public class CreateImageWithFigureAction {
+public class CrearImagenConFiguraAction {
 
-    private final ImageFigureService imageFigureService;
+    private final FiguraImagenService figuraImagenService;
     private final RepositorioImagen repositorioImagen;
 
-    public CreateImageWithFigureAction(ImageFigureService imageFigureService, RepositorioImagen repositorioImagen) {
-        this.imageFigureService = imageFigureService;
+    public CrearImagenConFiguraAction(FiguraImagenService figuraImagenService, RepositorioImagen repositorioImagen) {
+        this.figuraImagenService = figuraImagenService;
         this.repositorioImagen = repositorioImagen;
     }
 
-    public Imagen execute(int width, int height, Figure value) {
+    public Imagen ejecutar(int ancho, int alto, Figura figura) {
 
-        switch (value) {
-            case CIRCLE:
-                Image imageWithCircle = imageFigureService.createImageWithCircle(width, height);
-                return putOnRepository(SwingFXUtils.fromFXImage(imageWithCircle, null));
-            case QUADRATE:
-                Image imageWithQuadrate = imageFigureService.createImageWithQuadrate(width, height);
-                return putOnRepository(SwingFXUtils.fromFXImage(imageWithQuadrate, null));
+        switch (figura) {
+            case CIRCULO:
+                Image circulo = figuraImagenService.crearCirculo(ancho, alto);
+                return putOnRepository(SwingFXUtils.fromFXImage(circulo, null));
+            case CUADRADO:
+                Image cuadrado = figuraImagenService.crearCuadrado(ancho, alto);
+                return putOnRepository(SwingFXUtils.fromFXImage(cuadrado, null));
             default:
                 return Imagen.EMPTY;
         }

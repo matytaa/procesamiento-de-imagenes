@@ -1,5 +1,5 @@
 package dominio.generation;
 
-public enum Figure {
-    QUADRATE, CIRCLE
+public enum Figura {
+    CUADRADO, CIRCULO
 }

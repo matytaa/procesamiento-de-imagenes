@@ -2,7 +2,7 @@ package core.provider;
 
 import core.service.*;
 import core.service.generation.HistogramaService;
-import core.service.generation.ImageFigureService;
+import core.service.generation.FiguraImagenService;
 import core.service.generation.ImageGradientService;
 import core.service.statistics.GrayLevelStatisticsService;
 import core.service.statistics.GeneradorDeRandomsService;
@@ -39,8 +39,8 @@ public class ServiceProvider {
         return new ModifyImageService();
     }
 
-    public static ImageFigureService provideImageFigureService() {
-        return new ImageFigureService();
+    public static FiguraImagenService provideImageFigureService() {
+        return new FiguraImagenService();
     }
 
     public static ImageGradientService provideGradientService() {

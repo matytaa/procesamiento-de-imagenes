@@ -13,7 +13,7 @@ import core.action.edit.space_domain.*;
 import core.action.edit.space_domain.operations.MultiplyImagesAction;
 import core.action.edit.space_domain.operations.SubstractImagesAction;
 import core.action.edit.space_domain.operations.SumImagesAction;
-import core.action.figure.CreateImageWithFigureAction;
+import core.action.figure.CrearImagenConFiguraAction;
 import core.action.filter.AplicarFiltroAction;
 import core.action.gradient.CreateImageWithGradientAction;
 import core.action.histogram.CreateImageHistogramAction;
@@ -42,7 +42,7 @@ class ActionProvider {
     private static CreateImageInformAction createImageInformAction;
     private static ObtainRGBChannelAction obtainRGBChannelAction;
     private static ObtainHSVChannelAction obtainHSVChannelAction;
-    private static CreateImageWithFigureAction createImageWithFigureAction;
+    private static CrearImagenConFiguraAction crearImagenConFiguraAction;
     private static CreateImageWithGradientAction createImageWithGradientAction;
     private static CalcularNegativoAction calcularNegativoAction;
     private static AplicarUmbralAction aplicarUmbralAction;
@@ -152,13 +152,13 @@ class ActionProvider {
         return obtainHSVChannelAction;
     }
 
-    public static CreateImageWithFigureAction provideCreateImageWithFigureAction() {
-        if (createImageWithFigureAction == null) {
-            createImageWithFigureAction = new CreateImageWithFigureAction(
+    public static CrearImagenConFiguraAction provideCreateImageWithFigureAction() {
+        if (crearImagenConFiguraAction == null) {
+            crearImagenConFiguraAction = new CrearImagenConFiguraAction(
                     ServiceProvider.provideImageFigureService(),
                     RepositoryProvider.provideImageRepository());
         }
-        return createImageWithFigureAction;
+        return crearImagenConFiguraAction;
     }
 
     public static CreateImageWithGradientAction provideCreateGradientAction() {

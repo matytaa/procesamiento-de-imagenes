@@ -258,13 +258,13 @@ public class MainSceneController {
     }
 
     @FXML
-    public void showImageWithQuadrate() {
-        this.mainPresenter.onShowImageWithQuadrate();
+    public void cuadradoBlanco() {
+        this.mainPresenter.onCuadradoBlanco();
     }
 
     @FXML
-    public void showImageWithCircle() {
-        this.mainPresenter.onShowImageWithCircle();
+    public void circuloBlanco() {
+        this.mainPresenter.onCirculoBlanco();
     }
 
     @FXML

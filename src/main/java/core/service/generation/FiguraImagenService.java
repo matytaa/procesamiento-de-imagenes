@@ -7,47 +7,47 @@ import javafx.scene.shape.Circle;
 import static javafx.scene.paint.Color.BLACK;
 import static javafx.scene.paint.Color.WHITE;
 
-public class ImageFigureService {
+public class FiguraImagenService {
 
-    public Image createImageWithCircle(int width, int height) {
-        WritableImage writableImage = new WritableImage(width, height);
-        fillWithBlack(width, height, writableImage);
-        createCircle(width, height, writableImage);
+    public Image crearCirculo(int ancho, int alto) {
+        WritableImage writableImage = new WritableImage(ancho, alto);
+        rellenarConNegro(ancho, alto, writableImage);
+        crearCirculo(ancho, alto, writableImage);
         return writableImage;
     }
 
-    public Image createImageWithQuadrate(int width, int height) {
-        WritableImage writableImage = new WritableImage(width, height);
-        fillWithBlack(width, height, writableImage);
-        createQuadrate(width, height, writableImage);
-        return writableImage;
+    public Image crearCuadrado(int ancho, int alto) {
+        WritableImage imagen = new WritableImage(ancho, alto);
+        rellenarConNegro(ancho, alto, imagen);
+        crearCuadrado(ancho, alto, imagen);
+        return imagen;
     }
 
-    private void fillWithBlack(int width, int height, WritableImage image) {
-        for (int row = 0; row < height; row++) {
-            for (int column = 0; column < width; column++) {
-                image.getPixelWriter().setColor(column, row, BLACK);
+    private void rellenarConNegro(int ancho, int alto, WritableImage imagen) {
+        for (int fila = 0; fila < alto; fila++) {
+            for (int columna = 0; columna < ancho; columna++) {
+                imagen.getPixelWriter().setColor(columna, fila, BLACK);
             }
         }
     }
 
-    private void createCircle(int width, int height, WritableImage image) {
-        int centerColumn = width / 2;
-        int centerRow = height / 2;
-        Circle circle = new Circle(centerRow, centerColumn, height / 6);
-        for (int row = 0; row < height; row++) {
-            for (int column = 0; column < width; column++) {
-                if (circle.contains(row, column)) {
-                    image.getPixelWriter().setColor(column, row, WHITE);
+    private void crearCirculo(int ancho, int alto, WritableImage imagen) {
+        int columnaCentral = ancho / 2;
+        int filaCentral = alto / 2;
+        Circle circulo = new Circle(filaCentral, columnaCentral, alto / 6);
+        for (int fila = 0; fila < alto; fila++) {
+            for (int columna = 0; columna < ancho; columna++) {
+                if (circulo.contains(fila, columna)) {
+                    imagen.getPixelWriter().setColor(columna, fila, WHITE);
                 }
             }
         }
     }
 
-    private void createQuadrate(int width, int height, WritableImage image) {
-        for (int row = height / 3; row <= height * 2 / 3; row++) {
-            for (int column = width / 3; column <= width * 2 / 3; column++) {
-                image.getPixelWriter().setColor(column, row, WHITE);
+    private void crearCuadrado(int ancho, int alto, WritableImage imagen) {
+        for (int fila = alto / 3; fila <= alto * 2 / 3; fila++) {
+            for (int columna = ancho / 3; columna <= ancho * 2 / 3; columna++) {
+                imagen.getPixelWriter().setColor(columna, fila, WHITE);
             }
         }
     }

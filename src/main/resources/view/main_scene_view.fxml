@@ -81,6 +81,8 @@
             <MenuItem mnemonicParsing="false" onAction="#cerrar" text="Cerrar" />
         </Menu>
         <Menu mnemonicParsing="false" text="Generar">
+            <MenuItem mnemonicParsing="false" onAction="#cuadradoBlanco" text="Cuadrado blanco" />
+            <MenuItem mnemonicParsing="false" onAction="#circuloBlanco" text="Círculo blanco" />
             <Menu mnemonicParsing="false" text="Números Random">
                 <MenuItem mnemonicParsing="false" onAction="#generarNumeroRandomGaussiano" text="Gaussiano" />
                 <MenuItem mnemonicParsing="false" onAction="#generarNumeroRandomRayleigh" text="Rayleigh" />

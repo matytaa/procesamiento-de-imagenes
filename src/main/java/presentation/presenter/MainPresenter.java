@@ -7,7 +7,7 @@ import core.action.edgedetector.ApplySusanDetectorAction;
 import core.action.edit.ModifyPixelAction;
 import core.action.edit.space_domain.CalcularNegativoAction;
 import core.action.edit.space_domain.CompressDynamicRangeAction;
-import core.action.figure.CreateImageWithFigureAction;
+import core.action.figure.CrearImagenConFiguraAction;
 import core.action.filter.AplicarFiltroAction;
 import core.action.gradient.CreateImageWithGradientAction;
 import core.action.histogram.EqualizeGrayImageAction;
@@ -28,7 +28,7 @@ import dominio.customimage.Imagen;
 import dominio.customimage.Format;
 import dominio.flags.LaplacianDetector;
 import dominio.generation.Channel;
-import dominio.generation.Figure;
+import dominio.generation.Figura;
 import dominio.generation.Gradient;
 import dominio.mask.MascaraLaplacianoDelGaussiano;
 import dominio.mask.MascaraLaplaciano;
@@ -64,7 +64,7 @@ public class MainPresenter {
     private final CreateImageWithGradientAction createImageWithGradientAction;
     private final ObtainRGBChannelAction obtainRGBChannelAction;
     private final ObtainHSVChannelAction obtainHSVChannelAction;
-    private final CreateImageWithFigureAction createImageWithFigureAction;
+    private final CrearImagenConFiguraAction crearImagenConFiguraAction;
     private final EqualizeGrayImageAction equalizeGrayImageAction;
     private final Observable<Image> onModifiedImage;
     private final CompressDynamicRangeAction compressDynamicRangeAction;
@@ -87,7 +87,7 @@ public class MainPresenter {
                          CreateImageWithGradientAction createImageWithGradientAction,
                          ObtainRGBChannelAction obtainRGBChannelAction,
                          ObtainHSVChannelAction obtainHSVChannelAction,
-                         CreateImageWithFigureAction createImageWithFigureAction,
+                         CrearImagenConFiguraAction crearImagenConFiguraAction,
                          EqualizeGrayImageAction equalizeGrayImageAction,
                          Observable<Image> onModifiedImage,
                          CompressDynamicRangeAction compressDynamicRangeAction,
@@ -113,7 +113,7 @@ public class MainPresenter {
         this.createImageWithGradientAction = createImageWithGradientAction;
         this.obtainRGBChannelAction = obtainRGBChannelAction;
         this.obtainHSVChannelAction = obtainHSVChannelAction;
-        this.createImageWithFigureAction = createImageWithFigureAction;
+        this.crearImagenConFiguraAction = crearImagenConFiguraAction;
         this.equalizeGrayImageAction = equalizeGrayImageAction;
         this.compressDynamicRangeAction = compressDynamicRangeAction;
         this.aplicarFiltroAction = aplicarFiltroAction;
@@ -198,12 +198,12 @@ public class MainPresenter {
         setImageOnModifiedImageView(obtainRGBChannelAction.execute(Channel.BLUE));
     }
 
-    public void onShowImageWithQuadrate() {
-        setImagenEnVistaPreliminar(createImageWithFigureAction.execute(200, 200, Figure.QUADRATE));
+    public void onCuadradoBlanco() {
+        setImagenEnVistaPreliminar(crearImagenConFiguraAction.ejecutar(200, 200, Figura.CUADRADO));
     }
 
-    public void onShowImageWithCircle() {
-        setImagenEnVistaPreliminar(createImageWithFigureAction.execute(200, 200, Figure.CIRCLE));
+    public void onCirculoBlanco() {
+        setImagenEnVistaPreliminar(crearImagenConFiguraAction.ejecutar(200, 200, Figura.CIRCULO));
     }
 
     public void onShowHueHSVChannel() {
