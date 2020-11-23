@@ -26,6 +26,8 @@ import dominio.automaticthreshold.ImageLimitValues;
 import dominio.automaticthreshold.EstimacionDelUmbralDeOtsuResultante;
 import dominio.customimage.Imagen;
 import dominio.customimage.Format;
+import dominio.customimage.Pixel;
+import dominio.customimage.RGB;
 import dominio.flags.LaplacianDetector;
 import dominio.generation.Channel;
 import dominio.generation.Figura;
@@ -130,7 +132,7 @@ public class MainPresenter {
         view.customImageView = new CustomImageView(view.groupImageView, view.imageView)
                 .withSetPickOnBounds(true)
                 .withOnPixelClick(this::onPixelClick)
-                .withSelectionMode();
+                .withSelectionModeFixed(this::onMouseReleaseClick);
 
         awaitingForNewModifiedImages();
     }
@@ -140,6 +142,12 @@ public class MainPresenter {
             view.pixelX.setText(x.toString());
             view.pixelY.setText(y.toString());
             onCalculatePixelValue();
+        };
+    }
+
+    private Action onMouseReleaseClick(Boolean isMouseClicked) {
+        return () -> {
+            onCalculateRectangleValue(isMouseClicked);
         };
     }
 
@@ -240,6 +248,46 @@ public class MainPresenter {
                                    view.valueR.setText(String.valueOf(rgb.getRed()));
                                    view.valueG.setText(String.valueOf(rgb.getGreen()));
                                    view.valueB.setText(String.valueOf(rgb.getBlue()));
+                               });
+
+        } else {
+            view.valueR.setText("Error");
+        }
+    }
+
+    public void onCalculateRectangleValue(Boolean isMouseClicked) {
+        if(isMouseClicked) return;
+        if (this.validatePixelCoordinates()) {
+
+            int pixelX = Integer.parseInt(view.pixelX.getText());
+            int pixelY = Integer.parseInt(view.pixelY.getText());
+            Imagen imagen = new Imagen(view.customImageView.cutPartialImage(), "png");
+            List<Pixel> pixeles = imagen.getListOfPixels();
+
+            int promedioRed = 0;
+            int promedioGreen = 0;
+            int promedioBlue = 0;
+            for (Pixel pixel : pixeles) {
+                RGB valorDelPixelPorCanal = imagen.getPixelValue(pixel.getX(), pixel.getY());
+                promedioRed += valorDelPixelPorCanal.getRed();
+                promedioGreen += valorDelPixelPorCanal.getGreen();
+                promedioBlue += valorDelPixelPorCanal.getBlue();
+            }
+
+            promedioRed = promedioRed/pixeles.size();
+            promedioGreen = promedioGreen/pixeles.size();
+            promedioBlue = promedioBlue/pixeles.size();
+
+            view.valueR.setText(String.valueOf(promedioRed));
+            view.valueG.setText(String.valueOf(promedioGreen));
+            view.valueB.setText(String.valueOf(promedioBlue));
+
+            this.obtenerImagenAction.ejecutar()
+                               .map(customImage -> customImage.getPixelValue(pixelX, pixelY))
+                               .ifPresent(rgb -> {
+                                   //view.valueR.setText(String.valueOf(rgb.getRed()));
+                                   //view.valueG.setText(String.valueOf(rgb.getGreen()));
+                                   //view.valueB.setText(String.valueOf(rgb.getBlue()));
                                });
 
         } else {

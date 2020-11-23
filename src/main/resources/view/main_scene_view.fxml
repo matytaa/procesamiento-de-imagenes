@@ -69,8 +69,20 @@
                         </GridPane>
                     </Pane>
                 </Pane>
-                <Button fx:id="aceptarBoton" alignment="BOTTOM_LEFT" contentDisplay="LEFT" layoutX="21.0" layoutY="265.0" mnemonicParsing="false" onAction="#aplicarCambios" text="Aplicar Cambios" visible="false" />
-
+                <Pane prefHeight="371.0" prefWidth="152.0">
+                    <Button fx:id="aceptarBoton" alignment="BOTTOM_LEFT" contentDisplay="LEFT" layoutX="21.0" layoutY="265.0" mnemonicParsing="false" onAction="#aplicarCambios" text="Aplicar Cambios" visible="false" />
+                    <Button fx:id="resetModifiedImageButton" alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="300.0" mnemonicParsing="false" onAction="#resetModifiedImage" text="Reset" />
+                    <Pane layoutX="14.0" layoutY="14.0" prefHeight="225.0" prefWidth="112.0">
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="0.0" layoutY="6.0" text="Valores promedios por canal" textAlignment="CENTER" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="52.0" layoutY="34.0" text="R" textAlignment="CENTER" />
+                        <TextField fx:id="valueR" editable="false" layoutX="22.0" layoutY="58.0" prefHeight="27.0" prefWidth="67.0" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="51.0" layoutY="96.0" text="G" textAlignment="CENTER" />
+                        <TextField fx:id="valueG" editable="false" layoutX="23.0" layoutY="120.0" prefHeight="27.0" prefWidth="67.0" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="51.0" layoutY="161.0" text="B" textAlignment="CENTER" />
+                        <TextField fx:id="valueB" editable="false" layoutX="22.0" layoutY="184.0" prefHeight="27.0" prefWidth="67.0" />
+                    </Pane>
+                    <Button fx:id="undoChangesButton" layoutX="43.0" layoutY="315.0" mnemonicParsing="false" onAction="#onUndoChanges" text="Undo changes" visible="false" />
+                </Pane>
             </VBox>
         </GridPane>
     </AnchorPane>
