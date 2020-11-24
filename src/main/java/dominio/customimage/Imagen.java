@@ -114,6 +114,26 @@ public class Imagen {
         return Math.round((pixelValue.getRed() + pixelValue.getGreen() + pixelValue.getBlue()) / 3);
     }
 
+    public RGB getPromedioPorCanal(){
+        List<Pixel> pixeles = getListOfPixels();
+
+        int promedioRed = 0;
+        int promedioGreen = 0;
+        int promedioBlue = 0;
+        for (Pixel pixel : pixeles) {
+            RGB valorDelPixelPorCanal = getPixelValue(pixel.getX(), pixel.getY());
+            promedioRed += valorDelPixelPorCanal.getRed();
+            promedioGreen += valorDelPixelPorCanal.getGreen();
+            promedioBlue += valorDelPixelPorCanal.getBlue();
+        }
+
+        promedioRed = promedioRed/pixeles.size();
+        promedioGreen = promedioGreen/pixeles.size();
+        promedioBlue = promedioBlue/pixeles.size();
+
+        return new RGB(promedioRed, promedioGreen, promedioBlue);
+    }
+
     public RGB getPixelValue(Integer x, Integer y) {
         try {
             return new RGB(this.getRChannelValue(x, y), this.getGChannelValue(x, y), this.getBChannelValue(x, y));
