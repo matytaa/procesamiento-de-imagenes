@@ -26,49 +26,49 @@ public class SusanMascara extends Mascara {
     }
 
     public RGB aplicarMascaraAPixel(Imagen imagen, int x, int y) {
-        int width = imagen.getAncho();
-        int height = imagen.getAltura();
-        int similarPixelsQuantity = 0;
-        double coreValue = (255 * imagen.getPixelReader().getColor(x, y).getRed());
-        double red;
+        int ancho = imagen.getAncho();
+        int alto = imagen.getAltura();
+        int cantidadPixelesSimilares = 0;
+        double valorCentral = (255 * imagen.getPixelReader().getColor(x, y).getRed());
+        double rojo;
 
         for (int j = y - (tamanio / 2); j <= y + (tamanio / 2); j++) {
             for (int i = x - (tamanio / 2); i <= x + (tamanio / 2); i++) {
 
-                if (imagen.isPosicionValida(width, height, i, j)) {
+                if (imagen.isPosicionValida(ancho, alto, i, j)) {
 
-                    int maskColumn = j + (tamanio / 2) - y;
-                    int maskRow = i + (tamanio / 2) - x;
-                    double value = this.matriz[maskRow][maskColumn];
-                    if (value != 0.0) {
-                        red = (255 * imagen.getPixelReader().getColor(i, j).getRed()) * value;
-                        similarPixelsQuantity += this.evaluateSimilarity(coreValue, red);
+                    int columnaMascara = j + (tamanio / 2) - y;
+                    int filaMascara = i + (tamanio / 2) - x;
+                    double valor = this.matriz[filaMascara][columnaMascara];
+                    if (valor != 0.0) {
+                        rojo = (255 * imagen.getPixelReader().getColor(i, j).getRed()) * valor;
+                        cantidadPixelesSimilares += this.evaluarSimilitud(valorCentral, rojo);
                     }
 
                 }
             }
         }
 
-        double similarity = 1 - ((double) similarPixelsQuantity / 37);
-        int pixelValue = this.evaluatePixelType(similarity);
+        double similarity = 1 - ((double) cantidadPixelesSimilares / 37);
+        int pixelValue = this.evaluarTipoPixel(similarity);
         return new RGB(pixelValue, pixelValue, pixelValue);
     }
 
-    private int evaluateSimilarity(double coreValue, double maskValue) {
-        return Math.abs(coreValue - maskValue) <= 27 ? 1 : 0;
+    private int evaluarSimilitud(double valorCentral, double valorMascara) {
+        return Math.abs(valorCentral - valorMascara) <= 27 ? 1 : 0;
     }
 
-    private int evaluatePixelType(double similarity) {
-        if (0 <= similarity && similarity <= 0.20) {
-            return 0; //ignored
+    private int evaluarTipoPixel(double similitud) {
+        if (0 <= similitud && similitud <= 0.20) {
+            return 0; //IGNORO
         }
 
-        if (0.4 <= similarity && similarity <= 0.6) {
-            return 150; //edge
+        if (0.4 <= similitud && similitud <= 0.6) {
+            return 150; //BORDE
         }
 
-        if (0.65 <= similarity && similarity <= 0.85) {
-            return 255; //corner
+        if (0.65 <= similitud && similitud <= 0.85) {
+            return 255; //ESQUINA
         }
 
         return 0;
