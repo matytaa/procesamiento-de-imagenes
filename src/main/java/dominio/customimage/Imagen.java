@@ -83,7 +83,7 @@ public class Imagen {
         return this.pixeles.size();
     }
 
-    private List<Pixel> getListOfPixels() {
+    public List<Pixel> getListOfPixels() {
         List<Pixel> total = new ArrayList<>();
 
         for (int columna = 0; columna < getAncho(); columna++) {
@@ -111,9 +111,7 @@ public class Imagen {
 
     public int getPromedioPixel(Integer x, Integer y) {
         RGB pixelValue = getPixelValue(x, y);
-        return Math.round((pixelValue.getRed() +
-                pixelValue.getGreen() +
-                pixelValue.getBlue()) / 3);
+        return Math.round((pixelValue.getRed() + pixelValue.getGreen() + pixelValue.getBlue()) / 3);
     }
 
     public RGB getPixelValue(Integer x, Integer y) {

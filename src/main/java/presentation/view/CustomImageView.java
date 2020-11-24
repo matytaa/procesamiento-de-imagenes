@@ -3,6 +3,7 @@ package presentation.view;
 import dominio.activecontour.SelectionSquare;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Function;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Rectangle2D;
@@ -24,14 +25,19 @@ public class CustomImageView {
     private Double mouseAnchorY;
     private Rectangle rect;
     private BiFunction<Integer, Integer, Action> onPixelClick;
+    private Function<Boolean, Action> onMouseReleased;
 
     public CustomImageView(Group group, ImageView imagenView) {
         this.imagenView = imagenView;
         this.group = group;
     }
 
-    public CustomImageView withSelectionMode() {
+    public CustomImageView withSelectionModeFixed(Function<Boolean, Action> onMouseReleased) {
+        this.onMouseReleased = onMouseReleased;
+        return withSelectionMode();
+    }
 
+    public CustomImageView withSelectionMode() {
         rect = new Rectangle(0, 0, 0, 0);
         rect.setStroke(Color.LIGHTGREEN);
         rect.setStrokeWidth(1);
@@ -79,7 +85,6 @@ public class CustomImageView {
             if (event.isSecondaryButtonDown()) {
                 return;
             }
-
             double offsetX = event.getX() - mouseAnchorX;
             double offsetY = event.getY() - mouseAnchorY;
 
@@ -102,10 +107,9 @@ public class CustomImageView {
     private final EventHandler<MouseEvent> onMouseReleasedEventHandler = new EventHandler<MouseEvent>() {
 
         public void handle(MouseEvent event) {
-
-            if (event.isSecondaryButtonDown()) {
-                return;
-            }
+            try {
+                onMouseReleased.apply(event.isSecondaryButtonDown()).run();
+            } catch (Exception ignored) { }
         }
     };
 
