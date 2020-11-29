@@ -259,37 +259,14 @@ public class MainPresenter {
         if(isMouseClicked) return;
         if (this.validatePixelCoordinates()) {
 
-            int pixelX = Integer.parseInt(view.pixelX.getText());
-            int pixelY = Integer.parseInt(view.pixelY.getText());
+            Integer.parseInt(view.pixelX.getText());
+            Integer.parseInt(view.pixelY.getText());
             Imagen imagen = new Imagen(view.customImageView.cutPartialImage(), "png");
-            List<Pixel> pixeles = imagen.getListOfPixels();
+            RGB promedioRGB = imagen.getPromedioPorCanal();
 
-            int promedioRed = 0;
-            int promedioGreen = 0;
-            int promedioBlue = 0;
-            for (Pixel pixel : pixeles) {
-                RGB valorDelPixelPorCanal = imagen.getPixelValue(pixel.getX(), pixel.getY());
-                promedioRed += valorDelPixelPorCanal.getRed();
-                promedioGreen += valorDelPixelPorCanal.getGreen();
-                promedioBlue += valorDelPixelPorCanal.getBlue();
-            }
-
-            promedioRed = promedioRed/pixeles.size();
-            promedioGreen = promedioGreen/pixeles.size();
-            promedioBlue = promedioBlue/pixeles.size();
-
-            view.valueR.setText(String.valueOf(promedioRed));
-            view.valueG.setText(String.valueOf(promedioGreen));
-            view.valueB.setText(String.valueOf(promedioBlue));
-
-            this.obtenerImagenAction.ejecutar()
-                               .map(customImage -> customImage.getPixelValue(pixelX, pixelY))
-                               .ifPresent(rgb -> {
-                                   //view.valueR.setText(String.valueOf(rgb.getRed()));
-                                   //view.valueG.setText(String.valueOf(rgb.getGreen()));
-                                   //view.valueB.setText(String.valueOf(rgb.getBlue()));
-                               });
-
+            view.valueR.setText(String.valueOf(promedioRGB.getRed()));
+            view.valueG.setText(String.valueOf(promedioRGB.getGreen()));
+            view.valueB.setText(String.valueOf(promedioRGB.getBlue()));
         } else {
             view.valueR.setText("Error");
         }
