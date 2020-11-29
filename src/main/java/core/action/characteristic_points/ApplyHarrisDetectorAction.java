@@ -1,7 +1,7 @@
 package core.action.characteristic_points;
 
 import core.service.MatrizService;
-import dominio.XYPoint;
+import dominio.puntoXY;
 import dominio.customimage.Imagen;
 import dominio.mask.filter.MascaraGaussiana;
 import dominio.mask.sobel.MascaraSobelX;
@@ -19,7 +19,7 @@ public class ApplyHarrisDetectorAction {
         this.matrizService = matrizService;
     }
 
-    public List<XYPoint> execute(Imagen image, double tolerance) {
+    public List<puntoXY> execute(Imagen image, double tolerance) {
 
         int[][] xDeriv = new MascaraSobelX().aplicar(image).getCanalRojo();
         int[][] yDeriv = new MascaraSobelY().aplicar(image).getCanalRojo();
@@ -40,15 +40,15 @@ public class ApplyHarrisDetectorAction {
         return this.filterFakeCorners(possibleCorners, maximum, tolerance);
     }
 
-    private List<XYPoint> filterFakeCorners(double[][] possibleCorners, double maximum, double tolerance) {
+    private List<puntoXY> filterFakeCorners(double[][] possibleCorners, double maximum, double tolerance) {
 
-        List<XYPoint> corners = new ArrayList<>();
+        List<puntoXY> corners = new ArrayList<>();
 
         for (int i = 0; i < possibleCorners.length; i++) {
             for (int j = 0; j < possibleCorners[i].length; j++) {
 
                 if (possibleCorners[i][j] >= maximum - maximum * tolerance / 100) {
-                    corners.add(new XYPoint(i, j));
+                    corners.add(new puntoXY(i, j));
                 }
             }
         }

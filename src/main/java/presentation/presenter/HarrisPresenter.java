@@ -2,7 +2,7 @@ package presentation.presenter;
 
 import core.action.characteristic_points.ApplyHarrisDetectorAction;
 import core.action.image.LoadImageAction;
-import dominio.XYPoint;
+import dominio.puntoXY;
 import dominio.customimage.Imagen;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -44,8 +44,8 @@ public class HarrisPresenter {
 
             double tolerance = Double.parseDouble(InsertValuePopup.show("Insert maximum-percent for filtering fake corners", "0").get());
 
-            List<XYPoint> image1Corners = this.applyHarrisDetectorAction.execute(this.image1, tolerance);
-            List<XYPoint> image2Corners = this.applyHarrisDetectorAction.execute(this.image2, tolerance);
+            List<puntoXY> image1Corners = this.applyHarrisDetectorAction.execute(this.image1, tolerance);
+            List<puntoXY> image2Corners = this.applyHarrisDetectorAction.execute(this.image2, tolerance);
 
             this.markImage1Corners(image1Corners);
             this.markImage2Corners(image2Corners);
@@ -59,7 +59,7 @@ public class HarrisPresenter {
         }
     }
 
-    private void markImage1Corners(List<XYPoint> image1Corners) {
+    private void markImage1Corners(List<puntoXY> image1Corners) {
 
         WritableImage image = new WritableImage(image1.getAncho(), image1.getAltura());
         PixelWriter writer = image.getPixelWriter();
@@ -67,8 +67,8 @@ public class HarrisPresenter {
         for (int i = 0; i < image.getWidth(); i++) {
             for (int j = 0; j < image.getHeight(); j++) {
 
-                XYPoint xyPoint = new XYPoint(i, j);
-                if (image1Corners.contains(xyPoint)) {
+                puntoXY puntoXy = new puntoXY(i, j);
+                if (image1Corners.contains(puntoXy)) {
                     this.markPoint(writer, i, j);
                 } else {
                     writer.setColor(i, j, image1.getColor(i, j));
@@ -79,15 +79,15 @@ public class HarrisPresenter {
         this.view.imageView1.setImage(image);
     }
 
-    private void markImage2Corners(List<XYPoint> image2Corners) {
+    private void markImage2Corners(List<puntoXY> image2Corners) {
         WritableImage image = new WritableImage(image2.getAncho(), image2.getAltura());
         PixelWriter writer = image.getPixelWriter();
 
         for (int i = 0; i < image.getWidth(); i++) {
             for (int j = 0; j < image.getHeight(); j++) {
 
-                XYPoint xyPoint = new XYPoint(i, j);
-                if (image2Corners.contains(xyPoint)) {
+                puntoXY puntoXy = new puntoXY(i, j);
+                if (image2Corners.contains(puntoXy)) {
                     this.markPoint(writer, i, j);
                 } else {
                     writer.setColor(i, j, image2.getColor(i, j));

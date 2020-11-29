@@ -2,12 +2,12 @@ package dominio.hough;
 
 import java.util.Objects;
 
-public class RhoThetaLine {
+public class LineaRhoTheeta {
 
     private double rho;
     private double theta;
 
-    public RhoThetaLine(double rho, double theta) {
+    public LineaRhoTheeta(double rho, double theta) {
         this.rho = rho;
         this.theta = theta;
     }
@@ -18,7 +18,7 @@ public class RhoThetaLine {
 
     @Override
     public boolean equals(Object o) {
-        RhoThetaLine rhoTheta = (RhoThetaLine)o;
+        LineaRhoTheeta rhoTheta = (LineaRhoTheeta)o;
         return ((rhoTheta.getRho() == this.rho) && (rhoTheta.getTheta() == this.theta));
     }
 

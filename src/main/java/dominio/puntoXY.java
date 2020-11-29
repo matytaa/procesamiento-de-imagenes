@@ -2,12 +2,12 @@ package dominio;
 
 import java.util.Objects;
 
-public class XYPoint {
+public class puntoXY {
 
     private final int x;
     private final int y;
 
-    public XYPoint(int x, int y) {
+    public puntoXY(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -22,7 +22,7 @@ public class XYPoint {
 
     @Override
     public boolean equals(Object o) {
-        XYPoint another = (XYPoint)o;
+        puntoXY another = (puntoXY)o;
         return another.getX() == this.x && another.getY() == this.y;
     }
 

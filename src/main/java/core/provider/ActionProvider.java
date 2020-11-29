@@ -6,8 +6,8 @@ import core.action.characteristic_points.ApplyHarrisDetectorAction;
 import core.action.characteristic_points.ApplySiftDetectorAction;
 import core.action.difusion.AplicarDifusionAction;
 import core.action.edgedetector.*;
-import core.action.edgedetector.hough.CircleHoughTransformAction;
-import core.action.edgedetector.hough.LineHoughTransformAction;
+import core.action.edgedetector.hough.TransformadaHoughCircularAction;
+import core.action.edgedetector.hough.TransformadaHoughLinearAction;
 import core.action.edit.ModifyPixelAction;
 import core.action.edit.space_domain.*;
 import core.action.edit.space_domain.operations.MultiplyImagesAction;
@@ -71,8 +71,8 @@ class ActionProvider {
     private static GetImageLimitValuesAction getImageLimitValuesAction;
     private static AplicarCannyAction aplicarCannyAction;
     private static ApplySusanDetectorAction applySusanDetectorAction;
-    private static LineHoughTransformAction lineHoughTransformAction;
-    private static CircleHoughTransformAction circleHoughTransformAction;
+    private static TransformadaHoughLinearAction transformadaHoughLinearAction;
+    private static TransformadaHoughCircularAction transformadaHoughCircularAction;
     private static ApplyActiveContourAction applyActiveContourAction;
     private static CargarSecuenciaImagenesAction cargarSecuenciaImagenesAction;
     private static GetImageSequenceAction getImageSequenceAction;
@@ -400,18 +400,18 @@ class ActionProvider {
         return applySusanDetectorAction;
     }
 
-    public static LineHoughTransformAction provideLineHoughTransformAction() {
-        if (lineHoughTransformAction == null) {
-            lineHoughTransformAction = new LineHoughTransformAction();
+    public static TransformadaHoughLinearAction provideLineHoughTransformAction() {
+        if (transformadaHoughLinearAction == null) {
+            transformadaHoughLinearAction = new TransformadaHoughLinearAction();
         }
-        return lineHoughTransformAction;
+        return transformadaHoughLinearAction;
     }
 
-    public static CircleHoughTransformAction provideCircleHoughTransformAction() {
-        if (circleHoughTransformAction == null) {
-            circleHoughTransformAction = new CircleHoughTransformAction();
+    public static TransformadaHoughCircularAction provideCircleHoughTransformAction() {
+        if (transformadaHoughCircularAction == null) {
+            transformadaHoughCircularAction = new TransformadaHoughCircularAction();
         }
-        return circleHoughTransformAction;
+        return transformadaHoughCircularAction;
     }
 
     public static ApplyActiveContourAction provideApplyActiveContourAction() {

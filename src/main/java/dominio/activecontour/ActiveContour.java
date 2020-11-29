@@ -1,6 +1,6 @@
 package dominio.activecontour;
 
-import dominio.XYPoint;
+import dominio.puntoXY;
 
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -16,8 +16,8 @@ public class ActiveContour {
     private final Integer height;
     private final int backgroundGrayAverage;
     private final int objectGrayAverage;
-    private final List<XYPoint> lOut;
-    private final List<XYPoint> lIn;
+    private final List<puntoXY> lOut;
+    private final List<puntoXY> lIn;
     private double[][] content;
 
     public ActiveContour(Integer width, Integer height, SelectionSquare selectionSquare, int backgroundGrayAverage, int objectGrayAverage) {
@@ -37,7 +37,7 @@ public class ActiveContour {
     }
 
     private ActiveContour(Integer width, Integer height, int backgroundGrayAverage, int objectGrayAverage,
-                          List<XYPoint> lOut, List<XYPoint> lIn, double[][] content) {
+                          List<puntoXY> lOut, List<puntoXY> lIn, double[][] content) {
         this.width = width;
         this.height = height;
         this.backgroundGrayAverage = backgroundGrayAverage;
@@ -66,11 +66,11 @@ public class ActiveContour {
         return height;
     }
 
-    public List<XYPoint> getlOut() {
+    public List<puntoXY> getlOut() {
         return lOut;
     }
 
-    public List<XYPoint> getlIn() {
+    public List<puntoXY> getlIn() {
         return lIn;
     }
 
@@ -82,17 +82,17 @@ public class ActiveContour {
         return objectGrayAverage;
     }
 
-    private List<XYPoint> addPoints(int firstRow, int secondRow, int firstColumn, int secondColumn) {
-        List<XYPoint> positions = new CopyOnWriteArrayList<>();
+    private List<puntoXY> addPoints(int firstRow, int secondRow, int firstColumn, int secondColumn) {
+        List<puntoXY> positions = new CopyOnWriteArrayList<>();
 
         for (int i = firstRow; i <= secondRow; i++) {
-            positions.add(new XYPoint(i, firstColumn));
-            positions.add(new XYPoint(i, secondColumn));
+            positions.add(new puntoXY(i, firstColumn));
+            positions.add(new puntoXY(i, secondColumn));
         }
 
         for (int i = firstColumn; i <= secondColumn; i++) {
-            positions.add(new XYPoint(firstRow, i));
-            positions.add(new XYPoint(secondRow, i));
+            positions.add(new puntoXY(firstRow, i));
+            positions.add(new puntoXY(secondRow, i));
         }
 
         return positions;
@@ -123,36 +123,36 @@ public class ActiveContour {
 
     public void moveInvalidLInToObject() {
         for (int i = 0; i < lIn.size(); i++) {
-            XYPoint xyPoint = lIn.get(i);
-            if (hasAllNeighborsWithValueLowerThanZero(xyPoint)) {
-                lIn.remove(xyPoint);
-                content[xyPoint.getX()][xyPoint.getY()] = OBJECT_VALUE;
+            puntoXY puntoXy = lIn.get(i);
+            if (hasAllNeighborsWithValueLowerThanZero(puntoXy)) {
+                lIn.remove(puntoXy);
+                content[puntoXy.getX()][puntoXy.getY()] = OBJECT_VALUE;
             }
         }
     }
 
     public void moveInvalidLOutToBackground() {
         for (int i = 0; i < lOut.size(); i++) {
-            XYPoint xyPoint = lOut.get(i);
-            if (hasAllNeighborsWithValueHigherThanZero(xyPoint)) {
-                lOut.remove(xyPoint);
-                content[xyPoint.getX()][xyPoint.getY()] = BACKGROUND_VALUE;
+            puntoXY puntoXy = lOut.get(i);
+            if (hasAllNeighborsWithValueHigherThanZero(puntoXy)) {
+                lOut.remove(puntoXy);
+                content[puntoXy.getX()][puntoXy.getY()] = BACKGROUND_VALUE;
             }
         }
     }
 
-    private boolean hasAllNeighborsWithValueLowerThanZero(XYPoint xyPoint) {
-        int row = xyPoint.getX();
-        int column = xyPoint.getY();
+    private boolean hasAllNeighborsWithValueLowerThanZero(puntoXY puntoXy) {
+        int row = puntoXy.getX();
+        int column = puntoXy.getY();
         return hasValueLowerThanZero(row - 1, column) &&
                 hasValueLowerThanZero(row + 1, column) &&
                 hasValueLowerThanZero(row, column - 1) &&
                 hasValueLowerThanZero(row, column + 1);
     }
 
-    private boolean hasAllNeighborsWithValueHigherThanZero(XYPoint xyPoint) {
-        int row = xyPoint.getX();
-        int column = xyPoint.getY();
+    private boolean hasAllNeighborsWithValueHigherThanZero(puntoXY puntoXy) {
+        int row = puntoXy.getX();
+        int column = puntoXy.getY();
         return hasValueHigherThanZero(row - 1, column) &&
                 hasValueHigherThanZero(row + 1, column) &&
                 hasValueHigherThanZero(row, column - 1) &&
@@ -167,14 +167,14 @@ public class ActiveContour {
         return hasValidPosition(row, column) && content[row][column] > 0;
     }
 
-    public Set<XYPoint> getNeighbors(XYPoint xyPoint) {
-        Set<XYPoint> neighbors = new HashSet<>();
-        int row = xyPoint.getX();
-        int column = xyPoint.getY();
-        neighbors.add(new XYPoint(row - 1, column));
-        neighbors.add(new XYPoint(row + 1, column));
-        neighbors.add(new XYPoint(row, column - 1));
-        neighbors.add(new XYPoint(row, column + 1));
+    public Set<puntoXY> getNeighbors(puntoXY puntoXy) {
+        Set<puntoXY> neighbors = new HashSet<>();
+        int row = puntoXy.getX();
+        int column = puntoXy.getY();
+        neighbors.add(new puntoXY(row - 1, column));
+        neighbors.add(new puntoXY(row + 1, column));
+        neighbors.add(new puntoXY(row, column - 1));
+        neighbors.add(new puntoXY(row, column + 1));
         return neighbors;
     }
 
@@ -185,42 +185,42 @@ public class ActiveContour {
     }
 
     //fi(x) = 3
-    public boolean belongToBackground(XYPoint xyPoint) {
-        return hasValue(xyPoint, BACKGROUND_VALUE);
+    public boolean belongToBackground(puntoXY puntoXy) {
+        return hasValue(puntoXy, BACKGROUND_VALUE);
     }
 
     //fi(x) = -3
-    public boolean belongToObject(XYPoint xyPoint) {
-        return hasValue(xyPoint, OBJECT_VALUE);
+    public boolean belongToObject(puntoXY puntoXy) {
+        return hasValue(puntoXy, OBJECT_VALUE);
     }
 
-    private boolean hasValue(XYPoint xyPoint, int value) {
-        return content[xyPoint.getX()][xyPoint.getY()] == value;
+    private boolean hasValue(puntoXY puntoXy, int value) {
+        return content[puntoXy.getX()][puntoXy.getY()] == value;
     }
 
     //Set fi(x) = -1
-    public void updateFiValueForLInPoint(XYPoint xyPoint) {
-        content[xyPoint.getX()][xyPoint.getY()] = L_IN_VALUE;
+    public void updateFiValueForLInPoint(puntoXY puntoXy) {
+        content[puntoXy.getX()][puntoXy.getY()] = L_IN_VALUE;
     }
 
     //Set fi(x) = 1
-    public void updateFiValueForLOutPoint(XYPoint xyPoint) {
-        content[xyPoint.getX()][xyPoint.getY()] = L_OUT_VALUE;
+    public void updateFiValueForLOutPoint(puntoXY puntoXy) {
+        content[puntoXy.getX()][puntoXy.getY()] = L_OUT_VALUE;
     }
 
-    public void addLIn(List<XYPoint> toAddToLIn) {
+    public void addLIn(List<puntoXY> toAddToLIn) {
         lIn.addAll(toAddToLIn);
     }
 
-    public void removeLIn(List<XYPoint> toRemoveFromLIn) {
+    public void removeLIn(List<puntoXY> toRemoveFromLIn) {
         lIn.removeAll(toRemoveFromLIn);
     }
 
-    public void addLOut(List<XYPoint> toAddToLOut) {
+    public void addLOut(List<puntoXY> toAddToLOut) {
         lOut.addAll(toAddToLOut);
     }
 
-    public void removeLOut(List<XYPoint> toRemoveFromLOut) {
+    public void removeLOut(List<puntoXY> toRemoveFromLOut) {
         lOut.removeAll(toRemoveFromLOut);
     }
 

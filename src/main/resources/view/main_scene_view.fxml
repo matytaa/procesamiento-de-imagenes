@@ -161,7 +161,7 @@
                 <items>
                     <MenuItem mnemonicParsing="false" onAction="#aplicarCanny" text="Canny" />
                     <MenuItem mnemonicParsing="false" onAction="#aplicarSusan" text="Susan" />
-                    <!--<MenuItem mnemonicParsing="false" onAction="#aplicarHough" text="Hough" />-->
+                    <MenuItem mnemonicParsing="false" onAction="#aplicarHough" text="Hough" />
                 </items>
             </Menu>
 

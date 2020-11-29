@@ -15,7 +15,7 @@ public class HoughSceneCreator implements SceneCreator{
             Parent root = FXMLLoader.load(getClass().getResource("/view/hough_scene_view.fxml"));
             Scene channelScene = new Scene(root);
             Stage channelStage = new Stage(StageStyle.DECORATED);
-            channelStage.setTitle("Hough Transform");
+            channelStage.setTitle("Hough");
             channelStage.setScene(channelScene);
             channelStage.show();
 

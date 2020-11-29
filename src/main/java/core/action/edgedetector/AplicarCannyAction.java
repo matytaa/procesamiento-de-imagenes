@@ -174,6 +174,7 @@ public class AplicarCannyAction {
 
                     //PASO A GRADOS REALES EL ANGULO
                     double anguloReal = Math.toDegrees(Math.atan((double) yDerivadaCanalRojo[x][y] / xDerivadaCanalRojo[x][y]));
+                    System.out.println(anguloReal);
                     anguloGradienteMatriz[x][y] = this.elegirAnguloImagen(anguloReal);
                 }
 

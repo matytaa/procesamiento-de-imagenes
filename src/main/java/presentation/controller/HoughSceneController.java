@@ -11,23 +11,23 @@ public class HoughSceneController {
 
     private final HoughPresenter houghPresenter;
     @FXML
-    public RadioButton lineRadioButton;
+    public RadioButton lineaRadioButton;
     @FXML
-    public RadioButton circleRadioButton;
+    public RadioButton circuloRadioButton;
     @FXML
-    public TextField toleranceTextField;
+    public TextField toleranciaTextField;
 
     @FXML
-    public TextField lineThetaTextField;
+    public TextField thetaTextField;
     @FXML
-    public TextField lineRhoTextField;
+    public TextField rhoTextField;
 
     @FXML
-    public TextField circleXCenterTextField;
+    public TextField circuloXTextField;
     @FXML
-    public TextField circleYCenterTextField;
+    public TextField circuloYTextField;
     @FXML
-    public TextField circleRadiusTextField;
+    public TextField circuloRadioTextField;
 
     public HoughSceneController() {
         this.houghPresenter = PresenterProvider.provideHoughPresenter(this);
@@ -35,51 +35,51 @@ public class HoughSceneController {
 
     @FXML
     public void initialize() {
-        this.disableCircleInput();
-        this.disableLineInput();
+        this.deshabilitarInputsCirculo();
+        this.deshabilitarInputsLinea();
     }
 
-    private void enableLineInput() {
-        this.lineRhoTextField.setDisable(false);
-        this.lineThetaTextField.setDisable(false);
+    private void habilitarInputsLinea() {
+        this.rhoTextField.setDisable(false);
+        this.thetaTextField.setDisable(false);
     }
 
-    private void disableLineInput() {
-        this.lineRhoTextField.setDisable(true);
-        this.lineThetaTextField.setDisable(true);
+    private void deshabilitarInputsLinea() {
+        this.rhoTextField.setDisable(true);
+        this.thetaTextField.setDisable(true);
     }
 
-    private void enableCircleInput() {
-        this.circleXCenterTextField.setDisable(false);
-        this.circleYCenterTextField.setDisable(false);
-        this.circleRadiusTextField.setDisable(false);
+    private void habilitarInputsCirculo() {
+        this.circuloXTextField.setDisable(false);
+        this.circuloYTextField.setDisable(false);
+        this.circuloRadioTextField.setDisable(false);
     }
 
-    private void disableCircleInput() {
-        this.circleXCenterTextField.setDisable(true);
-        this.circleYCenterTextField.setDisable(true);
-        this.circleRadiusTextField.setDisable(true);
-    }
-
-    @FXML
-    public void onLineSelection() {
-        this.enableLineInput();
-        this.disableCircleInput();
+    private void deshabilitarInputsCirculo() {
+        this.circuloXTextField.setDisable(true);
+        this.circuloYTextField.setDisable(true);
+        this.circuloRadioTextField.setDisable(true);
     }
 
     @FXML
-    public void onCircleSelection() {
-        this.enableCircleInput();
-        this.disableLineInput();
+    public void linea() {
+        this.habilitarInputsLinea();
+        this.deshabilitarInputsCirculo();
     }
 
     @FXML
-    public void onApply() {
-        this.houghPresenter.onApply();
+    public void circulo() {
+        this.habilitarInputsCirculo();
+        this.deshabilitarInputsLinea();
+    }
+
+    @FXML
+    public void aplicar() {
+        this.houghPresenter.aplicar();
     }
 
     public void closeWindow() {
-        Stage stage = (Stage) this.lineThetaTextField.getScene().getWindow();
+        Stage stage = (Stage) this.thetaTextField.getScene().getWindow();
         stage.close();
     }
 }

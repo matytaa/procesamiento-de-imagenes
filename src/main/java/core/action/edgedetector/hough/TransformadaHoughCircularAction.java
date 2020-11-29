@@ -10,7 +10,7 @@ import javafx.scene.shape.Circle;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CircleHoughTransformAction {
+public class TransformadaHoughCircularAction {
 
     private final int radiusLowerBound = 0;
     private int radiusUpperBound;
@@ -21,20 +21,20 @@ public class CircleHoughTransformAction {
 
     private Map<XYRCircle, Integer> parameterMatrix;
 
-    public Imagen execute(Imagen originalImage, Imagen edgedImage, int xCenterDivisions, int yCenterDivisions, int radiusDivisions, double tolerance) {
+    public Imagen ejecutar(Imagen originalImage, Imagen edgedImage, int xCenterDivisions, int yCenterDivisions, int radiusDivisions, double tolerance) {
 
-        this.radiusUpperBound = this.calculateMaximumRadius(edgedImage);
+        this.radiusUpperBound = this.calcularRadioMaximo(edgedImage);
         this.xCenterUpperBound = edgedImage.getAncho();
         this.yCenterUpperBound = edgedImage.getAltura();
 
-        this.createParameterMatrix(xCenterDivisions, yCenterDivisions, radiusDivisions);
+        this.crearMatrizParametro(xCenterDivisions, yCenterDivisions, radiusDivisions);
 
-        int[][] channel = edgedImage.getMatrizRed();
+        int[][] canal = edgedImage.getMatrizRed();
 
-        for (int x=0; x < channel.length; x++) {
-            for (int y=0; y < channel[x].length; y++) {
+        for (int x=0; x < canal.length; x++) {
+            for (int y=0; y < canal[x].length; y++) {
 
-                if (channel[x][y] == 255) this.evaluateAllCircles(x,y, tolerance);
+                if (canal[x][y] == 255) this.evaluateAllCircles(x,y, tolerance);
 
             }
         }
@@ -50,8 +50,8 @@ public class CircleHoughTransformAction {
 
     private Imagen drawCircles(Imagen originalImage, Integer width, Integer height, Map<XYRCircle, Integer> acceptedCircles) {
 
-        WritableImage image = new WritableImage(width, height);
-        PixelWriter writer = image.getPixelWriter();
+        WritableImage imagen = new WritableImage(width, height);
+        PixelWriter writer = imagen.getPixelWriter();
 
         for(int x=0; x < width; x++) {
             for (int y=0; y < height; y++) {
@@ -69,7 +69,7 @@ public class CircleHoughTransformAction {
 
         }
 
-        return new Imagen(image, "png");
+        return new Imagen(imagen, "png");
 
     }
 
@@ -132,7 +132,7 @@ public class CircleHoughTransformAction {
         return Math.abs((Math.pow(x - currentXCenter, 2) + Math.pow(y - currentYCenter, 2) - Math.pow(radius, 2))) < tolerance*100;
     }
 
-    private void createParameterMatrix(int xCenterDivisions, int yCenterDivisions, int radiusDivisions) {
+    private void crearMatrizParametro(int xCenterDivisions, int yCenterDivisions, int radiusDivisions) {
 
         this.parameterMatrix = new HashMap<>();
 
@@ -152,9 +152,9 @@ public class CircleHoughTransformAction {
         }
     }
 
-    private int calculateMaximumRadius(Imagen customImage) {
-        if (customImage.getAncho() > customImage.getAltura()) return customImage.getAltura()/2;
-        else return customImage.getAncho()/2;
+    private int calcularRadioMaximo(Imagen imagen) {
+        if (imagen.getAncho() > imagen.getAltura()) return imagen.getAltura()/2;
+        else return imagen.getAncho()/2;
     }
 
 

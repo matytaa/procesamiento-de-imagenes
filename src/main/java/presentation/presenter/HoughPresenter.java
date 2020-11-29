@@ -1,8 +1,8 @@
 package presentation.presenter;
 
 import core.action.edgedetector.AplicarDetectorDeBordesAction;
-import core.action.edgedetector.hough.CircleHoughTransformAction;
-import core.action.edgedetector.hough.LineHoughTransformAction;
+import core.action.edgedetector.hough.TransformadaHoughCircularAction;
+import core.action.edgedetector.hough.TransformadaHoughLinearAction;
 import core.action.image.ObtenerImagenAction;
 import core.action.threshold.AplicarEstimacionDelUmbralDeOtsuAction;
 import dominio.automaticthreshold.EstimacionDelUmbralDeOtsuResultante;
@@ -16,54 +16,57 @@ import presentation.controller.HoughSceneController;
 
 public class HoughPresenter {
 
-    private final HoughSceneController view;
+    private final HoughSceneController vista;
     //Este tiene que ser el mismo publish subject de la modified image para que pueda recibir el resultado de Canny
     private final PublishSubject<Image> imagePublishSubject;
-    private final LineHoughTransformAction lineHoughTransformAction;
-    private final CircleHoughTransformAction circleHoughTransformAction;
+    private final TransformadaHoughLinearAction transformadaHoughLinearAction;
+    private final TransformadaHoughCircularAction transformadaHoughCircularAction;
     private final AplicarEstimacionDelUmbralDeOtsuAction aplicarEstimacionDelUmbralDeOtsuAction;
     private final ObtenerImagenAction obtenerImagenAction;
     private final AplicarDetectorDeBordesAction aplicarDetectorDeBordesAction;
 
     public HoughPresenter(HoughSceneController houghSceneController,
                           PublishSubject<Image> onModifiedImagePublishSubject,
-                          LineHoughTransformAction lineHoughTransformAction,
-                          CircleHoughTransformAction circleHoughTransformAction,
+                          TransformadaHoughLinearAction transformadaHoughLinearAction,
+                          TransformadaHoughCircularAction transformadaHoughCircularAction,
                           AplicarEstimacionDelUmbralDeOtsuAction aplicarEstimacionDelUmbralDeOtsuAction,
                           ObtenerImagenAction obtenerImagenAction,
                           AplicarDetectorDeBordesAction aplicarDetectorDeBordesAction) {
-        this.view = houghSceneController;
+        this.vista = houghSceneController;
         this.imagePublishSubject = onModifiedImagePublishSubject;
-        this.lineHoughTransformAction = lineHoughTransformAction;
-        this.circleHoughTransformAction = circleHoughTransformAction;
+        this.transformadaHoughLinearAction = transformadaHoughLinearAction;
+        this.transformadaHoughCircularAction = transformadaHoughCircularAction;
         this.obtenerImagenAction = obtenerImagenAction;
         this.aplicarEstimacionDelUmbralDeOtsuAction = aplicarEstimacionDelUmbralDeOtsuAction;
         this.aplicarDetectorDeBordesAction = aplicarDetectorDeBordesAction;
     }
 
-    public void onApply() {
+    public void aplicar() {
 
-        if (view.lineRadioButton.isSelected()) this.onHoughTransformForLines();
-        else if (view.circleRadioButton.isSelected()) this.onHoughTransformForCircles();
+        if (vista.lineaRadioButton.isSelected()) this.transformadaLinear();
+        else if (vista.circuloRadioButton.isSelected()) this.transformadaCircular();
 
     }
 
-    private void onHoughTransformForCircles() {
+    private void transformadaCircular() {
 
-        int xCenterDivisions = Integer.parseInt(view.circleXCenterTextField.getText());
-        int yCenterDivisions = Integer.parseInt(view.circleYCenterTextField.getText());
-        int radiusDivisions = Integer.parseInt(view.circleRadiusTextField.getText());
-        double tolerance = Double.parseDouble(view.toleranceTextField.getText());
+        int xCentro = Integer.parseInt(vista.circuloXTextField.getText());
+        int yCentro = Integer.parseInt(vista.circuloYTextField.getText());
+        int radio = Integer.parseInt(vista.circuloRadioTextField.getText());
+        double tolerancia = Double.parseDouble(vista.toleranciaTextField.getText());
 
-        if (isXCenterValid(xCenterDivisions) && isYCenterValid(yCenterDivisions) && isRadiusValid(radiusDivisions) && isToleranceValid(tolerance)) {
+        if (esXCentroValido(xCentro) && esYCentroValido(yCentro) && esRadioValido(radio) && esToleranciaValida(tolerancia)) {
 
-            this.obtenerImagenAction.ejecutar().ifPresent(customImage -> {
-                Imagen edgedImage = new Imagen(this.aplicarDetectorDeBordesAction.ejecutar(customImage, new MascaraDerivativaPrewittX(), new MascaraDerivativaPrewittY()), "png");
-                EstimacionDelUmbralDeOtsuResultante estimacionDelUmbralDeOtsuResultante = this.aplicarEstimacionDelUmbralDeOtsuAction.ejecutar(edgedImage);
-                Imagen thresholdizedImage = new Imagen(estimacionDelUmbralDeOtsuResultante.getImagen(), "png");
-                Imagen houghImage = this.circleHoughTransformAction.execute(customImage, thresholdizedImage, xCenterDivisions, yCenterDivisions, radiusDivisions, tolerance);
-                imagePublishSubject.onNext(houghImage.toFXImage());
-                this.view.closeWindow();
+            this.obtenerImagenAction.ejecutar().ifPresent(imagen -> {
+                //DETECTO BORDES CON PREWITT
+                Imagen imagenConBordesDetectados = new Imagen(this.aplicarDetectorDeBordesAction.ejecutar(imagen, new MascaraDerivativaPrewittX(), new MascaraDerivativaPrewittY()), "png");
+                //CALCULO UMBRAL CON OTSU
+                EstimacionDelUmbralDeOtsuResultante estimacionDelUmbralDeOtsuResultante = this.aplicarEstimacionDelUmbralDeOtsuAction.ejecutar(imagenConBordesDetectados);
+                Imagen imagenConLimites = new Imagen(estimacionDelUmbralDeOtsuResultante.getImagen(), "png");
+                //CALCULO HOUGH
+                Imagen imagenConHough = this.transformadaHoughCircularAction.ejecutar(imagen, imagenConLimites, xCentro, yCentro, radio, tolerancia);
+                imagePublishSubject.onNext(imagenConHough.toFXImage());
+                this.vista.closeWindow();
                     }
             );
 
@@ -71,48 +74,51 @@ public class HoughPresenter {
 
     }
 
-    private boolean isRadiusValid(int radiusDivisions) {
-        return radiusDivisions > 0;
+    private boolean esRadioValido(int radio) {
+        return radio > 0;
     }
 
-    private boolean isYCenterValid(int yCenterDivisions) {
-        return yCenterDivisions > 0;
+    private boolean esYCentroValido(int yCentro) {
+        return yCentro > 0;
     }
 
-    private boolean isXCenterValid(int xCenterDivisions) {
-        return xCenterDivisions > 0;
+    private boolean esXCentroValido(int xCentro) {
+        return xCentro > 0;
     }
 
-    private void onHoughTransformForLines() {
+    private void transformadaLinear() {
 
-        int rhoDivisions = Integer.parseInt(view.lineRhoTextField.getText());
-        int thetaDivisions = Integer.parseInt(view.lineThetaTextField.getText());
-        double tolerance = Double.parseDouble(view.toleranceTextField.getText());
+        int rho = Integer.parseInt(vista.rhoTextField.getText());
+        int theta = Integer.parseInt(vista.thetaTextField.getText());
+        double tolerancia = Double.parseDouble(vista.toleranciaTextField.getText());
 
-        if (isRhoValid(rhoDivisions) && isThetaValid(thetaDivisions) && isToleranceValid(tolerance)) {
+        if (esRhoValida(rho) && esThetaValida(theta) && esToleranciaValida(tolerancia)) {
 
-            this.obtenerImagenAction.ejecutar().ifPresent(customImage -> {
-                Imagen edgedImage = new Imagen(this.aplicarDetectorDeBordesAction.ejecutar(customImage, new MascaraDerivativaPrewittX(), new MascaraDerivativaPrewittY()), "png");
-                EstimacionDelUmbralDeOtsuResultante estimacionDelUmbralDeOtsuResultante = this.aplicarEstimacionDelUmbralDeOtsuAction.ejecutar(edgedImage);
-                Imagen thresholdizedImage = new Imagen(estimacionDelUmbralDeOtsuResultante.getImagen(), "png");
-                Imagen houghImage = this.lineHoughTransformAction.execute(customImage, thresholdizedImage, rhoDivisions, thetaDivisions, tolerance);
-                imagePublishSubject.onNext(houghImage.toFXImage());
-                this.view.closeWindow();
+            this.obtenerImagenAction.ejecutar().ifPresent(imagen -> {
+                //DETECTO BORDES CON PREWITT
+                Imagen imagenConBordesDetectados = new Imagen(this.aplicarDetectorDeBordesAction.ejecutar(imagen, new MascaraDerivativaPrewittX(), new MascaraDerivativaPrewittY()), "png");
+                //CALCULO UMBRAL CON OTSU
+                EstimacionDelUmbralDeOtsuResultante estimacionDelUmbralDeOtsuResultante = this.aplicarEstimacionDelUmbralDeOtsuAction.ejecutar(imagenConBordesDetectados);
+                Imagen imagenConLimites = new Imagen(estimacionDelUmbralDeOtsuResultante.getImagen(), "png");
+                //CALCULO HOUGH
+                Imagen imagenConHough = this.transformadaHoughLinearAction.execute(imagen, imagenConLimites, rho, theta, tolerancia);
+                imagePublishSubject.onNext(imagenConHough.toFXImage());
+                this.vista.closeWindow();
                     }
             );
 
         }
     }
 
-    private boolean isThetaValid(int thetaDivisions) {
-        return thetaDivisions > 0;
+    private boolean esThetaValida(int theta) {
+        return theta > 0;
     }
 
-    private boolean isRhoValid(int rhoDivisions) {
-        return rhoDivisions > 0;
+    private boolean esRhoValida(int rho) {
+        return rho > 0;
     }
 
-    private boolean isToleranceValid(double tolerance) {
-        return tolerance > 0;
+    private boolean esToleranciaValida(double tolerancia) {
+        return tolerancia > 0;
     }
 }
