@@ -20,7 +20,7 @@ public class TransformadaHoughLinearAction {
 
     private Map<LineaRhoTheeta, Integer> matrizParametro;
 
-    public Imagen execute(Imagen imagenOriginal, Imagen imageConBordesDetectados, int rho, int theeta, double tolerancia) {
+    public Imagen ejecutar(Imagen imagenOriginal, Imagen imageConBordesDetectados, int rho, int theeta, double tolerancia) {
 
         this.rhoLimiteInferior = 0;
         this.rhoLimiteSuperior = this.calcularDiagonal(imageConBordesDetectados.getAncho(), imageConBordesDetectados.getAltura());

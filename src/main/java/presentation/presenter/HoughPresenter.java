@@ -101,7 +101,7 @@ public class HoughPresenter {
                 EstimacionDelUmbralDeOtsuResultante estimacionDelUmbralDeOtsuResultante = this.aplicarEstimacionDelUmbralDeOtsuAction.ejecutar(imagenConBordesDetectados);
                 Imagen imagenConLimites = new Imagen(estimacionDelUmbralDeOtsuResultante.getImagen(), "png");
                 //CALCULO HOUGH
-                Imagen imagenConHough = this.transformadaHoughLinearAction.execute(imagen, imagenConLimites, rho, theta, tolerancia);
+                Imagen imagenConHough = this.transformadaHoughLinearAction.ejecutar(imagen, imagenConLimites, rho, theta, tolerancia);
                 imagePublishSubject.onNext(imagenConHough.toFXImage());
                 this.vista.closeWindow();
                     }

@@ -82,26 +82,26 @@ public class AplicarCannyAction {
 
     }
 
-    private int[][] aplicoSupresionNoMaximo(int[][] derivativesAbsoluteSumMatrix, int[][] gradientAngleMatrix) {
+    private int[][] aplicoSupresionNoMaximo(int[][] matrizDerivadaSumaAbsoluta, int[][] matrizAnguloGradiente) {
 
-        int[][] roughSingleEdgedMatrix = new int[derivativesAbsoluteSumMatrix.length][derivativesAbsoluteSumMatrix[0].length];
+        int[][] matrizSuprimida = new int[matrizDerivadaSumaAbsoluta.length][matrizDerivadaSumaAbsoluta[0].length];
 
-        for (int x = 1; x < derivativesAbsoluteSumMatrix.length - 1; x++) {
-            for (int y = 1; y < derivativesAbsoluteSumMatrix[x].length - 1; y++) {
+        for (int x = 1; x < matrizDerivadaSumaAbsoluta.length - 1; x++) {
+            for (int y = 1; y < matrizDerivadaSumaAbsoluta[x].length - 1; y++) {
 
-                roughSingleEdgedMatrix[x][y] = this.evaluoBordes(derivativesAbsoluteSumMatrix, x, y, gradientAngleMatrix[x][y]);
+                matrizSuprimida[x][y] = this.evaluoBordes(matrizDerivadaSumaAbsoluta, x, y, matrizAnguloGradiente[x][y]);
 
             }
         }
-        return roughSingleEdgedMatrix;
+        return matrizSuprimida;
 
     }
 
-    private int evaluoBordes(int[][] sumaAbsolutaDerivada, int x, int y, int angle) {
+    private int evaluoBordes(int[][] sumaAbsolutaDerivada, int x, int y, int angulo) {
 
         if (sumaAbsolutaDerivada[x][y] != 0) {
 
-            switch (angle) {
+            switch (angulo) {
 
                 case 0:
                     return suprimoOesteYEsteNoMaximos(sumaAbsolutaDerivada, x, y);
@@ -109,8 +109,10 @@ public class AplicarCannyAction {
                     return suprimoNoresteYSudoesteNoMaximos(sumaAbsolutaDerivada, x, y);
                 case 90:
                     return suprimoNorteYSurNoMaximos(sumaAbsolutaDerivada, x, y);
+
                 case 135:
                     return suprimoNoroesteYSudesteNoMaximos(sumaAbsolutaDerivada, x, y);
+
                 default:
                     return 0;
             }
@@ -120,39 +122,39 @@ public class AplicarCannyAction {
 
     }
 
-    private int suprimoNoroesteYSudesteNoMaximos(int[][] sumaAbsolutaDerivada, int x, int y) {
-        if ((sumaAbsolutaDerivada[x][y] > sumaAbsolutaDerivada[x - 1][y - 1]) && (sumaAbsolutaDerivada[x][y]
-                > sumaAbsolutaDerivada[x + 1][y + 1])) {
-            return sumaAbsolutaDerivada[x][y];
-        } else {
+    private int suprimoNoresteYSudoesteNoMaximos(int[][] sumaAbsolutaDerivada, int x, int y) {
+        if ((sumaAbsolutaDerivada[x][y] < sumaAbsolutaDerivada[x - 1][y - 1]) || (sumaAbsolutaDerivada[x][y]
+                < sumaAbsolutaDerivada[x + 1][y + 1])) {
             return 0;
+        } else {
+            return sumaAbsolutaDerivada[x][y];
         }
     }
 
     private int suprimoNorteYSurNoMaximos(int[][] sumaAbsolutaDerivada, int x, int y) {
-        if ((sumaAbsolutaDerivada[x][y] > sumaAbsolutaDerivada[x][y - 1]) && (sumaAbsolutaDerivada[x][y]
-                > sumaAbsolutaDerivada[x][y + 1])) {
-            return sumaAbsolutaDerivada[x][y];
-        } else {
+        if ((sumaAbsolutaDerivada[x][y] < sumaAbsolutaDerivada[x][y - 1]) || (sumaAbsolutaDerivada[x][y]
+                < sumaAbsolutaDerivada[x][y + 1])) {
             return 0;
+        } else {
+            return sumaAbsolutaDerivada[x][y];
         }
     }
 
-    private int suprimoNoresteYSudoesteNoMaximos(int[][] sumaAbsolutaDerivada, int x, int y) {
-        if ((sumaAbsolutaDerivada[x][y] > sumaAbsolutaDerivada[x + 1][y - 1]) && (sumaAbsolutaDerivada[x][y]
-                > sumaAbsolutaDerivada[x - 1][y + 1])) {
-            return sumaAbsolutaDerivada[x][y];
-        } else {
+    private int suprimoNoroesteYSudesteNoMaximos(int[][] sumaAbsolutaDerivada, int x, int y) {
+        if ((sumaAbsolutaDerivada[x][y] < sumaAbsolutaDerivada[x + 1][y - 1]) || (sumaAbsolutaDerivada[x][y]
+                < sumaAbsolutaDerivada[x - 1][y + 1])) {
             return 0;
+        } else {
+            return sumaAbsolutaDerivada[x][y];
         }
     }
 
     private int suprimoOesteYEsteNoMaximos(int[][] sumaAbsolutaDerivada, int x, int y) {
-        if ((sumaAbsolutaDerivada[x][y] > sumaAbsolutaDerivada[x - 1][y]) && (sumaAbsolutaDerivada[x][y]
-                > sumaAbsolutaDerivada[x + 1][y])) {
-            return sumaAbsolutaDerivada[x][y];
-        } else {
+        if ((sumaAbsolutaDerivada[x][y] < sumaAbsolutaDerivada[x - 1][y]) || (sumaAbsolutaDerivada[x][y]
+                < sumaAbsolutaDerivada[x + 1][y])) {
             return 0;
+        } else {
+            return sumaAbsolutaDerivada[x][y];
         }
     }
 
@@ -171,10 +173,8 @@ public class AplicarCannyAction {
                 if (xDerivadaCanalRojo[x][y] == 0) {
                     anguloGradienteMatriz[x][y] = 90;
                 } else {
-
                     //PASO A GRADOS REALES EL ANGULO
-                    double anguloReal = Math.toDegrees(Math.atan((double) yDerivadaCanalRojo[x][y] / xDerivadaCanalRojo[x][y]));
-                    System.out.println(anguloReal);
+                    double anguloReal = Math.toDegrees(Math.atan2( yDerivadaCanalRojo[x][y] , xDerivadaCanalRojo[x][y]));
                     anguloGradienteMatriz[x][y] = this.elegirAnguloImagen(anguloReal);
                 }
 

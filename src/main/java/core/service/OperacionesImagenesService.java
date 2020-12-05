@@ -306,21 +306,21 @@ public class OperacionesImagenesService {
         return salida;
     }
 
-    public MatrizCanales calcularSumaAbsoluta(MatrizCanales firstImage, MatrizCanales secondImage) {
-        int[][] redChannel = this.calcularSumaAbsoluta(firstImage.getCanalRojo(), secondImage.getCanalRojo());
-        int[][] greenChannel = this.calcularSumaAbsoluta(firstImage.getCanalVerde(), secondImage.getCanalVerde());
-        int[][] blueChannel = this.calcularSumaAbsoluta(firstImage.getCanalAzul(), secondImage.getCanalAzul());
+    public MatrizCanales calcularSumaAbsoluta(MatrizCanales primeraImagen, MatrizCanales segundaImagen) {
+        int[][] redChannel = this.calcularSumaAbsoluta(primeraImagen.getCanalRojo(), segundaImagen.getCanalRojo());
+        int[][] greenChannel = this.calcularSumaAbsoluta(primeraImagen.getCanalVerde(), segundaImagen.getCanalVerde());
+        int[][] blueChannel = this.calcularSumaAbsoluta(primeraImagen.getCanalAzul(), segundaImagen.getCanalAzul());
         return new MatrizCanales(redChannel, greenChannel, blueChannel);
     }
 
-    private int[][] calcularSumaAbsoluta(int[][] firstChannel, int[][] secondChanne1) {
+    private int[][] calcularSumaAbsoluta(int[][] primerCanal, int[][] segundoCanal) {
 
-        int[][] absoluteSumChannel = new int[firstChannel.length][firstChannel[0].length];
+        int[][] canalSumaAbsoluta = new int[primerCanal.length][primerCanal[0].length];
 
-        for (int x=0; x < firstChannel.length; x++)
-            for (int y=0; y < firstChannel[x].length; y++)
-                absoluteSumChannel[x][y] = Math.abs(firstChannel[x][y]) + Math.abs(secondChanne1[x][y]);
-        return absoluteSumChannel;
+        for (int x=0; x < primerCanal.length; x++)
+            for (int y=0; y < primerCanal[x].length; y++)
+                canalSumaAbsoluta[x][y] = Math.abs(primerCanal[x][y]) + Math.abs(segundoCanal[x][y]);
+        return canalSumaAbsoluta;
     }
 
 }
