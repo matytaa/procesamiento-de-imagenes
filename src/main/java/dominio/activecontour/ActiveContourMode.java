@@ -4,7 +4,7 @@ public class ActiveContourMode {
 
     private static boolean mode;
 
-    public static boolean isSingle() {
+    public static boolean esSimple() {
         return mode;
     }
 

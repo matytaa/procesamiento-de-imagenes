@@ -9,10 +9,10 @@ import java.util.List;
 
 public class ApplyActiveContourOnImageSequenceAction {
 
-    private final ApplyActiveContourAction applyActiveContourAction;
+    private final AplicarContornoActivoAction aplicarContornoActivoAction;
 
-    public ApplyActiveContourOnImageSequenceAction(ApplyActiveContourAction applyActiveContourAction) {
-        this.applyActiveContourAction = applyActiveContourAction;
+    public ApplyActiveContourOnImageSequenceAction(AplicarContornoActivoAction aplicarContornoActivoAction) {
+        this.aplicarContornoActivoAction = aplicarContornoActivoAction;
     }
 
     public List<ImagenConContorno> execute(List<Imagen> customImages, ContornoActivo contornoActivo, int steps, double epsilon) {
@@ -20,7 +20,7 @@ public class ApplyActiveContourOnImageSequenceAction {
         List<ImagenConContorno> imagenConContornos = new ArrayList<>();
 
         Imagen first = customImages.get(0);
-        ImagenConContorno imagenConContorno = applyActiveContourAction.execute(first, contornoActivo, steps, epsilon);
+        ImagenConContorno imagenConContorno = aplicarContornoActivoAction.execute(first, contornoActivo, steps, epsilon);
         imagenConContornos.add(imagenConContorno);
 
         List<Imagen> list = new ArrayList<>(customImages);
@@ -28,7 +28,7 @@ public class ApplyActiveContourOnImageSequenceAction {
 
         for (Imagen customImage : list) {
             ContornoActivo previousContornoActivo = ContornoActivo.copy(imagenConContorno.getContornoActivo());
-            imagenConContorno = applyActiveContourAction.execute(customImage, previousContornoActivo, steps, epsilon);
+            imagenConContorno = aplicarContornoActivoAction.execute(customImage, previousContornoActivo, steps, epsilon);
             imagenConContornos.add(imagenConContorno);
         }
 

@@ -1,28 +1,28 @@
 package dominio.activecontour;
 
-import dominio.puntoXY;
+import dominio.PuntoXY;
 
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ContornoActivo {
 
-    private static final int OBJECT_VALUE = -3;
-    private static final int BACKGROUND_VALUE = 3;
-    private static final int L_IN_VALUE = -1;
-    private static final int L_OUT_VALUE = 1;
+    private static final int VALOR_TITA_1 = -3;
+    private static final int VALOR_TITA_0 = 3;
+    private static final int VALOR_L_IN = -1;
+    private static final int VALOR_L_OUT = 1;
 
-    private final Integer width;
-    private final Integer height;
+    private final Integer ancho;
+    private final Integer alto;
     private final int tita0;
     private final int tita1;
-    private final List<puntoXY> bordeExterno;
-    private final List<puntoXY> bordeInterno;
+    private final List<PuntoXY> bordeExterno;
+    private final List<PuntoXY> bordeInterno;
     private double[][] content;
 
-    public ContornoActivo(Integer width, Integer height, SelectionSquare selectionSquare, int tita0, int tita1) {
-        this.width = width;
-        this.height = height;
+    public ContornoActivo(Integer ancho, Integer alto, SelectionSquare selectionSquare, int tita0, int tita1) {
+        this.ancho = ancho;
+        this.alto = alto;
         this.tita0 = tita0;
         this.tita1 = tita1;
 
@@ -33,13 +33,13 @@ public class ContornoActivo {
 
         this.bordeExterno = addPoints(primeraFila, segundaFila, primeraColumna, segundaColumna);
         this.bordeInterno = addPoints(primeraFila + 1, segundaFila - 1, primeraColumna + 1, segundaColumna - 1);
-        this.content = initializeContent(primeraFila + 2, segundaFila - 2, primeraColumna + 2, segundaColumna - 2);
+        this.content = inicializarContenido(primeraFila + 2, segundaFila - 2, primeraColumna + 2, segundaColumna - 2);
     }
 
-    private ContornoActivo(Integer width, Integer height, int tita0, int tita1,
-                           List<puntoXY> bordeExterno, List<puntoXY> bordeInterno, double[][] content) {
-        this.width = width;
-        this.height = height;
+    private ContornoActivo(Integer ancho, Integer alto, int tita0, int tita1,
+                           List<PuntoXY> bordeExterno, List<PuntoXY> bordeInterno, double[][] content) {
+        this.ancho = ancho;
+        this.alto = alto;
         this.tita0 = tita0;
         this.tita1 = tita1;
         this.bordeExterno = bordeExterno;
@@ -49,8 +49,8 @@ public class ContornoActivo {
 
     public static ContornoActivo copy(ContornoActivo contornoActivo) {
         return new ContornoActivo(
-                contornoActivo.getWidth(),
-                contornoActivo.getHeight(),
+                contornoActivo.getAncho(),
+                contornoActivo.getAlto(),
                 contornoActivo.getPromedioDeGrisesFueraDelObjeto(),
                 contornoActivo.getPromedioDeGrisesDentroDelObjeto(),
                 new ArrayList<>(contornoActivo.getBordeExterno()),
@@ -58,19 +58,19 @@ public class ContornoActivo {
                 Arrays.copyOf(contornoActivo.getContent(), contornoActivo.getContent().length));
     }
 
-    public Integer getWidth() {
-        return width;
+    public Integer getAncho() {
+        return ancho;
     }
 
-    public Integer getHeight() {
-        return height;
+    public Integer getAlto() {
+        return alto;
     }
 
-    public List<puntoXY> getBordeExterno() {
+    public List<PuntoXY> getBordeExterno() {
         return bordeExterno;
     }
 
-    public List<puntoXY> getBordeInterno() {
+    public List<PuntoXY> getBordeInterno() {
         return bordeInterno;
     }
 
@@ -82,145 +82,141 @@ public class ContornoActivo {
         return tita1;
     }
 
-    private List<puntoXY> addPoints(int firstRow, int secondRow, int firstColumn, int secondColumn) {
-        List<puntoXY> positions = new CopyOnWriteArrayList<>();
+    private List<PuntoXY> addPoints(int firstRow, int secondRow, int firstColumn, int secondColumn) {
+        List<PuntoXY> positions = new CopyOnWriteArrayList<>();
 
         for (int i = firstRow; i <= secondRow; i++) {
-            positions.add(new puntoXY(i, firstColumn));
-            positions.add(new puntoXY(i, secondColumn));
+            positions.add(new PuntoXY(i, firstColumn));
+            positions.add(new PuntoXY(i, secondColumn));
         }
 
         for (int i = firstColumn; i <= secondColumn; i++) {
-            positions.add(new puntoXY(firstRow, i));
-            positions.add(new puntoXY(secondRow, i));
+            positions.add(new PuntoXY(firstRow, i));
+            positions.add(new PuntoXY(secondRow, i));
         }
 
         return positions;
     }
 
-    private double[][] initializeContent(int firstRowObject, int secondRowObject, int firstColumnObject, int secondColumnObject) {
-        double matrix[][] = new double[width][height];
+    private double[][] inicializarContenido(int primeraFilaDelObjeto, int ultimaFilaDelObjeto, int primeraColumnaDelObjeto, int ultimaColumnaDelObjeto) {
+        double matrix[][] = new double[ancho][alto];
 
-        // Fill matrix with background value
-        for (int row = 0; row < width; row++) {
-            for (int column = 0; column < height; column++) {
-                matrix[row][column] = BACKGROUND_VALUE;
-            }
-        }
+        // Rellenamos la matriz con los valores del borde externo
+        for (int fila = 0; fila < ancho; fila++)
+            for (int columna = 0; columna < alto; columna++)
+                matrix[fila][columna] = VALOR_TITA_0;
 
-        // Set edges
-        bordeInterno.forEach(xyPoint -> matrix[xyPoint.getX()][xyPoint.getY()] = L_IN_VALUE);
-        bordeExterno.forEach(xyPoint -> matrix[xyPoint.getX()][xyPoint.getY()] = L_OUT_VALUE);
+        // Seteamos los bordes
+        bordeInterno.forEach(xyPoint -> matrix[xyPoint.getX()][xyPoint.getY()] = VALOR_L_IN);
+        bordeExterno.forEach(xyPoint -> matrix[xyPoint.getX()][xyPoint.getY()] = VALOR_L_OUT);
 
-        // Set object
-        for (int row = firstRowObject; row <= secondRowObject; row++) {
-            for (int column = firstColumnObject; column <= secondColumnObject; column++) {
-                matrix[row][column] = OBJECT_VALUE;
-            }
-        }
+        // Seteamos en la matriz los valores del borde interno
+        for (int fila = primeraFilaDelObjeto; fila <= ultimaFilaDelObjeto; fila++)
+            for (int columna = primeraColumnaDelObjeto; columna <= ultimaColumnaDelObjeto; columna++)
+                matrix[fila][columna] = VALOR_TITA_1;
         return matrix;
     }
 
-    public void moveInvalidLInToObject() {
+    public void moverInvalidoLInATita1() {
         for (int i = 0; i < bordeInterno.size(); i++) {
-            puntoXY puntoXy = bordeInterno.get(i);
-            if (hasAllNeighborsWithValueLowerThanZero(puntoXy)) {
+            PuntoXY puntoXy = bordeInterno.get(i);
+            if (todosSusVecinosTienenValorInferiorACero(puntoXy)) {
                 bordeInterno.remove(puntoXy);
-                content[puntoXy.getX()][puntoXy.getY()] = OBJECT_VALUE;
+                content[puntoXy.getX()][puntoXy.getY()] = VALOR_TITA_1;
             }
         }
     }
 
-    public void moveInvalidLOutToBackground() {
+    public void moverInvalidoLOutATita0() {
         for (int i = 0; i < bordeExterno.size(); i++) {
-            puntoXY puntoXy = bordeExterno.get(i);
-            if (hasAllNeighborsWithValueHigherThanZero(puntoXy)) {
+            PuntoXY puntoXy = bordeExterno.get(i);
+            if (todosSusVecinosTienenValorSuperiorACero(puntoXy)) {
                 bordeExterno.remove(puntoXy);
-                content[puntoXy.getX()][puntoXy.getY()] = BACKGROUND_VALUE;
+                content[puntoXy.getX()][puntoXy.getY()] = VALOR_TITA_0;
             }
         }
     }
 
-    private boolean hasAllNeighborsWithValueLowerThanZero(puntoXY puntoXy) {
-        int row = puntoXy.getX();
-        int column = puntoXy.getY();
-        return hasValueLowerThanZero(row - 1, column) &&
-                hasValueLowerThanZero(row + 1, column) &&
-                hasValueLowerThanZero(row, column - 1) &&
-                hasValueLowerThanZero(row, column + 1);
+    private boolean todosSusVecinosTienenValorInferiorACero(PuntoXY puntoXy) {
+        int fila = puntoXy.getX();
+        int columna = puntoXy.getY();
+        return tieneUnValorInfeeriorACero(fila - 1, columna) &&
+                tieneUnValorInfeeriorACero(fila + 1, columna) &&
+                tieneUnValorInfeeriorACero(fila, columna - 1) &&
+                tieneUnValorInfeeriorACero(fila, columna + 1);
     }
 
-    private boolean hasAllNeighborsWithValueHigherThanZero(puntoXY puntoXy) {
-        int row = puntoXy.getX();
-        int column = puntoXy.getY();
-        return hasValueHigherThanZero(row - 1, column) &&
-                hasValueHigherThanZero(row + 1, column) &&
-                hasValueHigherThanZero(row, column - 1) &&
-                hasValueHigherThanZero(row, column + 1);
+    private boolean todosSusVecinosTienenValorSuperiorACero(PuntoXY puntoXy) {
+        int fila = puntoXy.getX();
+        int columna = puntoXy.getY();
+        return tieneUnValorSuperiorACero(fila - 1, columna) &&
+                tieneUnValorSuperiorACero(fila + 1, columna) &&
+                tieneUnValorSuperiorACero(fila, columna - 1) &&
+                tieneUnValorSuperiorACero(fila, columna + 1);
     }
 
-    private boolean hasValueLowerThanZero(int row, int column) {
-        return hasValidPosition(row, column) && content[row][column] < 0;
+    private boolean tieneUnValorInfeeriorACero(int fila, int columna) {
+        return esUnaPosicionValida(fila, columna) && content[fila][columna] < 0;
     }
 
-    private boolean hasValueHigherThanZero(int row, int column) {
-        return hasValidPosition(row, column) && content[row][column] > 0;
+    private boolean tieneUnValorSuperiorACero(int fila, int columna) {
+        return esUnaPosicionValida(fila, columna) && content[fila][columna] > 0;
     }
 
-    public Set<puntoXY> getNeighbors(puntoXY puntoXy) {
-        Set<puntoXY> neighbors = new HashSet<>();
-        int row = puntoXy.getX();
-        int column = puntoXy.getY();
-        neighbors.add(new puntoXY(row - 1, column));
-        neighbors.add(new puntoXY(row + 1, column));
-        neighbors.add(new puntoXY(row, column - 1));
-        neighbors.add(new puntoXY(row, column + 1));
-        return neighbors;
+    public Set<PuntoXY> getVecinos(PuntoXY puntoXy) {
+        Set<PuntoXY> vecinos = new HashSet<>();
+        int fila = puntoXy.getX();
+        int columna = puntoXy.getY();
+        vecinos.add(new PuntoXY(fila - 1, columna));
+        vecinos.add(new PuntoXY(fila + 1, columna));
+        vecinos.add(new PuntoXY(fila, columna - 1));
+        vecinos.add(new PuntoXY(fila, columna + 1));
+        return vecinos;
     }
 
-    public boolean hasValidPosition(int row, int column) {
-        boolean rowIsValid = row < this.width && 0 <= row;
-        boolean columnIsValid = column < this.height && 0 <= column;
-        return rowIsValid && columnIsValid;
+    public boolean esUnaPosicionValida(int fila, int columna) {
+        boolean esUnaFilaValida = fila < this.ancho && 0 <= fila;
+        boolean esUnaColumnaValida = columna < this.alto && 0 <= columna;
+        return esUnaFilaValida && esUnaColumnaValida;
     }
 
     //fi(x) = 3
-    public boolean belongToBackground(puntoXY puntoXy) {
-        return hasValue(puntoXy, BACKGROUND_VALUE);
+    public boolean noPerteneceAlObjeto(PuntoXY puntoXy) {
+        return tieneValor(puntoXy, VALOR_TITA_0);
     }
 
     //fi(x) = -3
-    public boolean belongToObject(puntoXY puntoXy) {
-        return hasValue(puntoXy, OBJECT_VALUE);
+    public boolean perteneceAlObjeto(PuntoXY puntoXy) {
+        return tieneValor(puntoXy, VALOR_TITA_1);
     }
 
-    private boolean hasValue(puntoXY puntoXy, int value) {
-        return content[puntoXy.getX()][puntoXy.getY()] == value;
+    private boolean tieneValor(PuntoXY puntoXy, int valor) {
+        return content[puntoXy.getX()][puntoXy.getY()] == valor;
     }
 
     //Set fi(x) = -1
-    public void updateFiValueForLInPoint(puntoXY puntoXy) {
-        content[puntoXy.getX()][puntoXy.getY()] = L_IN_VALUE;
+    public void updateFiValueForLInPoint(PuntoXY puntoXy) {
+        content[puntoXy.getX()][puntoXy.getY()] = VALOR_L_IN;
     }
 
     //Set fi(x) = 1
-    public void updateFiValueForLOutPoint(puntoXY puntoXy) {
-        content[puntoXy.getX()][puntoXy.getY()] = L_OUT_VALUE;
+    public void updateFiValueForLOutPoint(PuntoXY puntoXy) {
+        content[puntoXy.getX()][puntoXy.getY()] = VALOR_L_OUT;
     }
 
-    public void addLIn(List<puntoXY> toAddToLIn) {
+    public void agregarEnLIn(List<PuntoXY> toAddToLIn) {
         bordeInterno.addAll(toAddToLIn);
     }
 
-    public void removeLIn(List<puntoXY> toRemoveFromLIn) {
+    public void removerEnLIn(List<PuntoXY> toRemoveFromLIn) {
         bordeInterno.removeAll(toRemoveFromLIn);
     }
 
-    public void addLOut(List<puntoXY> toAddToLOut) {
+    public void agregarEnLOut(List<PuntoXY> toAddToLOut) {
         bordeExterno.addAll(toAddToLOut);
     }
 
-    public void removeLOut(List<puntoXY> toRemoveFromLOut) {
+    public void removerEnLOut(List<PuntoXY> toRemoveFromLOut) {
         bordeExterno.removeAll(toRemoveFromLOut);
     }
 

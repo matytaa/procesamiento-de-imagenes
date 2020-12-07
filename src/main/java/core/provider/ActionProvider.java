@@ -73,7 +73,7 @@ class ActionProvider {
     private static ApplySusanDetectorAction applySusanDetectorAction;
     private static TransformadaHoughLinearAction transformadaHoughLinearAction;
     private static TransformadaHoughCircularAction transformadaHoughCircularAction;
-    private static ApplyActiveContourAction applyActiveContourAction;
+    private static AplicarContornoActivoAction aplicarContornoActivoAction;
     private static CargarSecuenciaImagenesAction cargarSecuenciaImagenesAction;
     private static GetImageSequenceAction getImageSequenceAction;
     private static ApplyActiveContourOnImageSequenceAction applyActiveContourOnImageSequenceAction;
@@ -414,11 +414,11 @@ class ActionProvider {
         return transformadaHoughCircularAction;
     }
 
-    public static ApplyActiveContourAction provideApplyActiveContourAction() {
-        if (applyActiveContourAction == null) {
-            applyActiveContourAction = new ApplyActiveContourAction();
+    public static AplicarContornoActivoAction provideApplyActiveContourAction() {
+        if (aplicarContornoActivoAction == null) {
+            aplicarContornoActivoAction = new AplicarContornoActivoAction();
         }
-        return applyActiveContourAction;
+        return aplicarContornoActivoAction;
     }
 
     public static CargarSecuenciaImagenesAction provideLoadImageSequenceAction() {

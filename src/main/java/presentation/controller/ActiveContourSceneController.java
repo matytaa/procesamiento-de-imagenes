@@ -150,7 +150,7 @@ public class ActiveContourSceneController {
         this.startButton.setDisable(false);
         disableApplyButton();
         this.steps.setText("0");
-        this.steps_label.setText("Insert steps");
+        this.steps_label.setText("Ingresar cantidad de iteraciones");
     }
 
     @FXML
@@ -166,7 +166,7 @@ public class ActiveContourSceneController {
         return this.customImageView.getSelectionSquare();
     }
 
-    public int getSteps() {
+    public int getCantidadDeIteraciones() {
         String stepsText = steps.getText();
         if (stepsText.trim().equals("")) {
             this.stepsMustBeGreaterThanZero();
@@ -184,11 +184,11 @@ public class ActiveContourSceneController {
     }
 
     public void stepsMustBeGreaterThanZero() {
-        this.steps_label.setText("Steps > 0");
+        this.steps_label.setText("La cantidad de iteraciones debe ser > 0");
     }
 
     public void mustSelectArea() {
-        this.steps_label.setText("Must select area");
+        this.steps_label.setText("Debe de seleccionar un area");
     }
 
     public void closeWindow() {

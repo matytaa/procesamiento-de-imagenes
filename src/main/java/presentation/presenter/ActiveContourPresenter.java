@@ -1,6 +1,6 @@
 package presentation.presenter;
 
-import core.action.edgedetector.ApplyActiveContourAction;
+import core.action.edgedetector.AplicarContornoActivoAction;
 import core.action.edgedetector.ApplyActiveContourOnImageSequenceAction;
 import core.action.edgedetector.GetImageSequenceAction;
 import core.action.image.ObtenerImagenAction;
@@ -9,8 +9,6 @@ import dominio.customimage.Imagen;
 import dominio.customimage.RGB;
 import io.reactivex.subjects.PublishSubject;
 import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
-import javafx.scene.paint.Color;
 import presentation.controller.ActiveContourSceneController;
 import presentation.view.CustomImageView;
 
@@ -25,7 +23,7 @@ public class ActiveContourPresenter {
     private final ActiveContourSceneController view;
     private final ObtenerImagenAction obtenerImagenAction;
     private final GetImageSequenceAction getImageSequenceAction;
-    private final ApplyActiveContourAction contourActivoAction;
+    private final AplicarContornoActivoAction contourActivoAction;
     private final ApplyActiveContourOnImageSequenceAction applyActiveContourOnImageSequenceAction;
     private final PublishSubject<Image> onModifiedImagePublishSubject;
 
@@ -39,7 +37,7 @@ public class ActiveContourPresenter {
     private int contourIndex = 0;
 
     public ActiveContourPresenter(ActiveContourSceneController view,
-                                  ApplyActiveContourAction contourActivoAction, ObtenerImagenAction obtenerImagenAction,
+                                  AplicarContornoActivoAction contourActivoAction, ObtenerImagenAction obtenerImagenAction,
                                   GetImageSequenceAction getImageSequenceAction,
                                   ApplyActiveContourOnImageSequenceAction applyActiveContourOnImageSequenceAction,
                                   PublishSubject<Image> onModifiedImagePublishSubject) {
@@ -63,7 +61,7 @@ public class ActiveContourPresenter {
     }
 
     public void onInitializeContours() {
-        if (ActiveContourMode.isSingle()) {
+        if (ActiveContourMode.esSimple()) {
             this.obtenerImagenAction.ejecutar().ifPresent(customImage -> {
                 currentCustomImage = customImage;
                 modifiedImage = customImage.toFXImage();
@@ -90,7 +88,7 @@ public class ActiveContourPresenter {
     public void onComenzar() {
         SelectionSquare rectanguloSeleccionado = view.getRectanguloSeleccionado();
         if (rectanguloSeleccionado.isValid() && tita0 != null) {
-            if (ActiveContourMode.isSingle()) {
+            if (ActiveContourMode.esSimple()) {
                 onComenzarModoSimple(rectanguloSeleccionado);
                 view.enableApplyButton();
             } else {
@@ -106,15 +104,15 @@ public class ActiveContourPresenter {
     private void onComenzarModoSimple(SelectionSquare rectanguloSeleccionado) {
         if (currentCustomImage != null) {
             contornoActivo = crearContornoActivo(rectanguloSeleccionado, currentCustomImage);
-            setCurrentContourCustomImage(contourActivoAction.execute(currentCustomImage, contornoActivo, PASOS_DEFAULT, EPSILON_DEFAULT));
+            setearElContornoInicialDelObjeto(contourActivoAction.execute(currentCustomImage, contornoActivo, PASOS_DEFAULT, EPSILON_DEFAULT));
         }
     }
 
     private void onStartSequenceMode(SelectionSquare selectionSquare) {
         if (currentImages != null && !currentImages.isEmpty()) {
             contornoActivo = crearContornoActivo(selectionSquare, currentCustomImage);
-            contours = applyActiveContourOnImageSequenceAction.execute(currentImages, contornoActivo, view.getSteps(), view.getEpsilon());
-            view.setImage(contours.get(contourIndex).drawActiveContour());
+            contours = applyActiveContourOnImageSequenceAction.execute(currentImages, contornoActivo, view.getCantidadDeIteraciones(), view.getEpsilon());
+            view.setImage(contours.get(contourIndex).dibujarContornoActivo());
             contourIndex++;
         }
 
@@ -126,9 +124,9 @@ public class ActiveContourPresenter {
     }
 
     public void onApply() {
-        if (view.getSteps() > 0) {
+        if (view.getCantidadDeIteraciones() > 0) {
             if (tita0 != null && currentCustomImage != null) {
-                setCurrentContourCustomImage(contourActivoAction.execute(currentCustomImage, contornoActivo, view.getSteps(), view.getEpsilon()));
+                setearElContornoInicialDelObjeto(contourActivoAction.execute(currentCustomImage, contornoActivo, view.getCantidadDeIteraciones(), view.getEpsilon()));
             }
         } else {
             view.stepsMustBeGreaterThanZero();
@@ -138,7 +136,7 @@ public class ActiveContourPresenter {
     public void onPrev() {
         if (!contours.isEmpty() && contourIndex > 0) {
             contourIndex--;
-            Image image = contours.get(contourIndex).drawActiveContour();
+            Image image = contours.get(contourIndex).dibujarContornoActivo();
             modifiedImage = image;
             view.setImage(image);
             view.enableNextButton();
@@ -149,7 +147,7 @@ public class ActiveContourPresenter {
 
     public void onNext() {
         if (!contours.isEmpty() && contourIndex < contours.size()) {
-            Image image = contours.get(contourIndex).drawActiveContour();
+            Image image = contours.get(contourIndex).dibujarContornoActivo();
             modifiedImage = image;
             view.setImage(image);
             view.enablePrevButton();
@@ -185,9 +183,9 @@ public class ActiveContourPresenter {
         view.closeWindow();
     }
 
-    private void setCurrentContourCustomImage(ImagenConContorno imagenConContorno) {
+    private void setearElContornoInicialDelObjeto(ImagenConContorno imagenConContorno) {
         contornoActivo = imagenConContorno.getContornoActivo();
-        modifiedImage = imagenConContorno.drawActiveContour();
+        modifiedImage = imagenConContorno.dibujarContornoActivo();
         view.setImage(modifiedImage);
     }
 }

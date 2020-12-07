@@ -16,34 +16,34 @@
 	<BorderPane prefHeight="447.0" prefWidth="526.0">
 		<right>
 			<VBox alignment="CENTER" prefHeight="200.0" prefWidth="153.0" BorderPane.alignment="CENTER">
-				<Label fx:id="steps_label" text="Insert steps" />
-				<TextField fx:id="steps" prefHeight="27.0" prefWidth="50.0" promptText="Steps">
+				<Label fx:id="steps_label" text="Ingresar iteraciones" />
+				<TextField fx:id="steps" prefHeight="27.0" prefWidth="50.0" promptText="Iteraciones">
 					<VBox.margin>
 						<Insets bottom="10.0" right="10.0" top="10.0" />
 					</VBox.margin>
 				</TextField>
-				<Label fx:id="epsilon_label" text="Insert epsilon" />
+				<Label fx:id="epsilon_label" text="Ingresar epsilon" />
 				<TextField fx:id="epsilon" disable="true" prefHeight="27.0" prefWidth="50.0" promptText="Epsilon" text="0">
 					<VBox.margin>
 						<Insets bottom="10.0" right="10.0" top="10.0" />
 					</VBox.margin>
 				</TextField>
-				<ToggleButton mnemonicParsing="false" onAction="#onUseEpsilon" text="Use Epsilon">
+				<ToggleButton mnemonicParsing="false" onAction="#onUseEpsilon" text="Usar Epsilon">
 					<VBox.margin>
 						<Insets bottom="10.0" right="10.0" top="10.0" />
 					</VBox.margin>
 				</ToggleButton>
-				<Button fx:id="getBackgroundButton" alignment="CENTER" mnemonicParsing="false" onAction="#onGetBackground" text="Get background">
+				<Button fx:id="getBackgroundButton" alignment="CENTER" mnemonicParsing="false" onAction="#onGetBackground" text="Marcar tita0">
 					<VBox.margin>
 						<Insets bottom="10.0" right="10.0" top="10.0" />
 					</VBox.margin>
 				</Button>
-				<Button fx:id="getObjectButton" mnemonicParsing="false" onAction="#onGetObject" text="Get object">
+				<Button fx:id="getObjectButton" mnemonicParsing="false" onAction="#onGetObject" text="Marcar tita1">
 					<VBox.margin>
 						<Insets bottom="10.0" right="10.0" top="10.0" />
 					</VBox.margin>
 				</Button>
-				<Button mnemonicParsing="false" onAction="#onResetContours" text="Reset" textAlignment="CENTER">
+				<Button mnemonicParsing="false" onAction="#onResetContours" text="Reiniciar" textAlignment="CENTER">
 					<VBox.margin>
 						<Insets bottom="10.0" right="10.0" top="10.0" />
 					</VBox.margin>
@@ -53,7 +53,7 @@
 						<Insets bottom="10.0" right="10.0" top="10.0" />
 					</VBox.margin>
 				</Button>
-				<Button fx:id="applyButton" mnemonicParsing="false" onAction="#onApply" text="Apply">
+				<Button fx:id="applyButton" mnemonicParsing="false" onAction="#onApply" text="Aplicar">
 					<VBox.margin>
 						<Insets bottom="10.0" right="10.0" top="10.0" />
 					</VBox.margin>
@@ -70,7 +70,7 @@
 					</HBox.margin>
 				</Button>
             </HBox>
-				<Button mnemonicParsing="false" onAction="#onFinish" text="Finish">
+				<Button mnemonicParsing="false" onAction="#onFinish" text="Finalizar">
 					<VBox.margin>
 						<Insets bottom="10.0" right="10.0" top="10.0" />
 					</VBox.margin>

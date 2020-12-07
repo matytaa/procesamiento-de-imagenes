@@ -1,6 +1,6 @@
 package core.action.edgedetector.hough;
 
-import dominio.puntoXY;
+import dominio.PuntoXY;
 import dominio.customimage.Imagen;
 import dominio.hough.LineaRhoTheeta;
 import javafx.scene.image.PixelWriter;
@@ -61,8 +61,8 @@ public class TransformadaHoughLinearAction {
             double rhoActual = entry.getKey().getRho();
             double theetaActual = entry.getKey().getTheta();
 
-            puntoXY puntoDeInicio = this.getPuntoDeInicioDeLinea(rhoActual,theetaActual, alto);
-            puntoXY puntoDeFin = this.getPuntoDeFinDeLinea(rhoActual, theetaActual, alto, ancho);
+            PuntoXY puntoDeInicio = this.getPuntoDeInicioDeLinea(rhoActual,theetaActual, alto);
+            PuntoXY puntoDeFin = this.getPuntoDeFinDeLinea(rhoActual, theetaActual, alto, ancho);
 
             Line linea = new Line(puntoDeInicio.getX(), puntoDeInicio.getY(), puntoDeFin.getX(), puntoDeFin.getY());
 
@@ -78,11 +78,11 @@ public class TransformadaHoughLinearAction {
 
     }
 
-    private puntoXY getPuntoDeFinDeLinea(double rho, double theeta, int alto, int ancho) {
+    private PuntoXY getPuntoDeFinDeLinea(double rho, double theeta, int alto, int ancho) {
 
         //LINEA VERTICAL
         if (theeta == 0) {
-            return new puntoXY((int)rho, alto-1);
+            return new PuntoXY((int)rho, alto-1);
         }
 
         double intercepcion = this.getIntercepcion(rho, theeta);
@@ -92,25 +92,25 @@ public class TransformadaHoughLinearAction {
         //La línea está disminuyendo y el segmento 'termina' en el límite inferior de la imagen, de ahí las fórmulas para x cuando y = L
         //x = (L-b)/m, y=L
         if (cruceLimiteDerecho < 0 && pendiente < 0) {
-            return new puntoXY((int)(-intercepcion/pendiente), alto);
+            return new PuntoXY((int)(-intercepcion/pendiente), alto);
         }
 
         //La línea está aumentando y el segmento 'termina' en el límite superior de la imagen, de ahí las fórmulas para x cuando y = 0
         //x = -b/m, y=0
         if (cruceLimiteDerecho > alto && pendiente > 0) {
-            return new puntoXY((int)((alto - intercepcion)/pendiente),0);
+            return new PuntoXY((int)((alto - intercepcion)/pendiente),0);
         }
 
         //En cualquier otro caso, el segmento 'termina' en el límite de la imagen derecha, e y es el cruce del límite derecho
-        return new puntoXY(ancho, (int)cruceLimiteDerecho);
+        return new PuntoXY(ancho, (int)cruceLimiteDerecho);
 
     }
 
-    private puntoXY getPuntoDeInicioDeLinea(double rho, double theeta, int alto) {
+    private PuntoXY getPuntoDeInicioDeLinea(double rho, double theeta, int alto) {
 
         //LINEA VERTICAL
         if (theeta == 0) {
-            return new puntoXY((int)rho, 0);
+            return new PuntoXY((int)rho, 0);
         }
 
         double intercepcion = this.getIntercepcion(rho, theeta);
@@ -119,16 +119,16 @@ public class TransformadaHoughLinearAction {
         //La línea está disminuyendo y el segmento 'comienza' en el límite superior de la imagen, de ahí las fórmulas para x cuando y = 0
         //x = -b/m, y=0
         if (intercepcion > alto && pendiente < 0) {
-            return new puntoXY((int)((alto - intercepcion)/pendiente), 0);
+            return new PuntoXY((int)((alto - intercepcion)/pendiente), 0);
         }
 
 // La línea está aumentando y el segmento 'comienza' en el límite inferior de la imagen, de ahí las fórmulas para x cuando y = L        //x = (L-b)/m, y=L
         if (intercepcion < 0 && pendiente > 0) {
-            return new puntoXY((int)(-intercepcion/pendiente), alto);
+            return new PuntoXY((int)(-intercepcion/pendiente), alto);
         }
 
         // En cualquier otro caso, el segmento 'comienza' en el límite de la imagen izquierda, e y es la intersección
-        return new puntoXY(0, (int)intercepcion);
+        return new PuntoXY(0, (int)intercepcion);
 
     }
 

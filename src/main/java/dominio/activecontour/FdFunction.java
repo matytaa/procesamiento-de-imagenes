@@ -2,11 +2,11 @@ package dominio.activecontour;
 
 public class FdFunction {
 
-    public static boolean lowerThanZero(int imageAverageValue, int backgroundGrayAverage, int objectGrayAverage, double epsilon) {
+    public static boolean esMenorQueCero(int imageAverageValue, int backgroundGrayAverage, int objectGrayAverage, double epsilon) {
         return Math.log(module(backgroundGrayAverage, imageAverageValue) / module(objectGrayAverage, imageAverageValue)) < epsilon;
     }
 
-    public static boolean greaterThanEpsilon(int imageAverageValue, int objectGrayAverage, double epsilon) {
+    public static boolean esMayorQueCero(int imageAverageValue, int objectGrayAverage, double epsilon) {
         return module(objectGrayAverage, imageAverageValue) > epsilon;
     }
 

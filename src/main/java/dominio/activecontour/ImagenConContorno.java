@@ -24,7 +24,7 @@ public class ImagenConContorno {
         return contornoActivo;
     }
 
-    public Image drawActiveContour() {
+    public Image dibujarContornoActivo() {
         WritableImage imageWithContour = new WritableImage(customImage.getAncho(), customImage.getAltura());
         PixelWriter pixelWriter = imageWithContour.getPixelWriter();
 

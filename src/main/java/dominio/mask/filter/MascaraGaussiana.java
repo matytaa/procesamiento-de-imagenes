@@ -101,7 +101,7 @@ public class MascaraGaussiana extends Mascara {
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                newMatrix[x][y] = applyMaskToPixel(targetMatrix, x, y);
+                newMatrix[x][y] = aplicarMascaraPorPixel(targetMatrix, x, y);
             }
         }
 
@@ -116,7 +116,7 @@ public class MascaraGaussiana extends Mascara {
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                newMatrix[x][y] = applyMaskToPixel(targetMatrix, x, y);
+                newMatrix[x][y] = aplicarMascaraPorPixel(targetMatrix, x, y);
             }
         }
 
@@ -124,7 +124,7 @@ public class MascaraGaussiana extends Mascara {
     }
 
     //Basic convolution algorithm with a simple matrix
-    public double applyMaskToPixel(double[][] targetMatrix, int x, int y) {
+    public double aplicarMascaraPorPixel(double[][] targetMatrix, int x, int y) {
 
         int width = targetMatrix.length;
         int height = targetMatrix[0].length;
@@ -149,7 +149,7 @@ public class MascaraGaussiana extends Mascara {
         return newValue;
     }
 
-    public double applyMaskToPixel(int[][] targetMatrix, int x, int y) {
+    public double aplicarMascaraPorPixel(int[][] targetMatrix, int x, int y) {
 
         int width = targetMatrix.length;
         int height = targetMatrix[0].length;
