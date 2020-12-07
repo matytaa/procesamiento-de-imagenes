@@ -47,7 +47,7 @@ public class ContornoActivo {
         this.content = content;
     }
 
-    public static ContornoActivo copy(ContornoActivo contornoActivo) {
+    public static ContornoActivo copiar(ContornoActivo contornoActivo) {
         return new ContornoActivo(
                 contornoActivo.getAncho(),
                 contornoActivo.getAlto(),

@@ -76,7 +76,7 @@ class ActionProvider {
     private static AplicarContornoActivoAction aplicarContornoActivoAction;
     private static CargarSecuenciaImagenesAction cargarSecuenciaImagenesAction;
     private static GetImageSequenceAction getImageSequenceAction;
-    private static ApplyActiveContourOnImageSequenceAction applyActiveContourOnImageSequenceAction;
+    private static AplicarContornosActivosEnSecuanciaDeImagesAction aplicarContornosActivosEnSecuanciaDeImagesAction;
     private static ApplyHarrisDetectorAction applyHarrisDetectorAction;
     private static ApplySiftDetectorAction applySiftDetectorAction;
 
@@ -439,11 +439,11 @@ class ActionProvider {
         return getImageSequenceAction;
     }
 
-    public static ApplyActiveContourOnImageSequenceAction provideApplyActiveContourOnImageSequenceAction() {
-        if (applyActiveContourOnImageSequenceAction == null) {
-            applyActiveContourOnImageSequenceAction = new ApplyActiveContourOnImageSequenceAction(ActionProvider.provideApplyActiveContourAction());
+    public static AplicarContornosActivosEnSecuanciaDeImagesAction provideApplyActiveContourOnImageSequenceAction() {
+        if (aplicarContornosActivosEnSecuanciaDeImagesAction == null) {
+            aplicarContornosActivosEnSecuanciaDeImagesAction = new AplicarContornosActivosEnSecuanciaDeImagesAction(ActionProvider.provideApplyActiveContourAction());
         }
-        return applyActiveContourOnImageSequenceAction;
+        return aplicarContornosActivosEnSecuanciaDeImagesAction;
     }
 
     public static ApplyHarrisDetectorAction provideApplyHarrisDetectorAction() {

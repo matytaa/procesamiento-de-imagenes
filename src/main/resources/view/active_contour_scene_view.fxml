@@ -22,17 +22,6 @@
 						<Insets bottom="10.0" right="10.0" top="10.0" />
 					</VBox.margin>
 				</TextField>
-				<Label fx:id="epsilon_label" text="Ingresar epsilon" />
-				<TextField fx:id="epsilon" disable="true" prefHeight="27.0" prefWidth="50.0" promptText="Epsilon" text="0">
-					<VBox.margin>
-						<Insets bottom="10.0" right="10.0" top="10.0" />
-					</VBox.margin>
-				</TextField>
-				<ToggleButton mnemonicParsing="false" onAction="#onUseEpsilon" text="Usar Epsilon">
-					<VBox.margin>
-						<Insets bottom="10.0" right="10.0" top="10.0" />
-					</VBox.margin>
-				</ToggleButton>
 				<Button fx:id="getBackgroundButton" alignment="CENTER" mnemonicParsing="false" onAction="#onGetBackground" text="Marcar tita0">
 					<VBox.margin>
 						<Insets bottom="10.0" right="10.0" top="10.0" />

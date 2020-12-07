@@ -15,25 +15,25 @@ public class AplicarContornoActivoAction {
 
     public static final int GAUSSIAN_STANDARD_DEVIATION = 1;
 
-    public ImagenConContorno execute(Imagen imagen, ContornoActivo contornoActivo, int pasos, double epsilon) {
-        return recursive(imagen, contornoActivo, pasos, epsilon);
+    public ImagenConContorno execute(Imagen imagen, ContornoActivo contornoActivo, int iteraciones, double epsilon) {
+        return recursive(imagen, contornoActivo, iteraciones, epsilon);
     }
 
-    private ImagenConContorno recursive(Imagen imagen, ContornoActivo contornoActivo, int pasos, double epsilon) {
+    private ImagenConContorno recursive(Imagen imagen, ContornoActivo contornoActivo, int iteraciones, double epsilon) {
 
         ImagenConContorno imagenConContorno = new ImagenConContorno(imagen, contornoActivo);
 
-        ContornoActivo cicloDeUnCortorno = imagenConContorno.getContornoActivo();
-        if (hemosEncontradoUnObjeto(imagen, cicloDeUnCortorno, epsilon)) {
-            return new ImagenConContorno(imagen, aplicarSegundoCiclo(cicloDeUnCortorno));
-        } else if (pasos == 0) {
+        ContornoActivo primerCiclo = imagenConContorno.getContornoActivo();
+        if (hemosEncontradoUnObjeto(imagen, primerCiclo, epsilon)) {
+            return new ImagenConContorno(imagen, aplicarSegundoCiclo(primerCiclo));
+        } else if (iteraciones == 0) {
             return imagenConContorno;
         } else {
             imagenConContorno = aplicarContornoActivo(imagenConContorno.getCustomImage(), imagenConContorno.getContornoActivo(), epsilon);
         }
 
-        pasos--;
-        return recursive(imagenConContorno.getCustomImage(), imagenConContorno.getContornoActivo(), pasos, epsilon);
+        iteraciones--;
+        return recursive(imagenConContorno.getCustomImage(), imagenConContorno.getContornoActivo(), iteraciones, epsilon);
     }
 
     private boolean hemosEncontradoUnObjeto(Imagen image, ContornoActivo contornoActivo, double epsilon) {
@@ -57,38 +57,38 @@ public class AplicarContornoActivoAction {
     }
 
     private ImagenConContorno aplicarContornoActivo(Imagen imagen, ContornoActivo contornoActivo, double epsilon) {
-        ContornoActivo cicloUnoDelContorno = aplicarCicloUno(imagen, contornoActivo, epsilon);
-        return new ImagenConContorno(imagen, cicloUnoDelContorno);
+        ContornoActivo primerCiclo = aplicarPrimerCiclo(imagen, contornoActivo, epsilon);
+        return new ImagenConContorno(imagen, primerCiclo);
     }
 
-    private ContornoActivo aplicarCicloUno(Imagen imagen, ContornoActivo contornoActivo, double epsilon) {
+    private ContornoActivo aplicarPrimerCiclo(Imagen imagen, ContornoActivo contornoActivo, double epsilon) {
 
-        ContornoActivo cicloUnoDelContorno = ContornoActivo.copy(contornoActivo);
+        ContornoActivo primerCiclo = ContornoActivo.copiar(contornoActivo);
 
         // Paso 1
-        List<PuntoXY> lOut = cicloUnoDelContorno.getBordeExterno();
-        List<PuntoXY> lIn = cicloUnoDelContorno.getBordeInterno();
-        int tita0 = cicloUnoDelContorno.getPromedioDeGrisesFueraDelObjeto();
-        int tita1 = cicloUnoDelContorno.getPromedioDeGrisesDentroDelObjeto();
+        List<PuntoXY> lOut = primerCiclo.getBordeExterno();
+        List<PuntoXY> lIn = primerCiclo.getBordeInterno();
+        int tita0 = primerCiclo.getPromedioDeGrisesFueraDelObjeto();
+        int tita1 = primerCiclo.getPromedioDeGrisesDentroDelObjeto();
 
         // Paso 2
-        interacambiarEnLIn(imagen, cicloUnoDelContorno, lOut, tita0, tita1, epsilon);
+        interacambiarEnLIn(imagen, primerCiclo, lOut, tita0, tita1, epsilon);
 
         // Paso 3
-        cicloUnoDelContorno.moverInvalidoLInATita1();
+        primerCiclo.moverInvalidoLInATita1();
 
         // Paso 4
-        intercambiarEnLOut(imagen, cicloUnoDelContorno, lIn, tita0, tita1, epsilon);
+        intercambiarEnLOut(imagen, primerCiclo, lIn, tita0, tita1, epsilon);
 
         // Paso 5
-        cicloUnoDelContorno.moverInvalidoLOutATita0();
+        primerCiclo.moverInvalidoLOutATita0();
 
-        return cicloUnoDelContorno;
+        return primerCiclo;
     }
 
-    private ContornoActivo aplicarSegundoCiclo(ContornoActivo cicloUnoDelContorno) {
+    private ContornoActivo aplicarSegundoCiclo(ContornoActivo primerCiclo) {
 
-        ContornoActivo segunddoCicloDelContorno = ContornoActivo.copy(cicloUnoDelContorno);
+        ContornoActivo segunddoCicloDelContorno = ContornoActivo.copiar(primerCiclo);
 
         // Step 0
         List<PuntoXY> lOut = segunddoCicloDelContorno.getBordeExterno();
@@ -149,7 +149,7 @@ public class AplicarContornoActivoAction {
         segundoCicloDelContorno.agregarEnLIn(puntosParaAgregarEnLIn2);
     }
 
-    private void interacambiarEnLIn(Imagen imagen, ContornoActivo cicloUnoDelContorno, List<PuntoXY> lOut, int tita0,
+    private void interacambiarEnLIn(Imagen imagen, ContornoActivo primerCiclo, List<PuntoXY> lOut, int tita0,
                                     int tita1, double epsilon) {
         List<PuntoXY> puntosParaRemoverDeLOut = new ArrayList<>();
         List<PuntoXY> puntosParaAgregarEnLIn = new ArrayList<>();
@@ -157,16 +157,16 @@ public class AplicarContornoActivoAction {
 
         for (PuntoXY puntoXy : lOut) {
             if (!chequearSiFuncionFdEsMenorQueEpsilon(puntoXy, imagen, tita0, tita1, epsilon)) {
-                rellenarIntercambioEnLIn(cicloUnoDelContorno, puntosParaRemoverDeLOut, puntosParaAgregarEnLIn, puntosParaAgregarEnLOut, puntoXy);
+                rellenarIntercambioEnLIn(primerCiclo, puntosParaRemoverDeLOut, puntosParaAgregarEnLIn, puntosParaAgregarEnLOut, puntoXy);
             }
         }
 
-        cicloUnoDelContorno.agregarEnLIn(puntosParaAgregarEnLIn);
-        cicloUnoDelContorno.removerEnLOut(puntosParaRemoverDeLOut);
-        cicloUnoDelContorno.agregarEnLOut(puntosParaAgregarEnLOut);
+        primerCiclo.agregarEnLIn(puntosParaAgregarEnLIn);
+        primerCiclo.removerEnLOut(puntosParaRemoverDeLOut);
+        primerCiclo.agregarEnLOut(puntosParaAgregarEnLOut);
     }
 
-    private void intercambiarEnLOut(Imagen imagen, ContornoActivo cicloUnoDelContorno, List<PuntoXY> lIn, int tita0,
+    private void intercambiarEnLOut(Imagen imagen, ContornoActivo primerCiclo, List<PuntoXY> lIn, int tita0,
                                     int tita1, double epsilon) {
         List<PuntoXY> puntosParaAgregarEnLOut2 = new ArrayList<>();
         List<PuntoXY> puntosParaAgregarEnLIn2 = new ArrayList<>();
@@ -174,13 +174,13 @@ public class AplicarContornoActivoAction {
 
         for (PuntoXY puntoXy : lIn) {
             if (chequearSiFuncionFdEsMenorQueEpsilon(puntoXy, imagen, tita0, tita1, epsilon)) {
-                rellenarIntercambioEnLOut(cicloUnoDelContorno, puntosParaAgregarEnLOut2, puntosParaAgregarEnLIn2, toRemoveFromLIn2, puntoXy);
+                rellenarIntercambioEnLOut(primerCiclo, puntosParaAgregarEnLOut2, puntosParaAgregarEnLIn2, toRemoveFromLIn2, puntoXy);
             }
         }
 
-        cicloUnoDelContorno.removerEnLIn(toRemoveFromLIn2);
-        cicloUnoDelContorno.agregarEnLOut(puntosParaAgregarEnLOut2);
-        cicloUnoDelContorno.agregarEnLIn(puntosParaAgregarEnLIn2);
+        primerCiclo.removerEnLIn(toRemoveFromLIn2);
+        primerCiclo.agregarEnLOut(puntosParaAgregarEnLOut2);
+        primerCiclo.agregarEnLIn(puntosParaAgregarEnLIn2);
     }
 
     private void rellenarIntercambioEnLIn(ContornoActivo cicloDeContorno,
@@ -192,44 +192,44 @@ public class AplicarContornoActivoAction {
         intercambiarLInDelSegundoCiclo(cicloDeContorno, puntosParaAgregarEnLOut, puntoXy);
     }
 
-    private void rellenarIntercambioEnLOut(ContornoActivo cicloUnoDelContorno,
+    private void rellenarIntercambioEnLOut(ContornoActivo primerCiclo,
                                            List<PuntoXY> puntosParaAgregarEnLOut2,
                                            List<PuntoXY> puntosParaAgregarEnLIn2,
                                            List<PuntoXY> toRemoveFromLIn2,
                                            PuntoXY puntoXy) {
-        intercambiarLOutDelPrimerCiclo(cicloUnoDelContorno, puntosParaAgregarEnLOut2, toRemoveFromLIn2, puntoXy);
-        intercambiarLOutDelSegundoCiclo(cicloUnoDelContorno, puntosParaAgregarEnLIn2, puntoXy);
+        intercambiarLOutDelPrimerCiclo(primerCiclo, puntosParaAgregarEnLOut2, toRemoveFromLIn2, puntoXy);
+        intercambiarLOutDelSegundoCiclo(primerCiclo, puntosParaAgregarEnLIn2, puntoXy);
     }
 
-    private void intercambiarLInDelPrimerCiclo(ContornoActivo cicloUnoDelContorno, List<PuntoXY> puntosParaRemoverDeLOut, List<PuntoXY> puntosParaAgregarEnLIn, PuntoXY puntoXy) {
+    private void intercambiarLInDelPrimerCiclo(ContornoActivo primerCiclo, List<PuntoXY> puntosParaRemoverDeLOut, List<PuntoXY> puntosParaAgregarEnLIn, PuntoXY puntoXy) {
         puntosParaRemoverDeLOut.add(puntoXy);
         puntosParaAgregarEnLIn.add(puntoXy);
-        cicloUnoDelContorno.updateFiValueForLInPoint(puntoXy);
+        primerCiclo.updateFiValueForLInPoint(puntoXy);
     }
 
-    private void intercambiarLOutDelPrimerCiclo(ContornoActivo cicloUnoDelContorno, List<PuntoXY> puntosParaAgregarEnLOut2, List<PuntoXY> toRemoveFromLIn2, PuntoXY puntoXy) {
+    private void intercambiarLOutDelPrimerCiclo(ContornoActivo primerCiclo, List<PuntoXY> puntosParaAgregarEnLOut2, List<PuntoXY> toRemoveFromLIn2, PuntoXY puntoXy) {
         toRemoveFromLIn2.add(puntoXy);
         puntosParaAgregarEnLOut2.add(puntoXy);
-        cicloUnoDelContorno.updateFiValueForLOutPoint(puntoXy);
+        primerCiclo.updateFiValueForLOutPoint(puntoXy);
     }
 
-    private void intercambiarLInDelSegundoCiclo(ContornoActivo cicloUnoDelContorno, List<PuntoXY> puntosParaAgregarEnLOut, PuntoXY puntoXy) {
-        cicloUnoDelContorno.getVecinos(puntoXy).stream()
-                       .filter(vecino -> cicloUnoDelContorno.esUnaPosicionValida(vecino.getX(), vecino.getY()))
-                       .filter(vecino -> cicloUnoDelContorno.noPerteneceAlObjeto(vecino))
+    private void intercambiarLInDelSegundoCiclo(ContornoActivo primerCiclo, List<PuntoXY> puntosParaAgregarEnLOut, PuntoXY puntoXy) {
+        primerCiclo.getVecinos(puntoXy).stream()
+                       .filter(vecino -> primerCiclo.esUnaPosicionValida(vecino.getX(), vecino.getY()))
+                       .filter(vecino -> primerCiclo.noPerteneceAlObjeto(vecino))
                        .forEach(vecino -> {
                            puntosParaAgregarEnLOut.add(vecino);
-                           cicloUnoDelContorno.updateFiValueForLOutPoint(vecino);
+                           primerCiclo.updateFiValueForLOutPoint(vecino);
                        });
     }
 
-    private void intercambiarLOutDelSegundoCiclo(ContornoActivo cicloUnoDelContorno, List<PuntoXY> puntosParaAgregarEnLIn2, PuntoXY puntoXy) {
-        cicloUnoDelContorno.getVecinos(puntoXy).stream()
-                       .filter(vecino -> cicloUnoDelContorno.esUnaPosicionValida(vecino.getX(), vecino.getY()))
-                       .filter(vecino -> cicloUnoDelContorno.perteneceAlObjeto(vecino))
+    private void intercambiarLOutDelSegundoCiclo(ContornoActivo primerCiclo, List<PuntoXY> puntosParaAgregarEnLIn2, PuntoXY puntoXy) {
+        primerCiclo.getVecinos(puntoXy).stream()
+                       .filter(vecino -> primerCiclo.esUnaPosicionValida(vecino.getX(), vecino.getY()))
+                       .filter(vecino -> primerCiclo.perteneceAlObjeto(vecino))
                        .forEach(vecino -> {
                            puntosParaAgregarEnLIn2.add(vecino);
-                           cicloUnoDelContorno.updateFiValueForLInPoint(vecino);
+                           primerCiclo.updateFiValueForLInPoint(vecino);
                        });
     }
 

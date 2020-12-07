@@ -20,7 +20,7 @@ import core.provider.PresenterProvider;
 import core.semaphore.SemaforosGeneradoresDeRandoms;
 import dominio.SemaforoFiltro;
 import dominio.RandomElement;
-import dominio.activecontour.ActiveContourMode;
+import dominio.activecontour.ContornosActivosModo;
 import dominio.automaticthreshold.ResultadoUmbralGlobal;
 import dominio.automaticthreshold.ImageLimitValues;
 import dominio.automaticthreshold.EstimacionDelUmbralDeOtsuResultante;
@@ -56,7 +56,7 @@ public class MainPresenter {
 
     private final MainSceneController view;
     private final LoadImageAction cargarImagenAction;
-    private final CargarSecuenciaImagenesAction cargarImagenParaMultipleProcesamientoAction;
+    private final CargarSecuenciaImagenesAction cargarSecuenciaDeImagenesAction;
     private final ObtenerImagenAction obtenerImagenAction;
     private final ModifyPixelAction modifyPixelAction;
     private final PutModifiedImageAction putModifiedImageAction;
@@ -80,7 +80,7 @@ public class MainPresenter {
 
     public MainPresenter(MainSceneController view,
                          LoadImageAction cargarImagenAction,
-                         CargarSecuenciaImagenesAction cargarImagenParaMultipleProcesamientoAction, ObtenerImagenAction obtenerImagenAction,
+                         CargarSecuenciaImagenesAction cargarSecuenciaDeImagenesAction, ObtenerImagenAction obtenerImagenAction,
                          PutModifiedImageAction putModifiedImageAction,
                          ModifyPixelAction modifyPixelAction,
                          CalcularNegativoAction calcularNegativoAction,
@@ -104,7 +104,7 @@ public class MainPresenter {
         this.view = view;
 
         this.cargarImagenAction = cargarImagenAction;
-        this.cargarImagenParaMultipleProcesamientoAction = cargarImagenParaMultipleProcesamientoAction;
+        this.cargarSecuenciaDeImagenesAction = cargarSecuenciaDeImagenesAction;
         this.obtenerImagenAction = obtenerImagenAction;
         this.modifyPixelAction = modifyPixelAction;
         this.putModifiedImageAction = putModifiedImageAction;
@@ -161,8 +161,8 @@ public class MainPresenter {
         setImagenEnVistaPreliminar(this.cargarImagenAction.execute());
     }
 
-    public void onAbrirImagenMultipleProcesamiento() {
-        List<Imagen> imagenes = this.cargarImagenParaMultipleProcesamientoAction.execute();
+    public void onAbrirSecuenciaDeImagenes() {
+        List<Imagen> imagenes = this.cargarSecuenciaDeImagenesAction.execute();
         if(!imagenes.isEmpty()) {
             setImagenEnVistaPreliminar(imagenes.get(0));
         }
@@ -614,13 +614,13 @@ public class MainPresenter {
     }
 
     public void onAplicarContornosActivos() {
-        ActiveContourMode.simple();
+        ContornosActivosModo.simple();
         new ActiveContourSceneCreator().createScene();
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplyActiveContourOnImageSequence() {
-        ActiveContourMode.sequence();
+    public void onAplicarContornosActivosEnSecuenciaDeImagenes() {
+        ContornosActivosModo.secuenciaDeImagenes();
         new ActiveContourSceneCreator().createScene();
         view.aceptarBoton.setVisible(true);
     }

@@ -109,11 +109,7 @@ public class ActiveContourSceneController {
     }
 
     public double getEpsilon() {
-        String epsilonText = epsilon.getText();
-        if (epsilonText.trim().equals("")) {
-            return 0;
-        }
-        return Double.parseDouble(epsilonText);
+        return 0;
     }
 
     @FXML

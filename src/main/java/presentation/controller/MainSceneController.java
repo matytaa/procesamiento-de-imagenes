@@ -59,6 +59,11 @@ public class MainSceneController {
     }
 
     @FXML
+    public void abrirSecuenciaDeImagenes() {
+        this.mainPresenter.onAbrirSecuenciaDeImagenes();
+    }
+
+    @FXML
     public void saveModifiedImage() {
         this.mainPresenter.onSaveImage();
     }
@@ -378,8 +383,8 @@ public class MainSceneController {
     }
 
     @FXML
-    public void onApplyActiveContourOnImageSequence() {
-        this.mainPresenter.onApplyActiveContourOnImageSequence();
+    public void onAplicarContornosActivosEnSecuenciaDeImagenes() {
+        this.mainPresenter.onAplicarContornosActivosEnSecuenciaDeImagenes();
     }
 
     @FXML
@@ -390,6 +395,6 @@ public class MainSceneController {
 
     @FXML
     public void abrirImagenMultipleProcesamiento() {
-        this.mainPresenter.onAbrirImagenMultipleProcesamiento();
+        this.mainPresenter.onAbrirSecuenciaDeImagenes();
     }
 }
