@@ -26,7 +26,6 @@ import dominio.automaticthreshold.ImageLimitValues;
 import dominio.automaticthreshold.EstimacionDelUmbralDeOtsuResultante;
 import dominio.customimage.Imagen;
 import dominio.customimage.Format;
-import dominio.customimage.Pixel;
 import dominio.customimage.RGB;
 import dominio.flags.LaplacianDetector;
 import dominio.generation.Channel;
@@ -614,8 +613,8 @@ public class MainPresenter {
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplyActiveContour() {
-        ActiveContourMode.single();
+    public void onAplicarContornosActivos() {
+        ActiveContourMode.simple();
         new ActiveContourSceneCreator().createScene();
         view.aceptarBoton.setVisible(true);
     }

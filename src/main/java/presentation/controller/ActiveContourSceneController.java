@@ -53,8 +53,8 @@ public class ActiveContourSceneController {
     }
 
     @FXML
-    public void onStart() {
-        this.activeContourPresenter.onStart();
+    public void onComenzar() {
+        this.activeContourPresenter.onComenzar();
     }
 
     public void enableApplyButton() {
@@ -162,7 +162,7 @@ public class ActiveContourSceneController {
         this.customImageView = customImageView;
     }
 
-    public SelectionSquare getSelectionSquare() {
+    public SelectionSquare getRectanguloSeleccionado() {
         return this.customImageView.getSelectionSquare();
     }
 

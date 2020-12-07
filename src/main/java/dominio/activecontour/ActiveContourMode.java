@@ -8,7 +8,7 @@ public class ActiveContourMode {
         return mode;
     }
 
-    public static void single() {
+    public static void simple() {
         mode = true;
     }
 

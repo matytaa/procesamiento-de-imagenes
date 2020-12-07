@@ -1,7 +1,7 @@
 package core.action.edgedetector;
 
-import dominio.activecontour.ActiveContour;
-import dominio.activecontour.ContourCustomImage;
+import dominio.activecontour.ContornoActivo;
+import dominio.activecontour.ImagenConContorno;
 import dominio.customimage.Imagen;
 
 import java.util.ArrayList;
@@ -15,24 +15,24 @@ public class ApplyActiveContourOnImageSequenceAction {
         this.applyActiveContourAction = applyActiveContourAction;
     }
 
-    public List<ContourCustomImage> execute(List<Imagen> customImages, ActiveContour activeContour, int steps, double epsilon) {
+    public List<ImagenConContorno> execute(List<Imagen> customImages, ContornoActivo contornoActivo, int steps, double epsilon) {
 
-        List<ContourCustomImage> contourCustomImages = new ArrayList<>();
+        List<ImagenConContorno> imagenConContornos = new ArrayList<>();
 
         Imagen first = customImages.get(0);
-        ContourCustomImage contourCustomImage = applyActiveContourAction.execute(first, activeContour, steps, epsilon);
-        contourCustomImages.add(contourCustomImage);
+        ImagenConContorno imagenConContorno = applyActiveContourAction.execute(first, contornoActivo, steps, epsilon);
+        imagenConContornos.add(imagenConContorno);
 
         List<Imagen> list = new ArrayList<>(customImages);
         list.remove(0);
 
         for (Imagen customImage : list) {
-            ActiveContour previousActiveContour = ActiveContour.copy(contourCustomImage.getActiveContour());
-            contourCustomImage = applyActiveContourAction.execute(customImage, previousActiveContour, steps, epsilon);
-            contourCustomImages.add(contourCustomImage);
+            ContornoActivo previousContornoActivo = ContornoActivo.copy(imagenConContorno.getContornoActivo());
+            imagenConContorno = applyActiveContourAction.execute(customImage, previousContornoActivo, steps, epsilon);
+            imagenConContornos.add(imagenConContorno);
         }
 
-        return contourCustomImages;
+        return imagenConContornos;
     }
 
 }

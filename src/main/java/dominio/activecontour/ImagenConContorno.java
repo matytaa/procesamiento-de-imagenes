@@ -6,22 +6,22 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
-public class ContourCustomImage {
+public class ImagenConContorno {
 
     private final Imagen customImage;
-    private final ActiveContour activeContour;
+    private final ContornoActivo contornoActivo;
 
-    public ContourCustomImage(Imagen customImage, ActiveContour activeContour) {
+    public ImagenConContorno(Imagen customImage, ContornoActivo contornoActivo) {
         this.customImage = customImage;
-        this.activeContour = activeContour;
+        this.contornoActivo = contornoActivo;
     }
 
     public Imagen getCustomImage() {
         return customImage;
     }
 
-    public ActiveContour getActiveContour() {
-        return activeContour;
+    public ContornoActivo getContornoActivo() {
+        return contornoActivo;
     }
 
     public Image drawActiveContour() {
@@ -34,8 +34,8 @@ public class ContourCustomImage {
             }
         }
 
-        activeContour.getlIn().forEach(xyPoint -> pixelWriter.setColor(xyPoint.getX(), xyPoint.getY(), Color.RED));
-        activeContour.getlOut().forEach(xyPoint -> pixelWriter.setColor(xyPoint.getX(), xyPoint.getY(), Color.BLUE));
+        contornoActivo.getBordeInterno().forEach(xyPoint -> pixelWriter.setColor(xyPoint.getX(), xyPoint.getY(), Color.RED));
+        contornoActivo.getBordeExterno().forEach(xyPoint -> pixelWriter.setColor(xyPoint.getX(), xyPoint.getY(), Color.BLUE));
 
         return new Imagen(imageWithContour, customImage.getFormatString()).toFXImage();
     }

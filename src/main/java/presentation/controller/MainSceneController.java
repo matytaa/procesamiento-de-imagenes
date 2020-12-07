@@ -373,8 +373,8 @@ public class MainSceneController {
     }
 
     @FXML
-    public void onApplyActiveContour() {
-        this.mainPresenter.onApplyActiveContour();
+    public void onAplicarContornosActivos() {
+        this.mainPresenter.onAplicarContornosActivos();
     }
 
     @FXML

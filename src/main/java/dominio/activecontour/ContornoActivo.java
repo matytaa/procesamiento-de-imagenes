@@ -5,7 +5,7 @@ import dominio.puntoXY;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class ActiveContour {
+public class ContornoActivo {
 
     private static final int OBJECT_VALUE = -3;
     private static final int BACKGROUND_VALUE = 3;
@@ -14,48 +14,48 @@ public class ActiveContour {
 
     private final Integer width;
     private final Integer height;
-    private final int backgroundGrayAverage;
-    private final int objectGrayAverage;
-    private final List<puntoXY> lOut;
-    private final List<puntoXY> lIn;
+    private final int tita0;
+    private final int tita1;
+    private final List<puntoXY> bordeExterno;
+    private final List<puntoXY> bordeInterno;
     private double[][] content;
 
-    public ActiveContour(Integer width, Integer height, SelectionSquare selectionSquare, int backgroundGrayAverage, int objectGrayAverage) {
+    public ContornoActivo(Integer width, Integer height, SelectionSquare selectionSquare, int tita0, int tita1) {
         this.width = width;
         this.height = height;
-        this.backgroundGrayAverage = backgroundGrayAverage;
-        this.objectGrayAverage = objectGrayAverage;
+        this.tita0 = tita0;
+        this.tita1 = tita1;
 
-        int firstRow = selectionSquare.getFirstRow();
-        int secondRow = selectionSquare.getSecondRow();
-        int firstColumn = selectionSquare.getFirstColumn();
-        int secondColumn = selectionSquare.getSecondColumn();
+        int primeraFila = selectionSquare.getFirstRow();
+        int segundaFila = selectionSquare.getSecondRow();
+        int primeraColumna = selectionSquare.getFirstColumn();
+        int segundaColumna = selectionSquare.getSecondColumn();
 
-        this.lOut = addPoints(firstRow, secondRow, firstColumn, secondColumn);
-        this.lIn = addPoints(firstRow + 1, secondRow - 1, firstColumn + 1, secondColumn - 1);
-        this.content = initializeContent(firstRow + 2, secondRow - 2, firstColumn + 2, secondColumn - 2);
+        this.bordeExterno = addPoints(primeraFila, segundaFila, primeraColumna, segundaColumna);
+        this.bordeInterno = addPoints(primeraFila + 1, segundaFila - 1, primeraColumna + 1, segundaColumna - 1);
+        this.content = initializeContent(primeraFila + 2, segundaFila - 2, primeraColumna + 2, segundaColumna - 2);
     }
 
-    private ActiveContour(Integer width, Integer height, int backgroundGrayAverage, int objectGrayAverage,
-                          List<puntoXY> lOut, List<puntoXY> lIn, double[][] content) {
+    private ContornoActivo(Integer width, Integer height, int tita0, int tita1,
+                           List<puntoXY> bordeExterno, List<puntoXY> bordeInterno, double[][] content) {
         this.width = width;
         this.height = height;
-        this.backgroundGrayAverage = backgroundGrayAverage;
-        this.objectGrayAverage = objectGrayAverage;
-        this.lOut = lOut;
-        this.lIn = lIn;
+        this.tita0 = tita0;
+        this.tita1 = tita1;
+        this.bordeExterno = bordeExterno;
+        this.bordeInterno = bordeInterno;
         this.content = content;
     }
 
-    public static ActiveContour copy(ActiveContour activeContour) {
-        return new ActiveContour(
-                activeContour.getWidth(),
-                activeContour.getHeight(),
-                activeContour.getBackgroundGrayAverage(),
-                activeContour.getObjectGrayAverage(),
-                new ArrayList<>(activeContour.getlOut()),
-                new ArrayList<>(activeContour.getlIn()),
-                Arrays.copyOf(activeContour.getContent(), activeContour.getContent().length));
+    public static ContornoActivo copy(ContornoActivo contornoActivo) {
+        return new ContornoActivo(
+                contornoActivo.getWidth(),
+                contornoActivo.getHeight(),
+                contornoActivo.getPromedioDeGrisesFueraDelObjeto(),
+                contornoActivo.getPromedioDeGrisesDentroDelObjeto(),
+                new ArrayList<>(contornoActivo.getBordeExterno()),
+                new ArrayList<>(contornoActivo.getBordeInterno()),
+                Arrays.copyOf(contornoActivo.getContent(), contornoActivo.getContent().length));
     }
 
     public Integer getWidth() {
@@ -66,20 +66,20 @@ public class ActiveContour {
         return height;
     }
 
-    public List<puntoXY> getlOut() {
-        return lOut;
+    public List<puntoXY> getBordeExterno() {
+        return bordeExterno;
     }
 
-    public List<puntoXY> getlIn() {
-        return lIn;
+    public List<puntoXY> getBordeInterno() {
+        return bordeInterno;
     }
 
-    public int getBackgroundGrayAverage() {
-        return backgroundGrayAverage;
+    public int getPromedioDeGrisesFueraDelObjeto() {
+        return tita0;
     }
 
-    public int getObjectGrayAverage() {
-        return objectGrayAverage;
+    public int getPromedioDeGrisesDentroDelObjeto() {
+        return tita1;
     }
 
     private List<puntoXY> addPoints(int firstRow, int secondRow, int firstColumn, int secondColumn) {
@@ -109,8 +109,8 @@ public class ActiveContour {
         }
 
         // Set edges
-        lIn.forEach(xyPoint -> matrix[xyPoint.getX()][xyPoint.getY()] = L_IN_VALUE);
-        lOut.forEach(xyPoint -> matrix[xyPoint.getX()][xyPoint.getY()] = L_OUT_VALUE);
+        bordeInterno.forEach(xyPoint -> matrix[xyPoint.getX()][xyPoint.getY()] = L_IN_VALUE);
+        bordeExterno.forEach(xyPoint -> matrix[xyPoint.getX()][xyPoint.getY()] = L_OUT_VALUE);
 
         // Set object
         for (int row = firstRowObject; row <= secondRowObject; row++) {
@@ -122,20 +122,20 @@ public class ActiveContour {
     }
 
     public void moveInvalidLInToObject() {
-        for (int i = 0; i < lIn.size(); i++) {
-            puntoXY puntoXy = lIn.get(i);
+        for (int i = 0; i < bordeInterno.size(); i++) {
+            puntoXY puntoXy = bordeInterno.get(i);
             if (hasAllNeighborsWithValueLowerThanZero(puntoXy)) {
-                lIn.remove(puntoXy);
+                bordeInterno.remove(puntoXy);
                 content[puntoXy.getX()][puntoXy.getY()] = OBJECT_VALUE;
             }
         }
     }
 
     public void moveInvalidLOutToBackground() {
-        for (int i = 0; i < lOut.size(); i++) {
-            puntoXY puntoXy = lOut.get(i);
+        for (int i = 0; i < bordeExterno.size(); i++) {
+            puntoXY puntoXy = bordeExterno.get(i);
             if (hasAllNeighborsWithValueHigherThanZero(puntoXy)) {
-                lOut.remove(puntoXy);
+                bordeExterno.remove(puntoXy);
                 content[puntoXy.getX()][puntoXy.getY()] = BACKGROUND_VALUE;
             }
         }
@@ -209,19 +209,19 @@ public class ActiveContour {
     }
 
     public void addLIn(List<puntoXY> toAddToLIn) {
-        lIn.addAll(toAddToLIn);
+        bordeInterno.addAll(toAddToLIn);
     }
 
     public void removeLIn(List<puntoXY> toRemoveFromLIn) {
-        lIn.removeAll(toRemoveFromLIn);
+        bordeInterno.removeAll(toRemoveFromLIn);
     }
 
     public void addLOut(List<puntoXY> toAddToLOut) {
-        lOut.addAll(toAddToLOut);
+        bordeExterno.addAll(toAddToLOut);
     }
 
     public void removeLOut(List<puntoXY> toRemoveFromLOut) {
-        lOut.removeAll(toRemoveFromLOut);
+        bordeExterno.removeAll(toRemoveFromLOut);
     }
 
     public double[][] getContent() {

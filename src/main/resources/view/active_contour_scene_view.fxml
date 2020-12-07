@@ -48,7 +48,7 @@
 						<Insets bottom="10.0" right="10.0" top="10.0" />
 					</VBox.margin>
 				</Button>
-				<Button fx:id="startButton" mnemonicParsing="false" onAction="#onStart" text="Start">
+				<Button fx:id="startButton" mnemonicParsing="false" onAction="#onComenzar" text="Comenzar">
 					<VBox.margin>
 						<Insets bottom="10.0" right="10.0" top="10.0" />
 					</VBox.margin>
