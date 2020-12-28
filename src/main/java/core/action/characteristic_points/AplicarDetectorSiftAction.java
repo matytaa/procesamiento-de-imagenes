@@ -18,7 +18,7 @@ import org.openimaj.math.model.fit.RANSAC;
 public class AplicarDetectorSiftAction {
 
     // https://es.coursera.org/lecture/clasificacion-imagenes/deteccion-de-caracteristicas-locales-sift-NC6SJ
-
+    // https://www.youtube.com/watch?v=4AvTMVD9ig0
 
     private static int ITERACIONES = 2000;
     private static Double LIMITE = 5.0;
@@ -31,10 +31,10 @@ public class AplicarDetectorSiftAction {
         MBFImage imagenOrigen = ImageUtilities.createMBFImage(origen.getBufferedImage(), alpha);
         MBFImage imagenDestino = ImageUtilities.createMBFImage(destino.getBufferedImage(), alpha);
 
-        //CALCULAR DESCRIPTORES SIFT
+        //ENCONTRAR LOS PUNTOS CARACTERISTICOS Y CALCULAR DESCRIPTORES SIFT
         DoGSIFTEngine motorSIFT = new DoGSIFTEngine();
-        LocalFeatureList<Keypoint> puntosInteresOrigen = motorSIFT.findFeatures(imagenOrigen.flatten());
-        LocalFeatureList<Keypoint> puntosInteresDestino = motorSIFT.findFeatures(imagenDestino.flatten());
+        LocalFeatureList<Keypoint> descriptoresOrigen = motorSIFT.findFeatures(imagenOrigen.flatten());
+        LocalFeatureList<Keypoint> descriptoresDestino = motorSIFT.findFeatures(imagenDestino.flatten());
 
         /*
           Basic keypoint matcher. Matches keypoints by finding closest Two keypoints to
@@ -55,14 +55,14 @@ public class AplicarDetectorSiftAction {
         RobustAffineTransformEstimator modelFitter = new RobustAffineTransformEstimator(LIMITE, ITERACIONES, stoppingCondition);
         LocalFeatureMatcher<Keypoint> matcher = new ConsistentLocalFeatureMatcher2d<>(keypointMatcher, modelFitter);
 
-        matcher.setModelFeatures(puntosInteresOrigen);
-        matcher.findMatches(puntosInteresDestino);
+        matcher.setModelFeatures(descriptoresOrigen);
+        matcher.findMatches(descriptoresDestino);
 
         //OBTENER LAS COINCIDENCIAS CONSISTENTES
         MBFImage consistentMatches = MatchingUtilities.drawMatches(imagenOrigen, imagenDestino, matcher.getMatches(), RGBColour.BLUE);
 
         //PONER LA INFORMACION EN UNA CLASE PARA MOSTRARLA
-        return new ResultadoSift(puntosInteresOrigen.size(), puntosInteresDestino.size(), matcher.getMatches().size(), consistentMatches);
+        return new ResultadoSift(descriptoresOrigen.size(), descriptoresDestino.size(), matcher.getMatches().size(), consistentMatches);
     }
 
 }
