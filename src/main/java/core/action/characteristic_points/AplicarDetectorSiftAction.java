@@ -17,6 +17,9 @@ import org.openimaj.math.model.fit.RANSAC;
 
 public class AplicarDetectorSiftAction {
 
+    // https://es.coursera.org/lecture/clasificacion-imagenes/deteccion-de-caracteristicas-locales-sift-NC6SJ
+
+
     private static int ITERACIONES = 2000;
     private static Double LIMITE = 5.0;
     private static Double PORCENTAJE = 0.5;
@@ -30,8 +33,8 @@ public class AplicarDetectorSiftAction {
 
         //CALCULAR DESCRIPTORES SIFT
         DoGSIFTEngine motorSIFT = new DoGSIFTEngine();
-        LocalFeatureList<Keypoint> puntosOrigen = motorSIFT.findFeatures(imagenOrigen.flatten());
-        LocalFeatureList<Keypoint> puntosDestino = motorSIFT.findFeatures(imagenDestino.flatten());
+        LocalFeatureList<Keypoint> puntoInteresOrigen = motorSIFT.findFeatures(imagenOrigen.flatten());
+        LocalFeatureList<Keypoint> puntoInteresDestino = motorSIFT.findFeatures(imagenDestino.flatten());
 
         /*
           Basic keypoint matcher. Matches keypoints by finding closest Two keypoints to
@@ -52,14 +55,14 @@ public class AplicarDetectorSiftAction {
         RobustAffineTransformEstimator modelFitter = new RobustAffineTransformEstimator(LIMITE, ITERACIONES, stoppingCondition);
         LocalFeatureMatcher<Keypoint> matcher = new ConsistentLocalFeatureMatcher2d<>(keypointMatcher, modelFitter);
 
-        matcher.setModelFeatures(puntosOrigen);
-        matcher.findMatches(puntosDestino);
+        matcher.setModelFeatures(puntoInteresOrigen);
+        matcher.findMatches(puntoInteresDestino);
 
         //OBTENER LAS COINCIDENCIAS CONSISTENTES
         MBFImage consistentMatches = MatchingUtilities.drawMatches(imagenOrigen, imagenDestino, matcher.getMatches(), RGBColour.BLUE);
 
         //PONER LA INFORMACION EN UNA CLASE PARA MOSTRARLA
-        return new ResultadoSift(puntosOrigen.size(), puntosDestino.size(), matcher.getMatches().size(), consistentMatches);
+        return new ResultadoSift(puntoInteresOrigen.size(), puntoInteresDestino.size(), matcher.getMatches().size(), consistentMatches);
     }
 
 }

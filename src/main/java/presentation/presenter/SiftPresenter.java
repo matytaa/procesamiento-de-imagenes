@@ -36,8 +36,8 @@ public class SiftPresenter {
         ResultadoSift resultadoSift = this.aplicarDetectorSiftAction.ejecutar(this.imagen1, this.imagen2);
         DisplayUtilities.display(resultadoSift.getCoincidencias());
         ShowResultPopup.show("Sift",
-                "DescriptoresImagen 1" + String.valueOf(resultadoSift.getCantidadPuntosOrigen()) + "\n"
-                        + "Descriptores Imagen 2" + String.valueOf(resultadoSift.getCantidadPuntosDestino()) + "\n"
+                "Descriptores Imagen 1: " + String.valueOf(resultadoSift.getCantidadPuntosOrigen()) + "\n"
+                        + "Descriptores Imagen 2: " + String.valueOf(resultadoSift.getCantidadPuntosDestino()) + "\n"
                         + "Coincidencias: " + String.valueOf(resultadoSift.getCantidadDeCoincidencias()));
     }
 }
