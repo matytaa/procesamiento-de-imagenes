@@ -41,7 +41,7 @@ public class AplicarEstimacionDeUmbralGlobalAction {
             this.iteraciones++;
         }
 
-        Image image = this.matrizService.toImage(imagenTransformada, imagenTransformada, imagenTransformada);
+        Image image = this.matrizService.aImagen(imagenTransformada, imagenTransformada, imagenTransformada);
         return new ResultadoUmbralGlobal(image, this.iteraciones, this.umbral);
     }
 

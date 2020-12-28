@@ -42,10 +42,10 @@ public class MatrizService {
     }
 
     public Image toGrayImage(int[][] matrix) {
-        return toImage(matrix, matrix, matrix);
+        return aImagen(matrix, matrix, matrix);
     }
 
-    public Image toImage(int[][] red, int[][] green, int[][] blue) {
+    public Image aImagen(int[][] red, int[][] green, int[][] blue) {
         int width = red.length;
         int height = red[0].length;
         WritableImage image = new WritableImage(width, height);

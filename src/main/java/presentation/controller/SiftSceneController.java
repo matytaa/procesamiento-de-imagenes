@@ -21,17 +21,17 @@ public class SiftSceneController {
 
 
     @FXML
-    public void onApply() {
-        this.siftPresenter.onApply();
+    public void aplicar() {
+        this.siftPresenter.aplicar();
     }
 
     @FXML
-    public void onSelectImage1() {
-        this.siftPresenter.onSelectImage1();
+    public void seleccionarImagen1() {
+        this.siftPresenter.seleccionarImagen1();
     }
 
     @FXML
-    public void onSelectImage2() {
-        this.siftPresenter.onSelectImage2();
+    public void seleccionarImagen2() {
+        this.siftPresenter.seleccionarImagen2();
     }
 }

@@ -391,7 +391,7 @@ public class MainSceneController {
     public void onApplyHarris() { this.mainPresenter.onApplyHarris(); }
 
     @FXML
-    public void onApplySift() { this.mainPresenter.onApplySift(); }
+    public void aplicarSift() { this.mainPresenter.aplicarSift(); }
 
     @FXML
     public void abrirImagenMultipleProcesamiento() {

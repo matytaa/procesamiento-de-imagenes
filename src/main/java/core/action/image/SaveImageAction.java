@@ -1,6 +1,6 @@
 package core.action.image;
 
-import core.service.ImageRawService;
+import core.service.ServicioImagenCruda;
 import dominio.customimage.Imagen;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -12,10 +12,10 @@ import java.io.IOException;
 
 public class SaveImageAction {
 
-    private final ImageRawService imageRawService;
+    private final ServicioImagenCruda servicioImagenCruda;
 
-    public SaveImageAction(ImageRawService imageRawService) {
-        this.imageRawService = imageRawService;
+    public SaveImageAction(ServicioImagenCruda servicioImagenCruda) {
+        this.servicioImagenCruda = servicioImagenCruda;
     }
 
     public Image execute(Imagen image, String filename, String extension) {
@@ -26,7 +26,7 @@ public class SaveImageAction {
         try {
 
             if (extension.equalsIgnoreCase("raw")) {
-                this.imageRawService.save(bufferedImage, fullFilename);
+                this.servicioImagenCruda.save(bufferedImage, fullFilename);
             } else {
                 ImageIO.write(bufferedImage, extension, new File(fullFilename));
             }

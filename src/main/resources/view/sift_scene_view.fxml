@@ -18,15 +18,15 @@
                  <ImageView fx:id="imageView1" pickOnBounds="true" preserveRatio="true" />
                 </center>
                  <bottom>
-                     <Button alignment="CENTER" layoutX="172.0" layoutY="456.0" mnemonicParsing="false" onAction="#onSelectImage1" text="Select Image 1" />
+                     <Button alignment="CENTER" layoutX="172.0" layoutY="456.0" mnemonicParsing="false" onAction="#seleccionarImagen1" text="Seleccionar Imagen 1" />
                  </bottom>
          <top>
          
-                 <Label text="Image 1" BorderPane.alignment="CENTER" />
+                 <Label text="Imágen 1" BorderPane.alignment="CENTER" />
          </top>
          <left>
          
-                 <Button mnemonicParsing="false" onAction="#onApply" text="Apply" BorderPane.alignment="CENTER" />
+                 <Button mnemonicParsing="false" onAction="#aplicar" text="Aplicar" BorderPane.alignment="CENTER" />
          </left>
              </BorderPane>
 
@@ -35,10 +35,10 @@
                   <ImageView fx:id="imageView2" pickOnBounds="true" preserveRatio="true" />
                 </center>
                 <bottom>
-                    <Button alignment="CENTER" layoutX="551.0" layoutY="456.0" mnemonicParsing="false" onAction="#onSelectImage2" text="Select Image 2" />
+                    <Button alignment="CENTER" layoutX="551.0" layoutY="456.0" mnemonicParsing="false" onAction="#seleccionarImagen2" text="Seleccionar Imágen 2" />
                 </bottom>
          <top>
-                 <Label text="Image 2" BorderPane.alignment="CENTER" />
+                 <Label text="Imágen 2" BorderPane.alignment="CENTER" />
          </top>
             </BorderPane>
       <columnConstraints>

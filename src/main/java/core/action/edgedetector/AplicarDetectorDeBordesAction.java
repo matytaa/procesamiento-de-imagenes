@@ -31,7 +31,7 @@ public class AplicarDetectorDeBordesAction {
 
         //Se normaliza y se devuelve la imagen resultante
         Image imagenResultante = this.matrizService
-                .toImage(gradiente.getCanalRojo(), gradiente.getCanalVerde(), gradiente.getCanalAzul());
+                .aImagen(gradiente.getCanalRojo(), gradiente.getCanalVerde(), gradiente.getCanalAzul());
 
         return imagenResultante;
     }
@@ -42,7 +42,7 @@ public class AplicarDetectorDeBordesAction {
 
         //Se normaliza y se devuelve la imagen resultante
         Image imagenResultante = this.matrizService
-                .toImage(matrizCanalesDerivada.getCanalRojo(), matrizCanalesDerivada.getCanalVerde(), matrizCanalesDerivada.getCanalAzul());
+                .aImagen(matrizCanalesDerivada.getCanalRojo(), matrizCanalesDerivada.getCanalVerde(), matrizCanalesDerivada.getCanalAzul());
 
         return imagenResultante;
     }

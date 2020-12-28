@@ -7,11 +7,11 @@ import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
-public class OpenFileService {
+public class ServicioAbrirArchivo {
 
     private final FileChooser fileChooser;
 
-    public OpenFileService(FileChooser fileChooser) {
+    public ServicioAbrirArchivo(FileChooser fileChooser) {
         this.fileChooser = fileChooser;
     }
 

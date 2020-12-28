@@ -171,5 +171,10 @@
         <Menu mnemonicParsing="false" text="Anistropía">
             <MenuItem mnemonicParsing="false" onAction="#onAplicarDifusion" text="Difusión" />
         </Menu>
+        <Menu mnemonicParsing="false" text="Puntos característicos">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#aplicarSift" text="Sift" />
+            </items>
+        </Menu>
     </MenuBar>
 </AnchorPane>

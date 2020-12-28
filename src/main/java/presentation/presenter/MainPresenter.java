@@ -55,7 +55,7 @@ public class MainPresenter {
     private static final int DEFAULT_HEIGHT = 510;
 
     private final MainSceneController view;
-    private final LoadImageAction cargarImagenAction;
+    private final CargarImagenAction cargarImagenAction;
     private final CargarSecuenciaImagenesAction cargarSecuenciaDeImagenesAction;
     private final ObtenerImagenAction obtenerImagenAction;
     private final ModifyPixelAction modifyPixelAction;
@@ -79,7 +79,7 @@ public class MainPresenter {
     private final ApplySusanDetectorAction applySusanDetectorAction;
 
     public MainPresenter(MainSceneController view,
-                         LoadImageAction cargarImagenAction,
+                         CargarImagenAction cargarImagenAction,
                          CargarSecuenciaImagenesAction cargarSecuenciaDeImagenesAction, ObtenerImagenAction obtenerImagenAction,
                          PutModifiedImageAction putModifiedImageAction,
                          ModifyPixelAction modifyPixelAction,
@@ -158,7 +158,7 @@ public class MainPresenter {
     }
 
     public void onAbrirImagen() {
-        setImagenEnVistaPreliminar(this.cargarImagenAction.execute());
+        setImagenEnVistaPreliminar(this.cargarImagenAction.ejecutar());
     }
 
     public void onAbrirSecuenciaDeImagenes() {
@@ -629,7 +629,7 @@ public class MainPresenter {
         new HarrisSceneCreator().createScene();
     }
 
-    public void onApplySift() {
+    public void aplicarSift() {
         new SiftSceneCreator().createScene();
     }
 }

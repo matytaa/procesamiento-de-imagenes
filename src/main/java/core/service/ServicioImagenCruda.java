@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class ImageRawService {
+public class ServicioImagenCruda {
 
     public BufferedImage load(File file, int width, int height) {
 

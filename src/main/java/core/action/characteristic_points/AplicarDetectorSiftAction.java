@@ -1,7 +1,7 @@
 package core.action.characteristic_points;
 
 import dominio.customimage.Imagen;
-import dominio.sift.SiftResult;
+import dominio.sift.ResultadoSift;
 import org.openimaj.feature.local.list.LocalFeatureList;
 import org.openimaj.feature.local.matcher.FastBasicKeypointMatcher;
 import org.openimaj.feature.local.matcher.LocalFeatureMatcher;
@@ -15,23 +15,23 @@ import org.openimaj.image.feature.local.keypoints.Keypoint;
 import org.openimaj.math.geometry.transforms.estimation.RobustAffineTransformEstimator;
 import org.openimaj.math.model.fit.RANSAC;
 
-public class ApplySiftDetectorAction {
+public class AplicarDetectorSiftAction {
 
-    private static int iterations = 2000;
-    private static Double threshold = 5.0;
-    private static Double percentage = 0.5;
+    private static int ITERACIONES = 2000;
+    private static Double LIMITE = 5.0;
+    private static Double PORCENTAJE = 0.5;
 
-    public SiftResult execute(Imagen query, Imagen target) {
+    public ResultadoSift ejecutar(Imagen origen, Imagen destino) {
 
-        //convert CustomImage to MBFImage
+        //CONVERTIR A IMAGEN MBF
         boolean alpha = true;
-        MBFImage queryImage = ImageUtilities.createMBFImage(query.getBufferedImage(), alpha);
-        MBFImage targetImage = ImageUtilities.createMBFImage(target.getBufferedImage(), alpha);
+        MBFImage imagenOrigen = ImageUtilities.createMBFImage(origen.getBufferedImage(), alpha);
+        MBFImage imagenDestino = ImageUtilities.createMBFImage(destino.getBufferedImage(), alpha);
 
-        //calculate SIFT descriptors
-        DoGSIFTEngine engine = new DoGSIFTEngine();
-        LocalFeatureList<Keypoint> queryKeypoints = engine.findFeatures(queryImage.flatten());
-        LocalFeatureList<Keypoint> targetKeypoints = engine.findFeatures(targetImage.flatten());
+        //CALCULAR DESCRIPTORES SIFT
+        DoGSIFTEngine motorSIFT = new DoGSIFTEngine();
+        LocalFeatureList<Keypoint> puntosOrigen = motorSIFT.findFeatures(imagenOrigen.flatten());
+        LocalFeatureList<Keypoint> puntosDestino = motorSIFT.findFeatures(imagenDestino.flatten());
 
         /*
           Basic keypoint matcher. Matches keypoints by finding closest Two keypoints to
@@ -47,19 +47,19 @@ public class ApplySiftDetectorAction {
 //        matcher.findMatches(targetKeypoints);
 
         FastBasicKeypointMatcher<Keypoint> keypointMatcher = new FastBasicKeypointMatcher<>();
-        RANSAC.PercentageInliersStoppingCondition stoppingCondition = new RANSAC.PercentageInliersStoppingCondition(percentage);
+        RANSAC.PercentageInliersStoppingCondition stoppingCondition = new RANSAC.PercentageInliersStoppingCondition(PORCENTAJE);
 
-        RobustAffineTransformEstimator modelFitter = new RobustAffineTransformEstimator(threshold, iterations, stoppingCondition);
+        RobustAffineTransformEstimator modelFitter = new RobustAffineTransformEstimator(LIMITE, ITERACIONES, stoppingCondition);
         LocalFeatureMatcher<Keypoint> matcher = new ConsistentLocalFeatureMatcher2d<>(keypointMatcher, modelFitter);
 
-        matcher.setModelFeatures(queryKeypoints);
-        matcher.findMatches(targetKeypoints);
+        matcher.setModelFeatures(puntosOrigen);
+        matcher.findMatches(puntosDestino);
 
-        //get consistent matches
-        MBFImage consistentMatches = MatchingUtilities.drawMatches(queryImage, targetImage, matcher.getMatches(), RGBColour.BLUE);
+        //OBTENER LAS COINCIDENCIAS CONSISTENTES
+        MBFImage consistentMatches = MatchingUtilities.drawMatches(imagenOrigen, imagenDestino, matcher.getMatches(), RGBColour.BLUE);
 
-        //put all the information in an object that will be used to show the result
-        return new SiftResult(queryKeypoints.size(), targetKeypoints.size(), matcher.getMatches().size(), consistentMatches);
+        //PONER LA INFORMACION EN UNA CLASE PARA MOSTRARLA
+        return new ResultadoSift(puntosOrigen.size(), puntosDestino.size(), matcher.getMatches().size(), consistentMatches);
     }
 
 }

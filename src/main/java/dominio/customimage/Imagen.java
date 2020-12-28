@@ -167,7 +167,7 @@ public class Imagen {
     }
 
     public Image toFXImage() {
-        return this.matrizService.toImage(this.getMatrizRed(), this.getMatrizGreen(), this.getMatrizBlue());
+        return this.matrizService.aImagen(this.getMatrizRed(), this.getMatrizGreen(), this.getMatrizBlue());
     }
 
     public boolean isPosicionValida(int width, int height, int i, int j) {

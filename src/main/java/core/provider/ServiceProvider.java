@@ -13,8 +13,8 @@ import java.util.Random;
 
 public class ServiceProvider {
 
-    public static OpenFileService provideOpenFileService() {
-        return new OpenFileService(createFileChooser());
+    public static ServicioAbrirArchivo provideOpenFileService() {
+        return new ServicioAbrirArchivo(createFileChooser());
     }
 
     private static FileChooser createFileChooser() {
@@ -31,8 +31,8 @@ public class ServiceProvider {
         return fileChooser;
     }
 
-    public static ImageRawService provideImageRawService() {
-        return new ImageRawService();
+    public static ServicioImagenCruda provideImageRawService() {
+        return new ServicioImagenCruda();
     }
 
     public static ModifyImageService provideModifyImageService() {

@@ -62,7 +62,7 @@ public class AplicarEstimacionDelUmbralDeOtsuAction {
         int[][] transformedImage = this.applyThresholdService.aplicarUmbral(imageMatrix, threshold);
 
         //creo un objeto con la imagen modificada y el umbral usado, y lo devuelvo
-        Image image = this.matrixService.toImage(transformedImage, transformedImage, transformedImage);
+        Image image = this.matrixService.aImagen(transformedImage, transformedImage, transformedImage);
         return new EstimacionDelUmbralDeOtsuResultante(image, threshold);
     }
 

@@ -1,8 +1,8 @@
 package core.action.image;
 
 import core.repository.RepositorioImagen;
-import core.service.ImageRawService;
-import core.service.OpenFileService;
+import core.service.ServicioImagenCruda;
+import core.service.ServicioAbrirArchivo;
 import dominio.customimage.Imagen;
 import ij.io.Opener;
 import org.apache.commons.io.FilenameUtils;
@@ -14,25 +14,25 @@ import java.util.List;
 public class CargarSecuenciaImagenesAction {
 
     private final RepositorioImagen repositorioImagen;
-    private final OpenFileService openFileService;
+    private final ServicioAbrirArchivo servicioAbrirArchivo;
     private final Opener opener;
-    private final ImageRawService imageRawService;
+    private final ServicioImagenCruda servicioImagenCruda;
 
     private List<Imagen> imagenes;
 
-    public CargarSecuenciaImagenesAction(RepositorioImagen repositorioImagen, OpenFileService openFileService, Opener opener,
-                                         ImageRawService imageRawService) {
+    public CargarSecuenciaImagenesAction(RepositorioImagen repositorioImagen, ServicioAbrirArchivo servicioAbrirArchivo, Opener opener,
+                                         ServicioImagenCruda servicioImagenCruda) {
         this.repositorioImagen = repositorioImagen;
-        this.openFileService = openFileService;
+        this.servicioAbrirArchivo = servicioAbrirArchivo;
         this.opener = opener;
-        this.imageRawService = imageRawService;
+        this.servicioImagenCruda = servicioImagenCruda;
     }
 
     public List<Imagen> execute() {
 
         this.imagenes = new ArrayList<>();
 
-        openFileService.openMultiple().ifPresent(files -> {
+        servicioAbrirArchivo.openMultiple().ifPresent(files -> {
 
             files.forEach(file -> {
                 String path = file.toPath().toString();
@@ -41,7 +41,7 @@ public class CargarSecuenciaImagenesAction {
                 if(extension.equalsIgnoreCase("raw")){
                     int ancho = Integer.parseInt(InsertValuePopup.show("Insert width", "256").get());
                     int alto = Integer.parseInt(InsertValuePopup.show("Insert height", "256").get());
-                    imagenes.add(new Imagen(imageRawService.load(file, ancho, alto), extension));
+                    imagenes.add(new Imagen(servicioImagenCruda.load(file, ancho, alto), extension));
                 } else {
                     imagenes.add(new Imagen(opener.openImage(path).getBufferedImage(), extension));
                 }

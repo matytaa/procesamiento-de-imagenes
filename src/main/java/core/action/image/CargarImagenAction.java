@@ -1,8 +1,8 @@
 package core.action.image;
 
 import core.repository.RepositorioImagen;
-import core.service.ImageRawService;
-import core.service.OpenFileService;
+import core.service.ServicioImagenCruda;
+import core.service.ServicioAbrirArchivo;
 import dominio.customimage.Imagen;
 import ij.io.Opener;
 import org.apache.commons.io.FilenameUtils;
@@ -12,44 +12,44 @@ import java.awt.image.BufferedImage;
 
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
-public class LoadImageAction {
+public class CargarImagenAction {
 
     private final RepositorioImagen repositorioImagen;
-    private final OpenFileService openFileService;
+    private final ServicioAbrirArchivo servicioAbrirArchivo;
     private final Opener opener;
-    private final ImageRawService imageRawService;
+    private final ServicioImagenCruda servicioImagenCruda;
 
     private String path = "";
-    private Imagen image;
+    private Imagen imagen;
 
-    public LoadImageAction(RepositorioImagen repositorioImagen, OpenFileService openFileService, Opener opener,
-                           ImageRawService imageRawService) {
+    public CargarImagenAction(RepositorioImagen repositorioImagen, ServicioAbrirArchivo servicioAbrirArchivo, Opener opener,
+                              ServicioImagenCruda servicioImagenCruda) {
         this.repositorioImagen = repositorioImagen;
-        this.openFileService = openFileService;
+        this.servicioAbrirArchivo = servicioAbrirArchivo;
         this.opener = opener;
-        this.imageRawService = imageRawService;
+        this.servicioImagenCruda = servicioImagenCruda;
     }
 
-    public Imagen execute() {
+    public Imagen ejecutar() {
 
-        image = new Imagen(new BufferedImage(1, 1, TYPE_INT_ARGB), "png");
+        imagen = new Imagen(new BufferedImage(1, 1, TYPE_INT_ARGB), "png");
 
-        openFileService.open().ifPresent(file -> {
+        servicioAbrirArchivo.open().ifPresent(file -> {
             path = file.toPath().toString();
             String extension = FilenameUtils.getExtension(path);
             if(extension.equalsIgnoreCase("raw")){
                 int ancho = Integer.parseInt(InsertValuePopup.show("Ancho (px)", "256").get());
                 int alto = Integer.parseInt(InsertValuePopup.show("Alto (px)", "256").get());
-                image = putOnRepository(extension, imageRawService.load(file, ancho, alto));
+                imagen = ponerEnRepositorio(extension, servicioImagenCruda.load(file, ancho, alto));
             } else {
-                image = putOnRepository(extension, opener.openImage(path).getBufferedImage());
+                imagen = ponerEnRepositorio(extension, opener.openImage(path).getBufferedImage());
             }
         });
 
-        return image;
+        return imagen;
     }
 
-    private Imagen putOnRepository(String extension, BufferedImage bufferedImage) {
+    private Imagen ponerEnRepositorio(String extension, BufferedImage bufferedImage) {
         repositorioImagen.setImagenOriginalBackup(new Imagen(bufferedImage, extension));
         return repositorioImagen.salvarImagen(new Imagen(bufferedImage, extension));
     }

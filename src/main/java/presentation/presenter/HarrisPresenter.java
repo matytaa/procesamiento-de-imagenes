@@ -1,7 +1,7 @@
 package presentation.presenter;
 
 import core.action.characteristic_points.ApplyHarrisDetectorAction;
-import core.action.image.LoadImageAction;
+import core.action.image.CargarImagenAction;
 import dominio.PuntoXY;
 import dominio.customimage.Imagen;
 import javafx.scene.image.PixelWriter;
@@ -16,25 +16,25 @@ import java.util.List;
 public class HarrisPresenter {
 
     private final HarrisSceneController view;
-    private final LoadImageAction loadImageAction;
+    private final CargarImagenAction cargarImagenAction;
     private final ApplyHarrisDetectorAction applyHarrisDetectorAction;
     private Imagen image1;
     private Imagen image2;
 
-    public HarrisPresenter(HarrisSceneController harrisSceneController, LoadImageAction loadImageAction,
+    public HarrisPresenter(HarrisSceneController harrisSceneController, CargarImagenAction cargarImagenAction,
             ApplyHarrisDetectorAction applyHarrisDetectorAction) {
         this.view = harrisSceneController;
-        this.loadImageAction = loadImageAction;
+        this.cargarImagenAction = cargarImagenAction;
         this.applyHarrisDetectorAction = applyHarrisDetectorAction;
     }
 
     public void onSelectImage1() {
-        this.image1 = this.loadImageAction.execute();
+        this.image1 = this.cargarImagenAction.ejecutar();
         this.view.imageView1.setImage(this.image1.toFXImage());
     }
 
     public void onSelectImage2() {
-        this.image2 = this.loadImageAction.execute();
+        this.image2 = this.cargarImagenAction.ejecutar();
         this.view.imageView2.setImage(this.image2.toFXImage());
     }
 

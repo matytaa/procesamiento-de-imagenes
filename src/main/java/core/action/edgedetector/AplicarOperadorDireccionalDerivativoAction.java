@@ -36,7 +36,7 @@ public class AplicarOperadorDireccionalDerivativoAction {
         int[][] redChannel = channelMatrix.getCanalRojo();
         int[][] greenChannel = channelMatrix.getCanalVerde();
         int[][] blueChannel = channelMatrix.getCanalAzul();
-        Image resultantImage = this.matrizService.toImage(redChannel, greenChannel, blueChannel);
+        Image resultantImage = this.matrizService.aImagen(redChannel, greenChannel, blueChannel);
 
         imagePublishSubject.onNext(resultantImage);
     }

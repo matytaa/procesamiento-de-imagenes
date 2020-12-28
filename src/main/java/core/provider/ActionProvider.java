@@ -3,7 +3,7 @@ package core.provider;
 import core.action.channels.ObtainHSVChannelAction;
 import core.action.channels.ObtainRGBChannelAction;
 import core.action.characteristic_points.ApplyHarrisDetectorAction;
-import core.action.characteristic_points.ApplySiftDetectorAction;
+import core.action.characteristic_points.AplicarDetectorSiftAction;
 import core.action.difusion.AplicarDifusionAction;
 import core.action.edgedetector.*;
 import core.action.edgedetector.hough.TransformadaHoughCircularAction;
@@ -33,7 +33,7 @@ import javafx.scene.image.Image;
 
 class ActionProvider {
 
-    private static LoadImageAction loadImageAction;
+    private static CargarImagenAction cargarImagenAction;
     private static ObtenerImagenAction obtenerImagenAction;
     private static SaveImageAction saveImageAction;
     private static ModifyPixelAction modifyPixelAction;
@@ -78,7 +78,7 @@ class ActionProvider {
     private static GetImageSequenceAction getImageSequenceAction;
     private static AplicarContornosActivosEnSecuanciaDeImagesAction aplicarContornosActivosEnSecuanciaDeImagesAction;
     private static ApplyHarrisDetectorAction applyHarrisDetectorAction;
-    private static ApplySiftDetectorAction applySiftDetectorAction;
+    private static AplicarDetectorSiftAction aplicarDetectorSiftAction;
 
     public static ObtenerImagenAction provideGetImageAction() {
         if (obtenerImagenAction == null) {
@@ -87,15 +87,15 @@ class ActionProvider {
         return obtenerImagenAction;
     }
 
-    public static LoadImageAction provideLoadImageAction() {
-        if (loadImageAction == null) {
-            loadImageAction = new LoadImageAction(
+    public static CargarImagenAction provideLoadImageAction() {
+        if (cargarImagenAction == null) {
+            cargarImagenAction = new CargarImagenAction(
                     RepositoryProvider.provideImageRepository(),
                     ServiceProvider.provideOpenFileService(),
                     CommonProvider.provideOpener(),
                     ServiceProvider.provideImageRawService());
         }
-        return loadImageAction;
+        return cargarImagenAction;
     }
 
     public static SaveImageAction provideSaveImageAction() {
@@ -453,10 +453,10 @@ class ActionProvider {
         return applyHarrisDetectorAction;
     }
 
-    public static ApplySiftDetectorAction provideApplySiftDetectorAction() {
-        if (applySiftDetectorAction == null) {
-            applySiftDetectorAction = new ApplySiftDetectorAction();
+    public static AplicarDetectorSiftAction provideApplySiftDetectorAction() {
+        if (aplicarDetectorSiftAction == null) {
+            aplicarDetectorSiftAction = new AplicarDetectorSiftAction();
         }
-        return applySiftDetectorAction;
+        return aplicarDetectorSiftAction;
     }
 }
