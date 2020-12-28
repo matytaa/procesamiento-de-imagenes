@@ -625,10 +625,6 @@ public class MainPresenter {
         view.aceptarBoton.setVisible(true);
     }
 
-    public void onApplyHarris() {
-        new HarrisSceneCreator().createScene();
-    }
-
     public void aplicarSift() {
         new SiftSceneCreator().createScene();
     }

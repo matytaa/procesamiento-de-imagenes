@@ -233,35 +233,6 @@ public class MainSceneController {
         this.mainPresenter.onAplicarDifusion();
     }
 
-    public void onApplyEdgeEnhancement() {
-        this.mainPresenter.onApplyEdgeEnhancement();
-    }
-
-    @FXML
-    public void showGreyGradient() {
-        this.mainPresenter.onShowGreyGradient();
-    }
-
-    @FXML
-    public void showColorGradient() {
-        this.mainPresenter.onShowColorGradient();
-    }
-
-    @FXML
-    public void showRGBImageRedChannel() {
-        this.mainPresenter.onShowRGBImageRedChannel();
-    }
-
-    @FXML
-    public void showRGBImageGreenChannel() {
-        this.mainPresenter.onShowRGBImageGreenChannel();
-    }
-
-    @FXML
-    public void showRGBImageBlueChannel() {
-        this.mainPresenter.onShowRGBImageBlueChannel();
-    }
-
     @FXML
     public void cuadradoBlanco() {
         this.mainPresenter.onCuadradoBlanco();
@@ -270,51 +241,6 @@ public class MainSceneController {
     @FXML
     public void circuloBlanco() {
         this.mainPresenter.onCirculoBlanco();
-    }
-
-    @FXML
-    public void showHueHSVChannel() {
-        this.mainPresenter.onShowHueHSVChannel();
-    }
-
-    @FXML
-    public void showSaturationHSVChannel() {
-        this.mainPresenter.onShowSaturationHSVChannel();
-    }
-
-    @FXML
-    public void showValueHSVChannel() {
-        this.mainPresenter.onShowValueHSVChannel();
-    }
-
-    @FXML
-    public void calculatePixelValue() {
-        this.mainPresenter.onCalculatePixelValue();
-    }
-
-    @FXML
-    public void modifyPixelValue() {
-        this.mainPresenter.onModifyPixelValue();
-    }
-
-    @FXML
-    public void showReport() {
-        this.mainPresenter.onShowReport();
-    }
-
-    @FXML
-    public void cutPartialImage() {
-        this.mainPresenter.onCutPartialImage();
-    }
-
-    @FXML
-    public void contrast() {
-        this.mainPresenter.onContrast();
-    }
-
-    @FXML
-    public void compressDynamicRange() {
-        this.mainPresenter.onCompressDynamicRange();
     }
 
     @FXML
@@ -330,16 +256,6 @@ public class MainSceneController {
     @FXML
     public void onAplicarDetectorDeBordeLaplaciano() {
         this.mainPresenter.onAplicarDetectorDeBordeLaplacianoConEvaluacionDeLaPendiente(LaplacianDetector.STANDARD);
-    }
-
-    @FXML
-    public void createEqualizedImage() {
-        this.mainPresenter.onCreateEqualizedImageOnce();
-    }
-
-    @FXML
-    public void createImageEqualizedTwice() {
-        this.mainPresenter.onCreateEqualizedImageTwice();
     }
 
     @FXML
@@ -388,13 +304,6 @@ public class MainSceneController {
     }
 
     @FXML
-    public void onApplyHarris() { this.mainPresenter.onApplyHarris(); }
-
-    @FXML
     public void aplicarSift() { this.mainPresenter.aplicarSift(); }
 
-    @FXML
-    public void abrirImagenMultipleProcesamiento() {
-        this.mainPresenter.onAbrirSecuenciaDeImagenes();
-    }
 }
