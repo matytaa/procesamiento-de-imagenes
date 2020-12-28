@@ -33,8 +33,8 @@ public class AplicarDetectorSiftAction {
 
         //CALCULAR DESCRIPTORES SIFT
         DoGSIFTEngine motorSIFT = new DoGSIFTEngine();
-        LocalFeatureList<Keypoint> puntoInteresOrigen = motorSIFT.findFeatures(imagenOrigen.flatten());
-        LocalFeatureList<Keypoint> puntoInteresDestino = motorSIFT.findFeatures(imagenDestino.flatten());
+        LocalFeatureList<Keypoint> puntosInteresOrigen = motorSIFT.findFeatures(imagenOrigen.flatten());
+        LocalFeatureList<Keypoint> puntosInteresDestino = motorSIFT.findFeatures(imagenDestino.flatten());
 
         /*
           Basic keypoint matcher. Matches keypoints by finding closest Two keypoints to
@@ -55,14 +55,14 @@ public class AplicarDetectorSiftAction {
         RobustAffineTransformEstimator modelFitter = new RobustAffineTransformEstimator(LIMITE, ITERACIONES, stoppingCondition);
         LocalFeatureMatcher<Keypoint> matcher = new ConsistentLocalFeatureMatcher2d<>(keypointMatcher, modelFitter);
 
-        matcher.setModelFeatures(puntoInteresOrigen);
-        matcher.findMatches(puntoInteresDestino);
+        matcher.setModelFeatures(puntosInteresOrigen);
+        matcher.findMatches(puntosInteresDestino);
 
         //OBTENER LAS COINCIDENCIAS CONSISTENTES
         MBFImage consistentMatches = MatchingUtilities.drawMatches(imagenOrigen, imagenDestino, matcher.getMatches(), RGBColour.BLUE);
 
         //PONER LA INFORMACION EN UNA CLASE PARA MOSTRARLA
-        return new ResultadoSift(puntoInteresOrigen.size(), puntoInteresDestino.size(), matcher.getMatches().size(), consistentMatches);
+        return new ResultadoSift(puntosInteresOrigen.size(), puntosInteresDestino.size(), matcher.getMatches().size(), consistentMatches);
     }
 
 }
