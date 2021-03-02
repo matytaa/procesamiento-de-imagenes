@@ -12,16 +12,18 @@ import org.openimaj.image.MBFImage;
 import org.openimaj.image.colour.RGBColour;
 import org.openimaj.image.feature.local.engine.DoGSIFTEngine;
 import org.openimaj.image.feature.local.keypoints.Keypoint;
+import org.openimaj.image.processing.resize.ResizeProcessor;
 import org.openimaj.math.geometry.transforms.estimation.RobustAffineTransformEstimator;
 import org.openimaj.math.model.fit.RANSAC;
 
 public class AplicarDetectorSiftAction {
 
+    // https://phttps://people.eecs.berkeley.edu/~malik/cs294/lowe-ijcv04.pdfeople.eecs.berkeley.edu/~malik/cs294/lowe-ijcv04.pdf
     // https://es.coursera.org/lecture/clasificacion-imagenes/deteccion-de-caracteristicas-locales-sift-NC6SJ
     // https://www.youtube.com/watch?v=4AvTMVD9ig0
 
     private static int ITERACIONES = 2000;
-    private static Double LIMITE = 5.0;
+    private static Double LIMITE = 50.0;
     private static Double PORCENTAJE = 0.5;
 
     public ResultadoSift ejecutar(Imagen origen, Imagen destino) {
@@ -35,6 +37,8 @@ public class AplicarDetectorSiftAction {
         DoGSIFTEngine motorSIFT = new DoGSIFTEngine();
         LocalFeatureList<Keypoint> descriptoresOrigen = motorSIFT.findFeatures(imagenOrigen.flatten());
         LocalFeatureList<Keypoint> descriptoresDestino = motorSIFT.findFeatures(imagenDestino.flatten());
+        //LocalFeatureList<Keypoint> descriptoresOrigen = motorSIFT.findFeatures(ResizeProcessor.resizeMax(imagenOrigen.flatten(), 150));
+        //LocalFeatureList<Keypoint> descriptoresDestino = motorSIFT.findFeatures(ResizeProcessor.resizeMax(imagenDestino.flatten(), 150));
 
         /*
           Basic keypoint matcher. Matches keypoints by finding closest Two keypoints to
@@ -59,7 +63,7 @@ public class AplicarDetectorSiftAction {
         matcher.findMatches(descriptoresDestino);
 
         //OBTENER LAS COINCIDENCIAS CONSISTENTES
-        MBFImage consistentMatches = MatchingUtilities.drawMatches(imagenOrigen, imagenDestino, matcher.getMatches(), RGBColour.BLUE);
+        MBFImage consistentMatches = MatchingUtilities.drawMatches(imagenOrigen, imagenDestino, matcher.getMatches(), RGBColour.RED);
 
         //PONER LA INFORMACION EN UNA CLASE PARA MOSTRARLA
         return new ResultadoSift(descriptoresOrigen.size(), descriptoresDestino.size(), matcher.getMatches().size(), consistentMatches);
